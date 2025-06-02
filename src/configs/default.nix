@@ -400,7 +400,7 @@ in
   nova = novaConfig [ ];
   gaming = novaConfig [
     {
-      gaming.enable = true;
+      meta.gaming.enable = true;
       home-manager.users.ivand = {
         wayland.windowManager.sway = {
           config = {
