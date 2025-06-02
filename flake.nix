@@ -27,6 +27,9 @@
     treefmt.inputs.nixpkgs.follows = "nixpkgs";
     # for vpsadmin
     vpsadminos.url = "github:vpsfreecz/vpsadminos";
+    # my website
+    webshite.url = "github:ivandimitrov8080/idimitrov.dev";
+    webshite.inputs.nixpkgs.follows = "nixpkgs";
   };
   outputs = inputs: {
     nixosConfigurations = import ./src/configs { inherit inputs; };

@@ -97,7 +97,6 @@ let
             configuration.nixosModules.default
             hosts.nixosModule
             home-manager.nixosModules.default
-            simple-nixos-mailserver.nixosModule
           ];
           nix.registry = {
             self.flake = inputs.self;
@@ -333,6 +332,9 @@ let
       vpsadminosModule = _: {
         imports = with inputs; [
           vpsadminos.nixosConfigurations.container
+          configuration.nixosModules.default
+          hosts.nixosModule
+          simple-nixos-mailserver.nixosModule
         ];
         meta.shells.enable = true;
         meta.dnscrypt.enable = true;

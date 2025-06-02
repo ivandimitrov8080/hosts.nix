@@ -18,11 +18,10 @@
     },
     "configuration": {
       "locked": {
+        "dirtyRev": "acafe2e63860dc1e3811b3a3e8f0c1dfbbd47a43-dirty",
+        "dirtyShortRev": "acafe2e-dirty",
         "lastModified": 1748816088,
-        "narHash": "sha256-+XMYEDXqSWUsxzEMQYiE6b6swH2t0OdPheIzVGReIWE=",
-        "ref": "refs/heads/bare5",
-        "rev": "acafe2e63860dc1e3811b3a3e8f0c1dfbbd47a43",
-        "revCount": 1155,
+        "narHash": "sha256-kL8ZICtQaClAX5Rnx/p0L7fDybM1BsXB6GP26bBkKgw=",
         "type": "git",
         "url": "file:///home/ivand/src/configuration.nix"
       },
@@ -507,7 +506,8 @@
         "nixvim": "nixvim",
         "simple-nixos-mailserver": "simple-nixos-mailserver",
         "treefmt": "treefmt",
-        "vpsadminos": "vpsadminos"
+        "vpsadminos": "vpsadminos",
+        "webshite": "webshite"
       }
     },
     "simple-nixos-mailserver": {
@@ -617,6 +617,26 @@
       "original": {
         "owner": "vpsfreecz",
         "repo": "vpsadminos",
+        "type": "github"
+      }
+    },
+    "webshite": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1748888434,
+        "narHash": "sha256-CfLyRe37ghzn0bDniN0QWwnGPmes6l7CeQd4QPx10ho=",
+        "owner": "ivandimitrov8080",
+        "repo": "idimitrov.dev",
+        "rev": "934003ee7ec5ee6c7fba6854c19825a3a005e237",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ivandimitrov8080",
+        "repo": "idimitrov.dev",
         "type": "github"
       }
     }
