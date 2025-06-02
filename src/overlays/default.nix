@@ -1,7 +1,7 @@
 { inputs, ... }:
 {
   default =
-    final: prev: with prev; {
+    _final: prev: with prev; {
       nvim = callPackage ../packages/nvim {
         inherit (inputs.nixvim.legacyPackages.${system}) makeNixvim;
         package = inputs.neovim-nightly-overlay.packages.${system}.default;

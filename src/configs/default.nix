@@ -89,9 +89,6 @@ let
     {
       default =
         { lib, config, ... }:
-        let
-          inherit (import ../lib { inherit lib; }) endsWith findDefaults;
-        in
         {
           imports = with inputs; [
             configuration.nixosModules.default
