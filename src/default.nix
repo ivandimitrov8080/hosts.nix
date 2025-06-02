@@ -1,13 +1,5 @@
 { inputs, ... }:
 {
-  imports = [
-    ./modules/nixos
-    ./configs/nixos.nix
-    ./packages
-    ./overlays
-    ./constants
-    ./templates
-  ];
   systems = [ "x86_64-linux" ];
   flake.stateVersion = "25.05";
   perSystem =

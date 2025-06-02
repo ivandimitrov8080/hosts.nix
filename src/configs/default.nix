@@ -1,6 +1,7 @@
-top@{ inputs, moduleWithSystem, ... }:
-{
-  flake.nixosModules =
+{ inputs, ... }:
+let
+  system = "x86_64-linux";
+  nixosModules =
     let
       hub = [
         {
@@ -86,15 +87,10 @@ top@{ inputs, moduleWithSystem, ... }:
       };
     in
     {
-      default = moduleWithSystem (
-        _:
-        {
-          lib,
-          config,
-          ...
-        }:
+      default =
+        { lib, config, ... }:
         let
-          inherit (import ../../lib { inherit lib; }) endsWith findDefaults;
+          inherit (import ../lib { inherit lib; }) endsWith findDefaults;
         in
         {
           imports =
@@ -126,27 +122,9 @@ top@{ inputs, moduleWithSystem, ... }:
               inputs.configuration.overlays.default
             ];
           };
-          system.stateVersion = top.config.flake.stateVersion;
-        }
-      );
-      vpsadminosModule = moduleWithSystem (
-        _: _: {
-          imports = with inputs; [
-            vpsadminos.nixosConfigurations.container
-          ];
-          meta.shells.enable = true;
-          meta.dnscrypt.enable = true;
-          services.nginx.enable = true;
-          services.postgresql.enable = true;
-          vps.enable = true;
-          mail.enable = true;
-          host.wgPeer = {
-            peers = spokes;
-          };
-        }
-      );
-      rest = moduleWithSystem (
-        _:
+          system.stateVersion = "25.05";
+        };
+      rest =
         { pkgs, ... }:
         {
           home-manager = {
@@ -205,10 +183,8 @@ top@{ inputs, moduleWithSystem, ... }:
               noto-fonts-lgc-plus
             ];
           };
-        }
-      );
-      nova = moduleWithSystem (
-        _:
+        };
+      nova =
         { pkgs, ... }:
         {
           boot.loader.systemd-boot.enable = true;
@@ -266,99 +242,168 @@ top@{ inputs, moduleWithSystem, ... }:
             polkit.enable = true;
             rtkit.enable = true;
           };
-        }
-      );
-      stara = moduleWithSystem (
-        _: _: {
-          programs = {
-            git.enable = true;
-            gtklock.enable = true;
-            zoxide.enable = true;
-            zsh.enable = true;
-            nix-ld.enable = true;
-          };
-          networking = {
-            hosts = {
-              "10.0.0.1" = [
-                "ai.idimitrov.dev"
-                "git.idimitrov.dev"
-                "idimitrov.dev"
-                "mail.idimitrov.dev"
-              ];
-              "10.0.0.4" = [
-                "stara.idimitrov.dev"
-              ];
-            };
-            wireless = {
-              enable = true;
-              networks = wirelessNetworks;
-            };
-          };
-          boot.loader.grub.enable = true;
-          meta.shells.enable = true;
-          meta.swayland.enable = true;
-          host.wgPeer = {
-            enable = true;
-            peers = hub;
-            address = "10.0.0.4/24";
-          };
-          host.name = "stara";
-          services = {
-            openssh = {
-              enable = true;
-              settings = {
-                PasswordAuthentication = false;
-                PermitRootLogin = "yes";
-              };
-            };
-            dbus.enable = true;
-          };
-          users.users.ivand.openssh.authorizedKeys.keys = [
-            ''
-              ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICcLkzuCoBEg+wq/H+hkrv6pLJ8J5BejaNJVNnymlnlo ivan@idimitrov.dev
-            ''
-          ];
-          users.users.root.openssh.authorizedKeys.keys = [
-            ''
-              ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICcLkzuCoBEg+wq/H+hkrv6pLJ8J5BejaNJVNnymlnlo ivan@idimitrov.dev
-            ''
-          ];
-          networking.firewall = {
-            enable = true;
-            interfaces = {
-              wg0 = {
-                allowedTCPPorts = [
-                  22
-                  53
-                  993
-                  80 # http
-                  443 # https
-                  8080 # open-webui
-                  11434 # ollama
-                ];
-                allowedUDPPorts = [
-                  80
-                  443
-                  51820 # wireguard
-                ];
-              };
-            };
-            allowedTCPPorts = [
-              8080 # open-webui
+        };
+      stara = _: {
+        programs = {
+          git.enable = true;
+          gtklock.enable = true;
+          zoxide.enable = true;
+          zsh.enable = true;
+          nix-ld.enable = true;
+        };
+        networking = {
+          hosts = {
+            "10.0.0.1" = [
+              "ai.idimitrov.dev"
+              "git.idimitrov.dev"
+              "idimitrov.dev"
+              "mail.idimitrov.dev"
+            ];
+            "10.0.0.4" = [
+              "stara.idimitrov.dev"
             ];
           };
-          meta.ai.enable = true;
-          services = {
-            open-webui = {
-              enable = true;
-              host = "0.0.0.0";
-            };
-            monero = {
-              enable = true;
-              dataDir = "/data/var/lib/monero";
+          wireless = {
+            enable = true;
+            networks = wirelessNetworks;
+          };
+        };
+        boot.loader.grub.enable = true;
+        meta.shells.enable = true;
+        meta.swayland.enable = true;
+        host.wgPeer = {
+          enable = true;
+          peers = hub;
+          address = "10.0.0.4/24";
+        };
+        host.name = "stara";
+        services = {
+          openssh = {
+            enable = true;
+            settings = {
+              PasswordAuthentication = false;
+              PermitRootLogin = "yes";
             };
           };
-        }
-      );
+          dbus.enable = true;
+        };
+        users.users.ivand.openssh.authorizedKeys.keys = [
+          ''
+            ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICcLkzuCoBEg+wq/H+hkrv6pLJ8J5BejaNJVNnymlnlo ivan@idimitrov.dev
+          ''
+        ];
+        users.users.root.openssh.authorizedKeys.keys = [
+          ''
+            ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICcLkzuCoBEg+wq/H+hkrv6pLJ8J5BejaNJVNnymlnlo ivan@idimitrov.dev
+          ''
+        ];
+        networking.firewall = {
+          enable = true;
+          interfaces = {
+            wg0 = {
+              allowedTCPPorts = [
+                22
+                53
+                993
+                80 # http
+                443 # https
+                8080 # open-webui
+                11434 # ollama
+              ];
+              allowedUDPPorts = [
+                80
+                443
+                51820 # wireguard
+              ];
+            };
+          };
+          allowedTCPPorts = [
+            8080 # open-webui
+          ];
+        };
+        meta.ai.enable = true;
+        services = {
+          open-webui = {
+            enable = true;
+            host = "0.0.0.0";
+          };
+          monero = {
+            enable = true;
+            dataDir = "/data/var/lib/monero";
+          };
+        };
+      };
+      vpsadminosModule = _: {
+        imports = with inputs; [
+          vpsadminos.nixosConfigurations.container
+        ];
+        meta.shells.enable = true;
+        meta.dnscrypt.enable = true;
+        services.nginx.enable = true;
+        services.postgresql.enable = true;
+        vps.enable = true;
+        mail.enable = true;
+        host.wgPeer = {
+          peers = spokes;
+        };
+      };
     };
+  hardwareConfigurations = import ../constants;
+  configWithModules =
+    {
+      hardware ? {
+        nixpkgs.hostPlatform = system;
+      },
+      modules,
+    }:
+    inputs.nixpkgs.lib.nixosSystem {
+      specialArgs = {
+        inherit inputs;
+      };
+      modules = [
+        hardware
+      ] ++ modules;
+    };
+  novaConfig =
+    mods:
+    configWithModules {
+      hardware = hardwareConfigurations.nova;
+      modules =
+        (with nixosModules; [
+          default
+          rest
+          nova
+        ])
+        ++ mods;
+    };
+  staraConfig =
+    mods:
+    configWithModules {
+      hardware = hardwareConfigurations.stara;
+      modules =
+        (with nixosModules; [
+          default
+          rest
+          stara
+        ])
+        ++ mods;
+    };
+  vpsConfig =
+    mods:
+    configWithModules {
+      modules =
+        (with nixosModules; [
+          default
+          vpsadminosModule
+        ])
+        ++ mods;
+    };
+in
+{
+  nova = novaConfig [ ];
+  gaming = novaConfig [ { gaming.enable = true; } ];
+  ai = novaConfig [ { meta.ai.enable = true; } ];
+  music = novaConfig [ { realtimeMusic.enable = true; } ];
+  stara = staraConfig [ ];
+  vps = vpsConfig [ { webshite.enable = true; } ];
 }

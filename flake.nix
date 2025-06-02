@@ -7,9 +7,6 @@
     # flake-compat to use this flake in configuration.nix
     flake-compat.url = "github:edolstra/flake-compat";
     flake-compat.flake = false;
-    # ---
-    # Below for extraction
-    # ---
     # manages the home
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -19,9 +16,6 @@
     # for mailserver config
     simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver";
     simple-nixos-mailserver.inputs.nixpkgs.follows = "nixpkgs";
-    # for flake outputs
-    parts.url = "github:hercules-ci/flake-parts";
-    parts.inputs.nixpkgs-lib.follows = "nixpkgs";
     # block shitty servers
     hosts.url = "github:StevenBlack/hosts";
     hosts.inputs.nixpkgs.follows = "nixpkgs";
@@ -31,18 +25,13 @@
     # for formatting
     treefmt.url = "github:numtide/treefmt-nix";
     treefmt.inputs.nixpkgs.follows = "nixpkgs";
-    # for vpsadmin - extract pls
+    # for vpsadmin
     vpsadminos.url = "github:vpsfreecz/vpsadminos";
-    # my website, for extraction into hosts config
+    # my website
     webshite.url = "github:ivandimitrov8080/idimitrov.dev";
     webshite.inputs.configuration.follows = "/";
   };
-  outputs =
-    inputs:
-    inputs.parts.lib.mkFlake { inherit inputs; } {
-      imports = [
-        ./src
-        inputs.treefmt.flakeModule
-      ];
-    };
+  outputs = inputs: {
+    nixosConfigurations = import ./src/configs { inherit inputs; };
+  };
 }

@@ -18,10 +18,11 @@
     },
     "configuration": {
       "locked": {
-        "dirtyRev": "37fe74a5f66b26b59acbe059fcb5abba624c0e4b-dirty",
-        "dirtyShortRev": "37fe74a-dirty",
-        "lastModified": 1748815947,
+        "lastModified": 1748816088,
         "narHash": "sha256-+XMYEDXqSWUsxzEMQYiE6b6swH2t0OdPheIzVGReIWE=",
+        "ref": "refs/heads/bare5",
+        "rev": "acafe2e63860dc1e3811b3a3e8f0c1dfbbd47a43",
+        "revCount": 1155,
         "type": "git",
         "url": "file:///home/ivand/src/configuration.nix"
       },
@@ -494,26 +495,6 @@
         "type": "github"
       }
     },
-    "parts": {
-      "inputs": {
-        "nixpkgs-lib": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1743550720,
-        "narHash": "sha256-hIshGgKZCgWh6AYJpJmRgFdR3WUbkY04o82X05xqQiY=",
-        "owner": "hercules-ci",
-        "repo": "flake-parts",
-        "rev": "c621e8422220273271f52058f618c94e405bb0f5",
-        "type": "github"
-      },
-      "original": {
-        "owner": "hercules-ci",
-        "repo": "flake-parts",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
         "configuration": "configuration",
@@ -524,7 +505,6 @@
         "nixpkgs": "nixpkgs",
         "nixpkgs-fork": "nixpkgs-fork",
         "nixvim": "nixvim",
-        "parts": "parts",
         "simple-nixos-mailserver": "simple-nixos-mailserver",
         "treefmt": "treefmt",
         "vpsadminos": "vpsadminos",
