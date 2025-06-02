@@ -93,15 +93,12 @@ let
           inherit (import ../lib { inherit lib; }) endsWith findDefaults;
         in
         {
-          imports =
-            (with builtins; filter (x: !(endsWith "nixos/default.nix" x)) (findDefaults ./.))
-            ++ (with inputs; [
-              configuration.nixosModules.default
-              hosts.nixosModule
-              home-manager.nixosModules.default
-              webshite.nixosModules.default
-              simple-nixos-mailserver.nixosModule
-            ]);
+          imports = with inputs; [
+            configuration.nixosModules.default
+            hosts.nixosModule
+            home-manager.nixosModules.default
+            simple-nixos-mailserver.nixosModule
+          ];
           nix.registry = {
             self.flake = inputs.self;
             nixpkgs.flake = inputs.nixpkgs;
@@ -357,9 +354,6 @@ let
       modules,
     }:
     inputs.nixpkgs.lib.nixosSystem {
-      specialArgs = {
-        inherit inputs;
-      };
       modules = [
         hardware
       ] ++ modules;
