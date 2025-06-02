@@ -18,10 +18,11 @@
     },
     "configuration": {
       "locked": {
-        "dirtyRev": "acafe2e63860dc1e3811b3a3e8f0c1dfbbd47a43-dirty",
-        "dirtyShortRev": "acafe2e-dirty",
-        "lastModified": 1748816088,
-        "narHash": "sha256-kL8ZICtQaClAX5Rnx/p0L7fDybM1BsXB6GP26bBkKgw=",
+        "lastModified": 1748892140,
+        "narHash": "sha256-5DzSlPS0DVurW31Iw+AXIctquN2C/g2MJ3Z8vlbDv4g=",
+        "ref": "refs/heads/bare5",
+        "rev": "e1ab812a7284772f3a199724467d0ab06f3ed256",
+        "revCount": 1157,
         "type": "git",
         "url": "file:///home/ivand/src/configuration.nix"
       },
@@ -627,11 +628,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1748888434,
-        "narHash": "sha256-CfLyRe37ghzn0bDniN0QWwnGPmes6l7CeQd4QPx10ho=",
+        "lastModified": 1748889278,
+        "narHash": "sha256-FmI26y8fHyUgnCi4Kkt24OgzJ4K/hmYu+Lv8f8DhuDw=",
         "owner": "ivandimitrov8080",
         "repo": "idimitrov.dev",
-        "rev": "934003ee7ec5ee6c7fba6854c19825a3a005e237",
+        "rev": "b86303ae51f5d3c97fc90017651645a8ed3fe714",
         "type": "github"
       },
       "original": {

@@ -7,7 +7,7 @@
         package = inputs.neovim-nightly-overlay.packages.${system}.default;
       };
       xin = callPackage ../packages/xin {
-        flakePath = "/home/ivand/src/configuration.nix";
+        flakePath = "/home/ivand/src/hosts.nix";
         hosts = [
           {
             name = "nova";

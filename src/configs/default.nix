@@ -96,7 +96,6 @@ let
           imports = with inputs; [
             configuration.nixosModules.default
             hosts.nixosModule
-            home-manager.nixosModules.default
           ];
           nix.registry = {
             self.flake = inputs.self;
@@ -123,6 +122,9 @@ let
       rest =
         { pkgs, ... }:
         {
+          imports = with inputs; [
+            home-manager.nixosModules.default
+          ];
           home-manager = {
             backupFileExtension = "bak";
             useUserPackages = true;
@@ -332,16 +334,15 @@ let
       vpsadminosModule = _: {
         imports = with inputs; [
           vpsadminos.nixosConfigurations.container
-          configuration.nixosModules.default
-          hosts.nixosModule
           simple-nixos-mailserver.nixosModule
+          webshite.nixosModules.default
         ];
         meta.shells.enable = true;
         meta.dnscrypt.enable = true;
+        meta.mail.enable = true;
         services.nginx.enable = true;
         services.postgresql.enable = true;
         vps.enable = true;
-        mail.enable = true;
         host.wgPeer = {
           peers = spokes;
         };
@@ -397,7 +398,29 @@ let
 in
 {
   nova = novaConfig [ ];
-  gaming = novaConfig [ { gaming.enable = true; } ];
+  gaming = novaConfig [
+    {
+      gaming.enable = true;
+      home-manager.users.ivand = {
+        wayland.windowManager.sway = {
+          config = {
+            input = {
+              "type:touchpad" = {
+                events = "disabled";
+              };
+            };
+            assigns = {
+              "3" = [
+                { class = "^dota2$"; }
+                { class = "^cs2$"; }
+              ];
+              "9" = [ { class = "^steam$"; } ];
+            };
+          };
+        };
+      };
+    }
+  ];
   ai = novaConfig [ { meta.ai.enable = true; } ];
   music = novaConfig [ { realtimeMusic.enable = true; } ];
   stara = staraConfig [ ];
