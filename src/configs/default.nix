@@ -185,7 +185,7 @@ let
       nova =
         { pkgs, ... }:
         {
-          boot.loader.systemd-boot.enable = true;
+          boot.loader.grub.enable = true;
           meta.graphicalBoot.enable = true;
           meta.shells.enable = true;
           meta.swayland.enable = true;
