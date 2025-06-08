@@ -82,7 +82,7 @@ let
         };
         "ATHENS-HAWKS" = { };
         "3G" = {
-          hidden = true;
+          psk = "bumshakalaka";
         };
       };
     in
