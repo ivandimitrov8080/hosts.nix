@@ -138,7 +138,7 @@ let
               };
           };
           i18n.defaultLocale = "en_US.UTF-8";
-          time.timeZone = "Europe/Prague";
+          time.timeZone = "Europe/Lisbon";
           users.defaultUserShell = pkgs.bash;
           systemd.network = {
             wait-online.enable = false;
