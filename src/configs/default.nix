@@ -84,6 +84,9 @@ let
         "3G" = {
           psk = "bumshakalaka";
         };
+        "LeevinGuest" = {
+          psk = "L33v1nGhF4ro";
+        };
       };
     in
     {
