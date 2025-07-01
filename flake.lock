@@ -18,11 +18,11 @@
     },
     "configuration": {
       "locked": {
-        "lastModified": 1751298034,
-        "narHash": "sha256-XRU9GtwbcqA6Ap3cyu37ucUiYr68jsyWFzvxFFnNruQ=",
+        "lastModified": 1751403115,
+        "narHash": "sha256-AbgSUU+skr791q9BmI08BZytgtfm8adUXuXmU2t9Kh0=",
         "ref": "refs/heads/master",
-        "rev": "9d0e5b7cd68d3282cba587e06fc1da69072ba89c",
-        "revCount": 1174,
+        "rev": "b50f4198317879119653d29bfbec973c03353519",
+        "revCount": 1176,
         "type": "git",
         "url": "file:///home/ivand/src/configuration.nix"
       },
@@ -433,22 +433,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-fork": {
-      "locked": {
-        "lastModified": 1740276293,
-        "narHash": "sha256-+YGV1tVX3GFwrhVDoVxj5GgY/oX+xAkx+useye/RsrU=",
-        "owner": "ivandimitrov8080",
-        "repo": "nixpkgs",
-        "rev": "0b1742520cb1d2526587833e996b854ec9f6fc27",
-        "type": "github"
-      },
-      "original": {
-        "owner": "ivandimitrov8080",
-        "ref": "fork",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixvim": {
       "inputs": {
         "flake-parts": "flake-parts_3",
@@ -503,7 +487,6 @@
         "hosts": "hosts",
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-fork": "nixpkgs-fork",
         "nixvim": "nixvim",
         "simple-nixos-mailserver": "simple-nixos-mailserver",
         "treefmt": "treefmt",

@@ -105,12 +105,6 @@ let
           nixpkgs = {
             config = {
               allowUnfree = false;
-              packageOverrides = pkgs: {
-                fork = import inputs.nixpkgs-fork {
-                  inherit (pkgs) system;
-                  inherit (config.nixpkgs) config;
-                };
-              };
             };
             overlays = [
               inputs.self.overlays.default

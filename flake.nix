@@ -3,7 +3,6 @@
     configuration.url = "git+file:///home/ivand/src/configuration.nix";
     # nixpkgs
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    nixpkgs-fork.url = "github:ivandimitrov8080/nixpkgs/fork";
     # flake-compat to use this flake in configuration.nix
     flake-compat.url = "github:edolstra/flake-compat";
     flake-compat.flake = false;
