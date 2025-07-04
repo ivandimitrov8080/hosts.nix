@@ -244,7 +244,7 @@ let
           };
           users.groups.greetd = { };
           services.greetd.settings.default_session = {
-            command = pkgs.lib.mkForce "${pkgs.lib.getExe pkgs.ddlm}";
+            command = pkgs.lib.mkForce "${pkgs.lib.getExe pkgs.ddlm} --target ${pkgs.lib.getExe pkgs.swayfx}";
             user = "greetd";
           };
         };
