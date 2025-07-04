@@ -6,6 +6,7 @@
         inherit (inputs.nixvim.legacyPackages.${system}) makeNixvim;
         package = inputs.neovim-nightly-overlay.packages.${system}.default;
       };
+      ddlm = callPackage ../packages/ddlm { };
       xin = callPackage ../packages/xin {
         flakePath = "/home/ivand/src/hosts.nix";
         hosts = [

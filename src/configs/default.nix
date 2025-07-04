@@ -234,19 +234,19 @@ let
             polkit.enable = true;
             rtkit.enable = true;
           };
-          # users.users.greetd = {
-          #   isNormalUser = false;
-          #   isSystemUser = true;
-          #   group = "greetd";
-          #   extraGroups = [
-          #     "video"
-          #   ];
-          # };
-          # users.groups.greetd = { };
-          # services.greetd.settings.default_session = {
-          #   command = pkgs.lib.mkDefault "${pkgs.lib.getExe pkgs.ddlm}";
-          #   user = "greetd";
-          # };
+          users.users.greetd = {
+            isNormalUser = false;
+            isSystemUser = true;
+            group = "greetd";
+            extraGroups = [
+              "video"
+            ];
+          };
+          users.groups.greetd = { };
+          services.greetd.settings.default_session = {
+            command = pkgs.lib.mkForce "${pkgs.lib.getExe pkgs.ddlm}";
+            user = "greetd";
+          };
         };
       stara = _: {
         programs = {
