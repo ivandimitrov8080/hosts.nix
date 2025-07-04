@@ -33,5 +33,6 @@
   outputs = inputs: {
     nixosConfigurations = import ./src/configs { inherit inputs; };
     overlays = import ./src/overlays { inherit inputs; };
+    devShells = import ./src/shells { inherit inputs; };
   };
 }

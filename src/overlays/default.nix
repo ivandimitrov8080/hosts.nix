@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs }:
 {
   default =
     _final: prev: with prev; {
