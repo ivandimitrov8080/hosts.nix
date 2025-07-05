@@ -46,17 +46,19 @@
       };
       web = pkgs.mkShell {
         buildInputs = with pkgs; [
+          nodejs
           (pkgs.nvim.extend {
             plugins = {
               lsp.servers = {
                 ts_ls.enable = true;
+                svelte.enable = true;
                 html.enable = true;
                 cssls.enable = true;
                 jsonls.enable = true;
+                prismals.enable = true;
               };
             };
           })
-          nodejs
         ];
       };
       rust = pkgs.mkShell {
