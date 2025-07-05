@@ -56,6 +56,7 @@
                 cssls.enable = true;
                 jsonls.enable = true;
                 prismals.enable = true;
+                prismals.package = pkgs.npmPackages."@prisma/language-server";
               };
             };
           })
