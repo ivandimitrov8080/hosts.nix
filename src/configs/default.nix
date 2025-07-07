@@ -180,6 +180,7 @@ let
         { pkgs, ... }:
         {
           boot.loader.grub.enable = true;
+          boot.kernelPackages = pkgs.linuxPackages_latest;
           meta.graphicalBoot.enable = true;
           meta.shells.enable = true;
           meta.swayland.enable = true;
