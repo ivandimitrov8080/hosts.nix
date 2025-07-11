@@ -187,7 +187,7 @@ let
             settings = {
               default_session = {
                 command = lib.mkForce "${pkgs.ddlm}/bin/ddlm --target ${pkgs.swayfx}/bin/swayfx";
-                user = "greetd";
+                user = "ivand";
               };
             };
           };
@@ -256,19 +256,6 @@ let
             };
             polkit.enable = true;
             rtkit.enable = true;
-          };
-          users.users.greetd = {
-            isNormalUser = false;
-            isSystemUser = true;
-            group = "greetd";
-            extraGroups = [
-              "video"
-            ];
-          };
-          users.groups.greetd = { };
-          services.greetd.settings.default_session = {
-            command = pkgs.lib.mkForce "${pkgs.lib.getExe pkgs.ddlm} --target ${pkgs.lib.getExe pkgs.swayfx}";
-            user = "greetd";
           };
         };
       stara = _: {
