@@ -7,6 +7,7 @@
         package = inputs.neovim-nightly-overlay.packages.${system}.default;
       };
       ddlm = callPackage ../packages/ddlm { };
+      npmPackages = callPackage ../packages/npmPackages { };
       xin = callPackage ../packages/xin {
         flakePath = "/home/ivand/src/hosts.nix";
         hosts = [
