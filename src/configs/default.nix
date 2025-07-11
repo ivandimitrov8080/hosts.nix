@@ -177,11 +177,33 @@ let
           };
         };
       nova =
-        { pkgs, ... }:
+        { pkgs, lib, ... }:
         {
           boot.loader.grub.enable = true;
           boot.kernelPackages = pkgs.linuxPackages_latest;
           meta.graphicalBoot.enable = true;
+          programs.regreet.enable = lib.mkForce false;
+          services.greetd = {
+            settings = {
+              default_session = {
+                command = lib.mkForce "${pkgs.ddlm}/bin/ddlm --target ${pkgs.swayfx}/bin/swayfx";
+                user = "greetd";
+              };
+            };
+          };
+          users = {
+            users.greetd = {
+              isSystemUser = true;
+              group = "greetd";
+              extraGroups = [
+                "video"
+                "input"
+                "seat"
+                "tty"
+              ];
+            };
+            groups.greetd = { };
+          };
           meta.shells.enable = true;
           meta.swayland.enable = true;
           host.wgPeer = {
