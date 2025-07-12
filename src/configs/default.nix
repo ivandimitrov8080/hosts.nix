@@ -186,7 +186,7 @@ let
           services.greetd = {
             settings = {
               default_session = {
-                command = lib.mkForce "${pkgs.ddlm}/bin/ddlm ${pkgs.swayfx}/bin/swayfx";
+                command = lib.mkForce "${pkgs.ddlm}/bin/ddlm --session ${pkgs.swayfx}/bin/swayfx --theme-file ${(pkgs.catppuccin-plymouth.override { variant = "mocha"; })}/share/plymouth/themes/catppuccin-mocha/catppuccin-mocha.plymouth";
                 user = "greeter";
               };
             };
