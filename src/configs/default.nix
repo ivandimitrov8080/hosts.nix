@@ -107,8 +107,8 @@ let
               allowUnfree = false;
             };
             overlays = [
-              inputs.self.overlays.default
               inputs.configuration.overlays.default
+              inputs.self.overlays.default
             ];
           };
           system.stateVersion = "25.05";
@@ -186,23 +186,17 @@ let
           services.greetd = {
             settings = {
               default_session = {
-                command = lib.mkForce "${pkgs.ddlm}/bin/ddlm --target ${pkgs.swayfx}/bin/swayfx";
-                user = "ivand";
+                command = lib.mkForce "${pkgs.ddlm}/bin/ddlm ${pkgs.swayfx}/bin/swayfx";
+                user = "greeter";
               };
             };
           };
-          users = {
-            users.greetd = {
-              isSystemUser = true;
-              group = "greetd";
-              extraGroups = [
-                "video"
-                "input"
-                "seat"
-                "tty"
-              ];
-            };
-            groups.greetd = { };
+          users.users.greeter = {
+            extraGroups = [
+              "video"
+              "input"
+              "render"
+            ];
           };
           meta.shells.enable = true;
           meta.swayland.enable = true;
