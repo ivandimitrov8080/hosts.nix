@@ -4,15 +4,15 @@
   ...
 }:
 rustPlatform.buildRustPackage rec {
-  pname = "ddlm";
+  pname = "ndlm";
   version = "1.0";
   src = fetchFromGitHub {
     owner = "ivandimitrov8080";
-    repo = "ddlm";
-    rev = "85126cd4674f31854c5537bcc14573b92925917d";
-    hash = "sha256-rTNEKsTt7tX0hMf06n8Q1tcBLnB0J8q9rjuFgPBp2rY=";
+    repo = "ndlm";
+    rev = "b99b9226a4be9173ec10292677abe0d60b17744e";
+    hash = "sha256-JgEdLFZ/2LL9AnEtOvl1+WuYHHnQaLqgfoE6h3m/2tk=";
   };
-  cargoHash = "sha256-9DltXjD7AxRNCg/TWO4xYnIppJfWLoPgRJ0/u7IA+VM=";
+  cargoHash = "sha256-8f71QI+TlqZh4Ogx4asjCx8r4dNx2vjF3juuWuFcDys=";
 
   meta = {
     mainProgram = pname;
