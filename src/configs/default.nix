@@ -179,16 +179,33 @@ let
       nova =
         { pkgs, lib, ... }:
         {
+          nix = {
+            settings = {
+              substituters = [
+                "https://nix-community.cachix.org"
+                "https://cache.nixos.org/"
+              ];
+              trusted-public-keys = [
+                "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+              ];
+            };
+          };
           boot.loader.grub.enable = true;
           boot.kernelPackages = pkgs.linuxPackages_latest;
           meta.graphicalBoot.enable = true;
           programs.regreet.enable = lib.mkForce false;
           services.greetd = {
             settings = {
-              default_session = {
-                command = lib.mkForce "${pkgs.ndlm}/bin/ndlm --session ${pkgs.swayfx}/bin/swayfx --theme-file ${(pkgs.catppuccin-plymouth.override { variant = "mocha"; })}/share/plymouth/themes/catppuccin-mocha/catppuccin-mocha.plymouth";
-                user = "greeter";
-              };
+              default_session =
+                let
+                  greeter = lib.getExe pkgs.ndlm;
+                  session = "--session ${pkgs.swayfx}/bin/swayfx";
+                  themeFile = "--theme-file /etc/plymouth/themes/catppuccin-mocha/catppuccin-mocha.plymouth";
+                in
+                {
+                  command = lib.mkForce "${greeter} ${session} ${themeFile}";
+                  user = "greeter";
+                };
             };
           };
           users.users.greeter = {
