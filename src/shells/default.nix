@@ -109,5 +109,18 @@
           })
         ];
       };
+      haskell = pkgs.mkShell {
+        buildInputs = with pkgs; [
+          ghc
+          (pkgs.nvim.extend {
+            plugins = {
+              lsp.servers = {
+                hls.enable = true;
+              };
+              haskell-scope-highlighting.enable = true;
+            };
+          })
+        ];
+      };
     };
 }
