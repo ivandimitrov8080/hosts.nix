@@ -387,7 +387,8 @@ let
     inputs.nixpkgs.lib.nixosSystem {
       modules = [
         hardware
-      ] ++ modules;
+      ]
+      ++ modules;
     };
   novaConfig =
     mods:

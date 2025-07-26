@@ -34,5 +34,6 @@
     nixosConfigurations = import ./src/configs { inherit inputs; };
     overlays = import ./src/overlays { inherit inputs; };
     devShells = import ./src/shells { inherit inputs; };
+    formatter = import ./src/formatter { inherit inputs; };
   };
 }
