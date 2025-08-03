@@ -361,7 +361,7 @@ let
       };
       vpsadminosModule = _: {
         imports = with inputs; [
-          vpsadminos.nixosConfigurations.container
+          vpsadminos.nixosConfigurations.containerUnstable
           simple-nixos-mailserver.nixosModule
           webshite.nixosModules.default
         ];
