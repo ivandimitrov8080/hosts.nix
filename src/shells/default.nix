@@ -55,10 +55,12 @@
                 html.enable = true;
                 cssls.enable = true;
                 jsonls.enable = true;
+                tailwindcss.enable = true;
                 prismals.enable = true;
                 prismals.package = pkgs.npmPackages."@prisma/language-server";
               };
             };
+            tailwind-tools.enable = true;
           })
         ];
         env = {

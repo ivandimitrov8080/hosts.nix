@@ -191,7 +191,7 @@ let
             };
           };
           boot.loader.grub.enable = true;
-          # boot.kernelPackages = pkgs.linuxPackages-libre;
+          # boot.kernelPackages = pkgs.lib.mkForce pkgs.linuxPackages-rt;
           meta.graphicalBoot.enable = true;
           programs.regreet.enable = lib.mkForce false;
           services.greetd = {
