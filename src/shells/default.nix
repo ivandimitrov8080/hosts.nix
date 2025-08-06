@@ -59,8 +59,8 @@
                 prismals.enable = true;
                 prismals.package = pkgs.npmPackages."@prisma/language-server";
               };
+              tailwind-tools.enable = true;
             };
-            tailwind-tools.enable = true;
           })
         ];
         env = {
