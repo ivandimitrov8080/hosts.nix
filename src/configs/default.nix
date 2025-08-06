@@ -451,7 +451,7 @@ in
     }
   ];
   ai = novaConfig [ { meta.ai.enable = true; } ];
-  music = novaConfig [ { realtimeMusic.enable = true; } ];
+  music = novaConfig [ { meta.music.enable = true; } ];
   stara = staraConfig [ ];
   vps = vpsConfig [ { webshite.enable = true; } ];
 }
