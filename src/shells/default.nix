@@ -122,5 +122,19 @@
           })
         ];
       };
+      c = pkgs.mkShell {
+        buildInputs = with pkgs; [
+          gcc
+          meson
+          ninja
+          (pkgs.nvim.extend {
+            plugins = {
+              lsp.servers = {
+                ccls.enable = true;
+              };
+            };
+          })
+        ];
+      };
     };
 }
