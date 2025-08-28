@@ -129,6 +129,7 @@ let
                 imports = with inputs.configuration.homeManagerModules; [
                   default
                 ];
+                programs.khal.enable = pkgs.lib.mkForce false;
               };
           };
           i18n.defaultLocale = "en_US.UTF-8";
@@ -191,7 +192,7 @@ let
             };
           };
           boot.loader.grub.enable = true;
-          boot.kernelPackages = pkgs.linuxPackages;
+          #boot.kernelPackages = pkgs.linuxPackages;
           meta.graphicalBoot.enable = true;
           programs.regreet.enable = lib.mkForce false;
           services.greetd = {
