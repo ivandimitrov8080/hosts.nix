@@ -87,6 +87,9 @@ let
         "LeevinGuest" = {
           psk = "L33v1nGhF4ro";
         };
+        "FaroStation" = {
+          psk = "riaformosa";
+        };
       };
     in
     {
