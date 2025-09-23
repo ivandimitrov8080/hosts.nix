@@ -428,6 +428,16 @@ let
         ])
         ++ mods;
     };
+  pkgs = import inputs.nixpkgs {
+    inherit system;
+    config = {
+      allowUnfree = false;
+    };
+    overlays = [
+      inputs.configuration.overlays.default
+      inputs.self.overlays.default
+    ];
+  };
   swhkd =
     {
       lib,
@@ -439,12 +449,52 @@ let
       inherit (lib)
         mkIf
         mkEnableOption
+        mkOption
+        literalExpression
+        types
         ;
       cfg = config.meta.swhkd;
+      keybindingsStr = lib.concatStringsSep "\n" (
+        lib.mapAttrsToList (
+          hotkey: command:
+          lib.optionalString (command != null) ''
+            ${hotkey}
+              ${command}
+          ''
+        ) cfg.keybindings
+      );
     in
     {
       options.meta.swhkd = {
         enable = mkEnableOption "enable swhkd config";
+        extraConfig = mkOption {
+          default = "";
+          type = types.lines;
+          description = "Additional configuration to add.";
+          example = literalExpression ''
+            super + {_,shift +} {1-9,0}
+              i3-msg {workspace,move container to workspace} {1-10}
+          '';
+        };
+        keybindings = mkOption {
+          type = types.attrsOf (
+            types.nullOr (
+              types.oneOf [
+                types.str
+                types.path
+              ]
+            )
+          );
+          default = { };
+          description = "An attribute set that assigns hotkeys to commands.";
+          example = literalExpression ''
+            {
+              "super + shift + {r,c}" = "i3-msg {restart,reload}";
+              "super + {s,w}"         = "i3-msg {stacking,tabbed}";
+              "super + F1"            = pkgs.writeShellScript "script" "echo $USER";
+            }
+          '';
+        };
       };
       config = mkIf cfg.enable {
         environment.systemPackages = [ pkgs.swhkd ];
@@ -457,6 +507,14 @@ let
         programs.bash.loginShellInit = ''
           (swhks; swhkd) &
         '';
+        home-manager.users.ivand =
+          { ... }:
+          {
+            xdg.configFile."swhkd/swhkdrc".text = lib.concatStringsSep "\n" [
+              keybindingsStr
+              cfg.extraConfig
+            ];
+          };
       };
     };
 in
@@ -465,6 +523,24 @@ in
     swhkd
     {
       meta.swhkd.enable = true;
+      meta.swhkd.keybindings = {
+        "XF86AudioMute" = "volume sink toggle";
+        "Shift + XF86AudioMute" = "volume source toggle";
+        "XF86AudioLowerVolume" = "volume sink down";
+        "Shift + XF86AudioLowerVolume" = "volume source down";
+        "XF86AudioRaiseVolume" = "volume sink up";
+        "Shift + XF86AudioRaiseVolume" = "volume source up";
+        "XF86MonBrightnessUp" = "brightnessctl set 10%+";
+        "XF86MonBrightnessDown" = "brightnessctl set 10%-";
+        "alt + shift + l" = "swaylock";
+        "super + p" = "rofi -show drun";
+        "super + shift + s" = "${pkgs.screenshot}/bin/screenshot screen";
+        "super + shift + a" = "${pkgs.screenshot}/bin/screenshot area";
+        "super + shift + w" = "${pkgs.screenshot}/bin/screenshot window";
+        "super + c" = "kitty --title calendar -- ikhal";
+        "super + m" = "kitty --title mutt -- neomutt";
+        "end" = "rofi -show calc";
+      };
     }
   ];
   gaming = novaConfig [
