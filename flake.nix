@@ -30,10 +30,17 @@
     webshite.url = "github:ivandimitrov8080/idimitrov.dev";
     webshite.inputs.nixpkgs.follows = "nixpkgs";
   };
-  outputs = inputs: {
-    nixosConfigurations = import ./src/configs { inherit inputs; };
-    overlays = import ./src/overlays { inherit inputs; };
-    devShells = import ./src/shells { inherit inputs; };
-    formatter = import ./src/formatter { inherit inputs; };
-  };
+  outputs =
+    inputs:
+    let
+      system = "x86_64-linux";
+      pkgs = import inputs.nixpkgs { inherit system; };
+    in
+    {
+      nixosConfigurations = import ./src/configs { inherit inputs; };
+      overlays = import ./src/overlays { inherit inputs; };
+      devShells = import ./src/shells { inherit inputs; };
+      formatter = import ./src/formatter { inherit inputs; };
+      packages."x86_64-linux".swhkd = pkgs.callPackage ./src/packages/swhkd { };
+    };
 }
