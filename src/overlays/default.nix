@@ -2,10 +2,12 @@
 {
   default =
     _final: prev: with prev; {
-      nvim = callPackage ../packages/nvim {
-        inherit (inputs.nixvim.legacyPackages.${system}) makeNixvim;
-        package = inputs.neovim-nightly-overlay.packages.${system}.default;
-      };
+      nvim =
+        (inputs.nixvim.legacyPackages.${system}.makeNixvim inputs.configuration.nixvimConfigs.default)
+        .extend
+          {
+            package = inputs.neovim-nightly-overlay.packages.${system}.default;
+          };
       ndlm = callPackage ../packages/ndlm { };
       npmPackages = callPackage ../packages/npmPackages { };
       xin = callPackage ../packages/xin {
