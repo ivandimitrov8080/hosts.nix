@@ -428,9 +428,45 @@ let
         ])
         ++ mods;
     };
+  swhkd =
+    {
+      lib,
+      config,
+      pkgs,
+      ...
+    }:
+    let
+      inherit (lib)
+        mkIf
+        mkEnableOption
+        ;
+      cfg = config.meta.swhkd;
+    in
+    {
+      options.meta.swhkd = {
+        enable = mkEnableOption "enable swhkd config";
+      };
+      config = mkIf cfg.enable {
+        environment.systemPackages = [ pkgs.swhkd ];
+        security.wrappers.swhkd = {
+          source = "${pkgs.swhkd}/bin/swhkd";
+          setuid = true;
+          owner = "root";
+          group = "root";
+        };
+        programs.bash.loginShellInit = ''
+          (swhks; swhkd) &
+        '';
+      };
+    };
 in
 {
-  nova = novaConfig [ ];
+  nova = novaConfig [
+    swhkd
+    {
+      meta.swhkd.enable = true;
+    }
+  ];
   gaming = novaConfig [
     {
       meta.gaming.enable = true;
