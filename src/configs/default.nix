@@ -272,6 +272,25 @@ let
             polkit.enable = true;
             rtkit.enable = true;
           };
+          meta.swhkd.enable = true;
+          meta.swhkd.keybindings = {
+            "XF86AudioMute" = "volume sink toggle";
+            "Shift + XF86AudioMute" = "volume source toggle";
+            "XF86AudioLowerVolume" = "volume sink down";
+            "Shift + XF86AudioLowerVolume" = "volume source down";
+            "XF86AudioRaiseVolume" = "volume sink up";
+            "Shift + XF86AudioRaiseVolume" = "volume source up";
+            "XF86MonBrightnessUp" = "brightnessctl set 10%+";
+            "XF86MonBrightnessDown" = "brightnessctl set 10%-";
+            "alt + shift + l" = "swaylock";
+            "super + p" = "rofi -show drun";
+            "super + shift + s" = "${pkgs.screenshot}/bin/screenshot screen";
+            "super + shift + a" = "${pkgs.screenshot}/bin/screenshot area";
+            "super + shift + w" = "${pkgs.screenshot}/bin/screenshot window";
+            "super + c" = "kitty --title calendar -- ikhal";
+            "super + m" = "kitty --title mutt -- neomutt";
+            "end" = "rofi -show calc";
+          };
         };
       stara = _: {
         programs = {
@@ -403,6 +422,7 @@ let
           default
           rest
           nova
+          swhkd
         ])
         ++ mods;
     };
@@ -519,30 +539,7 @@ let
     };
 in
 {
-  nova = novaConfig [
-    swhkd
-    {
-      meta.swhkd.enable = true;
-      meta.swhkd.keybindings = {
-        "XF86AudioMute" = "volume sink toggle";
-        "Shift + XF86AudioMute" = "volume source toggle";
-        "XF86AudioLowerVolume" = "volume sink down";
-        "Shift + XF86AudioLowerVolume" = "volume source down";
-        "XF86AudioRaiseVolume" = "volume sink up";
-        "Shift + XF86AudioRaiseVolume" = "volume source up";
-        "XF86MonBrightnessUp" = "brightnessctl set 10%+";
-        "XF86MonBrightnessDown" = "brightnessctl set 10%-";
-        "alt + shift + l" = "swaylock";
-        "super + p" = "rofi -show drun";
-        "super + shift + s" = "${pkgs.screenshot}/bin/screenshot screen";
-        "super + shift + a" = "${pkgs.screenshot}/bin/screenshot area";
-        "super + shift + w" = "${pkgs.screenshot}/bin/screenshot window";
-        "super + c" = "kitty --title calendar -- ikhal";
-        "super + m" = "kitty --title mutt -- neomutt";
-        "end" = "rofi -show calc";
-      };
-    }
-  ];
+  nova = novaConfig [ ];
   gaming = novaConfig [
     {
       meta.gaming.enable = true;
