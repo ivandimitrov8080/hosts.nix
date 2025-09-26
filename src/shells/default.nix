@@ -71,11 +71,12 @@
       };
       rust = pkgs.mkShell {
         buildInputs = with pkgs; [
-          rustc
-          rust-analyzer
-          rustfmt
           cargo
+          libudev-zero
           pkg-config
+          rust-analyzer
+          rustc
+          rustfmt
           (pkgs.nvim.extend {
             plugins = {
               lsp.servers = {

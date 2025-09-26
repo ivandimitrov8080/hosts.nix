@@ -448,16 +448,6 @@ let
         ])
         ++ mods;
     };
-  pkgs = import inputs.nixpkgs {
-    inherit system;
-    config = {
-      allowUnfree = false;
-    };
-    overlays = [
-      inputs.configuration.overlays.default
-      inputs.self.overlays.default
-    ];
-  };
   swhkd =
     {
       lib,
@@ -483,6 +473,10 @@ let
           ''
         ) cfg.keybindings
       );
+      configFileContent = lib.concatStringsSep "\n" [
+        keybindingsStr
+        cfg.extraConfig
+      ];
     in
     {
       options.meta.swhkd = {
@@ -524,17 +518,32 @@ let
           owner = "root";
           group = "root";
         };
-        programs.bash.loginShellInit = ''
-          (swhks; swhkd) &
-        '';
-        home-manager.users.ivand =
-          { ... }:
-          {
-            xdg.configFile."swhkd/swhkdrc".text = lib.concatStringsSep "\n" [
-              keybindingsStr
-              cfg.extraConfig
+        systemd.user.services = {
+          swhks = {
+            wantedBy = [ "default.target" ];
+            requiredBy = [ "swhkd.service" ];
+            path = with pkgs; [
+              brightnessctl
+              kitty
+              rofi
+              screenshot
+              swaylock
+              volume
             ];
+            serviceConfig = {
+              Type = "forking";
+              ExecStart = "${pkgs.swhkd}/bin/swhks";
+            };
           };
+          swhkd = {
+            wantedBy = [ "default.target" ];
+            requires = [ "swhks.service" ];
+            serviceConfig = {
+              ExecStart = "/run/wrappers/bin/swhkd";
+            };
+          };
+        };
+        environment.etc."swhkd/swhkdrc".text = configFileContent;
       };
     };
 in
