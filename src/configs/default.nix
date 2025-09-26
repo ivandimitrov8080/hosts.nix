@@ -273,6 +273,7 @@ let
             rtkit.enable = true;
           };
           meta.swhkd.enable = true;
+          meta.swhkd.graphical = true;
           meta.swhkd.keybindings = {
             "XF86AudioMute" = "${pkgs.volume}/bin/volume sink toggle";
             "Shift + XF86AudioMute" = "${pkgs.volume}/bin/volume source toggle";
@@ -479,6 +480,7 @@ let
     {
       options.meta.swhkd = {
         enable = mkEnableOption "enable swhkd config";
+        graphical = mkEnableOption "whether commands to run require graphical session";
         extraConfig = mkOption {
           default = "";
           type = types.lines;
@@ -518,7 +520,9 @@ let
         };
         systemd.user.services = {
           swhks = {
-            wantedBy = [ "default.target" ];
+            wantedBy = [
+              (if cfg.graphical then "graphical-session.target" else "default.target")
+            ];
             requiredBy = [ "swhkd.service" ];
             serviceConfig = {
               Type = "forking";
@@ -526,7 +530,9 @@ let
             };
           };
           swhkd = {
-            wantedBy = [ "default.target" ];
+            wantedBy = [
+              (if cfg.graphical then "graphical-session.target" else "default.target")
+            ];
             requires = [ "swhks.service" ];
             serviceConfig = {
               ExecStart = "/run/wrappers/bin/swhkd";
