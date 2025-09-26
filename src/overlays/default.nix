@@ -11,6 +11,7 @@
       ndlm = callPackage ../packages/ndlm { };
       npmPackages = callPackage ../packages/npmPackages { };
       swhkd = callPackage ../packages/swhkd { };
+      rofi = prev.rofi.override { plugins = with prev; [ rofi-calc ]; };
       xin = callPackage ../packages/xin {
         flakePath = "/home/ivand/src/hosts.nix";
         hosts = [

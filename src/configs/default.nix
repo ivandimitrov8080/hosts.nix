@@ -274,22 +274,20 @@ let
           };
           meta.swhkd.enable = true;
           meta.swhkd.keybindings = {
-            "XF86AudioMute" = "volume sink toggle";
-            "Shift + XF86AudioMute" = "volume source toggle";
-            "XF86AudioLowerVolume" = "volume sink down";
-            "Shift + XF86AudioLowerVolume" = "volume source down";
-            "XF86AudioRaiseVolume" = "volume sink up";
-            "Shift + XF86AudioRaiseVolume" = "volume source up";
-            "XF86MonBrightnessUp" = "brightnessctl set 10%+";
-            "XF86MonBrightnessDown" = "brightnessctl set 10%-";
-            "alt + shift + l" = "swaylock";
-            "super + p" = "rofi -show drun";
+            "XF86AudioMute" = "${pkgs.volume}/bin/volume sink toggle";
+            "Shift + XF86AudioMute" = "${pkgs.volume}/bin/volume source toggle";
+            "XF86AudioLowerVolume" = "${pkgs.volume}/bin/volume sink down";
+            "Shift + XF86AudioLowerVolume" = "${pkgs.volume}/bin/volume source down";
+            "XF86AudioRaiseVolume" = "${pkgs.volume}/bin/volume sink up";
+            "Shift + XF86AudioRaiseVolume" = "${pkgs.volume}/bin/volume source up";
+            "XF86MonBrightnessUp" = "${pkgs.brightnessctl}/bin/brightnessctl set 10%+";
+            "XF86MonBrightnessDown" = "${pkgs.brightnessctl}/bin/brightnessctl set 10%-";
+            "alt + shift + l" = "${pkgs.swaylock}/bin/swaylock";
+            "super + p" = "${pkgs.rofi}/bin/rofi -show drun";
             "super + shift + s" = "${pkgs.screenshot}/bin/screenshot screen";
             "super + shift + a" = "${pkgs.screenshot}/bin/screenshot area";
             "super + shift + w" = "${pkgs.screenshot}/bin/screenshot window";
-            "super + c" = "kitty --title calendar -- ikhal";
-            "super + m" = "kitty --title mutt -- neomutt";
-            "end" = "rofi -show calc";
+            "end" = "${pkgs.rofi}/bin/rofi -show calc";
           };
         };
       stara = _: {
@@ -522,14 +520,6 @@ let
           swhks = {
             wantedBy = [ "default.target" ];
             requiredBy = [ "swhkd.service" ];
-            path = with pkgs; [
-              brightnessctl
-              kitty
-              rofi
-              screenshot
-              swaylock
-              volume
-            ];
             serviceConfig = {
               Type = "forking";
               ExecStart = "${pkgs.swhkd}/bin/swhks";
