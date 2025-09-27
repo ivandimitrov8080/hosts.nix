@@ -322,6 +322,7 @@ let
             };
           };
           boot.loader.grub.enable = true;
+          boot.loader.grub.efiSupport = false;
           #boot.kernelPackages = pkgs.linuxPackages;
           meta.graphicalBoot.enable = true;
           programs.regreet.enable = lib.mkForce false;
