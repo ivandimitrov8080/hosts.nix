@@ -94,7 +94,7 @@ let
     in
     {
       default =
-        { lib, config, ... }:
+        { ... }:
         {
           imports = with inputs; [
             configuration.nixosModules.default
