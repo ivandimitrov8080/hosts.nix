@@ -1,20 +1,22 @@
 def "main reboot" [] {
-    let v = (ls /nix/var/nix/profiles/system-profiles/
-    | where { |x| not ($x.name | str contains "link") }
-    | each { |x| { cmd: $"($x.name)/bin/switch-to-configuration boot", name: ($x.name | split row '/' | last) } })
+  let v = (
+    ls /nix/var/nix/profiles/system-profiles/
+    | where {|x| not ($x.name | str contains "link") }
+    | each {|x| {cmd: $"($x.name)/bin/switch-to-configuration boot" name: ($x.name | split row '/' | last)} }
+  )
 
-    let selection = ($v | each {|x| $x.name } | str join "\n" | fzf)
+  let selection = ($v | each {|x| $x.name } | str join "\n" | fzf)
 
-    let cmd = ($v | where {|x| $x.name == $selection } | first | get cmd)
+  let cmd = ($v | where {|x| $x.name == $selection } | first | get cmd)
 
-    bash -c $"sudo ($cmd)"
-    reboot
+  bash -c $"sudo ($cmd)"
+  reboot
 }
 
-def --wrapped "main shell" [ref: string, ...rest] {
-    nix develop $"($flake_path)#($ref)" ...$rest
+def --wrapped "main shell" [ref: string ...rest] {
+  nix develop $"($flake_path)#($ref)" ...$rest
 }
 
 def main [] {
-    $"Usage: todo..."
+  $"Usage: todo..."
 }

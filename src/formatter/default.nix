@@ -2,12 +2,27 @@
 let
   system = "x86_64-linux";
   pkgs = import inputs.nixpkgs { inherit system; };
+  inherit (pkgs) lib;
+  topiary-nushell = pkgs.fetchFromGitHub {
+    owner = "blindFS";
+    repo = "topiary-nushell";
+    rev = "a922f988062a529c936a4eddc45823396bae0d14";
+    hash = "sha256-VnDOj2NIz1/gEkfuCFPaVvOlDcWwBXYudEIwATb53/0=";
+  };
 in
 {
   "${system}" = pkgs.treefmt.withConfig {
     runtimeInputs = with pkgs; [
       nixfmt-rfc-style
-      shfmt
+      formatjson5
+      (topiary.overrideAttrs (
+        final: prev: {
+          env = {
+            TOPIARY_LANGUAGE_DIR = "${topiary-nushell}/languages";
+          };
+        }
+      ))
+      gcc
     ];
 
     settings = {
@@ -16,11 +31,29 @@ in
 
       # Configure nixfmt for .nix files
       formatter = {
-        nixfmt.command = "nixfmt";
-        nixfmt.includes = [ "*.nix" ];
-        sh.command = "shfmt";
-        sh.options = [ "--write" ];
-        sh.includes = [ "*.sh" ];
+        nixfmt = {
+          command = "nixfmt";
+          includes = [ "*.nix" ];
+        };
+        json = {
+          command = "formatjson5";
+          options = [
+            "--replace"
+            "--sort_arrays"
+          ];
+          includes = [ "*.json" ];
+        };
+        nu = {
+          command = "topiary";
+          options = [
+            "format"
+            "-C"
+            "${topiary-nushell}/languages.ncl"
+          ];
+          includes = [
+            "*.nu"
+          ];
+        };
       };
     };
   };
