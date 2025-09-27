@@ -268,7 +268,28 @@ let
           systemd.network = {
             wait-online.enable = false;
           };
-          environment.systemPackages = with pkgs; [ pwvucontrol ];
+          environment.systemPackages = with pkgs; [
+            audacity
+            gimp
+            grim
+            just
+            libnotify
+            libreoffice-qt
+            libreoffice-qt
+            mupdf
+            nvim
+            pwvucontrol
+            slurp
+            slurp
+            telegram-desktop
+            telegram-desktop
+            transmission_4
+            transmission_4
+            volume
+            wl-clipboard
+            xin
+            xin
+          ];
           users = {
             mutableUsers = false;
             users = {
