@@ -132,7 +132,134 @@ let
                 imports = with inputs.configuration.homeManagerModules; [
                   default
                 ];
-                programs.khal.enable = pkgs.lib.mkForce false;
+                xdg.enable = true;
+                programs = {
+                  ssh.matchBlocks = {
+                    vpsfree-ivand = {
+                      hostname = "idimitrov.dev";
+                      user = "ivand";
+                    };
+                    vpsfree-root = {
+                      hostname = "idimitrov.dev";
+                      user = "root";
+                    };
+                    stara-root = {
+                      hostname = "stara.idimitrov.dev";
+                      user = "root";
+                    };
+                    git = {
+                      hostname = "idimitrov.dev";
+                      user = "git";
+                    };
+                  };
+                  git = {
+                    userName = "Ivan Kirilov Dimitrov";
+                    userEmail = "ivan@idimitrov.dev";
+                    signing.key = "C565 2E79 2A7A 9110 DFA7  F77D 0BDA D4B2 11C4 9294";
+                  };
+                  yazi.enable = true;
+                  fd.enable = true;
+                  ssh.enable = true;
+                  gpg.enable = true;
+                  git.enable = true;
+                  tealdeer.enable = true;
+                  bottom.enable = true;
+                  fzf.enable = true;
+                  nix-index.enable = true;
+                  bat.enable = true;
+                  bash.enable = true;
+                  zsh.enable = false;
+                  nushell.enable = true;
+                  kitty.enable = true;
+                  tmux.enable = true;
+                  starship.enable = true;
+                  eza.enable = true;
+                  zoxide.enable = true;
+                  waybar.enable = true;
+                  swaylock.enable = true;
+                  rofi.enable = true;
+                  imv.enable = true;
+                  mpv.enable = true;
+                  browserpass.enable = true;
+                  firefox.enable = true;
+                };
+                services = {
+                  gpg-agent.enable = true;
+                  wpaperd.enable = true;
+                  mako.enable = true;
+                  gammastep = {
+                    enable = true;
+                    latitude = 50.0;
+                    longitude = 14.41;
+                  };
+                };
+                wayland.windowManager.sway.enable = true;
+                home = {
+                  username = "ivand";
+                  homeDirectory = "/home/ivand";
+                };
+                accounts = {
+                  calendar = {
+                    basePath = ".local/share/calendars";
+                    accounts.ivand = {
+                      primary = true;
+                      khal = {
+                        enable = true;
+                        color = "light green";
+                      };
+                    };
+                  };
+                  email = {
+                    maildirBasePath = "mail";
+                    accounts = {
+                      ivan = rec {
+                        primary = true;
+                        realName = "Ivan Kirilov Dimitrov";
+                        address = "ivan@idimitrov.dev";
+                        userName = address;
+                        passwordCommand = "pass vps/mail.idimitrov.dev/ivan@idimitrov.dev";
+                        msmtp = {
+                          enable = true;
+                          extraConfig = {
+                            auth = "login";
+                          };
+                        };
+                        signature = {
+                          text = ''
+                            Ivan Dimitrov
+                            Software Developer
+                            ivan@idimitrov.dev
+                          '';
+                        };
+                        getmail = {
+                          enable = true;
+                          mailboxes = [ "ALL" ];
+                        };
+                        gpg = {
+                          encryptByDefault = true;
+                          signByDefault = true;
+                        };
+                        smtp = {
+                          host = "idimitrov.dev";
+                        };
+                        imap = {
+                          host = "idimitrov.dev";
+                        };
+                        neomutt = {
+                          enable = true;
+                          mailboxType = "imap";
+                          extraMailboxes = [
+                            "Sent"
+                            "Drafts"
+                            "Trash"
+                            "Archive"
+                          ];
+                        };
+                        offlineimap.enable = true;
+                      };
+                    };
+                  };
+                };
               };
           };
           i18n.defaultLocale = "en_US.UTF-8";
