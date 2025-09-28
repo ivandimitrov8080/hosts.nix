@@ -288,7 +288,8 @@ let
             volume
             wl-clipboard
             xin
-            xin
+            statix
+            deadnix
           ];
           users = {
             mutableUsers = false;
