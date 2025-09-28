@@ -264,35 +264,29 @@ let
           };
           i18n.defaultLocale = "en_US.UTF-8";
           time.timeZone = "Europe/Prague";
-          users.defaultUserShell = pkgs.bash;
           systemd.network = {
             wait-online.enable = false;
           };
           environment.systemPackages = with pkgs; [
             audacity
+            deadnix
             gimp
             grim
             just
             libnotify
             libreoffice-qt
-            libreoffice-qt
             mupdf
             nvim
             pwvucontrol
             slurp
-            slurp
+            statix
             telegram-desktop
-            telegram-desktop
-            transmission_4
             transmission_4
             volume
             wl-clipboard
             xin
-            statix
-            deadnix
           ];
           users = {
-            mutableUsers = false;
             users = {
               ivand = {
                 isNormalUser = true;
@@ -316,7 +310,6 @@ let
               };
             };
             extraGroups = {
-              mlocate = { };
               realtime = { };
             };
           };
