@@ -365,12 +365,12 @@ let
           };
           meta.shells.enable = true;
           meta.swayland.enable = true;
-          host.wgPeer = {
+          meta.wireguard = {
             enable = true;
             peers = hub;
             address = "10.0.0.2/24";
           };
-          host.name = "nova";
+          networking.hostName = "nova";
           networking = {
             hosts = {
               "10.0.0.1" = [
@@ -463,12 +463,12 @@ let
         boot.loader.grub.enable = true;
         meta.shells.enable = true;
         meta.swayland.enable = true;
-        host.wgPeer = {
+        meta.wireguard = {
           enable = true;
           peers = hub;
           address = "10.0.0.4/24";
         };
-        host.name = "stara";
+        networking.hostName = "stara";
         services = {
           openssh = {
             enable = true;
@@ -537,7 +537,7 @@ let
         services.nginx.enable = true;
         services.postgresql.enable = true;
         vps.enable = true;
-        host.wgPeer = {
+        meta.wireguard = {
           peers = spokes;
         };
       };
