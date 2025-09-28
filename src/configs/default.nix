@@ -525,22 +525,110 @@ let
           };
         };
       };
-      vpsadminosModule = _: {
-        imports = with inputs; [
-          vpsadminos.nixosConfigurations.containerUnstable
-          simple-nixos-mailserver.nixosModule
-          webshite.nixosModules.default
-        ];
-        meta.shells.enable = true;
-        meta.dnscrypt.enable = true;
-        meta.mail.enable = true;
-        services.nginx.enable = true;
-        services.postgresql.enable = true;
-        vps.enable = true;
-        meta.wireguard = {
-          peers = spokes;
+      vpsadminosModule =
+        { pkgs, lib, ... }:
+        let
+          inherit (lib) mkForce;
+        in
+        {
+          nixpkgs.hostPlatform = "x86_64-linux";
+          imports = with inputs; [
+            vpsadminos.nixosConfigurations.containerUnstable
+            simple-nixos-mailserver.nixosModule
+            webshite.nixosModules.default
+          ];
+          networking.hostName = "vpsfree";
+          meta.shells.enable = true;
+          meta.dnscrypt.enable = true;
+          meta.mail.enable = true;
+          meta.bingwp.enable = true;
+          meta.wireguard = {
+            enable = true;
+            address = "10.0.0.1/24";
+            isHub = true;
+            peers = spokes;
+          };
+          services.nginx.enable = true;
+          services.postgresql.enable = true;
+          networking = {
+            nftables = {
+              enable = true;
+            };
+            firewall = {
+              interfaces = {
+                wg0 = {
+                  allowedTCPPorts = mkForce [
+                    22
+                    53
+                    993
+                    9418 # gitDaemon
+                  ];
+                  allowedUDPPorts = mkForce [
+                  ];
+                };
+              };
+              allowedTCPPorts = mkForce [
+                25 # smtp
+                465 # smtps
+                80 # http
+                443 # https
+              ];
+              allowedUDPPorts = mkForce [
+                25
+                465
+                80
+                443
+                51820 # wireguard
+              ];
+            };
+          };
+          users = {
+            users = {
+              ivand = lib.mkForce {
+                isNormalUser = true;
+                hashedPassword = "$2b$05$hPrPcewxj4qjLCRQpKBAu.FKvKZdIVlnyn4uYsWE8lc21Jhvc9jWG";
+                extraGroups = [
+                  "wheel"
+                  "adm"
+                  "mlocate"
+                ];
+                openssh.authorizedKeys.keys = [
+                  ''
+                    ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICcLkzuCoBEg+wq/H+hkrv6pLJ8J5BejaNJVNnymlnlo ivan@idimitrov.dev
+                  ''
+                ];
+              };
+              git = {
+                shell = pkgs.bash;
+                openssh.authorizedKeys.keys = [
+                  ''
+                    ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICcLkzuCoBEg+wq/H+hkrv6pLJ8J5BejaNJVNnymlnlo ivan@idimitrov.dev
+                  ''
+                ];
+              };
+            };
+          };
+
+          programs.git.enable = true;
+          services = {
+            gitDaemon = {
+              enable = true;
+              repositories = [
+                "/srv/git"
+              ];
+              basePath = "/srv/git";
+              exportAll = true;
+              listenAddress = "127.0.0.1";
+            };
+            openssh = {
+              enable = true;
+              settings = {
+                PasswordAuthentication = false;
+                PermitRootLogin = "prohibit-password";
+              };
+            };
+          };
         };
-      };
     };
   hardwareConfigurations = import ../constants;
   configWithModules =
