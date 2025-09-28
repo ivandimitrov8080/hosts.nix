@@ -168,7 +168,7 @@ let
                   nix-index.enable = true;
                   bat.enable = true;
                   bash.enable = true;
-                  zsh.enable = false;
+                  zsh.enable = true;
                   nushell.enable = true;
                   kitty.enable = true;
                   tmux.enable = true;
@@ -296,6 +296,7 @@ let
               ivand = {
                 isNormalUser = true;
                 createHome = true;
+                shell = pkgs.zsh;
                 extraGroups = [
                   "adbusers"
                   "adm"
