@@ -12,10 +12,8 @@
       default = pkgs.mkShell {
         buildInputs = [
           (pkgs.nvim.extend {
-            plugins = {
-              lsp.servers = {
-                nushell.enable = true;
-              };
+            lsp.servers = {
+              nushell.enable = true;
             };
           })
         ];
@@ -23,10 +21,8 @@
       py = pkgs.mkShell {
         buildInputs = with pkgs; [
           (pkgs.nvim.extend {
-            plugins = {
-              lsp.servers = {
-                pylsp.enable = true;
-              };
+            lsp.servers = {
+              pylsp.enable = true;
             };
           })
           python3
@@ -35,10 +31,8 @@
       node = pkgs.mkShell {
         buildInputs = with pkgs; [
           (pkgs.nvim.extend {
-            plugins = {
-              lsp.servers = {
-                ts_ls.enable = true;
-              };
+            lsp.servers = {
+              ts_ls.enable = true;
             };
           })
           nodejs
@@ -49,17 +43,17 @@
           nodejs
           (pkgs.nvim.extend {
             plugins = {
-              lsp.servers = {
-                ts_ls.enable = true;
-                svelte.enable = true;
-                html.enable = true;
-                cssls.enable = true;
-                jsonls.enable = true;
-                tailwindcss.enable = true;
-                prismals.enable = true;
-                prismals.package = pkgs.npmPackages."@prisma/language-server";
-              };
               tailwind-tools.enable = true;
+            };
+            lsp.servers = {
+              ts_ls.enable = true;
+              svelte.enable = true;
+              html.enable = true;
+              cssls.enable = true;
+              jsonls.enable = true;
+              tailwindcss.enable = true;
+              prismals.enable = true;
+              prismals.package = pkgs.npmPackages."@prisma/language-server";
             };
           })
         ];
@@ -78,13 +72,13 @@
           rustc
           rustfmt
           (pkgs.nvim.extend {
-            plugins = {
-              lsp.servers = {
-                rust_analyzer = {
-                  installCargo = false;
-                  installRustc = false;
-                };
+            lsp.servers = {
+              rust_analyzer = {
+                installCargo = false;
+                installRustc = false;
               };
+            };
+            plugins = {
               rustaceanvim = {
                 enable = true;
               };
@@ -103,11 +97,9 @@
           mongosh
           redis
           (pkgs.nvim.extend {
-            plugins = {
-              lsp.servers = {
-                metals.enable = true;
-                ts_ls.enable = true;
-              };
+            lsp.servers = {
+              metals.enable = true;
+              ts_ls.enable = true;
             };
           })
         ];
@@ -116,10 +108,10 @@
         buildInputs = with pkgs; [
           ghc
           (pkgs.nvim.extend {
+            lsp.servers = {
+              hls.enable = true;
+            };
             plugins = {
-              lsp.servers = {
-                hls.enable = true;
-              };
               haskell-scope-highlighting.enable = true;
             };
           })
@@ -131,10 +123,8 @@
           meson
           ninja
           (pkgs.nvim.extend {
-            plugins = {
-              lsp.servers = {
-                ccls.enable = true;
-              };
+            lsp.servers = {
+              ccls.enable = true;
             };
           })
         ];

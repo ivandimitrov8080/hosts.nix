@@ -18,11 +18,11 @@
     },
     "configuration": {
       "locked": {
-        "lastModified": 1759067156,
-        "narHash": "sha256-vj1L2e3IJmhQs32O5ijYvndhPW+cEXPgvq8S4peJP/U=",
+        "lastModified": 1759074708,
+        "narHash": "sha256-iZjDI15mvkXkk9tfcN7h0TACsXDeBkarZcr7hmkjHoE=",
         "ref": "refs/heads/master",
-        "rev": "16b663ae947697422229f76698d52bbea8107339",
-        "revCount": 1243,
+        "rev": "325ec58a64269d2a91247f3155fe788c93c58d60",
+        "revCount": 1244,
         "type": "git",
         "url": "file:///home/ivand/src/configuration.nix"
       },
