@@ -2,7 +2,6 @@
 let
   system = "x86_64-linux";
   pkgs = import inputs.nixpkgs { inherit system; };
-  inherit (pkgs) lib;
   topiary-nushell = pkgs.fetchFromGitHub {
     owner = "blindFS";
     repo = "topiary-nushell";
@@ -34,12 +33,14 @@ in
         nixfmt = {
           command = "nixfmt";
           includes = [ "*.nix" ];
+          excludes = [ "**/npmPackages/*.nix" ];
         };
         json = {
           command = "formatjson5";
           options = [
             "--replace"
             "--sort_arrays"
+            "--no_trailing_commas"
           ];
           includes = [ "*.json" ];
         };
