@@ -67,17 +67,12 @@
         buildInputs = with pkgs; [
           cargo
           libudev-zero
+          opencode
           pkg-config
           rust-analyzer
           rustc
           rustfmt
           (pkgs.nvim.extend {
-            lsp.servers = {
-              rust_analyzer = {
-                installCargo = false;
-                installRustc = false;
-              };
-            };
             plugins = {
               rustaceanvim = {
                 enable = true;
