@@ -41,10 +41,8 @@
       web = pkgs.mkShell {
         buildInputs = with pkgs; [
           nodejs
+          yarn
           (pkgs.nvim.extend {
-            plugins = {
-              tailwind-tools.enable = true;
-            };
             lsp.servers = {
               ts_ls.enable = true;
               svelte.enable = true;
