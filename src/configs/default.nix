@@ -157,6 +157,15 @@ let
                     userEmail = "ivan@idimitrov.dev";
                     signing.key = "C565 2E79 2A7A 9110 DFA7  F77D 0BDA D4B2 11C4 9294";
                   };
+                  opencode = {
+                    enable = true;
+                    settings = {
+                      theme = "catppuccin";
+                      model = "copilot/GPT-4.1";
+                      autoshare = false;
+                      autoupdate = false;
+                    };
+                  };
                   yazi.enable = true;
                   fd.enable = true;
                   ssh.enable = true;

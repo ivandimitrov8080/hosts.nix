@@ -65,7 +65,6 @@
         buildInputs = with pkgs; [
           cargo
           libudev-zero
-          opencode
           pkg-config
           rust-analyzer
           rustc
