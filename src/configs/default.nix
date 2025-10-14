@@ -164,6 +164,17 @@ let
                       model = "copilot/GPT-4.1";
                       autoshare = false;
                       autoupdate = false;
+                      mcp = {
+                        mcp-nixos = {
+                          enabled = true;
+                          type = "local";
+                          command = [
+                            "nix"
+                            "run"
+                            "github:utensils/mcp-nixos"
+                          ];
+                        };
+                      };
                     };
                   };
                   yazi.enable = true;
