@@ -301,8 +301,11 @@ let
             slurp
             statix
             telegram-desktop
+            kotatogram-desktop
             transmission_4
             volume
+            screenshot
+            brightnessctl
             wl-clipboard
             xin
           ];
@@ -439,20 +442,20 @@ let
           meta.swhkd.enable = true;
           meta.swhkd.graphical = true;
           meta.swhkd.keybindings = {
-            "XF86AudioMute" = "${pkgs.volume}/bin/volume sink toggle";
-            "Shift + XF86AudioMute" = "${pkgs.volume}/bin/volume source toggle";
-            "XF86AudioLowerVolume" = "${pkgs.volume}/bin/volume sink down";
-            "Shift + XF86AudioLowerVolume" = "${pkgs.volume}/bin/volume source down";
-            "XF86AudioRaiseVolume" = "${pkgs.volume}/bin/volume sink up";
-            "Shift + XF86AudioRaiseVolume" = "${pkgs.volume}/bin/volume source up";
-            "XF86MonBrightnessUp" = "${pkgs.brightnessctl}/bin/brightnessctl set 10%+";
-            "XF86MonBrightnessDown" = "${pkgs.brightnessctl}/bin/brightnessctl set 10%-";
-            "alt + shift + l" = "${pkgs.swaylock}/bin/swaylock";
-            "super + p" = "${pkgs.rofi}/bin/rofi -show drun";
-            "super + shift + s" = "${pkgs.screenshot}/bin/screenshot screen";
-            "super + shift + a" = "${pkgs.screenshot}/bin/screenshot area";
-            "super + shift + w" = "${pkgs.screenshot}/bin/screenshot window";
-            "end" = "${pkgs.rofi}/bin/rofi -show calc";
+            "XF86AudioMute" = "volume sink toggle";
+            "Shift + XF86AudioMute" = "volume source toggle";
+            "XF86AudioLowerVolume" = "volume sink down";
+            "Shift + XF86AudioLowerVolume" = "volume source down";
+            "XF86AudioRaiseVolume" = "volume sink up";
+            "Shift + XF86AudioRaiseVolume" = "volume source up";
+            "XF86MonBrightnessUp" = "brightnessctl set 10%+";
+            "XF86MonBrightnessDown" = "brightnessctl set 10%-";
+            "alt + shift + l" = "swaylock";
+            "super + p" = "rofi -show drun";
+            "super + shift + s" = "screenshot screen";
+            "super + shift + a" = "screenshot area";
+            "super + shift + w" = "screenshot window";
+            "end" = "rofi -show calc";
           };
         };
       stara = _: {
