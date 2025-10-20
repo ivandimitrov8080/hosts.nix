@@ -289,23 +289,24 @@ let
           };
           environment.systemPackages = with pkgs; [
             audacity
+            brightnessctl
             deadnix
             gimp
             grim
             just
+            kotatogram-desktop
             libnotify
             libreoffice-qt
             mupdf
             nvim
             pwvucontrol
+            python3
+            screenshot
             slurp
             statix
             telegram-desktop
-            kotatogram-desktop
             transmission_4
             volume
-            screenshot
-            brightnessctl
             wl-clipboard
             xin
           ];
