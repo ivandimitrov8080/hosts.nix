@@ -153,10 +153,13 @@ let
                     };
                   };
                   git = {
-                    userName = "Ivan Kirilov Dimitrov";
-                    userEmail = "ivan@idimitrov.dev";
+                    settings = {
+                      user.name = "Ivan Kirilov Dimitrov";
+                      user.email = "ivan@idimitrov.dev";
+                    };
                     signing.key = "C565 2E79 2A7A 9110 DFA7  F77D 0BDA D4B2 11C4 9294";
                   };
+                  delta.enable = true;
                   opencode = {
                     enable = true;
                     settings = {
