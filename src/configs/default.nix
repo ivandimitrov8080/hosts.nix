@@ -941,7 +941,14 @@ let
     };
 in
 {
-  nova = novaConfig [ ];
+  nova = novaConfig [
+    (
+      { pkgs, ... }:
+      {
+        boot.kernelPackages = pkgs.linuxPackages-libre;
+      }
+    )
+  ];
   gaming = novaConfig [
     {
       meta.gaming.enable = true;
