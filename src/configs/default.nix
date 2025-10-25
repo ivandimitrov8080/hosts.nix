@@ -3,17 +3,15 @@ let
   system = "x86_64-linux";
   nixosModules =
     let
-      hub = [
+      peers = [
         {
           PublicKey = "iRSHYRPRELX8lJ2eHdrEAwy5ZW8f5b5fOiIGhHQwKFg=";
           AllowedIPs = [
-            "0.0.0.0/0"
+            "10.0.0.1/32"
           ];
           Endpoint = "37.205.13.29:51820";
           PersistentKeepalive = 7;
         }
-      ];
-      spokes = [
         {
           PublicKey = "rZJ7mJl0bmfWeqpUalv69c+TxukpTaxF/SN+RyxklVA=";
           AllowedIPs = [ "10.0.0.2/32" ];
@@ -160,6 +158,7 @@ let
                     };
                     signing.key = "C565 2E79 2A7A 9110 DFA7  F77D 0BDA D4B2 11C4 9294";
                   };
+                  password-store.enable = true;
                   delta.enable = true;
                   opencode = {
                     enable = true;
@@ -411,7 +410,7 @@ let
           meta.swayland.enable = true;
           meta.wireguard = {
             enable = true;
-            peers = hub;
+            peers = peers;
             address = "10.0.0.2/24";
           };
           networking.hostName = "nova";
@@ -509,7 +508,7 @@ let
         meta.swayland.enable = true;
         meta.wireguard = {
           enable = true;
-          peers = hub;
+          peers = peers;
           address = "10.0.0.4/24";
         };
         networking.hostName = "stara";
@@ -589,8 +588,7 @@ let
           meta.wireguard = {
             enable = true;
             address = "10.0.0.1/24";
-            isHub = true;
-            peers = spokes;
+            peers = peers;
           };
           services.nginx.enable = true;
           services.postgresql.enable = true;
