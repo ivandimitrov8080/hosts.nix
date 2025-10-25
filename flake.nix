@@ -34,13 +34,12 @@
     inputs:
     let
       system = "x86_64-linux";
-      pkgs = import inputs.nixpkgs { inherit system; };
     in
     {
       nixosConfigurations = import ./src/configs { inherit inputs; };
       overlays = import ./src/overlays { inherit inputs; };
       devShells = import ./src/shells { inherit inputs; };
       formatter = import ./src/formatter { inherit inputs; };
-      packages."x86_64-linux".swhkd = pkgs.callPackage ./src/packages/swhkd { };
+      packages.${system} = import ./src/packages { inherit inputs system; };
     };
 }
