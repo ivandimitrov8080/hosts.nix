@@ -7,6 +7,7 @@ let
         {
           PublicKey = "iRSHYRPRELX8lJ2eHdrEAwy5ZW8f5b5fOiIGhHQwKFg=";
           AllowedIPs = [
+            "37.205.13.29/32"
             "10.0.0.1/32"
           ];
           Endpoint = "37.205.13.29:51820";
