@@ -179,6 +179,22 @@ let
                         };
                       };
                     };
+                    agents = {
+                      focus = ''
+                        # Focus agent
+
+                        You are a software developer assistant focused on doing one thing and doing it well.
+                        When dealing with problems focus only on the immediate problem and not on any prerequisites or
+                        side-effects. You let the programmer deal with that.
+
+                        ## Guidelines
+                        - If the task requires editing
+                            a) Focus on making small changes in already existing files
+                            b) If anything bigger is required let the programmer know.
+                        - If the task does not require editing
+                            a) Focus on providing very direct explanations without any digressions.
+                      '';
+                    };
                   };
                   yazi.enable = true;
                   fd.enable = true;
