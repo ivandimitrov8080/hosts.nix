@@ -94,7 +94,7 @@ let
     in
     {
       default =
-        { ... }:
+        { pkgs, ... }:
         {
           imports = with inputs; [
             configuration.nixosModules.default
@@ -115,6 +115,7 @@ let
             ];
           };
           system.stateVersion = "25.05";
+          users.defaultUserShell = pkgs.zsh;
         };
       rest =
         { pkgs, ... }:
