@@ -40,6 +40,7 @@
       overlays = import ./src/overlays { inherit inputs; };
       devShells = import ./src/shells { inherit inputs; };
       formatter = import ./src/formatter { inherit inputs; };
+      templates = import ./src/templates { inherit inputs; };
       packages.${system} = import ./src/packages { inherit inputs system; };
     };
 }
