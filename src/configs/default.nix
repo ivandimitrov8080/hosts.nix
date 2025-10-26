@@ -1114,27 +1114,49 @@ in
     )
   ];
   gaming = novaConfig [
-    {
-      meta.gaming.enable = true;
-      home-manager.users.ivand = {
-        wayland.windowManager.sway = {
-          config = {
-            input = {
-              "type:touchpad" = {
-                events = "disabled";
+    (
+      { pkgs, ... }:
+      let
+        desktopItems = [
+          (pkgs.makeDesktopItem {
+            name = "dota";
+            desktopName = "DotA 2";
+            exec = "${pkgs.steam}/bin/steam steam://launch/570/dialog";
+            terminal = false;
+            icon = "${pkgs.faenza}/Delft/apps/96/dota2.svg";
+          })
+          (pkgs.makeDesktopItem {
+            name = "cs2";
+            desktopName = "Counter Strike 2";
+            exec = "${pkgs.steam}/bin/steam steam://launch/730/dialog";
+            terminal = false;
+            icon = "${pkgs.faenza}/Delft/apps/96/csgo.svg";
+          })
+        ];
+      in
+      {
+        meta.gaming.enable = true;
+        home-manager.users.ivand = {
+          wayland.windowManager.sway = {
+            config = {
+              input = {
+                "type:touchpad" = {
+                  events = "disabled";
+                };
               };
-            };
-            assigns = {
-              "3" = [
-                { class = "^dota2$"; }
-                { class = "^cs2$"; }
-              ];
-              "9" = [ { class = "^steam$"; } ];
+              assigns = {
+                "3" = [
+                  { class = "^dota2$"; }
+                  { class = "^cs2$"; }
+                ];
+                "9" = [ { class = "^steam$"; } ];
+              };
             };
           };
         };
-      };
-    }
+        environment.systemPackages = [ ] ++ desktopItems;
+      }
+    )
   ];
   ai = novaConfig [ { meta.ai.enable = true; } ];
   music = novaConfig [ { meta.music.enable = true; } ];
