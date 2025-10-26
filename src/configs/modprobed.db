@@ -16,6 +16,7 @@ blake2b_generic
 btrfs
 button
 cbc
+ccm
 cec
 cfg80211
 chacha_x86_64
