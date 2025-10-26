@@ -961,6 +961,7 @@ in
     (
       { pkgs, ... }:
       {
+        environment.systemPackages = with pkgs; [ modprobed-db ];
         boot.kernelPackages = pkgs.linuxPackages-libre;
         boot.extraModprobeConfig = ''
           # unused network protocols
