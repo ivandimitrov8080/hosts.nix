@@ -959,10 +959,42 @@ in
 {
   nova = novaConfig [
     (
-      { pkgs, ... }:
+      { pkgs, lib, ... }:
+      let
+        modprobedDb = ./modprobed.db;
+        kernel = pkgs.linuxPackages-libre.kernel;
+        generatedConfig = pkgs.stdenv.mkDerivation {
+          name = "kernel-longterm-minimal";
+          src = kernel.src;
+          nativeBuildInputs = with pkgs; [
+            pkg-config
+          ];
+
+          unpackPhase = "true";
+
+          buildPhase = ''
+            # Simulate /proc/modules from modprobed.db
+            export LSMOD=$(mktemp)
+            awk '{ print $1, 0, 0 }' ${modprobedDb} > $LSMOD
+
+            # customize the defconfig using the currently "loaded" modules from modprobed-db
+            yes "" | make localmodconfig
+
+            # Show result
+            cp .config $out/config
+          '';
+
+          installPhase = "true";
+        };
+        kernelPackages = pkgs.linuxPackagesFor (
+          kernel.override {
+            configfile = "${generatedConfig}/config";
+          }
+        );
+      in
       {
         environment.systemPackages = with pkgs; [ modprobed-db ];
-        boot.kernelPackages = pkgs.linuxPackages-libre;
+        boot.kernelPackages = kernelPackages;
         boot.extraModprobeConfig = ''
           # unused network protocols
           install dccp /bin/false
