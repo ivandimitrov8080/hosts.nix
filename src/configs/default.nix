@@ -159,8 +159,9 @@ let
                     };
                     signing.key = "C565 2E79 2A7A 9110 DFA7  F77D 0BDA D4B2 11C4 9294";
                   };
-                  password-store.enable = true;
                   delta.enable = true;
+                  gh.enable = true;
+                  password-store.enable = true;
                   opencode = {
                     enable = true;
                     settings = {
