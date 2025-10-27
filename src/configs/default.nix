@@ -965,27 +965,31 @@ in
         modprobedDb = ./modprobed.db;
         kernel = pkgs.linuxPackages-libre.kernel;
         generatedConfig = pkgs.stdenv.mkDerivation {
-          name = "kernel-longterm-minimal";
+          name = "linux-nova";
           src = kernel.src;
           nativeBuildInputs = with pkgs; [
             pkg-config
+            flex
+            bison
+            perl
           ];
 
-          unpackPhase = "true";
+          phases = [
+            "unpackPhase"
+            "configurePhase"
+            "installPhase"
+          ];
 
-          buildPhase = ''
-            # Simulate /proc/modules from modprobed.db
-            export LSMOD=$(mktemp)
-            awk '{ print $1, 0, 0 }' ${modprobedDb} > $LSMOD
-
-            # customize the defconfig using the currently "loaded" modules from modprobed-db
-            yes "" | make localmodconfig
-
-            # Show result
-            cp .config $out/config
+          configurePhase = ''
+            yes "" | make LSMOD=${modprobedDb} localmodconfig
           '';
 
-          installPhase = "true";
+          installPhase = ''
+            runHook preInstall
+            mkdir -p $out
+            cp .config $out/config
+            runHook postInstall
+          '';
         };
         kernelPackages = pkgs.linuxPackagesFor (
           kernel.override {
