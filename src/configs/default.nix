@@ -1000,7 +1000,7 @@ in
             };
           };
         };
-        environment.systemPackages = [ ] ++ desktopItems;
+        environment.systemPackages = with pkgs; [ radeontop ] ++ desktopItems;
       }
     )
   ];
