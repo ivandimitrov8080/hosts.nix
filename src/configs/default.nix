@@ -221,6 +221,9 @@ let
                   rofi.enable = true;
                   imv.enable = true;
                   mpv.enable = true;
+                  mpv.scripts = with pkgs.myMpvScripts; [
+                    hello-world
+                  ];
                   browserpass.enable = true;
                   firefox.enable = true;
                 };
