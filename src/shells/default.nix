@@ -18,6 +18,15 @@
           })
         ];
       };
+      lua = pkgs.mkShell {
+        buildInputs = [
+          (pkgs.nvim.extend {
+            lsp.servers = {
+              emmylua_ls.enable = true;
+            };
+          })
+        ];
+      };
       py = pkgs.mkShell {
         buildInputs = with pkgs; [
           (pkgs.nvim.extend {

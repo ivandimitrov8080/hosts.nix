@@ -222,7 +222,7 @@ let
                   imv.enable = true;
                   mpv.enable = true;
                   mpv.scripts = with pkgs.myMpvScripts; [
-                    hello-world
+                    dir-player
                   ];
                   browserpass.enable = true;
                   firefox.enable = true;
