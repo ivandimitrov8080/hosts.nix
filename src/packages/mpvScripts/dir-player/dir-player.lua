@@ -71,28 +71,38 @@ local function find_last_played_file(files, history)
     return latest_file
 end
 
--- Seek to last position of the most recently played file
-local function resume_last_played(history)
+-- Seek to last position of the currently loaded file
+local function resume_current_file(history)
+    local filename = to_filename(mp.get_property("filename"))
+    local entry = history[filename]
+    if entry ~= nil and entry.position ~= nil then
+        mp.commandv('seek', entry.position, 'absolute', 'exact')
+        msg.info("Resumed " .. filename .. " at position " .. entry.position)
+    end
+end
+
+-- Switch to last played file in playlist
+local function switch_to_last_played_file(history)
     local playlist = get_playlist()
     local last_file = find_last_played_file(playlist, history)
     if last_file ~= nil then
-        local entry = history[last_file]
-        if entry ~= nil and entry.position ~= nil then
-            for i, v in ipairs(playlist) do
-                if v.filename == last_file then
-                    mp.commandv('seek', entry.position, 'absolute', 'exact')
-                    msg.info("Resumed " .. last_file .. " at position " .. entry.position)
-                    return
-                end
+        for i, v in ipairs(playlist) do
+            if v.filename == last_file then
+                mp.set_property("playlist-pos", i - 1) -- mpv uses 0-based index
+                msg.info("Switched to last played file: " .. last_file)
+                return
             end
         end
     end
 end
 
--- On startup, load history and resume last played file
+-- On startup, switch to last played file and resume
 mp.register_event("file-loaded", function()
-    resume_last_played(load_history())
+    local history = load_history()
+    switch_to_last_played_file(history)
+    resume_current_file(history)
 end)
+
 
 mp.register_event("on_unload", function()
     update_history()
