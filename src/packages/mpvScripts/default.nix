@@ -4,5 +4,5 @@ let
   buildMpv = d: (pkgs.stdenv.mkDerivation (d // { passthru.scriptName = d.name; }));
 in
 pkgs.lib.recurseIntoAttrs {
-  hello-world = callPackage ./hello-world { inherit buildMpv; };
+  dir-player = callPackage ./dir-player { inherit buildMpv; };
 }
