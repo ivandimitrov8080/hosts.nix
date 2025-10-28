@@ -4,6 +4,10 @@ local msg = require 'mp.msg'
 
 history_path = (os.getenv("HOME") or "") .. "/.config/mpv/dir-player-history.json"
 
+local function to_filename(path)
+    return path:match("([^/]+)$")
+end
+
 -- Save history to JSON file
 local function save_history(history)
     local file = io.open(history_path, "w")
@@ -33,7 +37,7 @@ end
 -- Update history for a file
 local function update_history()
     local history = load_history()
-    local filename = mp.get_property("filename")
+    local filename = to_filename(mp.get_property("filename"))
     local position = mp.get_property_number("time-pos", 0)
     history[filename] = {
         position = math.floor(position),
@@ -42,25 +46,25 @@ local function update_history()
     save_history(history)
 end
 
--- Get playlist file paths
-local function get_playlist_files()
-    local playlist = mp.get_property_native("playlist")
-    local files = {}
-    for _, entry in ipairs(playlist) do
+local function get_playlist()
+    local pl = mp.get_property_native("playlist")
+    local res = {}
+    for _, entry in ipairs(pl) do
         if entry.filename then
-            table.insert(files, entry.filename)
+            entry.filename = to_filename(entry.filename)
+            table.insert(res, entry)
         end
     end
-    return files
+    return res
 end
 
 -- Find the most recently played file in the playlist
 local function find_last_played_file(files, history)
     local latest_file, latest_time = nil, 0
     for _, file in ipairs(files) do
-        local entry = history[file]
+        local entry = history[file.filename]
         if entry and entry.timestamp and entry.timestamp > latest_time then
-            latest_file = file
+            latest_file = file.filename
             latest_time = entry.timestamp
         end
     end
@@ -69,18 +73,14 @@ end
 
 -- Seek to last position of the most recently played file
 local function resume_last_played(history)
-    local files = get_playlist_files()
-    local last_file = find_last_played_file(files, history)
-    msg.info(last_file)
+    local playlist = get_playlist()
+    local last_file = find_last_played_file(playlist, history)
     if last_file ~= nil then
         local entry = history[last_file]
         if entry ~= nil and entry.position ~= nil then
-            -- Find index in playlist
-            local playlist = mp.get_property_native("playlist")
             for i, v in ipairs(playlist) do
                 if v.filename == last_file then
-                    mp.set_property("playlist-pos", i - 1)
-                    mp.commandv('seek', entry.position, "absolute+keyframes")
+                    mp.commandv('seek', entry.position, 'absolute', 'exact')
                     msg.info("Resumed " .. last_file .. " at position " .. entry.position)
                     return
                 end
@@ -98,7 +98,7 @@ mp.register_event("on_unload", function()
     update_history()
 end)
 
-mp.add_periodic_timer(1, function()
+mp.add_periodic_timer(5, function()
     update_history()
 end)
 
