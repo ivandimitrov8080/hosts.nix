@@ -8,6 +8,10 @@ local function to_filename(path)
     return path:match("([^/]+)$")
 end
 
+local function info(message)
+    msg.info(message)
+end
+
 -- Save history to JSON file
 local function save_history(history)
     local file = io.open(history_path, "w")
@@ -38,9 +42,10 @@ end
 local function update_history()
     local history = load_history()
     local filename = to_filename(mp.get_property("filename"))
-    local position = mp.get_property_number("time-pos", 0)
+    local position = math.floor(mp.get_property_number("time-pos", 0))
+    info("Updating file {" .. filename .. "} to position {" .. position .. " seconds}.")
     history[filename] = {
-        position = math.floor(position),
+        position = position,
         timestamp = os.time()
     }
     save_history(history)
@@ -77,7 +82,7 @@ local function resume_current_file(history)
     local entry = history[filename]
     if entry ~= nil and entry.position ~= nil then
         mp.commandv('seek', entry.position, 'absolute', 'exact')
-        msg.info("Resumed " .. filename .. " at position " .. entry.position)
+        info("Resumed " .. filename .. " at position " .. entry.position)
     end
 end
 
@@ -89,7 +94,7 @@ local function switch_to_last_played_file(history)
         for i, v in ipairs(playlist) do
             if v.filename == last_file then
                 mp.set_property("playlist-pos", i - 1) -- mpv uses 0-based index
-                msg.info("Switched to last played file: " .. last_file)
+                info("Switched to last played file: " .. last_file)
                 return
             end
         end
@@ -97,19 +102,19 @@ local function switch_to_last_played_file(history)
 end
 
 -- On startup, switch to last played file and resume
-mp.register_event("file-loaded", function()
-    local history = load_history()
-    switch_to_last_played_file(history)
-    resume_current_file(history)
-end)
+local function init()
+    local interval = 5
+    mp.register_event("file-loaded", function()
+        local history = load_history()
+        switch_to_last_played_file(history)
+        resume_current_file(history)
+    end)
+    info("Switched to last played file from this dir playlist.")
 
+    mp.add_periodic_timer(interval, function()
+        update_history()
+    end)
+    info("Added periodic timer to save history every {" .. interval .. " seconds}.")
+end
 
-mp.register_event("on_unload", function()
-    update_history()
-end)
-
-mp.add_periodic_timer(5, function()
-    update_history()
-end)
-
-mp.msg.info("dir-player.lua loaded: playlist resume enabled")
+init()
