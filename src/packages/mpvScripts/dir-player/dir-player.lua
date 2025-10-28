@@ -3,6 +3,7 @@ local utils = require 'mp.utils'
 local msg = require 'mp.msg'
 
 history_path = (os.getenv("HOME") or "") .. "/.config/mpv/dir-player-history.json"
+history = nil
 
 local function to_filename(path)
     return path:match("([^/]+)$")
@@ -23,19 +24,25 @@ end
 
 -- Load history from JSON file
 local function load_history()
-    local file = io.open(history_path, "r")
-    if not file then
-        save_history()
-        file = io.open(history_path, "r")
+    if history == nil then
+        local file = io.open(history_path, "r")
         if not file then
-            return {}
+            save_history()
+            file = io.open(history_path, "r")
+            if not file then
+                return {}
+            end
+        end
+        local content = file:read("*a")
+        file:close()
+        local ok, data = pcall(function() return utils.parse_json(content) end)
+        if ok and type(data) == "table" or data == nil then
+            history = data
+        else
+            error("Error reading history file: {OK: " .. ok .. "" .. data .. "}")
         end
     end
-    local content = file:read("*a")
-    file:close()
-    local ok, data = pcall(function() return utils.parse_json(content) end)
-    if ok and type(data) == "table" then return data end
-    return {}
+    return history or {}
 end
 
 -- Update history for a file
