@@ -50,12 +50,14 @@ local function update_history()
     local history = load_history()
     local filename = to_filename(mp.get_property("filename"))
     local position = math.floor(mp.get_property_number("time-pos", 0))
-    info("Updating file {" .. filename .. "} to position {" .. position .. " seconds}.")
+    local duration = math.floor(mp.get_property_number("duration"))
     history[filename] = {
         position = position,
+        duration = duration,
         timestamp = os.time()
     }
     save_history(history)
+    info("Saved history {" .. filename .. "} to position {" .. position .. " seconds}.")
 end
 
 local function get_playlist()
@@ -72,12 +74,12 @@ end
 
 -- Find the most recently played file in the playlist
 local function find_last_played_file(files, history)
-    local latest_file, latest_time = nil, 0
+    local latest_file, latest_time = {}, 0
     for _, file in ipairs(files) do
         local entry = history[file.filename]
         if entry and entry.timestamp and entry.timestamp > latest_time then
-            latest_file = file.filename
-            latest_time = entry.timestamp
+            latest_file.filename = file.filename
+            for k, v in pairs(entry) do latest_file[k] = v end
         end
     end
     return latest_file
@@ -99,22 +101,29 @@ local function switch_to_last_played_file(history)
     local last_file = find_last_played_file(playlist, history)
     if last_file ~= nil then
         for i, v in ipairs(playlist) do
-            if v.filename == last_file then
+            if v.filename == last_file.filename then
+                if last_file.duration - last_file.position < 120 then
+                    i = i + 1
+                end
                 mp.set_property("playlist-pos", i - 1) -- mpv uses 0-based index
-                info("Switched to last played file: " .. last_file)
+                info("Switched to last played file: " .. utils.format_json(last_file))
                 return
             end
         end
     end
 end
 
+local function determine_file_to_play()
+    local history = load_history()
+    switch_to_last_played_file(history)
+    resume_current_file(history)
+end
+
 -- On startup, switch to last played file and resume
 local function init()
     local interval = 5
     mp.register_event("file-loaded", function()
-        local history = load_history()
-        switch_to_last_played_file(history)
-        resume_current_file(history)
+        determine_file_to_play()
     end)
     info("Switched to last played file from this dir playlist.")
 
