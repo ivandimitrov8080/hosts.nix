@@ -51,8 +51,8 @@ function player.next_from_history()
 end
 
 function player.load_dir()
-    local playlist = "playlist.txt"
-    local f = io.open(get_current_dir() .. playlist, "w+")
+    local playlist = get_current_dir() .. "playlist.txt"
+    local f = io.open(playlist, "w+")
     if not f then error("Error crating temp file for playlist.") end
     local content = table.concat(get_files(), "\n")
     f:write(content)
