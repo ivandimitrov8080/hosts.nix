@@ -1,35 +1,65 @@
 local mp = require 'mp'
 local msg = require 'mp.msg'
+local utils = require 'mp.utils'
 local history = require 'history'
 local u = require 'util'
 
 local player = {}
 
+local function get_current_dir()
+    local path = mp.get_property("path")
+    local filename = u.filename(path)
+    local current_dir = string.sub(path, 1, string.len(path) - string.len(filename))
+    return current_dir
+end
+
+local function get_files()
+    local files = utils.readdir(get_current_dir(), "files")
+    table.sort(files)
+    local res = {}
+    for _, entry in ipairs(files) do
+        table.insert(res, u.filename(entry))
+    end
+    return res
+end
+
 -- Seek to last position of the currently loaded file
-local function resume_current_file()
-    local entry = history.get_last_entry()
+local function resume_entry(entry)
+    msg.info("got to resume")
     if entry ~= nil and entry.position ~= nil then
         mp.commandv('seek', entry.position, 'absolute', 'exact')
+        msg.info("Updated to latest position {" .. entry.position .. "}.")
     end
 end
 
 -- Switch to last played file in playlist
-local function switch_to_last_played_file()
-    local index = history.get_index()
-    mp.set_property("playlist-pos", index)
-    msg.info("Switched to last played file.")
+local function set_index(index)
+    mp.set_property("playlist-pos-1", index)
 end
 
 function player.next_from_history()
-    switch_to_last_played_file()
-    resume_current_file()
+    local idx = history.get_index();
+    local entry = history.get_entry(idx)
+    if not entry then return end
+    while entry.duration - entry.position < 120 do
+        idx = idx + 1
+        entry = history.get_entry(idx)
+        if not entry then return end
+    end
+    set_index(idx)
+    resume_entry(entry)
 end
 
-function player.current_directory()
-    local p = mp.get_property("path")
-    local f = u.filename(mp.get_property("filename"))
-    local d = string.gsub(p, f, "")
-    return d
+function player.load_dir()
+    local playlist = "playlist.txt"
+    local f = io.open(get_current_dir() .. playlist, "w+")
+    if not f then error("Error crating temp file for playlist.") end
+    local content = table.concat(get_files(), "\n")
+    f:write(content)
+    f:flush()
+    mp.commandv("loadlist", playlist)
+    f:close()
+    mp.unregister_event(player.load_dir)
 end
 
 return player

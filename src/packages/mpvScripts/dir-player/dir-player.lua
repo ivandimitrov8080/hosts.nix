@@ -1,3 +1,6 @@
+local script_dir = debug.getinfo(1, "S").source:match("@(.*/)")
+package.path = script_dir .. "?.lua;" .. package.path
+
 local mp = require 'mp'
 local msg = require 'mp.msg'
 local history = require 'history'
@@ -10,7 +13,10 @@ end
 
 -- Update history
 local function on_timeout()
-    history.update()
+    local ok, e = pcall(history.update)
+    if not ok then
+        msg.error("Failed to update history." .. e)
+    end
 end
 
 local function on_shutdown()
@@ -20,6 +26,9 @@ end
 -- On startup, switch to last played file and resume
 local function init()
     local interval = 1
+    mp.register_event("file-loaded", player.load_dir)
+    msg.info("Loaded the directory")
+
     mp.register_event("file-loaded", on_file_loaded)
     msg.info("Switched to last played file from this dir playlist.")
 
