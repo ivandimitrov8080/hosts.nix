@@ -1,136 +1,33 @@
 local mp = require 'mp'
-local utils = require 'mp.utils'
 local msg = require 'mp.msg'
+local history = require 'history'
+local player = require 'player'
 
-history_path = (os.getenv("HOME") or "") .. "/.config/mpv/dir-player-history.json"
-history = nil
 
-local function to_filename(path)
-    return path:match("([^/]+)$")
+local function on_file_loaded()
+    player.next_from_history()
 end
 
-local function info(message)
-    msg.info(message)
+-- Update history
+local function on_timeout()
+    history.update()
 end
 
--- Save history to JSON file
-local function save_history(history)
-    local file = io.open(history_path, "w")
-    if not file then return end
-    local content = utils.format_json(history)
-    file:write(content)
-    file:close()
-end
-
--- Load history from JSON file
-local function load_history()
-    if history == nil then
-        local file = io.open(history_path, "r")
-        if not file then
-            save_history()
-            file = io.open(history_path, "r")
-            if not file then
-                return {}
-            end
-        end
-        local content = file:read("*a")
-        file:close()
-        local ok, data = pcall(function() return utils.parse_json(content) end)
-        if ok and type(data) == "table" or data == nil then
-            history = data
-        else
-            error("Error reading history file: {OK: " .. ok .. "" .. data .. "}")
-        end
-    end
-    return history or {}
-end
-
--- Update history for a file
-local function update_history()
-    local history = load_history()
-    local filename = to_filename(mp.get_property("filename"))
-    local position = math.floor(mp.get_property_number("time-pos", 0))
-    local duration = math.floor(mp.get_property_number("duration"))
-    history[filename] = {
-        position = position,
-        duration = duration,
-        timestamp = os.time()
-    }
-    save_history(history)
-    info("Saved history {" .. filename .. "} to position {" .. position .. " seconds}.")
-end
-
-local function get_playlist()
-    local pl = mp.get_property_native("playlist")
-    local res = {}
-    for _, entry in ipairs(pl) do
-        if entry.filename then
-            entry.filename = to_filename(entry.filename)
-            table.insert(res, entry)
-        end
-    end
-    return res
-end
-
--- Find the most recently played file in the playlist
-local function find_last_played_file(files, history)
-    local latest_file, latest_time = {}, 0
-    for _, file in ipairs(files) do
-        local entry = history[file.filename]
-        if entry and entry.timestamp and entry.timestamp > latest_time then
-            latest_file.filename = file.filename
-            for k, v in pairs(entry) do latest_file[k] = v end
-        end
-    end
-    return latest_file
-end
-
--- Seek to last position of the currently loaded file
-local function resume_current_file(history)
-    local filename = to_filename(mp.get_property("filename"))
-    local entry = history[filename]
-    if entry ~= nil and entry.position ~= nil then
-        mp.commandv('seek', entry.position, 'absolute', 'exact')
-        info("Resumed " .. filename .. " at position " .. entry.position)
-    end
-end
-
--- Switch to last played file in playlist
-local function switch_to_last_played_file(history)
-    local playlist = get_playlist()
-    local last_file = find_last_played_file(playlist, history)
-    if last_file ~= nil then
-        for i, v in ipairs(playlist) do
-            if v.filename == last_file.filename then
-                if last_file.duration - last_file.position < 120 then
-                    i = i + 1
-                end
-                mp.set_property("playlist-pos", i - 1) -- mpv uses 0-based index
-                info("Switched to last played file: " .. utils.format_json(last_file))
-                return
-            end
-        end
-    end
-end
-
-local function determine_file_to_play()
-    local history = load_history()
-    switch_to_last_played_file(history)
-    resume_current_file(history)
+local function on_shutdown()
+    history.save()
 end
 
 -- On startup, switch to last played file and resume
 local function init()
-    local interval = 5
-    mp.register_event("file-loaded", function()
-        determine_file_to_play()
-    end)
-    info("Switched to last played file from this dir playlist.")
+    local interval = 1
+    mp.register_event("file-loaded", on_file_loaded)
+    msg.info("Switched to last played file from this dir playlist.")
 
-    mp.add_periodic_timer(interval, function()
-        update_history()
-    end)
-    info("Added periodic timer to save history every {" .. interval .. " seconds}.")
+    mp.add_periodic_timer(interval, on_timeout)
+    msg.info("Added periodic timer to update in-memory history every {" .. interval .. " seconds}.")
+
+    mp.register_event("shutdown", on_shutdown)
+    msg.info("Registered shutdown event handler to save history to file.")
 end
 
 init()

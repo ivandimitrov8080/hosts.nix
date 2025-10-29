@@ -8,7 +8,7 @@ let
       // {
         installPhase = ''
           mkdir -p $out/share/mpv/scripts/
-          cp ${d.name} $out/share/mpv/scripts/
+          cp ./*.lua $out/share/mpv/scripts/
         '';
         meta.license = pkgs.lib.licenses.mit;
         passthru.scriptName = d.name;
