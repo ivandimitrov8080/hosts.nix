@@ -6,6 +6,8 @@ local u = require 'util'
 
 local player = {}
 
+local playlist_filename = "playlist.txt"
+
 local function get_current_dir()
     local path = mp.get_property("path")
     local filename = u.filename(path)
@@ -18,7 +20,10 @@ local function get_files()
     table.sort(files)
     local res = {}
     for _, entry in ipairs(files) do
-        table.insert(res, u.filename(entry))
+        local fname = u.filename(entry)
+        if fname ~= playlist_filename then
+            table.insert(res, fname)
+        end
     end
     return res
 end
@@ -51,7 +56,7 @@ function player.next_from_history()
 end
 
 function player.load_dir()
-    local playlist = get_current_dir() .. "playlist.txt"
+    local playlist = get_current_dir() .. playlist_filename
     local f = io.open(playlist, "w+")
     if not f then error("Error crating temp file for playlist.") end
     local content = table.concat(get_files(), "\n")
