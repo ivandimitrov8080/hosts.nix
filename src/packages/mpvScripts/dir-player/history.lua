@@ -60,11 +60,8 @@ local function determine_filename(index)
     end
 end
 
-function history.update()
-    local position = math.floor(mp.get_property_number("time-pos", 0))
-    local duration = math.floor(mp.get_property_number("duration", 0))
-    local filename = u.filename(mp.get_property("path"))
-    local index = determine_index(filename)
+local function add_entry(e)
+    local filename, position, duration, index = table.unpack(e)
     history.current().files[filename] = {
         position = position,
         duration = duration,
@@ -74,6 +71,21 @@ function history.update()
         history.current().index = index
     else
         error("Error finding index for current file " .. filename)
+    end
+end
+
+function history.update()
+    local position = math.floor(mp.get_property_number("time-pos", 0))
+    local duration = math.floor(mp.get_property_number("duration", 0))
+    local filename = u.filename(mp.get_property("path"))
+    local index = determine_index(filename)
+    add_entry({ filename, position, duration, index })
+    local playlist = get_playlist()
+    for i, entry in ipairs(playlist) do
+        if not history.current().files[entry.filename] then
+            local fname = u.filename(entry.filename)
+            add_entry({ fname, 0, 0, i })
+        end
     end
 end
 

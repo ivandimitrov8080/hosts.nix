@@ -30,7 +30,6 @@ end
 
 -- Seek to last position of the currently loaded file
 local function resume_entry(entry)
-    msg.info("got to resume")
     if entry ~= nil and entry.position ~= nil then
         mp.commandv('seek', entry.position, 'absolute', 'exact')
         msg.info("Updated to latest position {" .. entry.position .. "}.")
@@ -46,7 +45,7 @@ function player.next_from_history()
     local idx = history.get_index();
     local entry = history.get_entry(idx)
     if not entry then return end
-    while entry.duration - entry.position < 120 do
+    while entry.duration ~= 0 and entry.duration - entry.position < 120 do
         idx = idx + 1
         entry = history.get_entry(idx)
         if not entry then return end
