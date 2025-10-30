@@ -366,7 +366,7 @@ let
             packages = with pkgs; [
               nerd-fonts.fira-code
               noto-fonts
-              noto-fonts-emoji
+              noto-fonts-color-emoji
               noto-fonts-lgc-plus
             ];
           };
