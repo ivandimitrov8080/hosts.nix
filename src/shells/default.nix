@@ -130,5 +130,18 @@
           })
         ];
       };
+      java = pkgs.mkShell {
+        buildInputs = with pkgs; [
+          jdk24
+          maven
+          gradle
+          spring-boot-cli
+          (pkgs.nvim.extend {
+            plugins = {
+              java.enable = true;
+            };
+          })
+        ];
+      };
     };
 }
