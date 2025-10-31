@@ -322,7 +322,7 @@ let
             libnotify
             libreoffice-qt
             mupdf
-            nvim
+            nvim.default
             pwvucontrol
             python3
             screenshot

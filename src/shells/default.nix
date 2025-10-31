@@ -11,84 +11,45 @@
     {
       default = pkgs.mkShell {
         buildInputs = [
-          (pkgs.nvim.extend {
-            lsp.servers = {
-              nushell.enable = true;
-            };
+          (pkgs.nvim.default.extend {
+            lsp.servers.nushell.enable = true;
           })
         ];
       };
       lua = pkgs.mkShell {
         buildInputs = [
-          (pkgs.nvim.extend {
-            lsp.servers = {
-              emmylua_ls.enable = true;
-            };
-          })
+          pkgs.nvim.lua
         ];
       };
       py = pkgs.mkShell {
         buildInputs = with pkgs; [
-          (pkgs.nvim.extend {
-            lsp.servers = {
-              pylsp.enable = true;
-            };
-          })
+          nvim.python
           python3
-        ];
-      };
-      node = pkgs.mkShell {
-        buildInputs = with pkgs; [
-          (pkgs.nvim.extend {
-            lsp.servers = {
-              ts_ls.enable = true;
-            };
-          })
-          nodejs
         ];
       };
       web = pkgs.mkShell {
         buildInputs = with pkgs; [
+          nvim.web
           nodejs
           yarn
-          (pkgs.nvim.extend {
-            lsp.servers = {
-              ts_ls.enable = true;
-              svelte.enable = true;
-              html.enable = true;
-              cssls.enable = true;
-              jsonls.enable = true;
-              tailwindcss.enable = true;
-              prismals.enable = true;
-              prismals.package = pkgs.npmPackages."@prisma/language-server";
-            };
-          })
         ];
-        env = {
-          PRISMA_QUERY_ENGINE_LIBRARY = "${pkgs.prisma-engines}/lib/libquery_engine.node";
-          PRISMA_QUERY_ENGINE_BINARY = "${pkgs.prisma-engines}/bin/query-engine";
-          PRISMA_SCHEMA_ENGINE_BINARY = "${pkgs.prisma-engines}/bin/schema-engine";
-        };
       };
       rust = pkgs.mkShell {
         buildInputs = with pkgs; [
+          nvim.rust
           cargo
           libudev-zero
           pkg-config
           rust-analyzer
           rustc
           rustfmt
-          (pkgs.nvim.extend {
-            plugins = {
-              rustaceanvim = {
-                enable = true;
-              };
-            };
-          })
         ];
       };
       lila = pkgs.mkShell {
         buildInputs = with pkgs; [
+          (nvim.scala.extend {
+            lsp.servers.ts_ls.enable = true;
+          })
           zulu
           coursier
           sbt
@@ -97,50 +58,29 @@
           mongodb
           mongosh
           redis
-          (pkgs.nvim.extend {
-            lsp.servers = {
-              metals.enable = true;
-              ts_ls.enable = true;
-            };
-          })
         ];
       };
       haskell = pkgs.mkShell {
         buildInputs = with pkgs; [
+          nvim.haskell
           ghc
-          (pkgs.nvim.extend {
-            lsp.servers = {
-              hls.enable = true;
-            };
-            plugins = {
-              haskell-scope-highlighting.enable = true;
-            };
-          })
         ];
       };
       c = pkgs.mkShell {
         buildInputs = with pkgs; [
+          nvim.c
           gcc
           meson
           ninja
-          (pkgs.nvim.extend {
-            lsp.servers = {
-              ccls.enable = true;
-            };
-          })
         ];
       };
       java = pkgs.mkShell {
         buildInputs = with pkgs; [
-          jdk24
+          nvim.java
+          jdk
           maven
           gradle
           spring-boot-cli
-          (pkgs.nvim.extend {
-            plugins = {
-              java.enable = true;
-            };
-          })
         ];
       };
     };

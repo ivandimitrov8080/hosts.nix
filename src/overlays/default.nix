@@ -1,13 +1,18 @@
 { inputs }:
 {
   default =
-    _final: prev: with prev; {
-      nvim =
-        (inputs.nixvim.legacyPackages.${system}.makeNixvim inputs.configuration.nixvimConfigs.default)
-        .extend
-          {
-            package = inputs.neovim-nightly-overlay.packages.${system}.default;
-          };
+    _final: prev:
+    with prev;
+    let
+      inherit (inputs.configuration.lib { lib = prev.lib; }) wrapNixvim;
+      inherit (inputs.nixvim.legacyPackages.${system}) makeNixvim;
+      defaultConfig = inputs.configuration.nixvimConfigs.default;
+      nvim = (makeNixvim defaultConfig).extend {
+        package = inputs.neovim-nightly-overlay.packages.${system}.default;
+      };
+    in
+    {
+      nvim = wrapNixvim nvim;
       ndlm = callPackage ../packages/ndlm { };
       npmPackages = callPackage ../packages/npmPackages { };
       swhkd = callPackage ../packages/swhkd { };
