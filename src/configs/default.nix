@@ -109,8 +109,8 @@ let
               allowUnfree = false;
             };
             overlays = [
-              inputs.configuration.overlays.default
               inputs.self.overlays.default
+              inputs.self.overlays.config
             ];
           };
           system.stateVersion = "25.05";
@@ -322,7 +322,7 @@ let
             libnotify
             libreoffice-qt
             mupdf
-            nvim.default
+            nixvim.main
             pwvucontrol
             python3
             screenshot

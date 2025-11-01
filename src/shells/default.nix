@@ -3,40 +3,44 @@
   "x86_64-linux" =
     let
       overlay = (import ../overlays { inherit inputs; }).default;
+      config = (import ../overlays { inherit inputs; }).config;
       pkgs = import inputs.nixpkgs {
         system = "x86_64-linux";
-        overlays = [ overlay ];
+        overlays = [
+          overlay
+          config
+        ];
       };
     in
     {
       default = pkgs.mkShell {
         buildInputs = [
-          (pkgs.nvim.default.extend {
+          (pkgs.nixvim.main.extend {
             lsp.servers.nushell.enable = true;
           })
         ];
       };
       lua = pkgs.mkShell {
         buildInputs = [
-          pkgs.nvim.lua
+          pkgs.nixvim.lua
         ];
       };
       py = pkgs.mkShell {
         buildInputs = with pkgs; [
-          nvim.python
+          nixvim.python
           python3
         ];
       };
       web = pkgs.mkShell {
         buildInputs = with pkgs; [
-          nvim.web
+          nixvim.web
           nodejs
           yarn
         ];
       };
       rust = pkgs.mkShell {
         buildInputs = with pkgs; [
-          nvim.rust
+          nixvim.rust
           cargo
           libudev-zero
           pkg-config
@@ -47,7 +51,7 @@
       };
       lila = pkgs.mkShell {
         buildInputs = with pkgs; [
-          (nvim.scala.extend {
+          (nixvim.scala.extend {
             lsp.servers.ts_ls.enable = true;
           })
           zulu
@@ -62,13 +66,13 @@
       };
       haskell = pkgs.mkShell {
         buildInputs = with pkgs; [
-          nvim.haskell
+          nixvim.haskell
           ghc
         ];
       };
       c = pkgs.mkShell {
         buildInputs = with pkgs; [
-          nvim.c
+          nixvim.c
           gcc
           meson
           ninja
@@ -76,7 +80,7 @@
       };
       java = pkgs.mkShell {
         buildInputs = with pkgs; [
-          nvim.java
+          nixvim.java
           jdk
           maven
           gradle
