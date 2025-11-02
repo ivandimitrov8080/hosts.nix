@@ -1,8 +1,9 @@
 {
   inputs = {
-    configuration.url = "git+file:///home/ivand/src/configuration.nix";
+    # configuration.url = "git+file:///home/ivand/src/configuration.nix";
+    configuration.url = "github:ivandimitrov8080/configuration.nix";
     # nixpkgs
-    nixpkgs.url = "git+file:///home/ivand/src/nixpkgs";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     # flake-compat to use this flake in configuration.nix
     flake-compat.url = "github:edolstra/flake-compat";
     flake-compat.flake = false;
