@@ -108,5 +108,14 @@
           ];
         }
       );
+      go = pkgs.mkShell {
+        buildInputs = with pkgs; [
+          go
+          (nixvim.main.extend {
+            lsp.servers.gopls.enable = true;
+            plugins.dap-go.enable = true;
+          })
+        ];
+      };
     };
 }
