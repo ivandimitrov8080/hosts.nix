@@ -1,6 +1,7 @@
 { inputs, ... }:
 let
   system = "x86_64-linux";
+  pkgs = import inputs.nixpkgs { inherit system; };
   nixosModules =
     let
       peers = [
@@ -371,7 +372,7 @@ let
             ];
           };
         };
-      nova =
+      nova-module =
         { pkgs, lib, ... }:
         {
           nix = {
@@ -483,7 +484,7 @@ let
             "end" = "rofi -show calc";
           };
         };
-      stara = _: {
+      stara-module = _: {
         programs = {
           git.enable = true;
           gtklock.enable = true;
@@ -812,203 +813,183 @@ let
           }
         ];
       };
-    };
-  hardwareConfigurations = import ../constants;
-  configWithModules =
-    {
-      hardware ? {
-        nixpkgs.hostPlatform = system;
-      },
-      modules,
-    }:
-    inputs.nixpkgs.lib.nixosSystem {
-      modules = [
-        hardware
-      ]
-      ++ modules;
-    };
-  novaConfig =
-    mods:
-    configWithModules {
-      hardware = hardwareConfigurations.nova;
-      modules =
-        (with nixosModules; [
-          default
-          rest
-          nova
-          swhkd
-        ])
-        ++ mods;
-    };
-  staraConfig =
-    mods:
-    configWithModules {
-      hardware = hardwareConfigurations.stara;
-      modules =
-        (with nixosModules; [
-          default
-          rest
-          stara
-        ])
-        ++ mods;
-    };
-  vpsConfig =
-    mods:
-    configWithModules {
-      modules =
-        (with nixosModules; [
-          vpsadminosModule
-          default
-          mail
-          nginx
-        ])
-        ++ mods;
-    };
-  swhkd =
-    {
-      lib,
-      config,
-      pkgs,
-      ...
-    }:
-    let
-      inherit (lib)
-        mkIf
-        mkEnableOption
-        mkOption
-        literalExpression
-        types
-        ;
-      cfg = config.meta.swhkd;
-      keybindingsStr = lib.concatStringsSep "\n" (
-        lib.mapAttrsToList (
-          hotkey: command:
-          lib.optionalString (command != null) ''
-            ${hotkey}
-              ${command}
-          ''
-        ) cfg.keybindings
-      );
-      configFileContent = lib.concatStringsSep "\n" [
-        keybindingsStr
-        cfg.extraConfig
-      ];
-    in
-    {
-      options.meta.swhkd = {
-        enable = mkEnableOption "enable swhkd config";
-        graphical = mkEnableOption "whether commands to run require graphical session";
-        extraConfig = mkOption {
-          default = "";
-          type = types.lines;
-          description = "Additional configuration to add.";
-          example = literalExpression ''
-            super + {_,shift +} {1-9,0}
-              i3-msg {workspace,move container to workspace} {1-10}
-          '';
-        };
-        keybindings = mkOption {
-          type = types.attrsOf (
-            types.nullOr (
-              types.oneOf [
-                types.str
-                types.path
-              ]
-            )
+      swhkd =
+        {
+          lib,
+          config,
+          pkgs,
+          ...
+        }:
+        let
+          inherit (lib)
+            mkIf
+            mkEnableOption
+            mkOption
+            literalExpression
+            types
+            ;
+          cfg = config.meta.swhkd;
+          keybindingsStr = lib.concatStringsSep "\n" (
+            lib.mapAttrsToList (
+              hotkey: command:
+              lib.optionalString (command != null) ''
+                ${hotkey}
+                  ${command}
+              ''
+            ) cfg.keybindings
           );
-          default = { };
-          description = "An attribute set that assigns hotkeys to commands.";
-          example = literalExpression ''
-            {
-              "super + shift + {r,c}" = "i3-msg {restart,reload}";
-              "super + {s,w}"         = "i3-msg {stacking,tabbed}";
-              "super + F1"            = pkgs.writeShellScript "script" "echo $USER";
-            }
-          '';
-        };
-      };
-      config = mkIf cfg.enable {
-        environment.systemPackages = [ pkgs.swhkd ];
-        security.wrappers.swhkd = {
-          source = "${pkgs.swhkd}/bin/swhkd";
-          setuid = true;
-          owner = "root";
-          group = "root";
-        };
-        systemd.user.services = {
-          swhks = {
-            wantedBy = [
-              (if cfg.graphical then "graphical-session.target" else "default.target")
-            ];
-            requiredBy = [ "swhkd.service" ];
-            serviceConfig = {
-              Type = "forking";
-              ExecStart = "${pkgs.swhkd}/bin/swhks";
+          configFileContent = lib.concatStringsSep "\n" [
+            keybindingsStr
+            cfg.extraConfig
+          ];
+        in
+        {
+          options.meta.swhkd = {
+            enable = mkEnableOption "enable swhkd config";
+            graphical = mkEnableOption "whether commands to run require graphical session";
+            extraConfig = mkOption {
+              default = "";
+              type = types.lines;
+              description = "Additional configuration to add.";
+              example = literalExpression ''
+                super + {_,shift +} {1-9,0}
+                  i3-msg {workspace,move container to workspace} {1-10}
+              '';
+            };
+            keybindings = mkOption {
+              type = types.attrsOf (
+                types.nullOr (
+                  types.oneOf [
+                    types.str
+                    types.path
+                  ]
+                )
+              );
+              default = { };
+              description = "An attribute set that assigns hotkeys to commands.";
+              example = literalExpression ''
+                {
+                  "super + shift + {r,c}" = "i3-msg {restart,reload}";
+                  "super + {s,w}"         = "i3-msg {stacking,tabbed}";
+                  "super + F1"            = pkgs.writeShellScript "script" "echo $USER";
+                }
+              '';
             };
           };
-          swhkd = {
-            wantedBy = [
-              (if cfg.graphical then "graphical-session.target" else "default.target")
-            ];
-            requires = [ "swhks.service" ];
-            serviceConfig = {
-              ExecStart = "/run/wrappers/bin/swhkd";
+          config = mkIf cfg.enable {
+            environment.systemPackages = [ pkgs.swhkd ];
+            security.wrappers.swhkd = {
+              source = "${pkgs.swhkd}/bin/swhkd";
+              setuid = true;
+              owner = "root";
+              group = "root";
             };
-          };
-        };
-        environment.etc."swhkd/swhkdrc".text = configFileContent;
-      };
-    };
-in
-{
-  nova = novaConfig [ ];
-  gaming = novaConfig [
-    (
-      { pkgs, ... }:
-      let
-        desktopItems = [
-          (pkgs.makeDesktopItem {
-            name = "dota";
-            desktopName = "DotA 2";
-            exec = "${pkgs.steam}/bin/steam steam://launch/570/dialog";
-            terminal = false;
-            icon = "${pkgs.faenza}/Delft/apps/96/dota2.svg";
-          })
-          (pkgs.makeDesktopItem {
-            name = "cs2";
-            desktopName = "Counter Strike 2";
-            exec = "${pkgs.steam}/bin/steam steam://launch/730/dialog";
-            terminal = false;
-            icon = "${pkgs.faenza}/Delft/apps/96/csgo.svg";
-          })
-        ];
-      in
-      {
-        meta.gaming.enable = true;
-        home-manager.users.ivand = {
-          wayland.windowManager.sway = {
-            config = {
-              input = {
-                "type:touchpad" = {
-                  events = "disabled";
+            systemd.user.services = {
+              swhks = {
+                wantedBy = [
+                  (if cfg.graphical then "graphical-session.target" else "default.target")
+                ];
+                requiredBy = [ "swhkd.service" ];
+                serviceConfig = {
+                  Type = "forking";
+                  ExecStart = "${pkgs.swhkd}/bin/swhks";
                 };
               };
-              assigns = {
-                "3" = [
-                  { class = "^dota2$"; }
-                  { class = "^cs2$"; }
+              swhkd = {
+                wantedBy = [
+                  (if cfg.graphical then "graphical-session.target" else "default.target")
                 ];
-                "9" = [ { class = "^steam$"; } ];
+                requires = [ "swhks.service" ];
+                serviceConfig = {
+                  ExecStart = "/run/wrappers/bin/swhkd";
+                };
+              };
+            };
+            environment.etc."swhkd/swhkdrc".text = configFileContent;
+          };
+        };
+    };
+  hardwareConfigurations = import ../constants;
+in
+rec {
+  nova = inputs.nixpkgs.lib.nixosSystem {
+    modules =
+      (with nixosModules; [
+        default
+        rest
+        nova-module
+        swhkd
+      ])
+      ++ [ hardwareConfigurations.nova ];
+  };
+  gaming = nova.extendModules {
+    modules = [
+      (
+        { pkgs, ... }:
+        let
+          desktopItems = [
+            (pkgs.makeDesktopItem {
+              name = "dota";
+              desktopName = "DotA 2";
+              exec = "${pkgs.steam}/bin/steam steam://launch/570/dialog";
+              terminal = false;
+              icon = "${pkgs.faenza}/Delft/apps/96/dota2.svg";
+            })
+            (pkgs.makeDesktopItem {
+              name = "cs2";
+              desktopName = "Counter Strike 2";
+              exec = "${pkgs.steam}/bin/steam steam://launch/730/dialog";
+              terminal = false;
+              icon = "${pkgs.faenza}/Delft/apps/96/csgo.svg";
+            })
+          ];
+        in
+        {
+          meta.gaming.enable = true;
+          home-manager.users.ivand = {
+            wayland.windowManager.sway = {
+              config = {
+                input = {
+                  "type:touchpad" = {
+                    events = "disabled";
+                  };
+                };
+                assigns = {
+                  "3" = [
+                    { class = "^dota2$"; }
+                    { class = "^cs2$"; }
+                  ];
+                  "9" = [ { class = "^steam$"; } ];
+                };
               };
             };
           };
-        };
-        environment.systemPackages = with pkgs; [ radeontop ] ++ desktopItems;
-      }
-    )
-  ];
-  ai = novaConfig [ { meta.ai.enable = true; } ];
-  music = novaConfig [ { meta.music.enable = true; } ];
-  stara = staraConfig [ ];
-  vps = vpsConfig [ { webshite.enable = true; } ];
+          environment.systemPackages = with pkgs; [ radeontop ] ++ desktopItems;
+        }
+      )
+    ];
+  };
+  ai = nova.extendModules { modules = [ ({ meta.ai.enable = true; }) ]; };
+  music = nova.extendModules { modules = [ { meta.music.enable = true; } ]; };
+  stara = inputs.nixpkgs.lib.nixosSystem {
+    modules =
+      (with nixosModules; [
+        default
+        rest
+        stara-module
+      ])
+      ++ [ hardwareConfigurations.nova ];
+  };
+  vps = inputs.nixpkgs.lib.nixosSystem {
+    modules = (
+      with nixosModules;
+      [
+        vpsadminosModule
+        default
+        mail
+        nginx
+        { webshite.enable = true; }
+      ]
+    );
+  };
 }
