@@ -319,7 +319,6 @@ let
             gimp
             grim
             just
-            kotatogram-desktop
             libnotify
             libreoffice-qt
             mupdf
