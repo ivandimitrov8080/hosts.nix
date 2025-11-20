@@ -954,6 +954,7 @@ rec {
                   };
                 };
                 assigns = {
+                  "2" = [ { app_id = "^firefox$"; } ];
                   "3" = [
                     { class = "^dota2$"; }
                     { class = "^cs2$"; }
