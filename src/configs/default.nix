@@ -965,7 +965,6 @@ rec {
             };
           };
           environment.systemPackages = with pkgs; [ radeontop ] ++ desktopItems;
-          environment.enableAllTerminfo = false;
         }
       )
     ];
