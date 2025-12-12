@@ -629,6 +629,7 @@ let
               ];
             };
           };
+          environment.enableAllTerminfo = true;
           users = {
             users = {
               ivand = lib.mkForce {
