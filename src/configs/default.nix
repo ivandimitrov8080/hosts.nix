@@ -971,7 +971,14 @@ rec {
     ];
   };
   ai = nova.extendModules { modules = [ ({ meta.ai.enable = true; }) ]; };
-  music = nova.extendModules { modules = [ { meta.music.enable = true; } ]; };
+  music = nova.extendModules {
+    modules = [
+      {
+        meta.music.enable = true;
+        boot.kernelPackages = pkgs.linuxPackages_zen;
+      }
+    ];
+  };
   stara = inputs.nixpkgs.lib.nixosSystem {
     modules =
       (with nixosModules; [
