@@ -134,6 +134,9 @@ let
                   default
                 ];
                 xdg.enable = true;
+                home.packages = with pkgs; [
+                  devenv
+                ];
                 programs = {
                   ssh.matchBlocks = {
                     vpsfree-ivand = {
@@ -198,6 +201,10 @@ let
                             a) Focus on providing very direct explanations without any digressions.
                       '';
                     };
+                  };
+                  direnv = {
+                    enable = true;
+                    enableZshIntegration = true;
                   };
                   yazi.enable = true;
                   fd.enable = true;
