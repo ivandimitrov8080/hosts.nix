@@ -721,7 +721,7 @@ let
                     hashedPassword = "$2b$05$rTVIQD98ogXeCBKdk/YufulWHqpMCAlb7SHDPlh5y8Xbukoa/uQLm";
                   };
                 };
-                certificateScheme = "acme-nginx";
+                x509.useACMEHost = "idimitrov.dev";
                 hierarchySeparator = "/";
               };
               services = {
