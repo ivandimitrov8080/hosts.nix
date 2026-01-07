@@ -322,7 +322,6 @@ let
           environment.systemPackages = with pkgs; [
             audacity
             brightnessctl
-            deadnix
             gimp
             grim
             just
@@ -334,7 +333,6 @@ let
             python3
             screenshot
             slurp
-            statix
             telegram-desktop
             transmission_4
             volume
