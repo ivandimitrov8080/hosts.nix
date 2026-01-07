@@ -1003,7 +1003,10 @@ rec {
         default
         mail
         nginx
-        { webshite.enable = true; }
+        {
+          webshite.enable = true;
+          _module.args.system = system;
+        }
       ]
     );
   };
