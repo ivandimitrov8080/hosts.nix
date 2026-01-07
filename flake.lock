@@ -55,11 +55,11 @@
     },
     "configuration": {
       "locked": {
-        "lastModified": 1767129465,
-        "narHash": "sha256-jUQ2a08AjOkseEAOTmiS24DDpeQlGUJVh3hyGTXHUNQ=",
+        "lastModified": 1767828656,
+        "narHash": "sha256-7SKrIajTCT0qiOniuDtEKo8TqTGxc4PW2PPDQlzhdIE=",
         "owner": "ivandimitrov8080",
         "repo": "configuration.nix",
-        "rev": "ec9fdb2d98429a6f399a77a16d0dc5423bb141e3",
+        "rev": "d83daabe87df5b1ad0a68bcab215ea6d74a71909",
         "type": "github"
       },
       "original": {
@@ -387,11 +387,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1767738364,
-        "narHash": "sha256-rmAerMcKMYusVs5B88RAKAYUiENrO+d4bjvpQkkaaks=",
+        "lastModified": 1767824564,
+        "narHash": "sha256-DRhbz2dZaEmj5MgLFMXjEPfmKYfMG6LwNT9Bv8zeLPQ=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "4e8b7bef66c60735982369f3151b93e62fe37da7",
+        "rev": "4fee4bd14b5e4178855ad0041df89fa44f3f2bea",
         "type": "github"
       },
       "original": {
@@ -739,11 +739,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1767738726,
-        "narHash": "sha256-bHATlMr42JABTJgi4Wc8SJCK8Cv9AnR6HCl3k8eTwEs=",
+        "lastModified": 1767801790,
+        "narHash": "sha256-QfX6g3Wj2vQe7oBJEbTf0npvC6sJoDbF9hb2+gM5tf8=",
         "owner": "numtide",
         "repo": "treefmt-nix",
-        "rev": "4db0238d79254c6d14f251808dc5264b8fc81b73",
+        "rev": "778a1d691f1ef45dd68c661715c5bf8cbf131c80",
         "type": "github"
       },
       "original": {
@@ -795,11 +795,11 @@
     },
     "vpsadminos": {
       "locked": {
-        "lastModified": 1767040486,
-        "narHash": "sha256-fM8pt0jA0h4iev+cyYHuodFDLElfEcgNCmc4u/7/0nk=",
+        "lastModified": 1767796149,
+        "narHash": "sha256-yGpWUuiHyCH18s8cYfLp8d98dqPy/BkAcw/KdtjclUs=",
         "owner": "vpsfreecz",
         "repo": "vpsadminos",
-        "rev": "0fe231243e2b1b7eb61e3a0f9de61c03d7ceaf61",
+        "rev": "861043cfdbc47d41618d4fe496f0208f7cb4ab5d",
         "type": "github"
       },
       "original": {
@@ -821,11 +821,11 @@
         "treefmt-nix": "treefmt-nix_2"
       },
       "locked": {
-        "lastModified": 1767744174,
-        "narHash": "sha256-dr2dhb3yOh2q55HApOUPCLZPPuSDL+POmw0LORcRtn4=",
+        "lastModified": 1767822253,
+        "narHash": "sha256-RKqvG/WlFiQBfYuiwYUc03wGZiLisqWu7Zg8V5CswGc=",
         "owner": "ivandimitrov8080",
         "repo": "idimitrov.dev",
-        "rev": "6fe2eac011cf2c28e5a237dff4622fd4ea373675",
+        "rev": "a78608f46ab2af55ccb2ff18815f853ee26cb54b",
         "type": "github"
       },
       "original": {
