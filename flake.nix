@@ -19,9 +19,6 @@
     # for mailserver config
     simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver";
     simple-nixos-mailserver.inputs.nixpkgs.follows = "nixpkgs";
-    # block shitty servers
-    hosts.url = "github:StevenBlack/hosts";
-    hosts.inputs.nixpkgs.follows = "nixpkgs";
     # for formatting
     treefmt.url = "github:numtide/treefmt-nix";
     treefmt.inputs.nixpkgs.follows = "nixpkgs";

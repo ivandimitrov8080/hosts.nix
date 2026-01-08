@@ -98,7 +98,6 @@ let
         {
           imports = with inputs; [
             configuration.nixosModules.default
-            hosts.nixosModule
           ];
           nix.registry = {
             self.flake = inputs.self;
