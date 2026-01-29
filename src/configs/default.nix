@@ -684,6 +684,16 @@ let
                 PermitRootLogin = "prohibit-password";
               };
             };
+            nextcloud = {
+              enable = true;
+              hostName = "nextcloud.idimitrov.dev";
+              https = true;
+              config = {
+                adminpassFile = "/pass";
+                dbtype = "pgsql";
+              };
+              database.createLocally = true;
+            };
           };
         };
       mail =
