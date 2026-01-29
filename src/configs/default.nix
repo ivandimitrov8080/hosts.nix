@@ -2,6 +2,14 @@
 let
   system = "x86_64-linux";
   pkgs = import inputs.nixpkgs { inherit system; };
+  restrictToVpn = ''
+    allow 127.0.0.1/32;
+    allow 10.0.0.2/32;
+    allow 10.0.0.3/32;
+    allow 10.0.0.4/32;
+    allow 10.0.0.5/32;
+    deny all;
+  '';
   nixosModules =
     let
       peers = [
@@ -435,6 +443,7 @@ let
                 "src.idimitrov.dev"
                 "idimitrov.dev"
                 "mail.idimitrov.dev"
+                "nc.idimitrov.dev"
               ];
               "10.0.0.4" = [
                 "stara.idimitrov.dev"
@@ -703,6 +712,7 @@ let
             nginx.virtualHosts.${config.services.nextcloud.hostName} = {
               enableACME = true;
               forceSSL = true;
+              extraConfig = restrictToVpn;
             };
           };
         };
@@ -761,22 +771,11 @@ let
                     $config['smtp_pass'] = "%p";
                   '';
                 };
-                nginx.virtualHosts =
-                  let
-                    restrictToVpn = ''
-                      allow 127.0.0.1/32;
-                      allow 10.0.0.2/32;
-                      allow 10.0.0.3/32;
-                      allow 10.0.0.4/32;
-                      allow 10.0.0.5/32;
-                      deny all;
-                    '';
-                  in
-                  {
-                    "mail.idimitrov.dev" = {
-                      extraConfig = restrictToVpn;
-                    };
+                nginx.virtualHosts = {
+                  "mail.idimitrov.dev" = {
+                    extraConfig = restrictToVpn;
                   };
+                };
                 postgresql.enable = true;
               };
               security = {
