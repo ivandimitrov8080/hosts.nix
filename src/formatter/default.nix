@@ -12,7 +12,7 @@ in
 {
   "${system}" = pkgs.treefmt.withConfig {
     runtimeInputs = with pkgs; [
-      nixfmt-rfc-style
+      nixfmt
       formatjson5
       (topiary.overrideAttrs (
         final: prev: {

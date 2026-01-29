@@ -583,7 +583,12 @@ let
         };
       };
       vpsadminosModule =
-        { pkgs, lib, ... }:
+        {
+          pkgs,
+          lib,
+          config,
+          ...
+        }:
         let
           inherit (lib) mkForce;
         in
@@ -687,13 +692,17 @@ let
             nextcloud = {
               enable = true;
               package = pkgs.nextcloud32;
-              hostName = "nextcloud.idimitrov.dev";
+              hostName = "nc.idimitrov.dev";
               https = true;
               config = {
                 adminpassFile = "/pass";
                 dbtype = "pgsql";
               };
               database.createLocally = true;
+            };
+            nginx.virtualHosts.${config.services.nextcloud.hostName} = {
+              enableACME = true;
+              forceSSL = true;
             };
           };
         };
