@@ -27,6 +27,9 @@
     # my website
     webshite.url = "github:ivandimitrov8080/idimitrov.dev";
     webshite.inputs.nixpkgs.follows = "nixpkgs";
+    # my metronome
+    metronome.url = "github:ivandimitrov8080/metronome";
+    metronome.inputs.nixpkgs.follows = "nixpkgs";
   };
   outputs =
     inputs:
