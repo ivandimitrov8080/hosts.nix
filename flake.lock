@@ -640,11 +640,11 @@
         "treefmt-nix": "treefmt-nix_2"
       },
       "locked": {
-        "lastModified": 1770166474,
-        "narHash": "sha256-P22eifHy+rkUfbn2TzbeGvPYksN0A8gEgvaCCZh4OXc=",
+        "lastModified": 1770168563,
+        "narHash": "sha256-NjEdxYkH+h9hNciuTKPSSaUC/BEs/J0XK/vZU4TVomU=",
         "owner": "ivandimitrov8080",
         "repo": "metronome",
-        "rev": "5dfa8f2fa04b8e89372b53be41ba2417cf148183",
+        "rev": "20842954c38733cb3053c1dd38333d4676ec2d81",
         "type": "github"
       },
       "original": {
