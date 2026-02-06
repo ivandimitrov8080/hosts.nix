@@ -93,11 +93,7 @@ let
       };
       hosts = {
         "10.0.0.1" = [
-          "ai.idimitrov.dev"
-          "src.idimitrov.dev"
-          "idimitrov.dev"
           "mail.idimitrov.dev"
-          "metronome.idimitrov.dev"
         ];
       };
     in
