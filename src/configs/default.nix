@@ -99,6 +99,15 @@ let
           psk = "riaformosa";
         };
       };
+      hosts = {
+        "10.0.0.1" = [
+          "ai.idimitrov.dev"
+          "src.idimitrov.dev"
+          "idimitrov.dev"
+          "mail.idimitrov.dev"
+          "nc.idimitrov.dev"
+        ];
+      };
     in
     {
       default =
@@ -152,10 +161,6 @@ let
                     };
                     vpsfree-root = {
                       hostname = "idimitrov.dev";
-                      user = "root";
-                    };
-                    stara-root = {
-                      hostname = "stara.idimitrov.dev";
                       user = "root";
                     };
                     git = {
@@ -437,18 +442,7 @@ let
           };
           networking.hostName = "nova";
           networking = {
-            hosts = {
-              "10.0.0.1" = [
-                "ai.idimitrov.dev"
-                "src.idimitrov.dev"
-                "idimitrov.dev"
-                "mail.idimitrov.dev"
-                "nc.idimitrov.dev"
-              ];
-              "10.0.0.4" = [
-                "stara.idimitrov.dev"
-              ];
-            };
+            hosts = hosts;
             wireless = {
               enable = true;
               networks = wirelessNetworks;
@@ -501,96 +495,6 @@ let
             "end" = "rofi -show calc";
           };
         };
-      stara-module = _: {
-        programs = {
-          git.enable = true;
-          gtklock.enable = true;
-          zoxide.enable = true;
-          zsh.enable = true;
-          nix-ld.enable = true;
-        };
-        networking = {
-          hosts = {
-            "10.0.0.1" = [
-              "ai.idimitrov.dev"
-              "src.idimitrov.dev"
-              "idimitrov.dev"
-              "mail.idimitrov.dev"
-            ];
-            "10.0.0.4" = [
-              "stara.idimitrov.dev"
-            ];
-          };
-          wireless = {
-            enable = true;
-            networks = wirelessNetworks;
-          };
-        };
-        boot.loader.grub.enable = true;
-        meta.shells.enable = true;
-        meta.swayland.enable = true;
-        meta.wireguard = {
-          enable = true;
-          peers = peers;
-          address = "10.0.0.4/24";
-        };
-        networking.hostName = "stara";
-        services = {
-          openssh = {
-            enable = true;
-            settings = {
-              PasswordAuthentication = false;
-              PermitRootLogin = "yes";
-            };
-          };
-          dbus.enable = true;
-        };
-        users.users.ivand.openssh.authorizedKeys.keys = [
-          ''
-            ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICcLkzuCoBEg+wq/H+hkrv6pLJ8J5BejaNJVNnymlnlo ivan@idimitrov.dev
-          ''
-        ];
-        users.users.root.openssh.authorizedKeys.keys = [
-          ''
-            ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICcLkzuCoBEg+wq/H+hkrv6pLJ8J5BejaNJVNnymlnlo ivan@idimitrov.dev
-          ''
-        ];
-        networking.firewall = {
-          enable = true;
-          interfaces = {
-            wg0 = {
-              allowedTCPPorts = [
-                22
-                53
-                993
-                80 # http
-                443 # https
-                8080 # open-webui
-                11434 # ollama
-              ];
-              allowedUDPPorts = [
-                80
-                443
-                51820 # wireguard
-              ];
-            };
-          };
-          allowedTCPPorts = [
-            8080 # open-webui
-          ];
-        };
-        meta.ai.enable = true;
-        services = {
-          open-webui = {
-            enable = true;
-            host = "0.0.0.0";
-          };
-          monero = {
-            enable = true;
-            dataDir = "/data/var/lib/monero";
-          };
-        };
-      };
       vpsadminosModule =
         {
           pkgs,
@@ -621,6 +525,7 @@ let
           services.nginx.enable = true;
           services.postgresql.enable = true;
           networking = {
+            hosts = hosts;
             nftables = {
               enable = true;
             };
@@ -699,7 +604,7 @@ let
               };
             };
             nextcloud = {
-              enable = true;
+              enable = false;
               package = pkgs.nextcloud32;
               hostName = "nc.idimitrov.dev";
               https = true;
@@ -987,15 +892,6 @@ rec {
         boot.kernelPackages = pkgs.linuxPackages_zen;
       }
     ];
-  };
-  stara = inputs.nixpkgs.lib.nixosSystem {
-    modules =
-      (with nixosModules; [
-        default
-        rest
-        stara-module
-      ])
-      ++ [ hardwareConfigurations.nova ];
   };
   vps = inputs.nixpkgs.lib.nixosSystem {
     modules = (

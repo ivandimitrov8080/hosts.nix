@@ -52,22 +52,6 @@
             targetHost = "vpsfree-root";
             ref = "vps";
           }
-          {
-            name = "stara";
-            command = "nixos-rebuild";
-            subcommand = "switch";
-            targetHost = "stara-root";
-            buildHost = "stara-root";
-            ref = "stara";
-          }
-          {
-            name = "stara-ai";
-            command = "nixos-rebuild";
-            subcommand = "switch";
-            targetHost = "stara-root";
-            buildHost = "stara-root";
-            ref = "stara-ai";
-          }
         ];
       };
     };
