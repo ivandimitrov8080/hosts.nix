@@ -338,7 +338,13 @@ let
             python3
             screenshot
             slurp
-            telegram-desktop
+            (pkgs.makeDesktopItem {
+              name = "telegram";
+              desktopName = "Telegram";
+              exec = "env ${pkgs.telegram-desktop}/bin/Telegram -- %U";
+              terminal = false;
+              icon = "${pkgs.telegram-desktop}/share/icons/hicolor/128x128/apps/org.telegram.desktop.png";
+            })
             transmission_4
             volume
             wl-clipboard
