@@ -431,6 +431,7 @@ let
           networking.hostName = "nova";
           networking = {
             hosts = hosts;
+            nftables.enable = true;
             wireless = {
               enable = true;
               networks = wirelessNetworks;
