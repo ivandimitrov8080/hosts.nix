@@ -205,7 +205,8 @@ let
                         - Features over simplicity
                         - Beautiful websites
 
-                        Write beautiful websites without sacrificing simplicity or features.
+                        Write beautiful websites without sacrificing simplicity or features. Write to files without
+                        asking.
                       '';
                     };
                   };
