@@ -465,24 +465,6 @@ let
             polkit.enable = true;
             rtkit.enable = true;
           };
-          meta.swhkd.enable = true;
-          meta.swhkd.graphical = true;
-          meta.swhkd.keybindings = {
-            "XF86AudioMute" = "volume sink toggle";
-            "Shift + XF86AudioMute" = "volume source toggle";
-            "XF86AudioLowerVolume" = "volume sink down";
-            "Shift + XF86AudioLowerVolume" = "volume source down";
-            "XF86AudioRaiseVolume" = "volume sink up";
-            "Shift + XF86AudioRaiseVolume" = "volume source up";
-            "XF86MonBrightnessUp" = "brightnessctl set 10%+";
-            "XF86MonBrightnessDown" = "brightnessctl set 10%-";
-            "alt + shift + l" = "swaylock";
-            "super + p" = "rofi -show drun";
-            "super + shift + s" = "screenshot screen";
-            "super + shift + a" = "screenshot area";
-            "super + shift + w" = "screenshot window";
-            "end" = "rofi -show calc";
-          };
         };
       vpsadminosModule =
         {
@@ -691,101 +673,6 @@ let
           }
         ];
       };
-      swhkd =
-        {
-          lib,
-          config,
-          pkgs,
-          ...
-        }:
-        let
-          inherit (lib)
-            mkIf
-            mkEnableOption
-            mkOption
-            literalExpression
-            types
-            ;
-          cfg = config.meta.swhkd;
-          keybindingsStr = lib.concatStringsSep "\n" (
-            lib.mapAttrsToList (
-              hotkey: command:
-              lib.optionalString (command != null) ''
-                ${hotkey}
-                  ${command}
-              ''
-            ) cfg.keybindings
-          );
-          configFileContent = lib.concatStringsSep "\n" [
-            keybindingsStr
-            cfg.extraConfig
-          ];
-        in
-        {
-          options.meta.swhkd = {
-            enable = mkEnableOption "enable swhkd config";
-            graphical = mkEnableOption "whether commands to run require graphical session";
-            extraConfig = mkOption {
-              default = "";
-              type = types.lines;
-              description = "Additional configuration to add.";
-              example = literalExpression ''
-                super + {_,shift +} {1-9,0}
-                  i3-msg {workspace,move container to workspace} {1-10}
-              '';
-            };
-            keybindings = mkOption {
-              type = types.attrsOf (
-                types.nullOr (
-                  types.oneOf [
-                    types.str
-                    types.path
-                  ]
-                )
-              );
-              default = { };
-              description = "An attribute set that assigns hotkeys to commands.";
-              example = literalExpression ''
-                {
-                  "super + shift + {r,c}" = "i3-msg {restart,reload}";
-                  "super + {s,w}"         = "i3-msg {stacking,tabbed}";
-                  "super + F1"            = pkgs.writeShellScript "script" "echo $USER";
-                }
-              '';
-            };
-          };
-          config = mkIf cfg.enable {
-            environment.systemPackages = [ pkgs.swhkd ];
-            security.wrappers.swhkd = {
-              source = "${pkgs.swhkd}/bin/swhkd";
-              setuid = true;
-              owner = "root";
-              group = "root";
-            };
-            systemd.user.services = {
-              swhks = {
-                wantedBy = [
-                  (if cfg.graphical then "graphical-session.target" else "default.target")
-                ];
-                requiredBy = [ "swhkd.service" ];
-                serviceConfig = {
-                  Type = "forking";
-                  ExecStart = "${pkgs.swhkd}/bin/swhks";
-                };
-              };
-              swhkd = {
-                wantedBy = [
-                  (if cfg.graphical then "graphical-session.target" else "default.target")
-                ];
-                requires = [ "swhks.service" ];
-                serviceConfig = {
-                  ExecStart = "/run/wrappers/bin/swhkd";
-                };
-              };
-            };
-            environment.etc."swhkd/swhkdrc".text = configFileContent;
-          };
-        };
     };
   hardwareConfigurations = import ../constants;
 in
@@ -796,7 +683,6 @@ rec {
         default
         rest
         nova-module
-        swhkd
       ])
       ++ [ hardwareConfigurations.nova ];
   };

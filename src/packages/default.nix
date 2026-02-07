@@ -11,7 +11,6 @@ let
   };
 in
 {
-  swhkd = pkgs.callPackage ./swhkd { };
   ndlm = pkgs.callPackage ./ndlm { };
   vscode-java-debug = pkgs.vscode-java-debug;
   vscode-java-test = pkgs.vscode-java-test;
