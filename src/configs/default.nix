@@ -522,10 +522,9 @@ let
               interfaces = {
                 wg0 = {
                   allowedTCPPorts = mkForce [
-                    22
-                    53
-                    993
-                    9418 # gitDaemon
+                    22 # ssh
+                    53 # dns
+                    993 # imap
                   ];
                   allowedUDPPorts = mkForce [
                   ];
@@ -573,18 +572,8 @@ let
               };
             };
           };
-
           programs.git.enable = true;
           services = {
-            gitDaemon = {
-              enable = true;
-              repositories = [
-                "/srv/git"
-              ];
-              basePath = "/srv/git";
-              exportAll = true;
-              listenAddress = "127.0.0.1";
-            };
             openssh = {
               enable = true;
               settings = {
