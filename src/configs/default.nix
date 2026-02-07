@@ -202,9 +202,10 @@ let
                         - Consistent styles and best practices
                         - Responsive design
                         - Simplicity over complexity
+                        - Features over simplicity
                         - Beautiful websites
 
-                        Provide beautiful websites without sacrificing simplicity.
+                        Write beautiful websites without sacrificing simplicity or features.
                       '';
                     };
                   };
