@@ -3,7 +3,7 @@
   "x86_64-linux" =
     let
       overlay = (import ../overlays { inherit inputs; }).default;
-      config = (import ../overlays { inherit inputs; }).config;
+      inherit ((import ../overlays { inherit inputs; })) config;
       pkgs = import inputs.nixpkgs {
         system = "x86_64-linux";
         overlays = [

@@ -439,12 +439,12 @@ let
           meta.swayland.enable = true;
           meta.wireguard = {
             enable = true;
-            peers = peers;
+            inherit peers;
             address = "10.0.0.2/24";
           };
           networking.hostName = "nova";
           networking = {
-            hosts = hosts;
+            inherit hosts;
             nftables.enable = true;
             wireless = {
               enable = true;
@@ -482,9 +482,7 @@ let
         };
       vpsadminosModule =
         {
-          pkgs,
           lib,
-          config,
           ...
         }:
         let
@@ -505,12 +503,12 @@ let
           meta.wireguard = {
             enable = true;
             address = "10.0.0.1/24";
-            peers = peers;
+            inherit peers;
           };
           services.nginx.enable = true;
           services.postgresql.enable = true;
           networking = {
-            hosts = hosts;
+            inherit hosts;
             nftables = {
               enable = true;
             };
@@ -740,7 +738,7 @@ rec {
       )
     ];
   };
-  ai = nova.extendModules { modules = [ ({ meta.ai.enable = true; }) ]; };
+  ai = nova.extendModules { modules = [ { meta.ai.enable = true; } ]; };
   music = nova.extendModules {
     modules = [
       {
@@ -750,8 +748,7 @@ rec {
     ];
   };
   vps = inputs.nixpkgs.lib.nixosSystem {
-    modules = (
-      with nixosModules;
+    modules = with nixosModules;
       [
         vpsadminosModule
         default
@@ -761,7 +758,6 @@ rec {
           webshite.enable = true;
           _module.args.system = system;
         }
-      ]
-    );
+      ];
   };
 }

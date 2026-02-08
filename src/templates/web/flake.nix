@@ -44,7 +44,6 @@
           { system, ... }:
           {
             _module.args.system = "x86_64-linux";
-            imports = [ nixosModules.default ];
             services.nginx.virtualHosts =
               let
                 extensions = [
@@ -114,7 +113,7 @@
             client1.wait_for_unit("default.target")
             server.wait_for_unit("nginx.service")
             client1.succeed("curl http://server | grep -o '301'")
-            client1.succeed("curl -k https://server | grep -o 'Home | idimitrov.dev'")
+            client1.succeed("curl -k https://server | grep -o 'Home | example.com'")
           '';
       };
       packages = eachSystem (
@@ -131,7 +130,7 @@
         in
         {
           default = stdenv.mkDerivation {
-            name = "idimitrov.dev";
+            name = "site";
             version = "1.0";
             src = ./.;
             nativeBuildInputs = with pkgs; [

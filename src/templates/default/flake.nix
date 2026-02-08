@@ -28,8 +28,8 @@
       eachSystem = nixpkgs.lib.genAttrs (import systems);
     in
     {
-      packages = eachSystem (system: {
-        hello = nixpkgs.legacyPackages.x86_64-linux.hello;
+      packages = eachSystem (_system: {
+        inherit (nixpkgs.legacyPackages.x86_64-linux) hello;
         default = self.packages.x86_64-linux.hello;
       });
       devShells = eachSystem (
@@ -41,7 +41,7 @@
           pkgs = import nixpkgs {
             inherit system;
             overlays = [
-              (final: prev: {
+              (_final: _prev: {
                 nixvim = nixvim-default;
               })
               configuration.overlays.default
