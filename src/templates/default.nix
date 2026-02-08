@@ -32,4 +32,18 @@ in
     '';
     path = ./default;
   };
+  web = mkWelcomeText {
+    name = "Web Template";
+    description = ''
+      Web project
+    '';
+    path = ./web;
+  };
+  hs = mkWelcomeText {
+    name = "Haskell Template";
+    description = ''
+      Haskell project
+    '';
+    path = ./hs;
+  };
 }
