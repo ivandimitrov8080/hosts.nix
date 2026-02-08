@@ -83,6 +83,7 @@
             modules = [
               {
                 devenv.root = throw "You must set devenv root";
+                devenv.cli.version = "1";
                 packages = with pkgs; [
                   (haskellCompiler pkgs)
                   (nixvim.haskell.extend { })
@@ -105,7 +106,6 @@
                   };
                   "build:all" = {
                     exec = "ghc -threaded -outputdir _cache/build Main.hs -o bin/main";
-                    before = [ "devenv:processes:server" ];
                   };
                 };
                 git-hooks.hooks = {
