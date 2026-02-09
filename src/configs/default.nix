@@ -749,16 +749,15 @@ rec {
     ];
   };
   vps = inputs.nixpkgs.lib.nixosSystem {
-    modules = with nixosModules;
-      [
-        vpsadminosModule
-        default
-        mail
-        nginx
-        {
-          webshite.enable = true;
-          _module.args.system = system;
-        }
-      ];
+    modules = with nixosModules; [
+      vpsadminosModule
+      default
+      mail
+      nginx
+      {
+        webshite.enable = true;
+        _module.args.system = system;
+      }
+    ];
   };
 }
