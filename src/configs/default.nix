@@ -93,6 +93,7 @@ let
       };
       hosts = {
         "10.0.0.1" = [
+          "idimitrov.dev"
           "mail.idimitrov.dev"
         ];
       };
