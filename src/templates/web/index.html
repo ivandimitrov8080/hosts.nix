@@ -1,14 +1,13 @@
 ---
-title: Home
+title: Hello World from html!
 ---
 
-<h2>Welcome</h2>
-
-<p>Welcome to my blog!</p>
-
-<p>I've reproduced a list of recent posts here for your reading pleasure:</p>
-
-<h2>Posts</h2>
-$partial("templates/post-list.html")$
-
-<p>…or you can find more in the <a href="/archive.html">archives</a>.</p>
+<div id="myapp"></div>
+<script src="https://unpkg.com/elm-canvas@2.2/elm-canvas.js"></script>
+<script src="/js/app.js"></script>
+<script>
+  var app = Elm.Main.init({
+    node: document.getElementById("myapp"),
+    flags: 200,
+  });
+</script>

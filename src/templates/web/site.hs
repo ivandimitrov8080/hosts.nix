@@ -112,13 +112,6 @@ main = hakyllWith cfg $ do
 
   match "templates/*" $ compile templateBodyCompiler
 
-  match "room.html" $ do
-    route idRoute
-    compile $ do
-      getResourceBody
-        >>= loadAndApplyTemplate "templates/default.html" defaultContext
-        >>= relativizeUrls
-
   match (fromList ["manifest.json", "favicon.ico"]) $ do
     route idRoute
     compile $ copyFileCompiler
