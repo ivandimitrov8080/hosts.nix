@@ -731,6 +731,9 @@ rec {
                   ];
                   "9" = [ { class = "^steam$"; } ];
                 };
+                keybindings = pkgs.lib.mkOptionDefault {
+                  "Mod4+o" = "exec ${pkgs.which-key}/bin/which-key";
+                };
               };
             };
           };

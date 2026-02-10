@@ -12,6 +12,7 @@
       };
       ndlm = callPackage ../packages/ndlm { };
       npmPackages = callPackage ../packages/npmPackages { };
+      which-key = callPackage ../packages/which-key { };
       myMpvScripts = callPackage ../packages/mpvScripts { };
       xin = callPackage ../packages/xin {
         flakePath = "/home/ivand/src/hosts.nix";
