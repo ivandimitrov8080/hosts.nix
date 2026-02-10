@@ -831,11 +831,11 @@
         "treefmt-nix": "treefmt-nix_4"
       },
       "locked": {
-        "lastModified": 1770757117,
-        "narHash": "sha256-wn7r+lnTx0sEp64z0Oaxd0nQvT8JHQik0DWmguEzti0=",
+        "lastModified": 1770758316,
+        "narHash": "sha256-+p11lGMsLvId3NXA2qAMSI9Zf8mMhkI73TgR1/ehWbI=",
         "owner": "ivandimitrov8080",
         "repo": "ndlm",
-        "rev": "1c1577a3c7556c77391df0ebbdf5b989076f5fd8",
+        "rev": "0eb86264a28cb91c48c65f06d7b9e16dc5e99228",
         "type": "github"
       },
       "original": {
