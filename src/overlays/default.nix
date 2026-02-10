@@ -10,7 +10,7 @@
       nixvim = makeNixvim {
         package = inputs.neovim-nightly-overlay.packages.${system}.default;
       };
-      ndlm = callPackage ../packages/ndlm { };
+      ndlm = inputs.ndlm.packages.${system}.default;
       npmPackages = callPackage ../packages/npmPackages { };
       which-key = callPackage ../packages/which-key { };
       myMpvScripts = callPackage ../packages/mpvScripts { };
