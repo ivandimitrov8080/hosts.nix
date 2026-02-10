@@ -40,13 +40,39 @@
       };
       rust = pkgs.mkShell {
         buildInputs = with pkgs; [
-          nixvim.rust
-          cargo
-          libudev-zero
-          pkg-config
-          rust-analyzer
-          rustc
-          rustfmt
+          (nixvim.rust.extend {
+            plugins.dap = {
+              adapters = {
+                executables.rust-gdb = {
+                  command = "rust-gdb";
+                  args = [
+                    "--interpreter=dap"
+                    "--eval-command"
+                    "set print pretty on"
+                  ];
+                };
+              };
+              configurations = {
+                rust = [
+                  {
+                    name = "Rust";
+                    type = "rust-gdb";
+                    request = "launch";
+                    cwd = "\${workspaceFolder}";
+                    program.__raw = ''
+                      function()
+                        return vim.fn.input(
+                          "Path to executable: ",
+                          vim.fn.getcwd() .. "/target/debug/",
+                          "file"
+                        )
+                      end
+                    '';
+                  }
+                ];
+              };
+            };
+          })
         ];
       };
       lila = pkgs.mkShell {
