@@ -4,8 +4,8 @@ let
     anchor = "center";
     menu = [
       {
-        key = "p";
-        desc = "Power";
+        key = "r";
+        desc = "Restart";
         submenu = [
           {
             key = "r";
@@ -16,6 +16,20 @@ let
             key = "o";
             desc = "Turn Off";
             cmd = "poweroff";
+          }
+        ];
+      }
+      {
+        key = "p";
+        desc = "Processes";
+        submenu = [
+          {
+            key = "k";
+            desc = "Kill";
+            cmd = # bash
+              ''
+                ps -u "$USER" -o pid=,comm=,args= --sort=-pid | awk '{print $1 " " $2}' | rofi -dmenu -i -p "KILL -9 (select process)" | awk '{print $1}' | xargs -r kill -9
+              '';
           }
         ];
       }
