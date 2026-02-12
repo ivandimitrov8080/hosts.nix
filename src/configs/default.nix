@@ -645,6 +645,12 @@ let
         };
       nginx = {
         services.nginx.virtualHosts = {
+          "idimitrov.dev" = {
+            listenAddresses = [
+              "10.0.0.1"
+              "127.0.0.1"
+            ];
+          };
           "pic.idimitrov.dev" = {
             enableACME = true;
             forceSSL = true;
