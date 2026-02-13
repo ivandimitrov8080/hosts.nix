@@ -1,4 +1,10 @@
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  ...
+}:
 let
   menu = lib.generators.toYAML { } {
     anchor = "center";
@@ -85,7 +91,36 @@ let
       }
     ];
   };
+  package = rustPlatform.buildRustPackage (_finalAttrs: rec {
+    pname = "wlr-which-key";
+    version = "1.3.1";
+
+    src = fetchFromGitHub {
+      owner = "ivandimitrov8080";
+      repo = "wlr-which-key";
+      rev = "4e2940aa127e873b74494c617b1365184c149292";
+      hash = "sha256-pv8SgNot3eNRxhKtTA77JHxpBBq/crPLRMGKCsWIS4g=";
+    };
+    nativeBuildInputs = with pkgs; [
+      pkg-config
+    ];
+    buildInputs = with pkgs; [
+      cairo
+      pango.dev
+      libxkbcommon
+    ];
+
+    cargoHash = "sha256-v+4/lD00rjJvrQ2NQqFusZc0zQbM9mBG5T9bNioNGKQ=";
+
+    meta = {
+      description = "Keymap manager for wlroots-based compositors";
+      homepage = "https://github.com/ivandimitrov8080/wlr-which-key";
+      license = lib.licenses.gpl3Only;
+      mainProgram = pname;
+      maintainers = [ ];
+    };
+  });
 in
 pkgs.writeShellScriptBin "which-key" ''
-  exec ${pkgs.wlr-which-key}/bin/wlr-which-key ${pkgs.writeText "config.yaml" menu}
+  exec ${package}/bin/wlr-which-key ${pkgs.writeText "config.yaml" menu}
 ''
