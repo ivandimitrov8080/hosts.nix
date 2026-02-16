@@ -703,16 +703,16 @@ rec {
             (pkgs.makeDesktopItem {
               name = "dota";
               desktopName = "DotA 2";
-              exec = "${pkgs.steam}/bin/steam steam://launch/570/dialog";
+              exec = "${pkgs.steam}/bin/steam -silent steam://launch/570/dialog";
               terminal = false;
-              icon = "${pkgs.faenza}/Delft/apps/96/dota2.svg";
+              icon = "steam_icon_570";
             })
             (pkgs.makeDesktopItem {
               name = "cs2";
               desktopName = "Counter Strike 2";
-              exec = "${pkgs.steam}/bin/steam steam://launch/730/dialog";
+              exec = "${pkgs.steam}/bin/steam -silent steam://launch/730/dialog";
               terminal = false;
-              icon = "${pkgs.faenza}/Delft/apps/96/csgo.svg";
+              icon = "steam_icon_730";
             })
           ];
         in
