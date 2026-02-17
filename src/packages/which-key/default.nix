@@ -89,6 +89,20 @@ let
           }
         ];
       }
+      {
+        key = "s";
+        desc = "Screen";
+        submenu = [
+          {
+            key = "s";
+            desc = "Set brightness";
+            cmd = # bash
+              ''
+                rofi -dmenu -i -p "Brightness %" | awk 'NF{printf "%d\n",$1}' | xargs -r -I{} brightnessctl set {}%
+              '';
+          }
+        ];
+      }
     ];
   };
   package = rustPlatform.buildRustPackage (_finalAttrs: rec {
