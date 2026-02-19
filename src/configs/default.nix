@@ -80,7 +80,6 @@ let
         "bumshakalaka" = {
           psk = "locomotive420";
         };
-        "ATHENS-HAWKS" = { };
         "3G" = {
           psk = "bumshakalaka";
         };
@@ -90,6 +89,8 @@ let
         "FaroStation" = {
           psk = "riaformosa";
         };
+        "ATHENS-HAWKS" = { };
+        "RAMADA-SOFIA" = { };
       };
       hosts = {
         "10.0.0.1" = [
