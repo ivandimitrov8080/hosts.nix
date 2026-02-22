@@ -89,6 +89,9 @@ let
         "FaroStation" = {
           psk = "riaformosa";
         };
+        "blablaloby" = {
+          psk = "1234512345";
+        };
         "ATHENS-HAWKS" = { };
         "RAMADA-SOFIA" = { };
       };
