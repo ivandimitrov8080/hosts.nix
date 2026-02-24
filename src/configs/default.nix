@@ -92,6 +92,9 @@ let
         "blablaloby" = {
           psk = "1234512345";
         };
+        "blablafloor2" = {
+          psk = "1234512345";
+        };
         "ATHENS-HAWKS" = { };
         "RAMADA-SOFIA" = { };
       };
