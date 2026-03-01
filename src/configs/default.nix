@@ -374,7 +374,7 @@ let
               ivand = {
                 isNormalUser = true;
                 createHome = true;
-                shell = pkgs.zsh;
+                shell = pkgs.nushell;
                 extraGroups = [
                   "adbusers"
                   "adm"
