@@ -95,6 +95,12 @@ let
         "blablafloor2" = {
           psk = "1234512345";
         };
+        "Uspeh" = {
+          psk = "101076233";
+        };
+        "Welcome" = {
+          psk = "slavqnska95";
+        };
         "ATHENS-HAWKS" = { };
         "RAMADA-SOFIA" = { };
       };
