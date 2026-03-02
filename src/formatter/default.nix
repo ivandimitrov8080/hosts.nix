@@ -17,5 +17,20 @@ in
           "ImportQualifiedPost"
         ];
       };
+      settings.formatter = {
+        "nufmt" = {
+          command = "${pkgs.bash}/bin/bash";
+          options = [
+            "-euc"
+            ''
+              for file in "$@"; do
+                ${pkgs.lib.getExe pkgs.nufmt} $file
+              done
+            ''
+            "--" # bash swallows the second argument when using -c
+          ];
+          includes = [ "*.nu" ];
+        };
+      };
     }).config.build.wrapper;
 }
