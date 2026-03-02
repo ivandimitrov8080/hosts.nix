@@ -1,2 +1,4 @@
-def --wrapped "main shell" [ref: string, flake_path: string = /home/ivand/src/hosts.nix, ...rest] { nix develop $"($flake_path)#($ref)" ...$rest }
+let flake_path = "/home/ivand/src/hosts.nix"
+def --wrapped "main shell" [ref: string, ...rest] { nix develop $"($flake_path)#($ref)" ...$rest }
+def --wrapped "main switch" [ref: string, ...rest] { nixos-rebuild switch --flake $"($flake_path)#($ref)" --profile-name $ref ...$rest }
 def main [] { $"Usage: todo..." }
