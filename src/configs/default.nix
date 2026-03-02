@@ -542,10 +542,6 @@ let
                 443 # https
               ];
               allowedUDPPorts = mkForce [
-                25
-                465
-                80
-                443
                 51820 # wireguard
               ];
             };
@@ -560,6 +556,7 @@ let
                   "wheel"
                   "adm"
                   "mlocate"
+                  "ssh"
                 ];
                 openssh.authorizedKeys.keys = [
                   ''
@@ -568,6 +565,9 @@ let
                 ];
               };
             };
+            groups = {
+              ssh = { };
+            };
           };
           programs.git.enable = true;
           services = {
@@ -575,7 +575,11 @@ let
               enable = true;
               settings = {
                 PasswordAuthentication = false;
-                PermitRootLogin = "prohibit-password";
+                KbdInteractiveAuthentication = false;
+                AuthenticationMethods = "publickey";
+                AllowGroups = [ "ssh" ];
+                ListenAddress = "10.0.0.1";
+                PermitRootLogin = "no";
               };
             };
           };
