@@ -11,7 +11,6 @@ let
   };
 in
 {
-  ndlm = pkgs.callPackage ./ndlm { };
   inherit (pkgs) vscode-java-debug;
   inherit (pkgs) vscode-java-test;
 }

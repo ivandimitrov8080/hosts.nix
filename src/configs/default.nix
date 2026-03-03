@@ -228,6 +228,12 @@ let
                     enable = true;
                     enableZshIntegration = true;
                   };
+                  nushell = {
+                    enable = true;
+                    extraConfig = pkgs.lib.mkAfter ''
+                      use ${pkgs.xin}/bin/xin
+                    '';
+                  };
                   yazi.enable = true;
                   fd.enable = true;
                   ssh.enable = true;
@@ -240,7 +246,6 @@ let
                   bat.enable = true;
                   bash.enable = true;
                   zsh.enable = true;
-                  nushell.enable = true;
                   kitty.enable = true;
                   tmux.enable = true;
                   starship.enable = true;
@@ -367,7 +372,6 @@ let
             transmission_4
             volume
             wl-clipboard
-            xin
           ];
           users = {
             users = {
