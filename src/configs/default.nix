@@ -110,6 +110,7 @@ let
           "mail.idimitrov.dev"
         ];
       };
+      # TODO: make something similar for vps where it can also send dns traffic back to wireguard peers
       blockDnsExceptDnscrypt = ''
         table inet filter {
           chain output {
