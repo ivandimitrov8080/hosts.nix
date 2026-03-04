@@ -110,6 +110,24 @@ let
           "mail.idimitrov.dev"
         ];
       };
+      blockDnsExceptDnscrypt = ''
+        table inet filter {
+          chain output {
+            type filter hook output priority 0; policy accept;
+
+            meta oifname "lo" accept
+
+            # Allow dns to server
+            ip daddr 10.0.0.1 udp dport 53 accept
+            ip daddr 10.0.0.1 tcp dport 53 accept
+
+            # Block DNS to anywhere else
+            udp dport 53 drop
+            tcp dport 53 drop
+            tcp dport 853 drop
+          }
+        }
+      '';
     in
     {
       default =
@@ -457,9 +475,29 @@ let
             address = "10.0.0.2/24";
           };
           networking.hostName = "nova";
+          systemd.network.networks = {
+            "10-wlp45s0" = {
+              matchConfig.Name = "wlp45s0";
+              networkConfig.DHCP = "yes";
+              dhcpV4Config.UseDNS = false;
+              dhcpV6Config.UseDNS = false;
+              ipv6AcceptRAConfig.UseDNS = false;
+            };
+            "10-enp47s0" = {
+              matchConfig.Name = "enp47s0";
+              networkConfig.DHCP = "yes";
+              dhcpV4Config.UseDNS = false;
+              dhcpV6Config.UseDNS = false;
+              ipv6AcceptRAConfig.UseDNS = false;
+            };
+          };
           networking = {
             inherit hosts;
-            nftables.enable = true;
+            nameservers = [ "10.0.0.1" ];
+            nftables = {
+              enable = true;
+              ruleset = blockDnsExceptDnscrypt;
+            };
             wireless = {
               enable = true;
               networks = wirelessNetworks;
@@ -475,6 +513,14 @@ let
           services = {
             pipewire.enable = true;
             dbus.enable = true;
+            resolved = {
+              enable = true;
+              settings = {
+                Resolve = {
+                  FallbackDNS = [ "10.0.0.1" ];
+                };
+              };
+            };
           };
           security = {
             sudo = {
