@@ -535,6 +535,9 @@ let
                     993 # imap
                   ];
                   allowedUDPPorts = mkForce [
+                    22 # ssh
+                    53 # dns
+                    993 # imap
                   ];
                 };
               };
