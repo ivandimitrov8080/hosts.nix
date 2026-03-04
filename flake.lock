@@ -129,11 +129,11 @@
     },
     "configuration": {
       "locked": {
-        "lastModified": 1772620733,
-        "narHash": "sha256-ME7xu86C4X0z54kfk3QPP+l6eMKU2QX7uAD9juEFi9Q=",
+        "lastModified": 1772628429,
+        "narHash": "sha256-qzUl9d8hjOERlCn5e2iq7XyF/W/1M4UlYoUzDWJ/y64=",
         "owner": "ivandimitrov8080",
         "repo": "configuration.nix",
-        "rev": "8494271cf3b2c9d9c7d5017a904ce6862148cb7b",
+        "rev": "0e31929ba49fcce459d488ad70fe2abd085d3d78",
         "type": "github"
       },
       "original": {
