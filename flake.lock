@@ -186,11 +186,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1772635435,
-        "narHash": "sha256-42oVFMgBSyseQ3oinnc5Jm4qwvRv5W9F7dEvMxsHmrw=",
+        "lastModified": 1772637505,
+        "narHash": "sha256-tm1+/p+6UgZa8udCRDZCsbfR/U8ZXcXJDAUetNlKP9c=",
         "owner": "cachix",
         "repo": "devenv",
-        "rev": "51e919e35b5e72e3c52184344eb5a7bbc76edaed",
+        "rev": "9d42ad9b8c04ba9a7fa4cee5469873569496c86d",
         "type": "github"
       },
       "original": {
@@ -213,11 +213,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1772635435,
-        "narHash": "sha256-42oVFMgBSyseQ3oinnc5Jm4qwvRv5W9F7dEvMxsHmrw=",
+        "lastModified": 1772637505,
+        "narHash": "sha256-tm1+/p+6UgZa8udCRDZCsbfR/U8ZXcXJDAUetNlKP9c=",
         "owner": "cachix",
         "repo": "devenv",
-        "rev": "51e919e35b5e72e3c52184344eb5a7bbc76edaed",
+        "rev": "9d42ad9b8c04ba9a7fa4cee5469873569496c86d",
         "type": "github"
       },
       "original": {
@@ -240,11 +240,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1772635435,
-        "narHash": "sha256-42oVFMgBSyseQ3oinnc5Jm4qwvRv5W9F7dEvMxsHmrw=",
+        "lastModified": 1772637505,
+        "narHash": "sha256-tm1+/p+6UgZa8udCRDZCsbfR/U8ZXcXJDAUetNlKP9c=",
         "owner": "cachix",
         "repo": "devenv",
-        "rev": "51e919e35b5e72e3c52184344eb5a7bbc76edaed",
+        "rev": "9d42ad9b8c04ba9a7fa4cee5469873569496c86d",
         "type": "github"
       },
       "original": {
@@ -849,11 +849,11 @@
         "treefmt-nix": "treefmt-nix_2"
       },
       "locked": {
-        "lastModified": 1772636100,
-        "narHash": "sha256-wloWLyVkIQmGKv3ajHLXaEAyClLXejFy6Yl0jaKvoSc=",
+        "lastModified": 1772637675,
+        "narHash": "sha256-VtvLaVNFv7XRVdhMPx1ZAugTpNWNU3EdwSUjY0fC134=",
         "owner": "ivandimitrov8080",
         "repo": "metronome",
-        "rev": "97504327a4b76a4a1b573a605f2f5d13004de4e9",
+        "rev": "ade7251b56a2e7cb239d8d4cf22c07333030b4e1",
         "type": "github"
       },
       "original": {
@@ -872,11 +872,11 @@
         "treefmt-nix": "treefmt-nix_4"
       },
       "locked": {
-        "lastModified": 1772636100,
-        "narHash": "sha256-uh3RvmZW1mDQt3IQIC+l/SNVkxNUcjATJ+O6Moi751A=",
+        "lastModified": 1772637673,
+        "narHash": "sha256-y0DUIduI9+0zIHYpq83BqrG2HUxnwMwoJPTsOaVKFkQ=",
         "owner": "ivandimitrov8080",
         "repo": "ndlm",
-        "rev": "4fdf5a8b56376e0ffee9d544b86ea17d400cbdcb",
+        "rev": "bf0b80d927b550668336ed024ec5ee70877c25b4",
         "type": "github"
       },
       "original": {
@@ -1694,11 +1694,11 @@
         "treefmt-nix": "treefmt-nix_6"
       },
       "locked": {
-        "lastModified": 1772636100,
-        "narHash": "sha256-dE8XLlWuHv6f2nV/ZNqxvaYhKq8GoxqSMR8c+qG+y74=",
+        "lastModified": 1772637674,
+        "narHash": "sha256-fURI8wY7uocM1Z/GBTWlo225MmnLzLLwXijd2VOYJpM=",
         "owner": "ivandimitrov8080",
         "repo": "idimitrov.dev",
-        "rev": "07de7f053f0e88cafc78980e91a2bf876b33cbe4",
+        "rev": "938d4bc19c90925a05f5db221dcb848cb6bdc942",
         "type": "github"
       },
       "original": {
