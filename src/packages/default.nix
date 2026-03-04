@@ -1,9 +1,9 @@
-{ inputs, system }:
+{ inputs, stdenv }:
 let
   overlay = (import ../overlays { inherit inputs; }).default;
   inherit ((import ../overlays { inherit inputs; })) config;
   pkgs = import inputs.nixpkgs {
-    inherit system;
+    inherit (stdenv.hostPlatform) system;
     overlays = [
       overlay
       config

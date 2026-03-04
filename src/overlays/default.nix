@@ -4,14 +4,13 @@
     _final: prev:
     with prev;
     let
-      inherit (inputs.nixvim.legacyPackages.${system}) makeNixvim;
+      inherit (inputs.nixvim.legacyPackages.${stdenv.hostPlatform.system}) makeNixvim;
     in
     {
       nixvim = makeNixvim {
-        package = inputs.neovim-nightly-overlay.packages.${system}.default;
+        package = inputs.neovim-nightly-overlay.packages.${stdenv.hostPlatform.system}.default;
       };
-      ndlm = inputs.ndlm.packages.${system}.default;
-      npmPackages = callPackage ../packages/npmPackages { };
+      ndlm = inputs.ndlm.packages.${stdenv.hostPlatform.system}.default;
       which-key = callPackage ../packages/which-key { };
       myMpvScripts = callPackage ../packages/mpvScripts { };
       xin = callPackage ../packages/xin { };
