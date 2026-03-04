@@ -144,11 +144,11 @@
     },
     "configuration_2": {
       "locked": {
-        "lastModified": 1772629491,
-        "narHash": "sha256-hLpxE8DhzVmtCa/+JGpExIyjXnHuUiA01LjJ9KKZczc=",
+        "lastModified": 1772646888,
+        "narHash": "sha256-cEMvB/KRPyokeRsNSC7YO1nMyK31WJlCdJ2ErKcOrKg=",
         "owner": "ivandimitrov8080",
         "repo": "configuration.nix",
-        "rev": "166df58590fc7fc3f51cdcf9eda4eab523943954",
+        "rev": "cd837e728a94e111fbba249b35fb0c5cc8bf99d3",
         "type": "github"
       },
       "original": {
@@ -159,11 +159,11 @@
     },
     "configuration_3": {
       "locked": {
-        "lastModified": 1772629491,
-        "narHash": "sha256-hLpxE8DhzVmtCa/+JGpExIyjXnHuUiA01LjJ9KKZczc=",
+        "lastModified": 1772646888,
+        "narHash": "sha256-cEMvB/KRPyokeRsNSC7YO1nMyK31WJlCdJ2ErKcOrKg=",
         "owner": "ivandimitrov8080",
         "repo": "configuration.nix",
-        "rev": "166df58590fc7fc3f51cdcf9eda4eab523943954",
+        "rev": "cd837e728a94e111fbba249b35fb0c5cc8bf99d3",
         "type": "github"
       },
       "original": {
@@ -849,11 +849,11 @@
         "treefmt-nix": "treefmt-nix_2"
       },
       "locked": {
-        "lastModified": 1772638942,
-        "narHash": "sha256-5W7LtTmOeQ2NHnVsntEGq54VW1grkPS9RhiPL4vbLFc=",
+        "lastModified": 1772647877,
+        "narHash": "sha256-uWNuDYH2OSW4csWV2WmOxpbWEbiemfENibev5AR9nGc=",
         "owner": "ivandimitrov8080",
         "repo": "metronome",
-        "rev": "3e96b9990b458c79d8c21145c1aea0d5f0789ac7",
+        "rev": "c56b68eff500718d7cc582458c70cb6bb3a97902",
         "type": "github"
       },
       "original": {
@@ -1694,11 +1694,11 @@
         "treefmt-nix": "treefmt-nix_6"
       },
       "locked": {
-        "lastModified": 1772638943,
-        "narHash": "sha256-b00QvuxKgwAKjjIq5RhUnD9QC49Dyx6b5pb2K8WXPoY=",
+        "lastModified": 1772647887,
+        "narHash": "sha256-Qkfve+7c+VDBeibaAvOGxQfeiLqE/fIeOAyv5xOeSa4=",
         "owner": "ivandimitrov8080",
         "repo": "idimitrov.dev",
-        "rev": "e4013b7a448f9db44d9cd27ed91a07c95a86ed66",
+        "rev": "d6c20c8f3b1cffcfb248e2e37470c1299823d514",
         "type": "github"
       },
       "original": {
