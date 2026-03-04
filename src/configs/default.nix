@@ -269,7 +269,6 @@ let
                     longitude = 14.41;
                   };
                   ollama.enable = true;
-                  ollama.acceleration = "rocm";
                   ollama.environmentVariables = {
                     HSA_OVERRIDE_GFX_VERSION = "11.0.2";
                   };
@@ -806,7 +805,6 @@ rec {
       )
     ];
   };
-  ai = nova.extendModules { modules = [ { meta.ai.enable = true; } ]; };
   music = nova.extendModules {
     modules = [
       {

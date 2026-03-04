@@ -75,21 +75,6 @@
           })
         ];
       };
-      lila = pkgs.mkShell {
-        buildInputs = with pkgs; [
-          (nixvim.scala.extend {
-            lsp.servers.ts_ls.enable = true;
-          })
-          zulu
-          coursier
-          sbt
-          nodejs
-          pnpm
-          mongodb
-          mongosh
-          redis
-        ];
-      };
       haskell = pkgs.mkShell {
         buildInputs = with pkgs; [
           nixvim.haskell
