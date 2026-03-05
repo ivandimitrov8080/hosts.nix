@@ -41,13 +41,14 @@
     in
     {
       nixosConfigurations = import ./src/configs { inherit inputs; };
+      nixosModules = import ./src/modules { inherit inputs; };
       overlays = import ./src/overlays { inherit inputs; };
       devShells = import ./src/shells { inherit inputs; };
       formatter = import ./src/formatter { inherit inputs; };
       templates = import ./src/templates { inherit inputs; };
-      packages.${system} = import ./src/packages {
-        inherit inputs;
-        stdenv.hostPlatform.system = system;
+      checks.${system} = import ./src/test { inherit inputs system; };
+      packages.${system} = (import ./src/packages { inherit inputs system; }) // {
+        test = (import ./src/test { inherit inputs system; }).default.driverInteractive;
       };
     };
 }
