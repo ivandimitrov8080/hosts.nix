@@ -76,16 +76,17 @@ in
               enable = true;
               settings = {
                 listen-address = [ "10.0.0.1" ];
-                bind-interfaces = true;
+                bind-dynamic = true;
                 # Provide a deterministic answer
                 address = [ "/example.com/203.0.113.10" ];
               };
             };
           };
+          environment.etc."wireguard/wg0.priv".source = ./hub.priv;
           meta.wireguard = {
             enable = true;
             address = "10.0.0.1/24";
-            privateKeyFile = ./hub.priv;
+            privateKeyFile = "/etc/wireguard/wg0.priv";
             peers = pkgs.lib.mkForce peers;
           };
           environment.systemPackages = extraPkgs;
@@ -100,10 +101,11 @@ in
           ];
           boot.consoleLogLevel = lib.mkForce 7;
           networking.useNetworkd = lib.mkForce true;
+          environment.etc."wireguard/wg0.priv".source = ./spoke1.priv;
           meta.wireguard = {
             enable = true;
             address = "10.0.0.2/24";
-            privateKeyFile = ./spoke1.priv;
+            privateKeyFile = "/etc/wireguard/wg0.priv";
             peers = pkgs.lib.mkForce peers;
           };
           environment.systemPackages = extraPkgs;
@@ -112,10 +114,11 @@ in
         { pkgs, ... }:
         {
           imports = [ configMod ];
+          environment.etc."wireguard/wg0.priv".source = ./spoke2.priv;
           meta.wireguard = {
             enable = true;
             address = "10.0.0.3/24";
-            privateKeyFile = ./spoke2.priv;
+            privateKeyFile = "/etc/wireguard/wg0.priv";
             peers = pkgs.lib.mkForce peers;
           };
           environment.systemPackages = extraPkgs;
@@ -131,13 +134,13 @@ in
         vpsfree.wait_for_unit("default.target")
         spoke2.wait_for_unit("default.target")
 
-        nova.succeed("nslookup example.com 10.0.0.1")
-        nova.fail("nslookup example.com 1.0.0.1")
-
         nova.succeed("ping -c1 10.0.0.1")
         spoke2.succeed("ping -c1 10.0.0.1")
         vpsfree.succeed("ping -c1 10.0.0.2")
         vpsfree.succeed("ping -c1 10.0.0.3")
+
+        nova.succeed("nslookup example.com 10.0.0.1")
+        nova.fail("nslookup example.com 1.0.0.1")
       '';
   };
 }
