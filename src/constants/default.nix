@@ -38,6 +38,6 @@
       swapDevices = [ ];
       networking.useNetworkd = lib.mkDefault true;
       nixpkgs.hostPlatform = lib.mkForce "x86_64-linux";
-      hardware.cpu.intel.updateMicrocode = lib.mkForce false;
+      hardware.cpu.intel.updateMicrocode = true;
     };
 }
