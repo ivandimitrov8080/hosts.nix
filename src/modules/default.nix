@@ -459,6 +459,7 @@ in
                 };
             };
           };
+          zramSwap.enable = true;
           users.users.greeter = {
             extraGroups = [
               "video"
