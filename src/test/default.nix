@@ -34,8 +34,25 @@ let
 in
 {
   default = pkgs.testers.runNixOSTest {
-    name = "wireguard-integration";
+    name = "integration-test";
     nodes = {
+      dns =
+        { pkgs, ... }:
+        {
+          _module.args.system = system;
+          services = {
+            dnsmasq = {
+              enable = true;
+              settings = {
+                listen-address = [ "127.0.0.1" ];
+                bind-interfaces = true;
+                # Provide a deterministic answer
+                address = [ "/example.com/203.0.113.10" ];
+              };
+            };
+          };
+          environment.systemPackages = extraPkgs;
+        };
       vpsfree =
         { pkgs, ... }:
         {
@@ -76,7 +93,7 @@ in
               enable = true;
               settings = {
                 listen-address = [ "10.0.0.1" ];
-                bind-dynamic = true;
+                bind-interfaces = true;
                 # Provide a deterministic answer
                 address = [ "/example.com/203.0.113.10" ];
               };
@@ -140,7 +157,7 @@ in
         vpsfree.succeed("ping -c1 10.0.0.3")
 
         nova.succeed("nslookup example.com 10.0.0.1")
-        nova.fail("nslookup example.com 1.0.0.1")
+        nova.fail("nslookup example.com dns")
       '';
   };
 }
