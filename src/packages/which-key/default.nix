@@ -8,6 +8,7 @@
 let
   menu = lib.generators.toYAML { } {
     anchor = "center";
+    exec = "nu";
     menu = [
       {
         key = "r";
@@ -126,8 +127,8 @@ let
     src = fetchFromGitHub {
       owner = "ivandimitrov8080";
       repo = "wlr-which-key";
-      rev = "f9abf1e704c806d678c7e2aa2350bb16bfbfc495";
-      hash = "sha256-IFgF0M/yBWMAGKYm0QCynOrrutX0fgQhj516cxK0vkM=";
+      rev = "4227842b6fbfd25d843398aed7181217acd5fa9e";
+      hash = "sha256-FR9sYSdyi2OwKBbrkCtMcrOnMIY1m/bxbU7jdBClMGI=";
     };
     nativeBuildInputs = with pkgs; [
       pkg-config
