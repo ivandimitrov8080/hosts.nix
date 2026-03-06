@@ -32,9 +32,9 @@ let
           {
             key = "k";
             desc = "Kill";
-            cmd = # bash
+            cmd = # nu
               ''
-                ps -u "$USER" -o pid=,comm=,args= --sort=-pid | awk '{print $1 " " $2}' | rofi -dmenu -i -p "kill -9" | awk '{print $1}' | xargs -r kill -9
+                ps | select pid name | (to tsv -n | rofi -dmenu -i -p "ee") | from tsv -n | get 0.column0 | kill -9 $in
               '';
           }
         ];
@@ -50,15 +50,15 @@ let
               {
                 key = "s";
                 desc = "Set volume";
-                cmd = # bash
+                cmd = # nu
                   ''
-                    rofi -dmenu -i -p "Volume %" | awk 'NF{printf "%d\n",$1}' | xargs -r -I{} wpctl set-volume @DEFAULT_AUDIO_SOURCE@ {}%
+                    rofi -dmenu -i -p "Volume %" | wpctl set-volume @DEFAULT_AUDIO_SOURCE@ $"($in)%"
                   '';
               }
               {
                 key = "t";
                 desc = "Toggle Mute";
-                cmd = # bash
+                cmd = # nu
                   ''
                     wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
                   '';
@@ -72,15 +72,15 @@ let
               {
                 key = "s";
                 desc = "Set volume";
-                cmd = # bash
+                cmd = # nu
                   ''
-                    rofi -dmenu -i -p "Volume %" | awk 'NF{printf "%d\n",$1}' | xargs -r -I{} wpctl set-volume @DEFAULT_AUDIO_SINK@ {}%
+                    rofi -dmenu -i -p "Volume %" | wpctl set-volume @DEFAULT_AUDIO_SINK@ $"($in)%"
                   '';
               }
               {
                 key = "t";
                 desc = "Toggle Mute";
-                cmd = # bash
+                cmd = # nu
                   ''
                     wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
                   '';
@@ -96,9 +96,23 @@ let
           {
             key = "s";
             desc = "Set brightness";
-            cmd = # bash
+            cmd = # nu
               ''
-                rofi -dmenu -i -p "Brightness %" | awk 'NF{printf "%d\n",$1}' | xargs -r -I{} brightnessctl set {}%
+                rofi -dmenu -i -p "Brightness %" | brightnessctl set $"($in)%"
+              '';
+          }
+        ];
+      }
+      {
+        key = "d";
+        desc = "Device";
+        submenu = [
+          {
+            key = "t";
+            desc = "Toggle";
+            cmd = # nu
+              ''
+                swaymsg -t get_inputs --raw | from json | select identifier name type | (let rows = $in; let idx = ($rows | select type name | to tsv -n | rofi -dmenu -i -p "Toggle Device" -format i | into int); ($rows | get $idx)) |  get identifier | swaymsg input $in events toggle
               '';
           }
         ];
@@ -112,8 +126,8 @@ let
     src = fetchFromGitHub {
       owner = "ivandimitrov8080";
       repo = "wlr-which-key";
-      rev = "4e2940aa127e873b74494c617b1365184c149292";
-      hash = "sha256-pv8SgNot3eNRxhKtTA77JHxpBBq/crPLRMGKCsWIS4g=";
+      rev = "f9abf1e704c806d678c7e2aa2350bb16bfbfc495";
+      hash = "sha256-IFgF0M/yBWMAGKYm0QCynOrrutX0fgQhj516cxK0vkM=";
     };
     nativeBuildInputs = with pkgs; [
       pkg-config
