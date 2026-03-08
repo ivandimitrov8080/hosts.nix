@@ -161,3 +161,5 @@ in
       '';
   };
 }
+// inputs.self.packages.${system}
+// inputs.self.devShells.${system}

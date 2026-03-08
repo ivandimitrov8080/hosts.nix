@@ -47,8 +47,6 @@
       formatter = import ./src/formatter { inherit inputs; };
       templates = import ./src/templates { inherit inputs; };
       checks.${system} = import ./src/test { inherit inputs system; };
-      packages.${system} = (import ./src/packages { inherit inputs system; }) // {
-        test = (import ./src/test { inherit inputs system; }).default.driverInteractive;
-      };
+      packages.${system} = import ./src/packages { inherit inputs system; };
     };
 }
