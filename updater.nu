@@ -27,8 +27,7 @@ def update_flake [flake_path: string] {
         $result = $result | append $res
         $err = $e
         if $e {
-            try { notify_tg $"Error updating flake ($flake_path) for command ($src):\n($res.stdout)\n-------\n($res.stderr)" }
-            catch { echo $"(ansi red)Error connecting to telegram.(ansi reset)" }
+            try { notify_tg $"Error updating flake ($flake_path) for command ($src):\n($res.stdout)\n-------\n($res.stderr)" } catch { echo $"(ansi red)Error connecting to telegram.(ansi reset)" }
             break
         }
     }
