@@ -105,8 +105,8 @@ let
         ];
       }
       {
-        key = "d";
-        desc = "Device";
+        key = "i";
+        desc = "Inputs";
         submenu = [
           {
             key = "t";
