@@ -109,6 +109,7 @@ in
         "10.0.0.1" = [
           "idimitrov.dev"
           "mail.idimitrov.dev"
+          "grafana.idimitrov.dev"
         ];
       };
       # TODO: make something similar for vps where it can also send dns traffic back to wireguard peers
@@ -793,46 +794,110 @@ in
             }
           );
         };
-      nginx = {
-        services.nginx.virtualHosts = {
-          "idimitrov.dev" = {
-            listenAddresses = [
-              "10.0.0.1"
-              "127.0.0.1"
+      nginx =
+        { pkgs, ... }:
+        {
+          services.nginx = {
+            additionalModules = with pkgs.nginxModules; [ geoip2 ];
+            commonHttpConfig = ''
+              log_format json_access escape=json
+                '{'
+                  '"time":"$time_iso8601",'
+                  '"remote_addr":"$remote_addr",'
+                  '"x_forwarded_for":"$proxy_add_x_forwarded_for",'
+                  '"request_method":"$request_method",'
+                  '"request_uri":"$request_uri",'
+                  '"query_string":"$query_string",'
+                  '"status":"$status",'
+                  '"bytes_sent":"$body_bytes_sent",'
+                  '"request_time":"$request_time",'
+                  '"host":"$host",'
+                  '"server_name":"$server_name",'
+                  '"scheme":"$scheme",'
+                  '"protocol":"$server_protocol",'
+                  '"referer":"$http_referer",'
+                  '"user_agent":"$http_user_agent",'
+                  '"upstream_addr":"$upstream_addr",'
+                  '"upstream_status":"$upstream_status",'
+                  '"upstream_response_time":"$upstream_response_time",'
+                  '"asn":"$geoip2_asn",'
+                  '"as_org":"$geoip2_asorg",'
+                  '"geoip_country_code":"$geoip2_country_code",'
+                  '"geoip_country_name":"$geoip2_country_name",'
+                  '"geoip_region_name":"$geoip2_region_name",'
+                  '"geoip_city_name":"$geoip2_city_name"'
+                '}';
+                access_log /var/log/nginx/access.json.log json_access;
+
+                geoip2 /var/lib/geoip/dbip-country.mmdb {
+                  auto_reload 5m;
+                  $geoip2_country_code  default=-  source=$remote_addr country iso_code;
+                  $geoip2_country_name  default=-  country names en;
+                }
+                geoip2 /var/lib/geoip/dbip-city.mmdb {
+                  auto_reload 5m;
+                  $geoip2_city_name     default=-  city names en;
+                  $geoip2_region_name   default=-  subdivisions 0 names en;
+                }
+                geoip2 /var/lib/geoip/dbip-asn.mmdb {
+                  auto_reload 5m;
+                  $geoip2_asn   default=-  autonomous_system_number;
+                  $geoip2_asorg default=-  autonomous_system_organization;
+                }
+            '';
+            virtualHosts = {
+              "idimitrov.dev" = {
+                listenAddresses = [
+                  "10.0.0.1"
+                  "127.0.0.1"
+                ];
+              };
+              "pic.idimitrov.dev" = {
+                enableACME = true;
+                forceSSL = true;
+                locations."/" = {
+                  root = "/var/pic";
+                  extraConfig = ''
+                    autoindex on;
+                  '';
+                };
+              };
+              "metronome.idimitrov.dev" = {
+                enableACME = true;
+                forceSSL = true;
+                locations."/" = {
+                  root = inputs.metronome.packages.${system}.default;
+
+                  extraConfig = ''
+                    autoindex on;
+                  '';
+                };
+              };
+              "grafana.idimitrov.dev" = {
+                listenAddresses = [
+                  "10.0.0.1"
+                ];
+                enableACME = true;
+                forceSSL = true;
+                locations."/" = {
+                  proxyPass = "http://127.0.0.1:34321";
+                  proxyWebsockets = true;
+                };
+              };
+            };
+          };
+          services = {
+            postgresql.ensureUsers = [
+              {
+                name = "root";
+                ensureClauses = {
+                  superuser = true;
+                  createrole = true;
+                  createdb = true;
+                };
+              }
             ];
           };
-          "pic.idimitrov.dev" = {
-            enableACME = true;
-            forceSSL = true;
-            locations."/" = {
-              root = "/var/pic";
-              extraConfig = ''
-                autoindex on;
-              '';
-            };
-          };
-          "metronome.idimitrov.dev" = {
-            enableACME = true;
-            forceSSL = true;
-            locations."/" = {
-              root = inputs.metronome.packages.${system}.default;
-
-              extraConfig = ''
-                autoindex on;
-              '';
-            };
-          };
         };
-        services.postgresql.ensureUsers = [
-          {
-            name = "root";
-            ensureClauses = {
-              superuser = true;
-              createrole = true;
-              createdb = true;
-            };
-          }
-        ];
-      };
     };
 }
