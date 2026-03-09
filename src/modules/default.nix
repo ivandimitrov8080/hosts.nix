@@ -110,6 +110,7 @@ in
           "idimitrov.dev"
           "mail.idimitrov.dev"
           "grafana.idimitrov.dev"
+          "vpsfree"
         ];
       };
       # TODO: make something similar for vps where it can also send dns traffic back to wireguard peers
@@ -824,7 +825,7 @@ in
                     "jpeg"
                   ]
                 )
-              } $uri $uri/ =404";
+              } $uri $uri/ =404;";
             in
             {
               additionalModules = with pkgs.nginxModules; [ geoip2 ];
@@ -931,6 +932,7 @@ in
                 };
               };
             };
+          users.users.nginx.extraGroups = [ "acme" ];
           services = {
             postgresql.ensureUsers = [
               {

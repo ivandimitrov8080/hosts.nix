@@ -201,7 +201,6 @@ rec {
         '';
         users.users = {
           loki.extraGroups = [ "systemd-journal" ];
-          nginx.extraGroups = [ "acme" ];
         };
       }
     ];

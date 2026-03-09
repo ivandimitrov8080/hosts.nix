@@ -30,29 +30,32 @@ let
   extraPkgs = with pkgs; [
     wireguard-tools
     dig
+    curl
   ];
+  testUser = {
+    users = {
+      users = {
+        test = {
+          isNormalUser = true;
+          password = "test";
+          extraGroups = [
+            "wheel"
+            "adm"
+            "mlocate"
+            "ssh"
+          ];
+        };
+      };
+      groups = {
+        ssh = { };
+      };
+    };
+  };
 in
 {
-  default = pkgs.testers.runNixOSTest {
+  integrationTest = pkgs.testers.runNixOSTest {
     name = "integration-test";
     nodes = {
-      dns =
-        { pkgs, ... }:
-        {
-          _module.args.system = system;
-          services = {
-            dnsmasq = {
-              enable = true;
-              settings = {
-                listen-address = [ "127.0.0.1" ];
-                bind-interfaces = true;
-                # Provide a deterministic answer
-                address = [ "/example.com/203.0.113.10" ];
-              };
-            };
-          };
-          environment.systemPackages = extraPkgs;
-        };
       vpsfree =
         { pkgs, ... }:
         {
@@ -63,27 +66,16 @@ in
             nginx
           ];
           _module.args.system = system;
+          networking.interfaces.eth1.ipv4.addresses = [
+            {
+              address = "37.205.13.29";
+              prefixLength = 24;
+            }
+          ];
           networking.hosts = {
             "10.0.0.1" = [
               "example.com"
             ];
-          };
-          users = {
-            users = {
-              test = {
-                isNormalUser = true;
-                password = "test";
-                extraGroups = [
-                  "wheel"
-                  "adm"
-                  "mlocate"
-                  "ssh"
-                ];
-              };
-            };
-            groups = {
-              ssh = { };
-            };
           };
           services = {
             # use dnsmasq to mock dnscrypt-proxy
@@ -110,7 +102,16 @@ in
             server = pkgs.lib.mkForce "https://acme-staging-v02.api.letsencrypt.org/directory";
           };
           environment.systemPackages = extraPkgs;
-        };
+          systemd.tmpfiles.rules = [
+            # directory owned by nginx
+            "d /var/lib/geoip 0750 nginx nginx -"
+            # copy files, owned by nginx (C+ overwrites/updates)
+            "C+ /var/lib/geoip/dbip-asn.mmdb 0640 nginx nginx - ${./dbip-asn.mmdb}"
+            "C+ /var/lib/geoip/dbip-country.mmdb 0640 nginx nginx - ${./dbip-country.mmdb}"
+            "C+ /var/lib/geoip/dbip-city.mmdb 0640 nginx nginx - ${./dbip-city.mmdb}"
+          ];
+        }
+        // testUser;
       nova =
         { pkgs, lib, ... }:
         {
@@ -129,7 +130,8 @@ in
             peers = pkgs.lib.mkForce peers;
           };
           environment.systemPackages = extraPkgs;
-        };
+        }
+        // testUser;
       spoke2 =
         { pkgs, ... }:
         {
@@ -142,17 +144,41 @@ in
             peers = pkgs.lib.mkForce peers;
           };
           environment.systemPackages = extraPkgs;
-        };
+        }
+        // testUser;
+      dns =
+        { pkgs, ... }:
+        {
+          _module.args.system = system;
+          services = {
+            dnsmasq = {
+              enable = true;
+              settings = {
+                listen-address = [ "127.0.0.1" ];
+                bind-interfaces = true;
+                # Provide a deterministic answer
+                address = [ "/example.com/203.0.113.10" ];
+              };
+            };
+          };
+          environment.systemPackages = extraPkgs;
+        }
+        // testUser;
+      outsider =
+        { pkgs, ... }:
+        {
+          environment.systemPackages = extraPkgs;
+        }
+        // testUser;
     };
 
     testScript =
       # py
       ''
         start_all()
+        for m in [nova, vpsfree, spoke2, outsider]:
+            m.wait_for_unit("default.target")
 
-        nova.wait_for_unit("default.target")
-        vpsfree.wait_for_unit("default.target")
-        spoke2.wait_for_unit("default.target")
 
         nova.succeed("ping -c1 10.0.0.1")
         spoke2.succeed("ping -c1 10.0.0.1")
@@ -162,8 +188,8 @@ in
         nova.succeed("nslookup example.com 10.0.0.1")
         nova.fail("nslookup example.com dns")
 
-        nova.succeed("curl http://vpsfree | grep -o '301'")
-        nova.succeed("curl -k https://vpsfree | grep -o 'Home | idimitrov.dev'")
+        nova.succeed("curl http://idimitrov.dev | grep -o '301'")
+        nova.succeed("curl -k https://idimitrov.dev | grep -o 'Home | idimitrov.dev'")
       '';
   };
 }
