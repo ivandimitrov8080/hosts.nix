@@ -758,7 +758,10 @@ in
                     hashedPassword = "$2b$05$rTVIQD98ogXeCBKdk/YufulWHqpMCAlb7SHDPlh5y8Xbukoa/uQLm";
                   };
                 };
-                x509.useACMEHost = "idimitrov.dev";
+                x509 = {
+                  certificateFile = "/var/lib/acme/idimitrov.dev/fullchain.pem";
+                  privateKeyFile = "/var/lib/acme/idimitrov.dev/key.pem";
+                };
                 hierarchySeparator = "/";
               };
               services = {
@@ -787,7 +790,10 @@ in
           security = {
             acme = {
               acceptTerms = true;
-              defaults.email = "security@idimitrov.dev";
+              defaults = {
+                email = "security@idimitrov.dev";
+                webroot = "/var/lib/acme/acme-challenge";
+              };
               certs = {
                 "idimitrov.dev" = {
                   extraDomainNames = [
@@ -804,6 +810,7 @@ in
           services.nginx =
             let
               tls = {
+                enableACME = false;
                 forceSSL = true;
                 sslCertificate = "/var/lib/acme/idimitrov.dev/fullchain.pem";
                 sslCertificateKey = "/var/lib/acme/idimitrov.dev/key.pem";
@@ -864,7 +871,17 @@ in
                     "37.205.13.29"
                   ];
                 };
+                "www.idimitrov.dev" = tls // {
+                  listenAddresses = [
+                    "10.0.0.1"
+                    "37.205.13.29"
+                  ];
+                };
                 "pic.idimitrov.dev" = tls // {
+                  listenAddresses = [
+                    "10.0.0.1"
+                    "37.205.13.29"
+                  ];
                   locations."/" = {
                     root = "/var/pic";
                     extraConfig = ''
@@ -873,6 +890,10 @@ in
                   };
                 };
                 "metronome.idimitrov.dev" = tls // {
+                  listenAddresses = [
+                    "10.0.0.1"
+                    "37.205.13.29"
+                  ];
                   locations."/" = {
                     root = inputs.metronome.packages.${system}.default;
 

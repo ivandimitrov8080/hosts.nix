@@ -200,9 +200,10 @@ rec {
             forward_to = [loki.write.local.receiver]
           }
         '';
-        users.users.loki.extraGroups = [
-          "systemd-journal"
-        ];
+        users.users = {
+          loki.extraGroups = [ "systemd-journal" ];
+          nginx.extraGroups = [ "acme" ];
+        };
       }
     ];
   };
