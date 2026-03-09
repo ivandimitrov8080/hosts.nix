@@ -56,7 +56,6 @@ rec {
         imports = with inputs; [
           vpsadminos.nixosConfigurations.containerUnstable
         ];
-        webshite.enable = true;
         _module.args.system = system;
         services = {
           crowdsec = {

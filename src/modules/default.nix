@@ -638,7 +638,6 @@ in
         {
           imports = with inputs; [
             simple-nixos-mailserver.nixosModule
-            webshite.nixosModules.default
           ];
           networking.hostName = "vpsfree";
           meta.shells.enable = true;
@@ -815,6 +814,17 @@ in
                 sslCertificate = "/var/lib/acme/idimitrov.dev/fullchain.pem";
                 sslCertificateKey = "/var/lib/acme/idimitrov.dev/key.pem";
               };
+              serveStatic = "try_files ${
+                pkgs.lib.strings.concatStringsSep " " (
+                  builtins.map (x: "$uri.${x}") [
+                    "html"
+                    "txt"
+                    "png"
+                    "jpg"
+                    "jpeg"
+                  ]
+                )
+              } $uri $uri/ =404";
             in
             {
               additionalModules = with pkgs.nginxModules; [ geoip2 ];
@@ -866,16 +876,19 @@ in
               '';
               virtualHosts = {
                 "idimitrov.dev" = tls // {
+                  serverAliases = [ "www.idimitrov.dev" ];
                   listenAddresses = [
                     "10.0.0.1"
                     "37.205.13.29"
                   ];
-                };
-                "www.idimitrov.dev" = tls // {
-                  listenAddresses = [
-                    "10.0.0.1"
-                    "37.205.13.29"
-                  ];
+                  locations."/" = {
+                    root = inputs.webshite.packages.${system}.default;
+
+                    extraConfig = ''
+                      autoindex on;
+                      ${serveStatic}
+                    '';
+                  };
                 };
                 "pic.idimitrov.dev" = tls // {
                   listenAddresses = [

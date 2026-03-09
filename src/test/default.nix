@@ -62,7 +62,6 @@ in
             mail
             nginx
           ];
-          webshite.enable = true;
           _module.args.system = system;
           networking.hosts = {
             "10.0.0.1" = [
@@ -105,6 +104,10 @@ in
             address = "10.0.0.1/24";
             privateKeyFile = "/etc/wireguard/wg0.priv";
             peers = pkgs.lib.mkForce peers;
+          };
+          security.acme.defaults = {
+            email = pkgs.lib.mkForce "test@example.com";
+            server = pkgs.lib.mkForce "https://acme-staging-v02.api.letsencrypt.org/directory";
           };
           environment.systemPackages = extraPkgs;
         };
@@ -158,6 +161,9 @@ in
 
         nova.succeed("nslookup example.com 10.0.0.1")
         nova.fail("nslookup example.com dns")
+
+        nova.succeed("curl http://vpsfree | grep -o '301'")
+        nova.succeed("curl -k https://vpsfree | grep -o 'Home | idimitrov.dev'")
       '';
   };
 }
