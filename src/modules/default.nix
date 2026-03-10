@@ -211,9 +211,14 @@ in
                           enabled = true;
                           type = "local";
                           command = [
-                            "nix"
-                            "run"
-                            "github:utensils/mcp-nixos"
+                            "${pkgs.mcp-nixos}/bin/mcp-nixos"
+                          ];
+                        };
+                        mcp-grafana = {
+                          enabled = false;
+                          type = "local";
+                          command = [
+                            "${pkgs.mcp-grafana}/bin/mcp-grafana"
                           ];
                         };
                       };
