@@ -102,6 +102,9 @@ in
         "Welcome" = {
           psk = "slavqnska95";
         };
+        "The Eye" = {
+          psk = "11111111";
+        };
         "ATHENS-HAWKS" = { };
         "RAMADA-SOFIA" = { };
       };
