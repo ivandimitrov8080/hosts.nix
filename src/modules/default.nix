@@ -102,6 +102,9 @@ in
         "Welcome" = {
           psk = "slavqnska95";
         };
+        "HOTEL-3" = {
+          psk = "BRIONI2024";
+        };
         "The Eye" = {
           psk = "11111111";
         };
@@ -554,6 +557,7 @@ in
         { pkgs, ... }:
         {
           meta.gaming.enable = true;
+          hardware.bluetooth.enable = true;
           home-manager.users.ivand = {
             wayland.windowManager.sway = {
               config = {
