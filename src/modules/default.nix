@@ -33,87 +33,34 @@ in
         }
       ];
       wirelessNetworks = {
-        "Smart-Hostel-2.4" = {
-          psk = "smarttrans.bg";
-        };
-        "Yohohostel2.4G" = {
-          psk = "kaskamaska";
-        };
-        "Nomado_Guest" = {
-          psk = "welcomehome";
-        };
-        "HostelMusala Uni" = {
-          psk = "mhostelm";
-        };
-        "BOUTIQUE APARTMENTS" = {
-          psk = "boutique26";
-        };
-        "Safestay" = {
-          psk = "AlldayrooftopBAR";
-        };
-        "HOSTEL JASMIN 2" = {
-          psk = "Jasmin2024";
-        };
-        "HOME" = {
-          psk = "iloveprague";
-        };
-        "Vodafone-B925" = {
-          psk = "7aGh3FE6pN4p4cu6";
-        };
-        "O2WIFIZ_EXT" = {
-          psk = "iloveprague";
-        };
-        "KOTEKLAN_GUEST" = {
-          psk = "koteklankotek";
-        };
-        "TP-Link_BE7A" = {
-          psk = "84665461";
-        };
-        "Post120" = {
-          psk = "9996663333";
-        };
-        "MOONLIGHT2019" = {
-          psk = "seacrets";
-        };
-        "Kaiser Terrasse" = {
-          psk = "Internet12";
-        };
-        "bumshakalaka" = {
-          psk = "locomotive420";
-        };
-        "3G" = {
-          psk = "bumshakalaka";
-        };
-        "LeevinGuest" = {
-          psk = "L33v1nGhF4ro";
-        };
-        "FaroStation" = {
-          psk = "riaformosa";
-        };
-        "blablaloby" = {
-          psk = "1234512345";
-        };
-        "blablafloor2" = {
-          psk = "1234512345";
-        };
-        "Uspeh" = {
-          psk = "101076233";
-        };
-        "Welcome" = {
-          psk = "slavqnska95";
-        };
-        "HOTEL-3" = {
-          psk = "BRIONI2024";
-        };
-        "The Eye" = {
-          psk = "11111111";
-        };
-        "TP-LINK_9F14" = {
-          psk = "72041543";
-        };
-        "Largo_Guest" = {
-          psk = "1122334455";
-        };
+        "Smart-Hostel-2.4".psk = "smarttrans.bg";
+        "Yohohostel2.4G".psk = "kaskamaska";
+        "Nomado_Guest".psk = "welcomehome";
+        "HostelMusala Uni".psk = "mhostelm";
+        "BOUTIQUE APARTMENTS".psk = "boutique26";
+        "Safestay".psk = "AlldayrooftopBAR";
+        "HOSTEL JASMIN 2".psk = "Jasmin2024";
+        "HOME".psk = "iloveprague";
+        "Vodafone-B925".psk = "7aGh3FE6pN4p4cu6";
+        "O2WIFIZ_EXT".psk = "iloveprague";
+        "KOTEKLAN_GUEST".psk = "koteklankotek";
+        "TP-Link_BE7A".psk = "84665461";
+        "Post120".psk = "9996663333";
+        "MOONLIGHT2019".psk = "seacrets";
+        "Kaiser Terrasse".psk = "Internet12";
+        "bumshakalaka".psk = "locomotive420";
+        "3G".psk = "bumshakalaka";
+        "LeevinGuest".psk = "L33v1nGhF4ro";
+        "FaroStation".psk = "riaformosa";
+        "blablaloby".psk = "1234512345";
+        "blablafloor2".psk = "1234512345";
+        "Uspeh".psk = "101076233";
+        "Welcome".psk = "slavqnska95";
+        "HOTEL-3".psk = "BRIONI2024";
+        "The Eye".psk = "11111111";
+        "TP-LINK_9F14".psk = "72041543";
+        "Largo_Guest".psk = "1122334455";
+        "Gore".psk = "1234567890";
         "ATHENS-HAWKS" = { };
         "RAMADA-SOFIA" = { };
       };
