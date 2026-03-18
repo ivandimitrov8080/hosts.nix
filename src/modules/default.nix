@@ -108,6 +108,12 @@ in
         "The Eye" = {
           psk = "11111111";
         };
+        "TP-LINK_9F14" = {
+          psk = "72041543";
+        };
+        "Largo_Guest" = {
+          psk = "1122334455";
+        };
         "ATHENS-HAWKS" = { };
         "RAMADA-SOFIA" = { };
       };
