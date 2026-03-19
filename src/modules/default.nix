@@ -61,6 +61,7 @@ in
         "TP-LINK_9F14".psk = "72041543";
         "Largo_Guest".psk = "1122334455";
         "Gore".psk = "1234567890";
+        "Jack Sparrow".psk = "11111111";
         "ATHENS-HAWKS" = { };
         "RAMADA-SOFIA" = { };
       };
