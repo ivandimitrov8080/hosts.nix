@@ -330,11 +330,11 @@
     },
     "configuration_2": {
       "locked": {
-        "lastModified": 1774264882,
-        "narHash": "sha256-CRmLvq0NPUcsDioeruk0IM62JdY4Wt2HVqOEtfcN4kQ=",
+        "lastModified": 1774438452,
+        "narHash": "sha256-XfU3SY3A23+El2iPERpqfxdUR4cdIO0DM6ilNFn9RmY=",
         "owner": "ivandimitrov8080",
         "repo": "configuration.nix",
-        "rev": "4077456765d92829631b4b0ab7f99c1ba7ce3557",
+        "rev": "42ae74208f2aad97cf42fb4418cb27fb605cce57",
         "type": "github"
       },
       "original": {
@@ -345,11 +345,11 @@
     },
     "configuration_3": {
       "locked": {
-        "lastModified": 1774264882,
-        "narHash": "sha256-CRmLvq0NPUcsDioeruk0IM62JdY4Wt2HVqOEtfcN4kQ=",
+        "lastModified": 1774438452,
+        "narHash": "sha256-XfU3SY3A23+El2iPERpqfxdUR4cdIO0DM6ilNFn9RmY=",
         "owner": "ivandimitrov8080",
         "repo": "configuration.nix",
-        "rev": "4077456765d92829631b4b0ab7f99c1ba7ce3557",
+        "rev": "42ae74208f2aad97cf42fb4418cb27fb605cce57",
         "type": "github"
       },
       "original": {
@@ -554,11 +554,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1774401597,
-        "narHash": "sha256-FRmlVSGUQpIxGbyAcVSsaWcrF338DJSvh8eyDB92rPg=",
+        "lastModified": 1774428097,
+        "narHash": "sha256-yQAutPgbsVHsN/SygZDyzMRxQn6Im53PJkrI377N8Sg=",
         "owner": "cachix",
         "repo": "devenv",
-        "rev": "6de0864e7a9f8a052341073db5b778092cd611ce",
+        "rev": "957d63f663f230dc8ac3b85f950690e56fe8b1e0",
         "type": "github"
       },
       "original": {
@@ -583,11 +583,11 @@
         "rust-overlay": "rust-overlay_2"
       },
       "locked": {
-        "lastModified": 1774401597,
-        "narHash": "sha256-FRmlVSGUQpIxGbyAcVSsaWcrF338DJSvh8eyDB92rPg=",
+        "lastModified": 1774428097,
+        "narHash": "sha256-yQAutPgbsVHsN/SygZDyzMRxQn6Im53PJkrI377N8Sg=",
         "owner": "cachix",
         "repo": "devenv",
-        "rev": "6de0864e7a9f8a052341073db5b778092cd611ce",
+        "rev": "957d63f663f230dc8ac3b85f950690e56fe8b1e0",
         "type": "github"
       },
       "original": {
@@ -612,11 +612,11 @@
         "rust-overlay": "rust-overlay_3"
       },
       "locked": {
-        "lastModified": 1774401597,
-        "narHash": "sha256-FRmlVSGUQpIxGbyAcVSsaWcrF338DJSvh8eyDB92rPg=",
+        "lastModified": 1774428097,
+        "narHash": "sha256-yQAutPgbsVHsN/SygZDyzMRxQn6Im53PJkrI377N8Sg=",
         "owner": "cachix",
         "repo": "devenv",
-        "rev": "6de0864e7a9f8a052341073db5b778092cd611ce",
+        "rev": "957d63f663f230dc8ac3b85f950690e56fe8b1e0",
         "type": "github"
       },
       "original": {
@@ -2040,11 +2040,11 @@
         "treefmt-nix": "treefmt-nix_2"
       },
       "locked": {
-        "lastModified": 1774426515,
-        "narHash": "sha256-BW1damxwwgzIfjX8fs8cL01aFm1lTcVtyuts48filpk=",
+        "lastModified": 1774441756,
+        "narHash": "sha256-e5buD3UwfAK2LiHCOISiNpn3QBdSjRnO89y3KbKlew8=",
         "owner": "ivandimitrov8080",
         "repo": "metronome",
-        "rev": "e81c1a7d51fb07c6c5eb2eca9282ca814909c85a",
+        "rev": "4ae3f4c5f60f35eba92c91f3269fda2839aafc6c",
         "type": "github"
       },
       "original": {
@@ -2063,11 +2063,11 @@
         "treefmt-nix": "treefmt-nix_4"
       },
       "locked": {
-        "lastModified": 1774426497,
-        "narHash": "sha256-mG/eCtUlC44ZrWo8/2q8WxsuAQStJcX9BXl2wLyAj4A=",
+        "lastModified": 1774441735,
+        "narHash": "sha256-koIBwlPsU5cullJeJuLoAg995eXarjNcaRlSo157n5s=",
         "owner": "ivandimitrov8080",
         "repo": "ndlm",
-        "rev": "ea7062cf29f6794002de6b8e0a38c83e31878403",
+        "rev": "a241ecb401653f0ce577bc5c50b2352685f29d02",
         "type": "github"
       },
       "original": {
@@ -3391,11 +3391,11 @@
         "treefmt-nix": "treefmt-nix_6"
       },
       "locked": {
-        "lastModified": 1774426404,
-        "narHash": "sha256-IxW+kiDcRDiGipLmpeOJv3rLa6IbqsyhiJNd1akxx1E=",
+        "lastModified": 1774441648,
+        "narHash": "sha256-8KbqU45TwPbYJTjUkvjLy9dTJ6FM4SKofEgsT2fD0Bw=",
         "owner": "ivandimitrov8080",
         "repo": "idimitrov.dev",
-        "rev": "27fd0975075c1a487bc3ee423f9b69f9bdc74b32",
+        "rev": "249235f39e63e8839acb6d7bd9c6206c12ab7236",
         "type": "github"
       },
       "original": {
