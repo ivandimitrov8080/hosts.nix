@@ -615,14 +615,20 @@ in
             simple-nixos-mailserver.nixosModule
           ];
           networking.hostName = "vpsfree";
-          meta.shells.enable = true;
-          meta.dnscrypt.enable = true;
-          meta.mail.enable = true;
-          meta.bingwp.enable = true;
-          meta.wireguard = {
-            enable = true;
-            address = "10.0.0.1/24";
-            inherit peers;
+          meta = {
+            shells.enable = true;
+            dnscrypt.enable = true;
+            mail.enable = true;
+            bingwp.enable = true;
+            wireguard = {
+              enable = true;
+              address = "10.0.0.1/24";
+              inherit peers;
+            };
+            grafana = {
+              enable = true;
+              domain = "grafana.idimitrov.dev";
+            };
           };
           services.nginx.enable = true;
           services.postgresql.enable = true;
