@@ -412,6 +412,13 @@ in
           boot.loader.grub.efiSupport = false;
           #boot.kernelPackages = pkgs.linuxPackages;
           meta.graphicalBoot.enable = true;
+          networking.stevenblack = {
+            enable = true;
+            block = [
+              "fakenews"
+              "gambling"
+            ];
+          };
           programs.regreet.enable = lib.mkForce false;
           services.greetd = {
             settings = {
@@ -716,7 +723,7 @@ in
                   "idimitrov.dev"
                   "mail.idimitrov.dev"
                 ];
-                loginAccounts = {
+                accounts = {
                   "ivan@idimitrov.dev" = {
                     hashedPassword = "$2b$05$rTVIQD98ogXeCBKdk/YufulWHqpMCAlb7SHDPlh5y8Xbukoa/uQLm";
                     aliases = [ "admin@idimitrov.dev" ];

@@ -72,11 +72,6 @@ in
               prefixLength = 24;
             }
           ];
-          networking.hosts = {
-            "10.0.0.1" = [
-              "example.com"
-            ];
-          };
           services = {
             # use dnsmasq to mock dnscrypt-proxy
             dnscrypt-proxy.enable = pkgs.lib.mkForce false;
