@@ -134,8 +134,40 @@ in
                 xdg.enable = true;
                 home.packages = with pkgs; [
                   devenv
+                  vit
                 ];
                 programs = {
+                  delta.enable = true;
+                  gh.enable = true;
+                  password-store.enable = true;
+                  yazi.enable = true;
+                  fd.enable = true;
+                  ssh.enable = true;
+                  gpg.enable = true;
+                  git.enable = true;
+                  tealdeer.enable = true;
+                  bottom.enable = true;
+                  fzf.enable = true;
+                  nix-index.enable = true;
+                  bat.enable = true;
+                  bash.enable = true;
+                  zsh.enable = true;
+                  kitty.enable = true;
+                  tmux.enable = true;
+                  starship.enable = true;
+                  eza.enable = true;
+                  zoxide.enable = true;
+                  waybar.enable = true;
+                  swaylock.enable = true;
+                  rofi.enable = true;
+                  imv.enable = true;
+                  mpv.enable = true;
+                  browserpass.enable = true;
+                  firefox.enable = true;
+                  taskwarrior = {
+                    enable = true;
+                    package = pkgs.taskwarrior3;
+                  };
                   ssh.matchBlocks = {
                     vpsfree-ivand = {
                       hostname = "10.0.0.1";
@@ -157,9 +189,6 @@ in
                     };
                     signing.key = "C565 2E79 2A7A 9110 DFA7  F77D 0BDA D4B2 11C4 9294";
                   };
-                  delta.enable = true;
-                  gh.enable = true;
-                  password-store.enable = true;
                   opencode = {
                     enable = true;
                     settings = {
@@ -219,30 +248,6 @@ in
                       use ${pkgs.xin}/bin/xin
                     '';
                   };
-                  yazi.enable = true;
-                  fd.enable = true;
-                  ssh.enable = true;
-                  gpg.enable = true;
-                  git.enable = true;
-                  tealdeer.enable = true;
-                  bottom.enable = true;
-                  fzf.enable = true;
-                  nix-index.enable = true;
-                  bat.enable = true;
-                  bash.enable = true;
-                  zsh.enable = true;
-                  kitty.enable = true;
-                  tmux.enable = true;
-                  starship.enable = true;
-                  eza.enable = true;
-                  zoxide.enable = true;
-                  waybar.enable = true;
-                  swaylock.enable = true;
-                  rofi.enable = true;
-                  imv.enable = true;
-                  mpv.enable = true;
-                  browserpass.enable = true;
-                  firefox.enable = true;
                 };
                 services = {
                   gpg-agent.enable = true;
