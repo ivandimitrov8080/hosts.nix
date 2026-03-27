@@ -409,29 +409,14 @@ in
             };
           };
           boot.loader.grub.enable = true;
-          boot.loader.grub.efiSupport = false;
-          #boot.kernelPackages = pkgs.linuxPackages;
-          meta.graphicalBoot.enable = true;
-          networking.stevenblack = {
-            enable = true;
-            block = [
-              "fakenews"
-              "gambling"
-            ];
-          };
-          programs.regreet.enable = lib.mkForce false;
-          services.greetd = {
-            settings = {
-              default_session =
-                let
-                  greeter = lib.getExe pkgs.ndlm;
-                  session = "--session ${pkgs.swayfx}/bin/swayfx";
-                  themeFile = "--theme-file /etc/plymouth/themes/catppuccin-mocha/catppuccin-mocha.plymouth";
-                in
-                {
-                  command = lib.mkForce "${greeter} ${session} ${themeFile}";
-                  user = "greeter";
-                };
+          meta = {
+            graphicalBoot.enable = true;
+            shells.enable = true;
+            swayland.enable = true;
+            wireguard = {
+              enable = true;
+              inherit peers;
+              address = "10.0.0.2/24";
             };
           };
           zramSwap.enable = true;
@@ -442,14 +427,6 @@ in
               "render"
             ];
           };
-          meta.shells.enable = true;
-          meta.swayland.enable = true;
-          meta.wireguard = {
-            enable = true;
-            inherit peers;
-            address = "10.0.0.2/24";
-          };
-          networking.hostName = "nova";
           systemd.network.networks = {
             "10-wlp45s0" = {
               matchConfig.Name = "wlp45s0";
@@ -468,6 +445,7 @@ in
           };
           networking = {
             inherit hosts;
+            hostName = "nova";
             nameservers = [ "10.0.0.1" ];
             nftables = {
               enable = true;
@@ -477,8 +455,16 @@ in
               enable = true;
               networks = wirelessNetworks;
             };
+            stevenblack = {
+              enable = true;
+              block = [
+                "fakenews"
+                "gambling"
+              ];
+            };
           };
           programs = {
+            regreet.enable = lib.mkForce false;
             git.enable = true;
             gtklock.enable = true;
             zoxide.enable = true;
@@ -488,12 +474,27 @@ in
           services = {
             pipewire.enable = true;
             dbus.enable = true;
+            locate.enable = true;
             resolved = {
               enable = true;
               settings = {
                 Resolve = {
                   FallbackDNS = [ "10.0.0.1" ];
                 };
+              };
+            };
+            greetd = {
+              settings = {
+                default_session =
+                  let
+                    greeter = lib.getExe pkgs.ndlm;
+                    session = "--session ${pkgs.swayfx}/bin/swayfx";
+                    themeFile = "--theme-file /etc/plymouth/themes/catppuccin-mocha/catppuccin-mocha.plymouth";
+                  in
+                  {
+                    command = lib.mkForce "${greeter} ${session} ${themeFile}";
+                    user = "greeter";
+                  };
               };
             };
           };
