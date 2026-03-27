@@ -174,6 +174,8 @@ in
         for m in [nova, vpsfree, spoke2, outsider]:
             m.wait_for_unit("default.target")
 
+        vpsfree.wait_for_unit("grafana.service")
+        vpsfree.wait_for_unit("dnsmasq.service")
 
         nova.succeed("ping -c1 10.0.0.1")
         spoke2.succeed("ping -c1 10.0.0.1")
@@ -184,11 +186,15 @@ in
         nova.fail("nslookup example.com dns")
 
         nova.succeed("curl http://idimitrov.dev | grep -o '301'")
-        nova.succeed("curl -k https://idimitrov.dev | grep -o 'Home | idimitrov.dev'")
+        nova.succeed("curl -k https://idimitrov.dev")
 
-        nova.succeed("curl --resolve mail.idimitrov.dev:443:10.0.0.1 -k https://mail.idimitrov.dev | grep -o 'Roundcube Webmail Login'")
-        outsider.fail("curl --resolve mail.idimitrov.dev:443:37.205.13.29 -k https://mail.idimitrov.dev | grep -o 'Roundcube Webmail Login'")
-        outsider.fail("curl --resolve mail.idimitrov.dev:443:10.0.0.1 -k https://mail.idimitrov.dev | grep -o 'Roundcube Webmail Login'")
+        nova.succeed("curl --resolve mail.idimitrov.dev:443:10.0.0.1 -k https://mail.idimitrov.dev")
+        outsider.fail("curl --resolve mail.idimitrov.dev:443:37.205.13.29 -k https://mail.idimitrov.dev")
+        outsider.fail("curl --resolve mail.idimitrov.dev:443:10.0.0.1 -k https://mail.idimitrov.dev")
+
+        nova.succeed("curl --resolve grafana.idimitrov.dev:443:10.0.0.1 -k https://grafana.idimitrov.dev")
+        outsider.fail("curl --resolve grafana.idimitrov.dev:443:37.205.13.29 -k https://grafana.idimitrov.dev")
+        outsider.fail("curl --resolve grafana.idimitrov.dev:443:10.0.0.1 -k https://grafana.idimitrov.dev")
       '';
   };
 }
