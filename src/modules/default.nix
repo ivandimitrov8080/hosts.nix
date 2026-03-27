@@ -776,19 +776,14 @@ in
           security = {
             acme = {
               acceptTerms = true;
-              defaults = {
-                email = "security@idimitrov.dev";
-                webroot = "/var/lib/acme/acme-challenge";
-              };
+              defaults.email = "security@idimitrov.dev";
               certs = {
                 "idimitrov.dev" = {
-                  extraDomainNames = [
-                    "www.idimitrov.dev"
-                    "metronome.idimitrov.dev"
-                    "grafana.idimitrov.dev"
-                    "pic.idimitrov.dev"
-                    "mail.idimitrov.dev"
-                  ];
+                  domain = "*.idimitrov.dev";
+                  dnsProvider = "cloudflare";
+                  dnsResolver = "1.1.1.1:53";
+                  group = "nginx";
+                  environmentFile = "/var/lib/acme/env";
                 };
               };
             };
@@ -798,6 +793,7 @@ in
               tls = {
                 enableACME = false;
                 forceSSL = true;
+                acmeRoot = null;
                 sslCertificate = "/var/lib/acme/idimitrov.dev/fullchain.pem";
                 sslCertificateKey = "/var/lib/acme/idimitrov.dev/key.pem";
               };
