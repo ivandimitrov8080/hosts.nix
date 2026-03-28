@@ -63,6 +63,7 @@ in
         "Gore".psk = "1234567890";
         "Jack Sparrow".psk = "11111111";
         "Toncho Mitev".psk = "mazda626";
+        "Vivacom_FiberNet-44F2".psk = "d3PtFcg96M";
         "ATHENS-HAWKS" = { };
         "RAMADA-SOFIA" = { };
       };
