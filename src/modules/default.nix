@@ -168,6 +168,33 @@ in
                   taskwarrior = {
                     enable = true;
                     package = pkgs.taskwarrior3;
+                    config = {
+                      confirmation = false;
+                      default = {
+                        project = "misc";
+                        priority = "M";
+                        due = "+7days";
+                      };
+                      context = {
+                        "house" = {
+                          read = "project:house";
+                          write = "project:house";
+                        };
+                        "configuration" = {
+                          read = "project:configuration.nix";
+                          write = "project:configuration.nix";
+                        };
+                        "hosts" = {
+                          read = "project:hosts.nix";
+                          write = "project:hosts.nix";
+                        };
+                      };
+                      color.project = {
+                        "house" = "yellow";
+                        "hosts.nix" = "green";
+                        "configuration.nix" = "blue";
+                      };
+                    };
                   };
                   ssh.matchBlocks = {
                     vpsfree-ivand = {
