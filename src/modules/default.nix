@@ -529,6 +529,10 @@ in
           home-manager.users.ivand = {
             wayland.windowManager.sway = {
               config = {
+                startup = [
+                  { command = "exec firefox"; }
+                  { command = "swaymsg 'workspace 1; exec kitty'"; }
+                ];
                 input = {
                   "type:touchpad" = {
                     events = "disabled";
