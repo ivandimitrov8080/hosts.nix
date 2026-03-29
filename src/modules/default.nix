@@ -288,7 +288,7 @@ in
                   };
                   email = {
                     accounts = {
-                      ivan = rec {
+                      "ivan@idimitrov.dev" = rec {
                         primary = true;
                         realName = "Ivan Kirilov Dimitrov";
                         address = "ivan@idimitrov.dev";
@@ -307,10 +307,6 @@ in
                             ivan@idimitrov.dev
                           '';
                         };
-                        getmail = {
-                          enable = true;
-                          mailboxes = [ "ALL" ];
-                        };
                         gpg = {
                           encryptByDefault = true;
                           signByDefault = true;
@@ -323,6 +319,8 @@ in
                         };
                         imap = {
                           host = "idimitrov.dev";
+                          authentication = "login";
+                          tls.useStartTls = true;
                         };
                         aerc = {
                           enable = true;
@@ -626,12 +624,12 @@ in
                     "smtpd_sasl_auth_enable=yes"
                   ];
                 };
-                roundcube = {
+                roundcube = rec {
                   enable = true;
                   hostName = "mail.idimitrov.dev";
                   extraConfig = ''
-                    $config['imap_host'] = 'ssl://${config.mailserver.fqdn}:993';
-                    $config['smtp_host'] = "ssl://${config.mailserver.fqdn}";
+                    $config['imap_host'] = 'ssl://${hostName}:993';
+                    $config['smtp_host'] = "ssl://${hostName}:465";
                     $config['smtp_user'] = "%u";
                     $config['smtp_pass'] = "%p";
                   '';
