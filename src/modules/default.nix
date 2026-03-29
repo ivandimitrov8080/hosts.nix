@@ -165,9 +165,9 @@ in
                   mpv.enable = true;
                   browserpass.enable = true;
                   firefox.enable = true;
+                  direnv.enable = true;
                   taskwarrior = {
                     enable = true;
-                    package = pkgs.taskwarrior3;
                     config = {
                       confirmation = false;
                       default = {
@@ -219,28 +219,6 @@ in
                   };
                   opencode = {
                     enable = true;
-                    settings = {
-                      theme = "catppuccin";
-                      model = "copilot/GPT-4.1";
-                      autoshare = false;
-                      autoupdate = false;
-                      mcp = {
-                        mcp-nixos = {
-                          enabled = true;
-                          type = "local";
-                          command = [
-                            "${pkgs.mcp-nixos}/bin/mcp-nixos"
-                          ];
-                        };
-                        mcp-grafana = {
-                          enabled = false;
-                          type = "local";
-                          command = [
-                            "${pkgs.mcp-grafana}/bin/mcp-grafana"
-                          ];
-                        };
-                      };
-                    };
                     agents = {
                       "UI/UX" = ''
                         ---
@@ -265,10 +243,6 @@ in
                         asking.
                       '';
                     };
-                  };
-                  direnv = {
-                    enable = true;
-                    enableZshIntegration = true;
                   };
                   nushell = {
                     enable = true;
@@ -298,7 +272,6 @@ in
                 };
                 accounts = {
                   calendar = {
-                    basePath = ".local/share/calendars";
                     accounts.ivand = {
                       primary = true;
                       khal = {
@@ -308,7 +281,6 @@ in
                     };
                   };
                   email = {
-                    maildirBasePath = "mail";
                     accounts = {
                       ivan = rec {
                         primary = true;
@@ -343,15 +315,9 @@ in
                         imap = {
                           host = "idimitrov.dev";
                         };
-                        neomutt = {
+                        aerc = {
                           enable = true;
-                          mailboxType = "imap";
-                          extraMailboxes = [
-                            "Sent"
-                            "Drafts"
-                            "Trash"
-                            "Archive"
-                          ];
+                          smtpAuth = "login";
                         };
                         offlineimap.enable = true;
                       };
@@ -360,25 +326,22 @@ in
                 };
               };
           };
-          i18n.defaultLocale = "en_US.UTF-8";
-          time.timeZone = "Europe/Prague";
-          systemd.network = {
-            wait-online.enable = false;
+          nix = {
+            settings = {
+              substituters = [
+                "https://nix-community.cachix.org"
+                "https://cache.nixos.org/"
+              ];
+              trusted-public-keys = [
+                "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+              ];
+            };
           };
+          hardware.bluetooth.enable = true;
+          time.timeZone = "Europe/Prague";
           environment.systemPackages = with pkgs; [
-            audacity
-            brightnessctl
-            gimp
-            grim
-            just
-            libnotify
-            libreoffice-qt
-            mupdf
             nixvim.main
-            pwvucontrol
             python3
-            screenshot
-            slurp
             (pkgs.makeDesktopItem {
               name = "telegram";
               desktopName = "Telegram";
@@ -387,8 +350,6 @@ in
               icon = "${pkgs.telegram-desktop}/share/icons/hicolor/128x128/apps/org.telegram.desktop.png";
             })
             transmission_4
-            volume
-            wl-clipboard
           ];
           users = {
             users = {
@@ -426,40 +387,7 @@ in
               noto-fonts-lgc-plus
             ];
           };
-        };
-      nova-module =
-        { pkgs, lib, ... }:
-        {
-          nix = {
-            settings = {
-              substituters = [
-                "https://nix-community.cachix.org"
-                "https://cache.nixos.org/"
-              ];
-              trusted-public-keys = [
-                "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-              ];
-            };
-          };
-          boot.loader.grub.enable = true;
-          meta = {
-            graphicalBoot.enable = true;
-            shells.enable = true;
-            swayland.enable = true;
-            wireguard = {
-              enable = true;
-              inherit peers;
-              address = "10.0.0.2/24";
-            };
-          };
           zramSwap.enable = true;
-          users.users.greeter = {
-            extraGroups = [
-              "video"
-              "input"
-              "render"
-            ];
-          };
           systemd.network.networks = {
             "10-wlp45s0" = {
               matchConfig.Name = "wlp45s0";
@@ -497,7 +425,6 @@ in
             };
           };
           programs = {
-            regreet.enable = lib.mkForce false;
             git.enable = true;
             gtklock.enable = true;
             zoxide.enable = true;
@@ -516,127 +443,30 @@ in
                 };
               };
             };
-            greetd = {
-              settings = {
-                default_session =
-                  let
-                    greeter = lib.getExe pkgs.ndlm;
-                    session = "--session ${pkgs.swayfx}/bin/swayfx";
-                    themeFile = "--theme-file /etc/plymouth/themes/catppuccin-mocha/catppuccin-mocha.plymouth";
-                  in
-                  {
-                    command = lib.mkForce "${greeter} ${session} ${themeFile}";
-                    user = "greeter";
-                  };
-              };
-            };
           };
-          security = {
-            sudo = {
-              extraRules = [
-                {
-                  groups = [ "wheel" ];
-                  commands = [
-                    {
-                      command = "${pkgs.brightnessctl}/bin/brightnessctl";
-                      options = [ "NOPASSWD" ];
-                    }
-                  ];
-                }
-              ];
+          meta = {
+            graphicalBoot.enable = true;
+            shells.enable = true;
+            swayland.enable = true;
+            wireguard = {
+              enable = true;
+              inherit peers;
+              address = "10.0.0.2/24";
             };
-            polkit.enable = true;
-            rtkit.enable = true;
           };
         };
       gamingModule =
         { pkgs, ... }:
         {
           meta.gaming.enable = true;
-          hardware.bluetooth.enable = true;
           home-manager.users.ivand = {
             wayland.windowManager.sway = {
               config = {
-                startup = [
-                  { command = "exec firefox"; }
-                  { command = "swaymsg 'workspace 1; exec kitty'"; }
-                ];
-                input = {
-                  "type:touchpad" = {
-                    events = "disabled";
-                  };
-                };
-                assigns = {
-                  "2" = [ { app_id = "^firefox$"; } ];
-                  "3" = [
-                    { class = "^dota2$"; }
-                    { class = "^cs2$"; }
-                  ];
-                  "9" = [ { class = "^steam$"; } ];
-                };
                 keybindings = pkgs.lib.mkOptionDefault {
                   "Mod4+o" = "exec ${pkgs.which-key}/bin/which-key";
                 };
               };
             };
-          };
-          systemd.user = {
-            timers = {
-              steam-desktop-entries = {
-                wantedBy = [ "timers.target" ];
-                timerConfig = {
-                  OnCalendar = "*-*-* 10:00:00";
-                  Persistent = true;
-                };
-              };
-            };
-            services.steam-desktop-entries =
-              let
-                exe =
-                  pkgs.writers.writePython3 "steam-desktop-entries"
-                    {
-                      libraries = with pkgs.python3Packages; [ vdf ];
-                    }
-                    # py
-                    ''
-                      import glob
-                      import os
-                      import vdf
-                      steamapps = os.path.expanduser("~/.local/share/Steam/steamapps")
-
-
-                      def save_desktop_entry(appid, name):
-                          appid = str(appid).strip()
-                          name = (name or "").strip()
-                          path = os.path.expanduser(
-                              f"~/.local/share/applications/game-{appid}.desktop"
-                          )
-                          with open(path, "w", encoding="utf-8") as f:
-                              f.write(f"""[Desktop Entry]
-                      Exec=steam -silent steam://launch/{appid}/dialog
-                      Icon=steam_icon_{appid}
-                      Name={name}
-                      Terminal=false
-                      Type=Application
-                      Version=1.5
-                      """)
-
-
-                      for path in sorted(glob.glob(os.path.join(steamapps, "appmanifest_*.acf"))):
-                          with open(path, "r", encoding="utf-8", errors="replace") as f:
-                              data = vdf.load(f)
-                          st = data.get("AppState", {})
-                          appid = st.get("appid")
-                          name = st.get("name")
-                          save_desktop_entry(appid, name)
-                    '';
-              in
-              {
-                description = "Generate desktop files for all installed games";
-                script = ''
-                  ${exe}
-                '';
-              };
           };
           environment.systemPackages = with pkgs; [ radeontop ];
         };

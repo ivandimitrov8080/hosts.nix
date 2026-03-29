@@ -113,7 +113,6 @@ in
           imports = with nixosModules; [
             configMod
             rest
-            nova-module
           ];
           boot.consoleLogLevel = lib.mkForce 7;
           networking.useNetworkd = lib.mkForce true;

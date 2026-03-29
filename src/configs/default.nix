@@ -27,7 +27,6 @@ rec {
       (with nixosModules; [
         default
         rest
-        nova-module
       ])
       ++ [ hardwareConfigurations.nova ];
   };
