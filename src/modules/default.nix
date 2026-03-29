@@ -313,14 +313,13 @@ in
                           key = "C565 2E79 2A7A 9110 DFA7  F77D 0BDA D4B2 11C4 9294";
                         };
                         smtp = {
-                          host = "idimitrov.dev";
+                          host = "mail.idimitrov.dev";
+                          port = 465;
                           authentication = "login";
-                          tls.useStartTls = true;
                         };
                         imap = {
-                          host = "idimitrov.dev";
+                          host = "mail.idimitrov.dev";
                           authentication = "login";
-                          tls.useStartTls = true;
                         };
                         aerc = {
                           enable = true;
@@ -648,7 +647,7 @@ in
               defaults.email = "security@idimitrov.dev";
               certs = {
                 "idimitrov.dev" = {
-                  domain = "*.idimitrov.dev";
+                  extraDomainNames = [ "*.idimitrov.dev" ];
                   dnsProvider = "cloudflare";
                   dnsResolver = "1.1.1.1:53";
                   group = "nginx";
