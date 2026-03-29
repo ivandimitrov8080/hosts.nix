@@ -138,34 +138,40 @@ in
                   vit
                 ];
                 programs = {
-                  delta.enable = true;
-                  gh.enable = true;
-                  password-store.enable = true;
-                  yazi.enable = true;
-                  fd.enable = true;
-                  ssh.enable = true;
-                  gpg.enable = true;
-                  git.enable = true;
-                  tealdeer.enable = true;
-                  bottom.enable = true;
-                  fzf.enable = true;
-                  nix-index.enable = true;
-                  bat.enable = true;
                   bash.enable = true;
-                  zsh.enable = true;
-                  kitty.enable = true;
-                  tmux.enable = true;
-                  starship.enable = true;
-                  eza.enable = true;
-                  zoxide.enable = true;
-                  waybar.enable = true;
-                  swaylock.enable = true;
-                  rofi.enable = true;
-                  imv.enable = true;
-                  mpv.enable = true;
+                  bat.enable = true;
+                  bottom.enable = true;
                   browserpass.enable = true;
-                  firefox.enable = true;
+                  delta.enable = true;
                   direnv.enable = true;
+                  eza.enable = true;
+                  fd.enable = true;
+                  firefox.enable = true;
+                  fzf.enable = true;
+                  gh.enable = true;
+                  git.enable = true;
+                  gpg.enable = true;
+                  imv.enable = true;
+                  kitty.enable = true;
+                  mpv.enable = true;
+                  msmtp.enable = true;
+                  nix-index.enable = true;
+                  offlineimap.enable = true;
+                  password-store.enable = true;
+                  rofi.enable = true;
+                  ssh.enable = true;
+                  starship.enable = true;
+                  swaylock.enable = true;
+                  tealdeer.enable = true;
+                  tmux.enable = true;
+                  waybar.enable = true;
+                  yazi.enable = true;
+                  zoxide.enable = true;
+                  zsh.enable = true;
+                  aerc = {
+                    enable = true;
+                    extraConfig.general.unsafe-accounts-conf = true;
+                  };
                   taskwarrior = {
                     enable = true;
                     config = {
@@ -308,9 +314,12 @@ in
                         gpg = {
                           encryptByDefault = true;
                           signByDefault = true;
+                          key = "C565 2E79 2A7A 9110 DFA7  F77D 0BDA D4B2 11C4 9294";
                         };
                         smtp = {
                           host = "idimitrov.dev";
+                          authentication = "login";
+                          tls.useStartTls = true;
                         };
                         imap = {
                           host = "idimitrov.dev";
@@ -318,6 +327,10 @@ in
                         aerc = {
                           enable = true;
                           smtpAuth = "login";
+                          imapAuth = "auth";
+                          extraAccounts = {
+                            default = "INBOX";
+                          };
                         };
                         offlineimap.enable = true;
                       };
@@ -511,6 +524,7 @@ in
                   allowedTCPPorts = mkForce [
                     22 # ssh
                     53 # dns
+                    465 # smtps auth enabled here
                     993 # imap
                   ];
                   allowedUDPPorts = mkForce [
@@ -521,8 +535,7 @@ in
                 };
               };
               allowedTCPPorts = mkForce [
-                25 # smtp
-                465 # smtps
+                25 # smtp auth disabled here
                 80 # http
                 443 # https
               ];
@@ -606,6 +619,13 @@ in
                 hierarchySeparator = "/";
               };
               services = {
+                postfix.settings = {
+                  main.smtpd_sasl_auth_enable = lib.mkForce "no";
+                  master.submissions_inet.args = [
+                    "-o"
+                    "smtpd_sasl_auth_enable=yes"
+                  ];
+                };
                 roundcube = {
                   enable = true;
                   hostName = "mail.idimitrov.dev";
