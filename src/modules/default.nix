@@ -558,14 +558,7 @@ in
           services = {
             openssh = {
               enable = true;
-              settings = {
-                PasswordAuthentication = false;
-                KbdInteractiveAuthentication = false;
-                AuthenticationMethods = "publickey";
-                AllowGroups = [ "ssh" ];
-                ListenAddress = "10.0.0.1";
-                PermitRootLogin = "no";
-              };
+              settings.ListenAddress = "10.0.0.1";
             };
           };
         };
@@ -615,10 +608,6 @@ in
               services = {
                 roundcube = {
                   enable = true;
-                  package = pkgs.roundcube.withPlugins (plugins: [ plugins.persistent_login ]);
-                  plugins = [
-                    "persistent_login"
-                  ];
                   hostName = "mail.idimitrov.dev";
                   extraConfig = ''
                     $config['imap_host'] = 'ssl://${config.mailserver.fqdn}:993';
@@ -777,18 +766,6 @@ in
               };
             };
           users.users.nginx.extraGroups = [ "acme" ];
-          services = {
-            postgresql.ensureUsers = [
-              {
-                name = "root";
-                ensureClauses = {
-                  superuser = true;
-                  createrole = true;
-                  createdb = true;
-                };
-              }
-            ];
-          };
         };
     };
 }
