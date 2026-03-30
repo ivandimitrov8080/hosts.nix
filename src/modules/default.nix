@@ -171,9 +171,21 @@ in
                   zsh.enable = true;
                   khal.enable = true;
                   pimsync.enable = true;
+                  w3m.enable = true;
                   aerc = {
                     enable = true;
-                    extraConfig.general.unsafe-accounts-conf = true;
+                    extraConfig = {
+                      general.unsafe-accounts-conf = true;
+                      viewer = {
+                        pager = "less -Rc";
+                        alternatives = "text/plain,text/html";
+                      };
+                      filters = {
+                        "text/plain" = "wrap -w 100 | colorize";
+                        "text/html" = "html | colorize";
+                        ".headers" = "colorize";
+                      };
+                    };
                   };
                   taskwarrior = {
                     enable = true;
