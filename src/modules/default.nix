@@ -174,8 +174,28 @@ in
                   w3m.enable = true;
                   aerc = {
                     enable = true;
+                    stylesets =
+                      let
+                        catppuccin = pkgs.fetchFromGitHub {
+                          owner = "catppuccin";
+                          repo = "aerc";
+                          rev = "3580c723ee071e512d5e41bf88cea837b4f23746";
+                          hash = "sha256-jYFk8eZ3um5S7DxiGbGHGa05/HkxYYrqUX8cEhNEEu0=";
+                        };
+                      in
+                      {
+                        catppuccin-mocha = builtins.readFile "${catppuccin}/dist/catppuccin-mocha";
+                        catppuccin-macchiato = builtins.readFile "${catppuccin}/dist/catppuccin-macchiato";
+                        catppuccin-frappe = builtins.readFile "${catppuccin}/dist/catppuccin-frappe";
+                        catppuccin-latte = builtins.readFile "${catppuccin}/dist/catppuccin-latte";
+                      };
                     extraConfig = {
                       general.unsafe-accounts-conf = true;
+                      ui = {
+                        border-char-vertical = "│";
+                        border-char-horizontal = "─";
+                        styleset-name = "catppuccin-macchiato";
+                      };
                       viewer = {
                         pager = "less -Rc";
                         alternatives = "text/plain,text/html";
