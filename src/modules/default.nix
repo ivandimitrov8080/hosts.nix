@@ -296,7 +296,6 @@ in
                   gpg-agent.enable = true;
                   wpaperd.enable = true;
                   mako.enable = true;
-                  pimsync.enable = true;
                   gammastep = {
                     enable = true;
                     latitude = 50.0;
