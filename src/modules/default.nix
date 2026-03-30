@@ -72,6 +72,7 @@ in
           "idimitrov.dev"
           "mail.idimitrov.dev"
           "grafana.idimitrov.dev"
+          "dav.idimitrov.dev"
           "vpsfree"
         ];
       };
@@ -168,6 +169,8 @@ in
                   yazi.enable = true;
                   zoxide.enable = true;
                   zsh.enable = true;
+                  khal.enable = true;
+                  pimsync.enable = true;
                   aerc = {
                     enable = true;
                     extraConfig.general.unsafe-accounts-conf = true;
@@ -261,6 +264,7 @@ in
                   gpg-agent.enable = true;
                   wpaperd.enable = true;
                   mako.enable = true;
+                  pimsync.enable = true;
                   gammastep = {
                     enable = true;
                     latitude = 50.0;
@@ -278,11 +282,47 @@ in
                 };
                 accounts = {
                   calendar = {
+                    basePath = ".local/share/calendars";
                     accounts.ivand = {
                       primary = true;
                       khal = {
                         enable = true;
                         color = "light green";
+                      };
+                      pimsync = {
+                        enable = true;
+                        extraRemoteStorageDirectives = [
+                          {
+                            name = "interval";
+                            params = [
+                              60
+                            ];
+                          }
+                        ];
+                      };
+                      remote = {
+                        passwordCommand = [
+                          "${pkgs.pass}/bin/pass"
+                          "vps/mail.idimitrov.dev/ivan@idimitrov.dev"
+                        ];
+                        type = "caldav";
+                        url = "https://dav.idimitrov.dev";
+                        userName = "ivan@idimitrov.dev";
+                      };
+                    };
+                  };
+                  contact = {
+                    basePath = ".local/share/contacts";
+                    accounts.ivand = {
+                      pimsync.enable = true;
+                      remote = {
+                        type = "carddav";
+                        url = "https://dav.idimitrov.dev";
+                        userName = "ivan@idimitrov.dev";
+                        passwordCommand = [
+                          "${pkgs.pass}/bin/pass"
+                          "vps/dav.idimitrov.dev/ivan@idimitrov.dev"
+                        ];
                       };
                     };
                   };
@@ -482,7 +522,9 @@ in
         };
       vpsadminosModule =
         {
+          pkgs,
           lib,
+          config,
           ...
         }:
         let
@@ -569,6 +611,31 @@ in
             openssh = {
               enable = true;
               settings.ListenAddress = "10.0.0.1";
+            };
+            radicale = {
+              enable = true;
+              settings = {
+                server = {
+                  hosts = [ "127.0.0.1:5232" ];
+                };
+                auth =
+                  let
+                    inherit (lib) concatStrings flip mapAttrsToList;
+                    htpasswd = pkgs.writeText "radicale.users" (
+                      concatStrings (
+                        flip mapAttrsToList config.mailserver.accounts (mail: user: mail + ":" + user.hashedPassword + "\n")
+                      )
+                    );
+                  in
+                  {
+                    type = "htpasswd";
+                    htpasswd_filename = "${htpasswd}";
+                    htpasswd_encryption = "bcrypt";
+                  };
+                storage = {
+                  filesystem_folder = "/var/lib/radicale/collections";
+                };
+              };
             };
           };
         };
@@ -779,6 +846,21 @@ in
                   listenAddresses = [
                     "10.0.0.1"
                   ];
+                };
+                "dav.idimitrov.dev" = tls // {
+                  listenAddresses = [
+                    "10.0.0.1"
+                  ];
+                  locations."/" = {
+                    proxyPass = "http://localhost:5232/";
+                    extraConfig = ''
+                      proxy_set_header  X-Script-Name /;
+                      proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;
+                      proxy_pass_header Authorization;
+                    '';
+                  };
+                  locations."= /.well-known/caldav".return = "301 https://cal.idimitrov.dev/";
+                  locations."= /.well-known/carddav".return = "301 https://cal.idimitrov.dev/";
                 };
               };
             };
