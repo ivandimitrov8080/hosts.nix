@@ -170,6 +170,7 @@ in
                   zoxide.enable = true;
                   zsh.enable = true;
                   khal.enable = true;
+                  khard.enable = true;
                   pimsync.enable = true;
                   w3m.enable = true;
                   aerc = {
@@ -204,6 +205,9 @@ in
                         "text/plain" = "wrap -w 100 | colorize";
                         "text/html" = "html | colorize";
                         ".headers" = "colorize";
+                      };
+                      compose = {
+                        address-book-cmd = "khard email --remove-first-line --parsable %s";
                       };
                     };
                   };
@@ -345,6 +349,7 @@ in
                   contact = {
                     basePath = ".local/share/contacts";
                     accounts.ivand = {
+                      khard.enable = true;
                       pimsync.enable = true;
                       remote = {
                         type = "carddav";
