@@ -98,7 +98,7 @@ in
     in
     {
       default =
-        { pkgs, lib, ... }:
+        { pkgs, ... }:
         {
           imports = with inputs; [
             configuration.nixosModules.default
@@ -593,18 +593,19 @@ in
             };
             dnscrypt-proxy.settings.cloaking_rules = "/etc/dnscrypt-proxy/cloaking_rules.txt";
           };
-          environment = with builtins; {
+          environment = {
             enableAllTerminfo = true;
-            etc."dnscrypt-proxy/cloaking_rules.txt".text = concatStringsSep "\n" (
-              lib.mapAttrsToList (ip: hsts: concatStringsSep "\n" (map (host: "${host} ${ip}") hsts)) hosts
-            );
+            etc."dnscrypt-proxy/cloaking_rules.txt".text =
+              with builtins;
+              concatStringsSep "\n" (
+                lib.mapAttrsToList (ip: hsts: concatStringsSep "\n" (map (host: "${host} ${ip}") hsts)) hosts
+              );
           };
         };
       mail =
         {
           config,
           lib,
-          pkgs,
           options,
           ...
         }:

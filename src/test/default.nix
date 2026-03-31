@@ -141,7 +141,7 @@ in
         }
         // testUser;
       dns =
-        { pkgs, ... }:
+        _:
         {
           _module.args.system = system;
           services = {
@@ -159,7 +159,7 @@ in
         }
         // testUser;
       outsider =
-        { pkgs, ... }:
+        _:
         {
           environment.systemPackages = extraPkgs;
         }
