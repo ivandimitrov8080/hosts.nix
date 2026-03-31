@@ -30,9 +30,6 @@
     # my metronome
     metronome.url = "github:ivandimitrov8080/metronome";
     metronome.inputs.nixpkgs.follows = "nixpkgs";
-    # login manager
-    ndlm.url = "github:ivandimitrov8080/ndlm";
-    ndlm.inputs.nixpkgs.follows = "nixpkgs";
   };
   outputs =
     inputs:
