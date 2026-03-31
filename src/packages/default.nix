@@ -10,8 +10,4 @@ let
     ];
   };
 in
-{
-  inherit (pkgs) vscode-java-debug;
-  inherit (pkgs) vscode-java-test;
-  inherit (pkgs) ndlm;
-}
+pkgs
