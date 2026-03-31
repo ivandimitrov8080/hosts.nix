@@ -165,54 +165,17 @@ in
                   ssh.enable = true;
                   starship.enable = true;
                   swaylock.enable = true;
+                  taskwarrior.enable = true;
                   tealdeer.enable = true;
                   tmux.enable = true;
                   waybar.enable = true;
                   yazi.enable = true;
                   zoxide.enable = true;
                   zsh.enable = true;
-                  taskwarrior = {
-                    enable = true;
-                    config = {
-                      confirmation = false;
-                      default = {
-                        project = "misc";
-                        priority = "M";
-                        due = "+7days";
-                      };
-                      context = {
-                        "house" = {
-                          read = "project:house";
-                          write = "project:house";
-                        };
-                        "configuration" = {
-                          read = "project:configuration.nix";
-                          write = "project:configuration.nix";
-                        };
-                        "hosts" = {
-                          read = "project:hosts.nix";
-                          write = "project:hosts.nix";
-                        };
-                      };
-                      color.project = {
-                        "house" = "yellow";
-                        "hosts.nix" = "green";
-                        "configuration.nix" = "blue";
-                      };
-                    };
-                  };
                   ssh.matchBlocks = {
                     vpsfree-ivand = {
                       hostname = "10.0.0.1";
                       user = "ivand";
-                    };
-                    vpsfree-root = {
-                      hostname = "10.0.0.1";
-                      user = "root";
-                    };
-                    git = {
-                      hostname = "10.0.0.1";
-                      user = "git";
                     };
                   };
                   git = {
@@ -266,9 +229,6 @@ in
                     longitude = 14.41;
                   };
                   ollama.enable = true;
-                  ollama.environmentVariables = {
-                    HSA_OVERRIDE_GFX_VERSION = "11.0.2";
-                  };
                 };
                 wayland.windowManager.sway.enable = true;
                 home = {
@@ -277,7 +237,6 @@ in
                 };
                 accounts = {
                   calendar = {
-                    basePath = ".local/share/calendars";
                     accounts.ivand = {
                       primary = true;
                       khal = {
@@ -307,7 +266,6 @@ in
                     };
                   };
                   contact = {
-                    basePath = ".local/share/contacts";
                     accounts.ivand = {
                       khard.enable = true;
                       pimsync.enable = true;
