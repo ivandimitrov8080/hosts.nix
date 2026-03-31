@@ -74,7 +74,6 @@ in
           "grafana.idimitrov.dev"
           "dav.idimitrov.dev"
           "rspamd.idimitrov.dev"
-          "vpsfree"
         ];
       };
       # TODO: make something similar for vps where it can also send dns traffic back to wireguard peers
@@ -539,7 +538,6 @@ in
               ];
             };
           };
-          environment.enableAllTerminfo = true;
           users = {
             users = {
               ivand = lib.mkForce {
@@ -593,6 +591,13 @@ in
                 };
               };
             };
+            dnscrypt-proxy.settings.cloaking_rules = "/etc/dnscrypt-proxy/cloaking_rules.txt";
+          };
+          environment = with builtins; {
+            enableAllTerminfo = true;
+            etc."dnscrypt-proxy/cloaking_rules.txt".text = concatStringsSep "\n" (
+              lib.mapAttrsToList (ip: hsts: concatStringsSep "\n" (map (host: "${host} ${ip}") hsts)) hosts
+            );
           };
         };
       mail =
