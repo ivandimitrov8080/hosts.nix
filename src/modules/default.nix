@@ -73,6 +73,7 @@ in
           "mail.idimitrov.dev"
           "grafana.idimitrov.dev"
           "dav.idimitrov.dev"
+          "rspamd.idimitrov.dev"
           "vpsfree"
         ];
       };
@@ -791,23 +792,17 @@ in
                   };
                 };
                 "grafana.idimitrov.dev" = tls // {
-                  listenAddresses = [
-                    "10.0.0.1"
-                  ];
+                  listenAddresses = [ "10.0.0.1" ];
                   locations."/" = {
                     proxyPass = "http://127.0.0.1:34321";
                     proxyWebsockets = true;
                   };
                 };
                 "mail.idimitrov.dev" = tls // {
-                  listenAddresses = [
-                    "10.0.0.1"
-                  ];
+                  listenAddresses = [ "10.0.0.1" ];
                 };
                 "dav.idimitrov.dev" = tls // {
-                  listenAddresses = [
-                    "10.0.0.1"
-                  ];
+                  listenAddresses = [ "10.0.0.1" ];
                   locations."/" = {
                     proxyPass = "http://127.0.0.1:5232/";
                     extraConfig = ''
@@ -819,6 +814,10 @@ in
                   };
                   locations."= /.well-known/caldav".return = "301 https://cal.idimitrov.dev/";
                   locations."= /.well-known/carddav".return = "301 https://cal.idimitrov.dev/";
+                };
+                "rspamd.idimitrov.dev" = tls // {
+                  listenAddresses = [ "10.0.0.1" ];
+                  locations."/".proxyPass = "http://unix:/run/rspamd/worker-controller.sock:/";
                 };
               };
             };
