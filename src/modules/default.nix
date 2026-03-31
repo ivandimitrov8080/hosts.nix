@@ -67,15 +67,6 @@ in
         "ATHENS-HAWKS" = { };
         "RAMADA-SOFIA" = { };
       };
-      hosts = {
-        "10.0.0.1" = [
-          "idimitrov.dev"
-          "mail.idimitrov.dev"
-          "grafana.idimitrov.dev"
-          "dav.idimitrov.dev"
-          "rspamd.idimitrov.dev"
-        ];
-      };
       # TODO: make something similar for vps where it can also send dns traffic back to wireguard peers
       blockDnsExceptDnscrypt = ''
         table inet filter {
@@ -410,7 +401,6 @@ in
             };
           };
           networking = {
-            inherit hosts;
             hostName = "nova";
             nameservers = [ "10.0.0.1" ];
             nftables = {
@@ -508,7 +498,6 @@ in
           services.nginx.enable = true;
           services.postgresql.enable = true;
           networking = {
-            inherit hosts;
             nftables = {
               enable = true;
             };
@@ -595,11 +584,9 @@ in
           };
           environment = {
             enableAllTerminfo = true;
-            etc."dnscrypt-proxy/cloaking_rules.txt".text =
-              with builtins;
-              concatStringsSep "\n" (
-                lib.mapAttrsToList (ip: hsts: concatStringsSep "\n" (map (host: "${host} ${ip}") hsts)) hosts
-              );
+            etc."dnscrypt-proxy/cloaking_rules.txt".text = ''
+              *.idimitrov.dev 10.0.0.1
+            '';
           };
         };
       mail =
