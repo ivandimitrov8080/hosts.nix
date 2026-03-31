@@ -175,21 +175,12 @@ in
                   w3m.enable = true;
                   aerc = {
                     enable = true;
-                    stylesets =
-                      let
-                        catppuccin = pkgs.fetchFromGitHub {
-                          owner = "catppuccin";
-                          repo = "aerc";
-                          rev = "3580c723ee071e512d5e41bf88cea837b4f23746";
-                          hash = "sha256-jYFk8eZ3um5S7DxiGbGHGa05/HkxYYrqUX8cEhNEEu0=";
-                        };
-                      in
-                      {
-                        catppuccin-mocha = builtins.readFile "${catppuccin}/dist/catppuccin-mocha";
-                        catppuccin-macchiato = builtins.readFile "${catppuccin}/dist/catppuccin-macchiato";
-                        catppuccin-frappe = builtins.readFile "${catppuccin}/dist/catppuccin-frappe";
-                        catppuccin-latte = builtins.readFile "${catppuccin}/dist/catppuccin-latte";
-                      };
+                    stylesets = {
+                      catppuccin-mocha = builtins.readFile "${pkgs.themes.aerc}/catppuccin-mocha";
+                      catppuccin-macchiato = builtins.readFile "${pkgs.themes.aerc}/catppuccin-macchiato";
+                      catppuccin-frappe = builtins.readFile "${pkgs.themes.aerc}/catppuccin-frappe";
+                      catppuccin-latte = builtins.readFile "${pkgs.themes.aerc}/catppuccin-latte";
+                    };
                     extraConfig = {
                       general.unsafe-accounts-conf = true;
                       ui = {
