@@ -656,6 +656,9 @@ in
                     $config['smtp_pass'] = "%p";
                   '';
                 };
+                rspamd.locals."worker-controller.inc".text = ''
+                  secure_ip = [ "10.0.0.0/24" ];
+                '';
                 postgresql.enable = true;
               };
             }
