@@ -139,6 +139,7 @@ in
                   vit
                 ];
                 programs = {
+                  aerc.enable = true;
                   bash.enable = true;
                   bat.enable = true;
                   bottom.enable = true;
@@ -153,12 +154,13 @@ in
                   git.enable = true;
                   gpg.enable = true;
                   imv.enable = true;
+                  khal.enable = true;
                   kitty.enable = true;
                   mpv.enable = true;
                   msmtp.enable = true;
                   nix-index.enable = true;
-                  offlineimap.enable = true;
                   password-store.enable = true;
+                  pimsync.enable = true;
                   rofi.enable = true;
                   ssh.enable = true;
                   starship.enable = true;
@@ -169,127 +171,6 @@ in
                   yazi.enable = true;
                   zoxide.enable = true;
                   zsh.enable = true;
-                  khal.enable = true;
-                  khard.enable = true;
-                  pimsync.enable = true;
-                  w3m.enable = true;
-                  aerc = {
-                    enable = true;
-                    stylesets = {
-                      catppuccin-mocha = builtins.readFile "${pkgs.themes.aerc}/catppuccin-mocha";
-                      catppuccin-macchiato = builtins.readFile "${pkgs.themes.aerc}/catppuccin-macchiato";
-                      catppuccin-frappe = builtins.readFile "${pkgs.themes.aerc}/catppuccin-frappe";
-                      catppuccin-latte = builtins.readFile "${pkgs.themes.aerc}/catppuccin-latte";
-                    };
-                    extraConfig = {
-                      general.unsafe-accounts-conf = true;
-                      ui = {
-                        border-char-vertical = "│";
-                        border-char-horizontal = "─";
-                        styleset-name = "catppuccin-macchiato";
-                      };
-                      viewer = {
-                        pager = "less -Rc";
-                        alternatives = "text/plain,text/html";
-                      };
-                      filters = {
-                        "text/plain" = "wrap -w 100 | colorize";
-                        "text/html" = "html | colorize";
-                        ".headers" = "colorize";
-                      };
-                      compose = {
-                        address-book-cmd = "khard email --remove-first-line --parsable %s";
-                      };
-                    };
-                    extraBinds = {
-                      global = {
-                        "<C-p>" = ":prev-tab<Enter>";
-                        "<C-n>" = ":next-tab<Enter>";
-                        "<C-t>" = ":term<Enter>";
-                        "?" = ":help keys<Enter>";
-                        "<C-c>" = ":quit -f<Enter>";
-                        "<C-q>" = ":quit<Enter>";
-                        "<C-z>" = ":suspend<Enter>";
-                      };
-                      messages = {
-                        d = ":read<Enter>:move Trash<Enter>";
-                        q = ":quit<Enter>";
-                        j = ":next<Enter>";
-                        k = ":prev<Enter>";
-                        g = ":select 0<Enter>";
-                        G = ":select -1<Enter>";
-                        v = ":mark -t<Enter>";
-                        V = ":mark -v<Enter>";
-                        a = ":archive flat<Enter>";
-                        m = ":compose<Enter>";
-                        r = ":reply -aq<Enter>";
-                        "/" = ":search<space>";
-                        "\\" = ":filter<space>";
-                        n = ":next-result<Enter>";
-                        N = ":prev-result<Enter>";
-                        "<C-d>" = ":next 50%<Enter>";
-                        "<C-u>" = ":prev 50%<Enter>";
-                        "<Enter>" = ":view<Enter>";
-                        "<Esc>" = ":clear<Enter>";
-                        J = ":next-folder<Enter>";
-                        K = ":prev-folder<Enter>";
-                      };
-                      "messages:folder=Drafts" = {
-                        "<Enter>" = ":recall<Enter>";
-                      };
-                      view = {
-                        d = ":move Trash<Enter>";
-                        "/" = ":toggle-key-passthrough<Enter>/";
-                        q = ":close<Enter>";
-                        f = ":forward<Enter>";
-                        r = ":reply -aq<Enter>";
-                        a = ":archive flat<Enter>";
-                        H = ":toggle-headers<Enter>";
-                        "<C-j>" = ":next-part<Enter>";
-                        "<C-k>" = ":prev-part<Enter>";
-                        J = ":next<Enter>";
-                        K = ":prev<Enter>";
-                      };
-                      "view::passthrough" = {
-                        "$noinherit" = true;
-                        "$ex" = "<C-x>";
-                        "<Esc>" = ":toggle-key-passthrough<Enter>";
-                      };
-                      compose = {
-                        "$noinherit" = true;
-                        "$ex" = "<C-x>";
-                        "$complete" = "<C-o>";
-                        "<tab>" = ":next-field<Enter>";
-                        "<backtab>" = ":prev-field<Enter>";
-                        "<C-p>" = ":prev-tab<Enter>";
-                        "<C-n>" = ":next-tab<Enter>";
-                      };
-                      "compose::editor" = {
-                        "$noinherit" = true;
-                        "$ex" = "<C-x>";
-                        "<C-Down>" = ":next-field<Enter>";
-                        "<C-Up>" = ":prev-field<Enter>";
-                        "<C-p>" = ":prev-tab<Enter>";
-                        "<C-n>" = ":next-tab<Enter>";
-                      };
-                      "compose::review" = {
-                        y = ":send<Enter>";
-                        n = ":abort<Enter>";
-                        x = ":encrypt<Enter>";
-                        v = ":preview<Enter>";
-                        p = ":postpone<Enter>";
-                        e = ":edit<Enter>";
-                        a = ":attach<space>";
-                        d = ":detach<space>";
-                      };
-                      terminal = {
-                        "$noinherit" = true;
-                        "$ex" = "<C-x>";
-                        "<C-p>" = ":prev-tab<Enter>";
-                        "<C-n>" = ":next-tab<Enter>";
-                      };
-                    };
-                  };
                   taskwarrior = {
                     enable = true;
                     config = {
