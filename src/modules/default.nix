@@ -394,6 +394,7 @@ in
                           imapAuth = "auth";
                           extraAccounts = {
                             default = "INBOX";
+                            restrict-delete = true;
                           };
                         };
                         offlineimap.enable = true;
