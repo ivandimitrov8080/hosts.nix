@@ -229,10 +229,10 @@ in
                 accounts = {
                   calendar = {
                     accounts.ivand = {
-                      primary = true;
                       khal = {
                         enable = true;
                         color = "light green";
+                        type = "discover";
                       };
                       pimsync = {
                         enable = true;
