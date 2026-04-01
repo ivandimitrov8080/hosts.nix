@@ -236,12 +236,10 @@ in
                       };
                       pimsync = {
                         enable = true;
-                        extraRemoteStorageDirectives = [
+                        extraPairDirectives = [
                           {
-                            name = "interval";
-                            params = [
-                              60
-                            ];
+                            name = "collections";
+                            params = [ "all" ];
                           }
                         ];
                       };
@@ -258,8 +256,19 @@ in
                   };
                   contact = {
                     accounts.ivand = {
-                      khard.enable = true;
-                      pimsync.enable = true;
+                      khard = {
+                        enable = true;
+                        type = "discover";
+                      };
+                      pimsync = {
+                        enable = true;
+                        extraPairDirectives = [
+                          {
+                            name = "collections";
+                            params = [ "all" ];
+                          }
+                        ];
+                      };
                       remote = {
                         type = "carddav";
                         url = "https://dav.idimitrov.dev";
