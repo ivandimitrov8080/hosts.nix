@@ -505,7 +505,6 @@ in
             };
           };
           services.nginx.enable = true;
-          services.postgresql.enable = true;
           networking = {
             nftables = {
               enable = true;
@@ -589,6 +588,7 @@ in
                 };
               };
             };
+            postgresql.enable = true;
             dnscrypt-proxy.settings.cloaking_rules = "/etc/dnscrypt-proxy/cloaking_rules.txt";
           };
           environment = {
