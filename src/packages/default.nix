@@ -10,4 +10,6 @@ let
     ];
   };
 in
-pkgs
+{
+  inherit (pkgs) hello;
+}

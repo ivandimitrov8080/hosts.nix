@@ -72,20 +72,8 @@ in
               prefixLength = 24;
             }
           ];
-          services = {
-            # use dnsmasq to mock dnscrypt-proxy
-            dnscrypt-proxy.enable = pkgs.lib.mkForce false;
-            dnsmasq = {
-              enable = true;
-              settings = {
-                listen-address = [ "10.0.0.1" ];
-                bind-interfaces = true;
-                # Provide a deterministic answer
-                address = [ "/example.com/203.0.113.10" ];
-              };
-            };
-          };
           environment.etc."wireguard/wg0.priv".source = ./hub.priv;
+          services.dnscrypt-proxy.settings.offline_mode = true;
           meta.wireguard = {
             enable = true;
             address = "10.0.0.1/24";
@@ -151,7 +139,7 @@ in
                 listen-address = [ "127.0.0.1" ];
                 bind-interfaces = true;
                 # Provide a deterministic answer
-                address = [ "/example.com/203.0.113.10" ];
+                address = [ "/idimitrov.dev/37.205.13.29" ];
               };
             };
           };
@@ -174,25 +162,25 @@ in
             m.wait_for_unit("default.target")
 
         vpsfree.wait_for_unit("grafana.service")
-        vpsfree.wait_for_unit("dnsmasq.service")
+        vpsfree.wait_for_unit("dnscrypt-proxy.service")
 
         nova.succeed("ping -c1 10.0.0.1")
         spoke2.succeed("ping -c1 10.0.0.1")
         vpsfree.succeed("ping -c1 10.0.0.2")
         vpsfree.succeed("ping -c1 10.0.0.3")
 
-        nova.succeed("nslookup example.com 10.0.0.1")
-        nova.fail("nslookup example.com dns")
+        nova.succeed("nslookup idimitrov.dev 10.0.0.1")
+        nova.fail("nslookup idimitrov.dev dns")
 
         nova.succeed("curl http://idimitrov.dev | grep -o '301'")
         nova.succeed("curl -k https://idimitrov.dev")
 
-        nova.succeed("curl --resolve mail.idimitrov.dev:443:10.0.0.1 -k https://mail.idimitrov.dev")
-        outsider.fail("curl --resolve mail.idimitrov.dev:443:37.205.13.29 -k https://mail.idimitrov.dev")
+        nova.succeed("curl -k https://mail.idimitrov.dev")
+        outsider.fail("curl -k https://mail.idimitrov.dev")
         outsider.fail("curl --resolve mail.idimitrov.dev:443:10.0.0.1 -k https://mail.idimitrov.dev")
 
-        nova.succeed("curl --resolve grafana.idimitrov.dev:443:10.0.0.1 -k https://grafana.idimitrov.dev")
-        outsider.fail("curl --resolve grafana.idimitrov.dev:443:37.205.13.29 -k https://grafana.idimitrov.dev")
+        nova.succeed("curl -k https://grafana.idimitrov.dev")
+        outsider.fail("curl -k https://grafana.idimitrov.dev")
         outsider.fail("curl --resolve grafana.idimitrov.dev:443:10.0.0.1 -k https://grafana.idimitrov.dev")
       '';
   };
