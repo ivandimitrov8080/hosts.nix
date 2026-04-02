@@ -335,6 +335,9 @@ in
 
         vpsfree.wait_for_unit("grafana.service")
 
+        vpsfree.wait_until_succeeds("nslookup idimitrov.dev ${vpsfreeWgIp} | grep -F ${vpsfreeWgIp}")
+        dns.wait_until_succeeds("nslookup idimitrov.dev ${dnsInternetIp} | grep -F ${vpsfreeInternetIp}")
+
         nova.succeed("ping -c1 ${vpsfreeWgIp}")
         spoke2.succeed("ping -c1 ${vpsfreeWgIp}")
         vpsfree.succeed("ping -c1 10.0.0.2")
