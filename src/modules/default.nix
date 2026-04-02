@@ -706,6 +706,7 @@ in
               } $uri $uri/ =404;";
             in
             {
+              defaultListenAddresses = [ "10.0.0.1" ];
               additionalModules = with pkgs.nginxModules; [ geoip2 ];
               commonHttpConfig = ''
                 log_format json_access escape=json
@@ -797,17 +798,13 @@ in
                   };
                 };
                 "grafana.idimitrov.dev" = tls // {
-                  listenAddresses = [ "10.0.0.1" ];
                   locations."/" = {
                     proxyPass = "http://127.0.0.1:34321";
                     proxyWebsockets = true;
                   };
                 };
-                "mail.idimitrov.dev" = tls // {
-                  listenAddresses = [ "10.0.0.1" ];
-                };
+                "mail.idimitrov.dev" = tls;
                 "dav.idimitrov.dev" = tls // {
-                  listenAddresses = [ "10.0.0.1" ];
                   locations."/" = {
                     proxyPass = "http://127.0.0.1:5232/";
                     extraConfig = ''
@@ -821,7 +818,6 @@ in
                   locations."= /.well-known/carddav".return = "301 https://cal.idimitrov.dev/";
                 };
                 "rspamd.idimitrov.dev" = tls // {
-                  listenAddresses = [ "10.0.0.1" ];
                   locations."/".proxyPass = "http://unix:/run/rspamd/worker-controller.sock:/";
                 };
               };
