@@ -365,12 +365,14 @@ in
 
         def test_is_subdomain_internal(subdomain, okText):
             nova.succeed(f"curl -k https://{subdomain}.idimitrov.dev | grep '{okText}'")
+            spoke2.succeed(f"curl -k https://{subdomain}.idimitrov.dev | grep '{okText}'")
             outsider.fail(f"curl -k https://{subdomain}.idimitrov.dev | grep '{okText}'")
             outsider.fail(f"curl --resolve {subdomain}.idimitrov.dev:443:${vpsfreeWgIp} -k https://{subdomain}.idimitrov.dev | grep '{okText}'")
 
 
         def test_is_subdomain_external(subdomain, okText):
             nova.succeed(f"curl -k https://{subdomain}.idimitrov.dev | grep '{okText}'")
+            spoke2.succeed(f"curl -k https://{subdomain}.idimitrov.dev | grep '{okText}'")
             outsider.succeed(f"curl -k https://{subdomain}.idimitrov.dev | grep '{okText}'")
             outsider.fail(f"curl --resolve {subdomain}.idimitrov.dev:443:${vpsfreeWgIp} -k https://{subdomain}.idimitrov.dev | grep '{okText}'")
 
