@@ -56,6 +56,8 @@ let
     };
   };
   vpsfreeWgIp = "10.0.0.1";
+  novaWgIp = "10.0.0.2";
+  spoke2WgIp = "10.0.0.3";
   vpsfreeInternetIp = "37.205.13.29";
   internetVlan = 10;
   publicVlan = 20;
@@ -340,8 +342,8 @@ in
 
         nova.succeed("ping -c1 ${vpsfreeWgIp}")
         spoke2.succeed("ping -c1 ${vpsfreeWgIp}")
-        vpsfree.succeed("ping -c1 10.0.0.2")
-        vpsfree.succeed("ping -c1 10.0.0.3")
+        vpsfree.succeed("ping -c1 ${novaWgIp}")
+        vpsfree.succeed("ping -c1 ${spoke2WgIp}")
         vpsfree.succeed("ip a | grep ${vpsfreeInternetIp}")
         nova.succeed("ping -c1 ${vpsfreeInternetIp}")
 
