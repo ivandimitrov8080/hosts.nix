@@ -352,18 +352,35 @@ in
         outsider.succeed("nslookup idimitrov.dev ${dnsInternetIp}")
         outsider.fail("nslookup idimitrov.dev ${vpsfreeWgIp}")
 
+
+
+
+        homeOk = "grep 'Home'"
+
         nova.succeed("curl http://idimitrov.dev | grep -o '301'")
-        nova.succeed("curl -k https://idimitrov.dev")
+        nova.succeed(f"curl -k https://idimitrov.dev | {homeOk}")
 
-        outsider.succeed("curl -k https://idimitrov.dev")
+        outsider.succeed("curl http://idimitrov.dev | grep -o '301'")
+        outsider.succeed(f"curl -k https://idimitrov.dev | {homeOk}")
 
-        nova.succeed("curl -k https://mail.idimitrov.dev | grep 'Roundcube Webmail'")
-        outsider.fail("curl -k https://mail.idimitrov.dev | grep 'Roundcube Webmail'")
-        outsider.fail("curl --resolve mail.idimitrov.dev:443:${vpsfreeWgIp} -k https://mail.idimitrov.dev | grep 'Roundcube Webmail'")
+        def test_is_subdomain_internal(subdomain, okText):
+            nova.succeed(f"curl -k https://{subdomain}.idimitrov.dev | grep '{okText}'")
+            outsider.fail(f"curl -k https://{subdomain}.idimitrov.dev | grep '{okText}'")
+            outsider.fail(f"curl --resolve {subdomain}.idimitrov.dev:443:${vpsfreeWgIp} -k https://{subdomain}.idimitrov.dev | grep '{okText}'")
 
-        nova.succeed("curl -k https://grafana.idimitrov.dev | grep 'Found'")
-        outsider.fail("curl -k https://grafana.idimitrov.dev | grep 'Found'")
-        outsider.fail("curl --resolve grafana.idimitrov.dev:443:${vpsfreeWgIp} -k https://grafana.idimitrov.dev | grep 'Found'")
+
+        def test_is_subdomain_external(subdomain, okText):
+            nova.succeed(f"curl -k https://{subdomain}.idimitrov.dev | grep '{okText}'")
+            outsider.succeed(f"curl -k https://{subdomain}.idimitrov.dev | grep '{okText}'")
+            outsider.fail(f"curl --resolve {subdomain}.idimitrov.dev:443:${vpsfreeWgIp} -k https://{subdomain}.idimitrov.dev | grep '{okText}'")
+
+        test_is_subdomain_internal("mail", "Roundcube Webmail")
+        test_is_subdomain_internal("grafana", "Found")
+        test_is_subdomain_internal("dav", "Redirected to /.web")
+        test_is_subdomain_internal("rspamd", "Rspamd Web Interface")
+
+        test_is_subdomain_external("metronome", "Metronome")
+        test_is_subdomain_external("pic", "Index of /")
       '';
   };
 }
