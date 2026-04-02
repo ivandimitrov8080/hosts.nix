@@ -10,6 +10,7 @@ in
       programs = {
         nixfmt.enable = true;
         prettier.enable = true;
+        prettier.package = pkgs.prettier;
         deadnix.enable = true;
         statix.enable = true;
         ormolu.enable = true;
