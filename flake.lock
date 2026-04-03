@@ -2494,11 +2494,11 @@
         "treefmt-nix": "treefmt-nix_4"
       },
       "locked": {
-        "lastModified": 1775242202,
-        "narHash": "sha256-VDJrYG8k5cOYZHd2/j2nvT/kxnPpWp9nNe5WXTyy8gw=",
+        "lastModified": 1775248814,
+        "narHash": "sha256-DqOSIY1Rc8cELajJpSsf44g48t1AWU+xEDKnpi4tttE=",
         "owner": "ivandimitrov8080",
         "repo": "idimitrov.dev",
-        "rev": "bb42c83bd808b82c8538b84e2d40a79080c5b268",
+        "rev": "ff5fae7b0c20fbf6d028ba6dd8f0c878083f217a",
         "type": "github"
       },
       "original": {
