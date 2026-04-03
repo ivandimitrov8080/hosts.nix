@@ -64,6 +64,7 @@ in
         "Jack Sparrow".psk = "11111111";
         "Toncho Mitev".psk = "mazda626";
         "Vivacom_FiberNet-44F2".psk = "d3PtFcg96M";
+        "hotel Riverside***".psk = "07282623";
         "ATHENS-HAWKS" = { };
         "RAMADA-SOFIA" = { };
       };
