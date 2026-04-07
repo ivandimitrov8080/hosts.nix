@@ -850,7 +850,6 @@ in
               # Network discovery / enumeration
               nmap
               masscan
-              wireshark
               tcpdump
               netcat
               socat
@@ -899,7 +898,28 @@ in
               pwntools
               frida-tools
               certipy
+              mitmproxy
+              whatweb
+              feroxbuster
+              sslscan
+              exiftool
+              yara
+              ldapdomaindump
+              evil-winrm
+              ligolo-ng
+              rockyou
+              seclists
             ];
+            programs.wireshark = {
+              enable = true;
+              dumpcap.enable = true;
+              usbmon.enable = true;
+            };
+            services = {
+              postgresql.enable = true;
+              redis.enable = true;
+            };
+            users.users.ivand.extraGroups = [ "wireshark" ];
           });
         };
     };
