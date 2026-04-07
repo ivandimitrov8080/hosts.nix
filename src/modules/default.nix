@@ -110,7 +110,7 @@ in
           users.defaultUserShell = pkgs.zsh;
         };
       rest =
-        { pkgs, ... }:
+        { pkgs, lib, ... }:
         {
           imports = with inputs; [
             home-manager.nixosModules.default
@@ -119,51 +119,15 @@ in
             backupFileExtension = "bak";
             useUserPackages = true;
             useGlobalPkgs = true;
-            users.ivand =
-              { ... }:
-              {
-                imports = with inputs.configuration.homeManagerModules; [
-                  default
-                ];
-                xdg.enable = true;
-                home.packages = with pkgs; [
-                  devenv
-                  vit
-                ];
+            users.ivand = lib.mkMerge [
+              (import ./home-manager { inherit inputs pkgs; })
+              (import ./home-manager/accounts.nix { inherit inputs pkgs; })
+              ({
+                home = {
+                  username = "ivand";
+                  homeDirectory = "/home/ivand";
+                };
                 programs = {
-                  aerc.enable = true;
-                  bash.enable = true;
-                  bat.enable = true;
-                  bottom.enable = true;
-                  browserpass.enable = true;
-                  delta.enable = true;
-                  direnv.enable = true;
-                  eza.enable = true;
-                  fd.enable = true;
-                  firefox.enable = true;
-                  fzf.enable = true;
-                  gh.enable = true;
-                  git.enable = true;
-                  gpg.enable = true;
-                  imv.enable = true;
-                  khal.enable = true;
-                  kitty.enable = true;
-                  mpv.enable = true;
-                  msmtp.enable = true;
-                  nix-index.enable = true;
-                  password-store.enable = true;
-                  pimsync.enable = true;
-                  rofi.enable = true;
-                  ssh.enable = true;
-                  starship.enable = true;
-                  swaylock.enable = true;
-                  taskwarrior.enable = true;
-                  tealdeer.enable = true;
-                  tmux.enable = true;
-                  waybar.enable = true;
-                  yazi.enable = true;
-                  zoxide.enable = true;
-                  zsh.enable = true;
                   ssh.matchBlocks = {
                     vpsfree-ivand = {
                       hostname = "10.0.0.1";
@@ -177,160 +141,9 @@ in
                     };
                     signing.key = "C565 2E79 2A7A 9110 DFA7  F77D 0BDA D4B2 11C4 9294";
                   };
-                  opencode = {
-                    enable = true;
-                    agents = {
-                      "UI/UX" = ''
-                        ---
-                        description: Writes consistent and good-lookng web styles
-                        mode: primary
-                        temperature: 0.1
-                        tools:
-                          write: true
-                          edit: true
-                          bash: false
-                        ---
-
-                        You are in UI/UX mode. Focus on:
-
-                        - Consistent styles and best practices
-                        - Responsive design
-                        - Simplicity over complexity
-                        - Features over simplicity
-                        - Beautiful websites
-
-                        Write beautiful websites without sacrificing simplicity or features. Write to files without
-                        asking.
-                      '';
-                    };
-                  };
-                  nushell = {
-                    enable = true;
-                    extraConfig = pkgs.lib.mkAfter ''
-                      use ${pkgs.xin}/bin/xin
-                    '';
-                  };
                 };
-                services = {
-                  gpg-agent.enable = true;
-                  wpaperd.enable = true;
-                  mako.enable = true;
-                  gammastep = {
-                    enable = true;
-                    latitude = 50.0;
-                    longitude = 14.41;
-                  };
-                  ollama.enable = true;
-                };
-                wayland.windowManager.sway.enable = true;
-                home = {
-                  username = "ivand";
-                  homeDirectory = "/home/ivand";
-                };
-                accounts = {
-                  calendar = {
-                    accounts.ivand = {
-                      khal = {
-                        enable = true;
-                        color = "light green";
-                        type = "discover";
-                      };
-                      pimsync = {
-                        enable = true;
-                        extraPairDirectives = [
-                          {
-                            name = "collections";
-                            params = [ "all" ];
-                          }
-                        ];
-                      };
-                      remote = {
-                        passwordCommand = [
-                          "${pkgs.pass}/bin/pass"
-                          "vps/mail.idimitrov.dev/ivan@idimitrov.dev"
-                        ];
-                        type = "caldav";
-                        url = "https://dav.idimitrov.dev";
-                        userName = "ivan@idimitrov.dev";
-                      };
-                    };
-                  };
-                  contact = {
-                    accounts.ivand = {
-                      khard = {
-                        enable = true;
-                        type = "discover";
-                      };
-                      pimsync = {
-                        enable = true;
-                        extraPairDirectives = [
-                          {
-                            name = "collections";
-                            params = [ "all" ];
-                          }
-                        ];
-                      };
-                      remote = {
-                        type = "carddav";
-                        url = "https://dav.idimitrov.dev";
-                        userName = "ivan@idimitrov.dev";
-                        passwordCommand = [
-                          "${pkgs.pass}/bin/pass"
-                          "vps/dav.idimitrov.dev/ivan@idimitrov.dev"
-                        ];
-                      };
-                    };
-                  };
-                  email = {
-                    accounts = {
-                      "ivan@idimitrov.dev" = rec {
-                        primary = true;
-                        realName = "Ivan Kirilov Dimitrov";
-                        address = "ivan@idimitrov.dev";
-                        userName = address;
-                        passwordCommand = "pass vps/mail.idimitrov.dev/ivan@idimitrov.dev";
-                        msmtp = {
-                          enable = true;
-                          extraConfig = {
-                            auth = "login";
-                          };
-                        };
-                        signature = {
-                          text = ''
-                            Ivan Dimitrov
-                            Software Developer
-                            ivan@idimitrov.dev
-                          '';
-                        };
-                        gpg = {
-                          encryptByDefault = true;
-                          signByDefault = true;
-                          key = "C565 2E79 2A7A 9110 DFA7  F77D 0BDA D4B2 11C4 9294";
-                        };
-                        smtp = {
-                          host = "mail.idimitrov.dev";
-                          port = 465;
-                          authentication = "login";
-                        };
-                        imap = {
-                          host = "mail.idimitrov.dev";
-                          authentication = "login";
-                        };
-                        aerc = {
-                          enable = true;
-                          smtpAuth = "login";
-                          imapAuth = "auth";
-                          extraAccounts = {
-                            default = "INBOX";
-                            restrict-delete = true;
-                          };
-                        };
-                        offlineimap.enable = true;
-                      };
-                    };
-                  };
-                };
-              };
+              })
+            ];
           };
           nix = {
             settings = {
@@ -919,7 +732,46 @@ in
               postgresql.enable = true;
               redis.enable = true;
             };
-            users.users.ivand.extraGroups = [ "wireshark" ];
+            users.users.pen = {
+              isNormalUser = true;
+              createHome = true;
+              shell = pkgs.nushell;
+              extraGroups = [
+                "adbusers"
+                "adm"
+                "audio"
+                "bluetooth"
+                "dialout"
+                "input"
+                "kvm"
+                "mlocate"
+                "realtime"
+                "render"
+                "video"
+                "wheel"
+                "wireshark"
+              ];
+              hashedPassword = "$y$j9T$Wf9ljhi4c.LUoX/LJEll//$cTP..D/lBWq1PPCzaHhym8V.cibPTjy2JvRYLTf5SZ7";
+            };
+            home-manager.users.pen = lib.mkMerge [
+              (import ./home-manager { inherit inputs pkgs; })
+              ({
+                home = {
+                  username = "pen";
+                  homeDirectory = "/home/pen";
+                };
+                programs = {
+                  git = {
+                    enable = true;
+                    signing.signByDefault = false;
+                    settings = {
+                      user.name = "Pen";
+                      user.email = "pen@example.com";
+                    };
+                  };
+                };
+              })
+            ];
           });
         };
     };
