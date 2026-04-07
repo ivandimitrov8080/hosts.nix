@@ -33,7 +33,11 @@ rec {
   gaming = nova.extendModules {
     modules = with nixosModules; [
       gamingModule
+      penetration
       allowUnfree
+      ({
+        meta.penetration.enable = true;
+      })
     ];
   };
   music = nova.extendModules {

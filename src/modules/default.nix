@@ -824,5 +824,83 @@ in
               };
             };
         };
+      penetration =
+        {
+          config,
+          lib,
+          options,
+          pkgs,
+          ...
+        }:
+        let
+          inherit (lib) mkIf mkEnableOption;
+          cfg = config.meta.penetration;
+        in
+        {
+          options.meta.penetration = {
+            enable = mkEnableOption "enable mailserver config";
+          };
+          config = mkIf cfg.enable ({
+            environment.systemPackages = with pkgs; [
+              # Recon / OSINT
+              amass
+              subfinder
+              theharvester
+              recon-ng
+              # Network discovery / enumeration
+              nmap
+              masscan
+              wireshark
+              tcpdump
+              netcat
+              socat
+              openldap
+              # Vulnerability scanning
+              nuclei
+              # Web application testing
+              zap
+              sqlmap
+              ffuf
+              gobuster
+              wfuzz
+              nikto
+              # Exploit frameworks / reversing
+              metasploit
+              ghidra
+              radare2
+              binwalk
+              # Password auditing
+              hashcat
+              john
+              hydra
+              seclists
+              kerbrute
+              # Active Directory / Windows tradecraft
+              bloodhound
+              python3Packages.impacket
+              responder
+              # Wireless
+              aircrack-ng
+              kismet
+              bettercap
+              # C2 / post-exploitation / pivot helpers (open-source)
+              chisel
+              proxychains
+              openssh
+              # Cloud / containers
+              trivy
+              # optional
+              exploitdb
+              netexec
+              openvas-scanner
+              prowler
+              pacu
+              kube-hunter
+              pwntools
+              frida-tools
+              certipy
+            ];
+          });
+        };
     };
 }
