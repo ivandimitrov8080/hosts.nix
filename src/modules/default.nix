@@ -65,6 +65,7 @@ in
         "Toncho Mitev".psk = "mazda626";
         "Vivacom_FiberNet-44F2".psk = "d3PtFcg96M";
         "hotel Riverside***".psk = "07282623";
+        "4U Apartment".psk = "4u4u4u4u";
         "ATHENS-HAWKS" = { };
         "RAMADA-SOFIA" = { };
       };
