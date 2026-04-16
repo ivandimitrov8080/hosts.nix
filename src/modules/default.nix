@@ -66,6 +66,7 @@ in
         "Vivacom_FiberNet-44F2".psk = "d3PtFcg96M";
         "hotel Riverside***".psk = "07282623";
         "4U Apartment".psk = "4u4u4u4u";
+        "TP-Link_AP3".psk = "42559061";
         "ATHENS-HAWKS" = { };
         "RAMADA-SOFIA" = { };
       };
