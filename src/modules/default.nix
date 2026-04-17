@@ -732,7 +732,7 @@ in
             };
             services = {
               postgresql.enable = true;
-              redis.enable = true;
+              redis.servers."".enable = true;
             };
             users.users.pen = {
               isNormalUser = true;
