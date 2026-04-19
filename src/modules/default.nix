@@ -67,6 +67,7 @@ in
         "hotel Riverside***".psk = "07282623";
         "4U Apartment".psk = "4u4u4u4u";
         "TP-Link_AP3".psk = "42559061";
+        "Gancho2".psk = "0404562338";
         "ATHENS-HAWKS" = { };
         "RAMADA-SOFIA" = { };
       };
