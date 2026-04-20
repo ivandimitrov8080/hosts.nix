@@ -67,7 +67,6 @@ in
         "hotel Riverside***".psk = "07282623";
         "4U Apartment".psk = "4u4u4u4u";
         "TP-Link_AP3".psk = "42559061";
-        "Gancho2".psk = "0404562338";
         "ATHENS-HAWKS" = { };
         "RAMADA-SOFIA" = { };
       };
@@ -290,6 +289,143 @@ in
             };
           };
           environment.systemPackages = with pkgs; [ radeontop ];
+        };
+      penetration =
+        {
+          config,
+          lib,
+          options,
+          pkgs,
+          ...
+        }:
+        let
+          inherit (lib) mkIf mkEnableOption;
+          cfg = config.meta.penetration;
+        in
+        {
+          options.meta.penetration = {
+            enable = mkEnableOption "enable mailserver config";
+          };
+          config = mkIf cfg.enable ({
+            environment.systemPackages = with pkgs; [
+              # Recon / OSINT
+              amass
+              subfinder
+              theharvester
+              recon-ng
+              # Network discovery / enumeration
+              nmap
+              masscan
+              tcpdump
+              netcat
+              socat
+              openldap
+              # Vulnerability scanning
+              nuclei
+              # Web application testing
+              zap
+              sqlmap
+              ffuf
+              gobuster
+              wfuzz
+              nikto
+              # Exploit frameworks / reversing
+              metasploit
+              ghidra
+              radare2
+              binwalk
+              # Password auditing
+              hashcat
+              john
+              hydra
+              seclists
+              kerbrute
+              # Active Directory / Windows tradecraft
+              bloodhound
+              python3Packages.impacket
+              responder
+              # Wireless
+              aircrack-ng
+              kismet
+              bettercap
+              # C2 / post-exploitation / pivot helpers (open-source)
+              chisel
+              proxychains
+              openssh
+              # Cloud / containers
+              trivy
+              # optional
+              exploitdb
+              netexec
+              openvas-scanner
+              prowler
+              pacu
+              kube-hunter
+              pwntools
+              frida-tools
+              certipy
+              mitmproxy
+              whatweb
+              feroxbuster
+              sslscan
+              exiftool
+              yara
+              ldapdomaindump
+              evil-winrm
+              ligolo-ng
+              rockyou
+              seclists
+            ];
+            programs.wireshark = {
+              enable = true;
+              dumpcap.enable = true;
+              usbmon.enable = true;
+            };
+            services = {
+              postgresql.enable = true;
+              redis.servers."".enable = true;
+            };
+            users.users.pen = {
+              isNormalUser = true;
+              createHome = true;
+              shell = pkgs.nushell;
+              extraGroups = [
+                "adbusers"
+                "adm"
+                "audio"
+                "bluetooth"
+                "dialout"
+                "input"
+                "kvm"
+                "mlocate"
+                "realtime"
+                "render"
+                "video"
+                "wheel"
+                "wireshark"
+              ];
+              hashedPassword = "$y$j9T$Wf9ljhi4c.LUoX/LJEll//$cTP..D/lBWq1PPCzaHhym8V.cibPTjy2JvRYLTf5SZ7";
+            };
+            home-manager.users.pen = lib.mkMerge [
+              (import ./home-manager { inherit inputs pkgs; })
+              ({
+                home = {
+                  username = "pen";
+                  homeDirectory = "/home/pen";
+                };
+                programs = {
+                  git = {
+                    enable = true;
+                    signing.signByDefault = false;
+                    settings = {
+                      user.name = "Pen";
+                      user.email = "pen@example.com";
+                    };
+                  };
+                };
+              })
+            ];
+          });
         };
       vpsadminosModule =
         {
@@ -639,143 +775,6 @@ in
                 };
               };
             };
-        };
-      penetration =
-        {
-          config,
-          lib,
-          options,
-          pkgs,
-          ...
-        }:
-        let
-          inherit (lib) mkIf mkEnableOption;
-          cfg = config.meta.penetration;
-        in
-        {
-          options.meta.penetration = {
-            enable = mkEnableOption "enable mailserver config";
-          };
-          config = mkIf cfg.enable ({
-            environment.systemPackages = with pkgs; [
-              # Recon / OSINT
-              amass
-              subfinder
-              theharvester
-              recon-ng
-              # Network discovery / enumeration
-              nmap
-              masscan
-              tcpdump
-              netcat
-              socat
-              openldap
-              # Vulnerability scanning
-              nuclei
-              # Web application testing
-              zap
-              sqlmap
-              ffuf
-              gobuster
-              wfuzz
-              nikto
-              # Exploit frameworks / reversing
-              metasploit
-              ghidra
-              radare2
-              binwalk
-              # Password auditing
-              hashcat
-              john
-              hydra
-              seclists
-              kerbrute
-              # Active Directory / Windows tradecraft
-              bloodhound
-              python3Packages.impacket
-              responder
-              # Wireless
-              aircrack-ng
-              kismet
-              bettercap
-              # C2 / post-exploitation / pivot helpers (open-source)
-              chisel
-              proxychains
-              openssh
-              # Cloud / containers
-              trivy
-              # optional
-              exploitdb
-              netexec
-              openvas-scanner
-              prowler
-              pacu
-              kube-hunter
-              pwntools
-              frida-tools
-              certipy
-              mitmproxy
-              whatweb
-              feroxbuster
-              sslscan
-              exiftool
-              yara
-              ldapdomaindump
-              evil-winrm
-              ligolo-ng
-              rockyou
-              seclists
-            ];
-            programs.wireshark = {
-              enable = true;
-              dumpcap.enable = true;
-              usbmon.enable = true;
-            };
-            services = {
-              postgresql.enable = true;
-              redis.servers."".enable = true;
-            };
-            users.users.pen = {
-              isNormalUser = true;
-              createHome = true;
-              shell = pkgs.nushell;
-              extraGroups = [
-                "adbusers"
-                "adm"
-                "audio"
-                "bluetooth"
-                "dialout"
-                "input"
-                "kvm"
-                "mlocate"
-                "realtime"
-                "render"
-                "video"
-                "wheel"
-                "wireshark"
-              ];
-              hashedPassword = "$y$j9T$Wf9ljhi4c.LUoX/LJEll//$cTP..D/lBWq1PPCzaHhym8V.cibPTjy2JvRYLTf5SZ7";
-            };
-            home-manager.users.pen = lib.mkMerge [
-              (import ./home-manager { inherit inputs pkgs; })
-              ({
-                home = {
-                  username = "pen";
-                  homeDirectory = "/home/pen";
-                };
-                programs = {
-                  git = {
-                    enable = true;
-                    signing.signByDefault = false;
-                    settings = {
-                      user.name = "Pen";
-                      user.email = "pen@example.com";
-                    };
-                  };
-                };
-              })
-            ];
-          });
         };
     };
 }
