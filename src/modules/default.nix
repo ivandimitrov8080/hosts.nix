@@ -5,6 +5,7 @@ in
 {
   default =
     let
+      dns = "10.0.0.1";
       peers = [
         {
           PublicKey = "iRSHYRPRELX8lJ2eHdrEAwy5ZW8f5b5fOiIGhHQwKFg=";
@@ -80,8 +81,8 @@ in
             meta oifname "lo" accept
 
             # Allow dns to server
-            ip daddr 10.0.0.1 udp dport 53 accept
-            ip daddr 10.0.0.1 tcp dport 53 accept
+            ip daddr ${dns} udp dport 53 accept
+            ip daddr ${dns} tcp dport 53 accept
 
             # Block DNS to anywhere else
             udp dport 53 drop
@@ -271,7 +272,7 @@ in
             swayland.enable = true;
             wireguard = {
               enable = true;
-              inherit peers;
+              inherit peers dns;
               address = "10.0.0.2/24";
             };
           };
@@ -305,7 +306,7 @@ in
         in
         {
           options.meta.penetration = {
-            enable = mkEnableOption "enable mailserver config";
+            enable = mkEnableOption "enable penetration config";
           };
           config = mkIf cfg.enable ({
             environment.systemPackages = with pkgs; [
@@ -451,7 +452,7 @@ in
             wireguard = {
               enable = true;
               address = "10.0.0.1/24";
-              inherit peers;
+              inherit peers dns;
             };
             grafana = {
               enable = true;
