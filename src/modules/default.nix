@@ -110,7 +110,7 @@ in
               inputs.self.overlays.config
             ];
           };
-          system.stateVersion = "25.11";
+          system.stateVersion = "26.05";
           users.defaultUserShell = pkgs.zsh;
         };
       rest =
@@ -229,7 +229,7 @@ in
           };
           networking = {
             hostName = "nova";
-            nameservers = [ "10.0.0.1" ];
+            nameservers = [ dns ];
             nftables = {
               enable = true;
               ruleset = blockDnsExceptDnscrypt;
@@ -261,7 +261,7 @@ in
               enable = true;
               settings = {
                 Resolve = {
-                  FallbackDNS = [ "10.0.0.1" ];
+                  FallbackDNS = [ dns ];
                 };
               };
             };
@@ -310,6 +310,7 @@ in
           };
           config = mkIf cfg.enable ({
             environment.systemPackages = with pkgs; [
+              nixvim.python
               # Recon / OSINT
               amass
               subfinder
