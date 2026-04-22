@@ -105,6 +105,7 @@ in
             p.flake = inputs.nixpkgs;
           };
           nixpkgs = {
+            hostPlatform = system;
             overlays = [
               inputs.self.overlays.default
               inputs.self.overlays.config
@@ -407,10 +408,10 @@ in
                 "wheel"
                 "wireshark"
               ];
-              hashedPassword = "$y$j9T$Wf9ljhi4c.LUoX/LJEll//$cTP..D/lBWq1PPCzaHhym8V.cibPTjy2JvRYLTf5SZ7";
+              hashedPassword = "$2b$05$bbdMFrG6bBBUKZt370Y6TuAZGDwAw4MHByOsPM2cg65jIXr7H/8TW";
             };
             home-manager.users.pen = lib.mkMerge [
-              (import ./home-manager { inherit inputs pkgs; })
+              (inputs.configuration.homeManagerModules.default)
               ({
                 home = {
                   username = "pen";
@@ -425,6 +426,24 @@ in
                       user.email = "pen@example.com";
                     };
                   };
+                  bash.enable = true;
+                  bat.enable = true;
+                  bottom.enable = true;
+                  delta.enable = true;
+                  direnv.enable = true;
+                  eza.enable = true;
+                  fd.enable = true;
+                  fzf.enable = true;
+                  gpg.enable = true;
+                  ssh.enable = true;
+                  starship.enable = true;
+                  taskwarrior.enable = true;
+                  tealdeer.enable = true;
+                  tmux.enable = true;
+                  yazi.enable = true;
+                  zoxide.enable = true;
+                  zsh.enable = true;
+                  nushell.enable = true;
                 };
               })
             ];
