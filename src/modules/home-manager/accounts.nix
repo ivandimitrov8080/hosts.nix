@@ -74,6 +74,7 @@
               Software Developer
               ivan@idimitrov.dev
             '';
+            showSignature = "append";
           };
           gpg = {
             encryptByDefault = true;
@@ -96,6 +97,7 @@
             extraAccounts = {
               default = "INBOX";
               restrict-delete = true;
+              signature-file = builtins.toFile "signature.txt" signature.text;
             };
           };
           offlineimap.enable = true;

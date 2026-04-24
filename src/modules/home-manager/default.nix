@@ -9,7 +9,6 @@
     vit
   ];
   programs = {
-    aerc.enable = true;
     bash.enable = true;
     bat.enable = true;
     bottom.enable = true;
@@ -42,6 +41,35 @@
     yazi.enable = true;
     zoxide.enable = true;
     zsh.enable = true;
+    aerc = {
+      enable = true;
+      templates = {
+        wrk = ''
+          To:
+          Subject: Application — Software Developer — Ivan Dimitrov
+          {{.Attach "/home/ivand/doc/cv.pdf"}}
+          Hello [NAME],
+
+          I’m applying for the Software Developer role. I’m a developer focused on web development, and I’d love to help
+          with building exciting new things.
+
+          Links:
+          - GitHub: https://github.com/ivandimitrov8080
+          - Site: https://idimitrov.dev
+          - Upwork: https://www.upwork.com/freelancers/~014fabab43ea6d5131
+
+          I’ve attached my CV. If you’d like, I can share a couple of relevant projects based on your needs.
+
+          Best regards,
+          {{.Signature}}
+        '';
+      };
+      extraBinds = {
+        messages = {
+          w = ":compose -T wrk<Enter>";
+        };
+      };
+    };
     opencode = {
       enable = true;
       agents = {
