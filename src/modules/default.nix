@@ -111,7 +111,7 @@ in
               inputs.self.overlays.config
             ];
           };
-          system.stateVersion = "26.05";
+          system.stateVersion = "25.11";
           users.defaultUserShell = pkgs.zsh;
         };
       rest =
