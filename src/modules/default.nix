@@ -127,7 +127,7 @@ in
             users.ivand = lib.mkMerge [
               (import ./home-manager { inherit inputs pkgs; })
               (import ./home-manager/accounts.nix { inherit inputs pkgs; })
-              ({
+              {
                 home = {
                   username = "ivand";
                   homeDirectory = "/home/ivand";
@@ -147,7 +147,7 @@ in
                     signing.key = "C565 2E79 2A7A 9110 DFA7  F77D 0BDA D4B2 11C4 9294";
                   };
                 };
-              })
+              }
             ];
           };
           nix = {
@@ -297,7 +297,6 @@ in
         {
           config,
           lib,
-          options,
           pkgs,
           ...
         }:
@@ -309,7 +308,7 @@ in
           options.meta.penetration = {
             enable = mkEnableOption "enable penetration config";
           };
-          config = mkIf cfg.enable ({
+          config = mkIf cfg.enable {
             environment.systemPackages = with pkgs; [
               nixvim.python
               # Recon / OSINT
@@ -411,8 +410,8 @@ in
               hashedPassword = "$2b$05$bbdMFrG6bBBUKZt370Y6TuAZGDwAw4MHByOsPM2cg65jIXr7H/8TW";
             };
             home-manager.users.pen = lib.mkMerge [
-              (inputs.configuration.homeManagerModules.default)
-              ({
+              inputs.configuration.homeManagerModules.default
+              {
                 home = {
                   username = "pen";
                   homeDirectory = "/home/pen";
@@ -445,9 +444,9 @@ in
                   zsh.enable = true;
                   nushell.enable = true;
                 };
-              })
+              }
             ];
-          });
+          };
         };
       vpsadminosModule =
         {

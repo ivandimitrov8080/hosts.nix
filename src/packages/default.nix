@@ -11,5 +11,5 @@ let
   };
 in
 {
-  inherit (pkgs) hello;
+  inherit (pkgs) hello twvtodo;
 }

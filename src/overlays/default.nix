@@ -11,6 +11,7 @@
         package = inputs.neovim-nightly-overlay.packages.${stdenv.hostPlatform.system}.default;
       };
       which-key = callPackage ../packages/which-key { };
+      twvtodo = callPackage ../packages/twvtodo { };
       myMpvScripts = callPackage ../packages/mpvScripts { };
       xin = callPackage ../packages/xin { };
     };
