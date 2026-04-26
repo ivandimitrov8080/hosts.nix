@@ -30,6 +30,12 @@
     };
     contact = {
       accounts.ivand = {
+        khal = {
+          enable = true;
+          color = "light red";
+          addresses = [ "ivan@idimitrov.dev" ];
+          collections = [ "770000ed-6b2a-4dec-9534-f12bd3f8a482" ];
+        };
         khard = {
           enable = true;
           type = "discover";
