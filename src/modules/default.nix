@@ -540,6 +540,13 @@ in
             };
             radicale = {
               enable = true;
+              package = pkgs.radicale.overrideAttrs (old: {
+                postPatch = (old.postPatch or "") + ''
+                  dir=$out/${pkgs.python3.sitePackages}/radicale/web/internal_data/
+                  mkdir -p $dir
+                  cp -r "${pkgs.python3Packages.radicale-infcloud}/${pkgs.python3.sitePackages}/radicale_infcloud/web" "$dir/infcloud"
+                '';
+              });
               settings = {
                 server = {
                   hosts = [ "127.0.0.1:5232" ];
@@ -789,8 +796,8 @@ in
                       proxy_pass_header Authorization;
                     '';
                   };
-                  locations."= /.well-known/caldav".return = "301 https://cal.idimitrov.dev/";
-                  locations."= /.well-known/carddav".return = "301 https://cal.idimitrov.dev/";
+                  locations."= /.well-known/caldav".return = "301 https://dav.idimitrov.dev/";
+                  locations."= /.well-known/carddav".return = "301 https://dav.idimitrov.dev/";
                 };
                 "rspamd.idimitrov.dev" = tls // {
                   locations."/".proxyPass = "http://unix:/run/rspamd/worker-controller.sock:/";
