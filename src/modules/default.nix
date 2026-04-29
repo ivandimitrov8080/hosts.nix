@@ -69,6 +69,7 @@ in
         "4U Apartment".psk = "4u4u4u4u";
         "TP-Link_AP3".psk = "42559061";
         "Maria_Luiza_125".psk = "Ml125_fl4_ap98!";
+        "Eva".psk = "12345678";
         "ATHENS-HAWKS" = { };
         "RAMADA-SOFIA" = { };
       };
@@ -253,6 +254,28 @@ in
             zoxide.enable = true;
             zsh.enable = true;
             nix-ld.enable = true;
+            nix-ld.libraries = with pkgs; [
+              alsa-lib
+              at-spi2-atk
+              cairo
+              cups
+              dbus
+              expat
+              glib
+              gtk3
+              libgbm
+              libx11
+              libxcb
+              libxcomposite
+              libxdamage
+              libxext
+              libxfixes
+              libxkbcommon
+              libxrandr
+              nspr
+              nss
+              pango
+            ];
           };
           services = {
             pipewire.enable = true;
