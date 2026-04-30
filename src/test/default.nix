@@ -128,6 +128,7 @@ in
         { pkgs, ... }:
         {
           _module.args.system = system;
+          virtualisation.memorySize = 4096;
           imports = with nixosModules; [
             configMod
             vpsadminosModule

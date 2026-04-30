@@ -14,6 +14,11 @@
       twvtodo = callPackage ../packages/twvtodo { };
       myMpvScripts = callPackage ../packages/mpvScripts { };
       xin = callPackage ../packages/xin { };
+      python3Packages = prev.python3Packages // {
+        fastmcp = prev.python3Packages.fastmcp.overrideAttrs (_: {
+          doInstallCheck = false;
+        });
+      };
     };
   config = inputs.configuration.overlays.default;
 }
