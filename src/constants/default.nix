@@ -25,7 +25,7 @@
           fsType = "btrfs";
         };
         "/boot" = {
-          device = "/dev/disk/by-uuid/4C3C-993A";
+          device = "/dev/disk/by-uuid/24D3-9F87";
           fsType = "vfat";
           options = [
             "uid=0"
