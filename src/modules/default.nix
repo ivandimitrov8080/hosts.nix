@@ -836,14 +836,34 @@ in
                     ''
                       let tmp = "/tmp/geoip"
                       let dir = "${outDir}"
+                      let jsdeliver_cache = "https://cdn.jsdelivr.net/npm/"
+                      let jsdeliver_data = "https://data.jsdelivr.com/v1/packages/npm/"
+                      let iptoasn_asn = "@ip-location-db/iptoasn-asn-mmdb"
+                      let iptoasn_country = "@ip-location-db/iptoasn-country-mmdb"
+                      def check_version_update [] {
+                        let version_file = $"($dir)/version"
+                        let tag1 = (http get $"($jsdeliver_data)($iptoasn_country)" | get tags.latest | split column . | get column2.0 | into datetime -f '%Y%m%d%H')
+                        let tag2 = (http get $"($jsdeliver_data)($iptoasn_asn)" | get tags.latest | split column . | get column2.0 | into datetime -f '%Y%m%d%H')
+                        let current = (open $version_file | split column . | get column2.0 | into datetime -f '%Y%m%d%H')
+                        if ($tag1 == $tag2 and $tag1 > $current) {
+                            $tag1 | save -f $"($tmp)/version"
+                            return true
+                        } else {
+                            return false
+                        }
+                      }
+                      if (not (check_version_update)) {
+                        exit 0
+                      }
                       mkdir $dir
                       mkdir $tmp
-                      http get --raw --max-time 69min https://cdn.jsdelivr.net/npm/@ip-location-db/iptoasn-asn-mmdb/iptoasn-asn-ipv4.mmdb | save --raw -f $"($tmp)/iptoasn-asn-ipv4.mmdb"
-                      http get --raw --max-time 69min https://cdn.jsdelivr.net/npm/@ip-location-db/iptoasn-country-mmdb/iptoasn-country-ipv4.mmdb | save --raw -f $"($tmp)/iptoasn-country-ipv4.mmdb"
-                      http get --raw --max-time 69min https://cdn.jsdelivr.net/npm/@ip-location-db/iptoasn-asn-mmdb/iptoasn-asn-ipv6.mmdb | save --raw -f $"($tmp)/iptoasn-asn-ipv6.mmdb"
-                      http get --raw --max-time 69min https://cdn.jsdelivr.net/npm/@ip-location-db/iptoasn-country-mmdb/iptoasn-country-ipv6.mmdb | save --raw -f $"($tmp)/iptoasn-country-ipv6.mmdb"
+                      http get --raw --max-time 69min $"($jsdeliver_cache)($iptoasn_asn)/iptoasn-asn-ipv4.mmdb" | save --raw -f $"($tmp)/iptoasn-asn-ipv4.mmdb"
+                      http get --raw --max-time 69min $"($jsdeliver_cache)($iptoasn_country)/iptoasn-country-ipv4.mmdb" | save --raw -f $"($tmp)/iptoasn-country-ipv4.mmdb"
+                      http get --raw --max-time 69min $"($jsdeliver_cache)($iptoasn_asn)/iptoasn-asn-ipv6.mmdb" | save --raw -f $"($tmp)/iptoasn-asn-ipv6.mmdb"
+                      http get --raw --max-time 69min $"($jsdeliver_cache)($iptoasn_country)/iptoasn-country-ipv6.mmdb" | save --raw -f $"($tmp)/iptoasn-country-ipv6.mmdb"
                       cp ($"($tmp)/*" | into glob) ${outDir}
                       chown -R nginx:users $dir
+                      rm -rf $tmp
                     '';
               in
               {
@@ -860,7 +880,7 @@ in
               update-geoip = {
                 wantedBy = [ "timers.target" ];
                 timerConfig = {
-                  OnCalendar = "*-*-* 10:00:00";
+                  OnCalendar = "*:5/10";
                   Persistent = true;
                 };
               };
