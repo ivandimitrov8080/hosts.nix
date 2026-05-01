@@ -112,7 +112,7 @@ in
               inputs.self.overlays.config
             ];
           };
-          system.stateVersion = "25.11";
+          system.stateVersion = pkgs.lib.trivial.release;
           users.defaultUserShell = pkgs.zsh;
         };
       minimal =
@@ -121,40 +121,6 @@ in
           imports = with inputs; [
             home-manager.nixosModules.default
           ];
-          home-manager = {
-            backupFileExtension = "bak";
-            useUserPackages = true;
-            useGlobalPkgs = true;
-            users.iso = lib.mkMerge [
-              (import ./home-manager { inherit inputs pkgs; })
-              {
-                home = {
-                  username = "iso";
-                  homeDirectory = "/home/iso";
-                };
-              }
-            ];
-          };
-          users.users.iso = {
-            isNormalUser = true;
-            createHome = true;
-            shell = pkgs.nushell;
-            extraGroups = [
-              "adbusers"
-              "adm"
-              "audio"
-              "bluetooth"
-              "dialout"
-              "input"
-              "kvm"
-              "mlocate"
-              "realtime"
-              "render"
-              "video"
-              "wheel"
-            ];
-            password = "iso";
-          };
           nix = {
             settings = {
               substituters = [
@@ -226,11 +192,54 @@ in
             graphicalBoot.enable = true;
             shells.enable = true;
             swayland.enable = true;
-            wireguard = {
-              enable = true;
-              inherit peers dns;
-              address = "10.0.0.2/24";
-            };
+          };
+        };
+      iso =
+        {
+          pkgs,
+          lib,
+          modulesPath,
+          ...
+        }:
+        {
+          imports = [
+            (modulesPath + "/installer/cd-dvd/iso-image.nix")
+          ];
+          services.openssh.settings.PermitRootLogin = "yes";
+          boot.kernelPackages = lib.mkForce pkgs.linuxPackages;
+          home-manager = {
+            backupFileExtension = "bak";
+            useUserPackages = true;
+            useGlobalPkgs = true;
+            users.iso = lib.mkMerge [
+              (import ./home-manager { inherit inputs pkgs; })
+              {
+                home = {
+                  username = "iso";
+                  homeDirectory = "/home/iso";
+                };
+              }
+            ];
+          };
+          users.users.iso = {
+            isNormalUser = true;
+            createHome = true;
+            shell = pkgs.nushell;
+            extraGroups = [
+              "adbusers"
+              "adm"
+              "audio"
+              "bluetooth"
+              "dialout"
+              "input"
+              "kvm"
+              "mlocate"
+              "realtime"
+              "render"
+              "video"
+              "wheel"
+            ];
+            password = "iso";
           };
         };
       rest =
@@ -339,6 +348,11 @@ in
                 "gambling"
               ];
             };
+          };
+          meta.wireguard = {
+            enable = true;
+            inherit peers dns;
+            address = "10.0.0.2/24";
           };
         };
       gamingModule =

@@ -171,9 +171,10 @@ in
             # directory owned by nginx
             "d /var/lib/geoip 0750 nginx nginx -"
             # copy files, owned by nginx (C+ overwrites/updates)
-            "C+ /var/lib/geoip/dbip-asn.mmdb 0640 nginx nginx - ${./dbip-asn.mmdb}"
-            "C+ /var/lib/geoip/dbip-country.mmdb 0640 nginx nginx - ${./dbip-country.mmdb}"
-            "C+ /var/lib/geoip/dbip-city.mmdb 0640 nginx nginx - ${./dbip-city.mmdb}"
+            "C+ /var/lib/geoip/iptoasn-asn-ipv4.mmdb 0640 nginx users - ${./dbip-asn.mmdb}"
+            "C+ /var/lib/geoip/iptoasn-country-ipv4.mmdb 0640 nginx users - ${./dbip-country.mmdb}"
+            "C+ /var/lib/geoip/iptoasn-asn-ipv6.mmdb 0640 nginx users - ${./dbip-asn.mmdb}"
+            "C+ /var/lib/geoip/iptoasn-country-ipv6.mmdb 0640 nginx users - ${./dbip-country.mmdb}"
           ];
         }
         // testUser;
@@ -182,6 +183,7 @@ in
         {
           imports = with nixosModules; [
             configMod
+            minimal
             rest
           ];
           boot.consoleLogLevel = lib.mkForce 7;

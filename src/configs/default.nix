@@ -28,6 +28,7 @@ rec {
       [
         default
         minimal
+        nixosModules.iso
       ]
     );
   };
