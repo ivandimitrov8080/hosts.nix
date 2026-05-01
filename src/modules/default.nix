@@ -759,6 +759,7 @@ in
                     "png"
                     "jpg"
                     "jpeg"
+                    "iso"
                   ]
                 )
               } $uri $uri/ =404;";
@@ -823,6 +824,14 @@ in
                   ];
                   locations."/" = {
                     root = inputs.webshite.packages.${system}.default;
+
+                    extraConfig = ''
+                      autoindex on;
+                      ${serveStatic}
+                    '';
+                  };
+                  locations."/nix/" = {
+                    root = "/var";
 
                     extraConfig = ''
                       autoindex on;
