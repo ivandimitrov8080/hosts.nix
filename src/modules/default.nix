@@ -735,24 +735,24 @@ in
                     '"upstream_response_time":"$upstream_response_time",'
                     '"asn":"$geoip2_asn",'
                     '"as_org":"$geoip2_asorg",'
-                    '"geoip_country_code":"$geoip2_country_code",'
-                    '"geoip_country_name":"$geoip2_country_name",'
-                    '"geoip_region_name":"$geoip2_region_name",'
-                    '"geoip_city_name":"$geoip2_city_name"'
+                    '"geoip_country_code":"$geoip2_country_code"'
                   '}';
                   access_log /var/log/nginx/access.json.log json_access;
 
-                  geoip2 /var/lib/geoip/dbip-country.mmdb {
+                  geoip2 /var/lib/geoip/iptoasn-country-ipv4.mmdb {
                     auto_reload 5m;
                     $geoip2_country_code  default=-  source=$remote_addr country iso_code;
-                    $geoip2_country_name  default=-  country names en;
                   }
-                  geoip2 /var/lib/geoip/dbip-city.mmdb {
+                  geoip2 /var/lib/geoip/iptoasn-asn-ipv4.mmdb {
                     auto_reload 5m;
-                    $geoip2_city_name     default=-  city names en;
-                    $geoip2_region_name   default=-  subdivisions 0 names en;
+                    $geoip2_asn   default=-  autonomous_system_number;
+                    $geoip2_asorg default=-  autonomous_system_organization;
                   }
-                  geoip2 /var/lib/geoip/dbip-asn.mmdb {
+                  geoip2 /var/lib/geoip/iptoasn-country-ipv6.mmdb {
+                    auto_reload 5m;
+                    $geoip2_country_code  default=-  source=$remote_addr country iso_code;
+                  }
+                  geoip2 /var/lib/geoip/iptoasn-asn-ipv6.mmdb {
                     auto_reload 5m;
                     $geoip2_asn   default=-  autonomous_system_number;
                     $geoip2_asorg default=-  autonomous_system_organization;
@@ -826,6 +826,46 @@ in
                 };
               };
             };
+          systemd = {
+            services.update-geoip =
+              let
+                outDir = "/var/lib/geoip";
+                exec =
+                  pkgs.writers.writeNuBin "exec"
+                    # nu
+                    ''
+                      let tmp = "/tmp/geoip"
+                      let dir = "${outDir}"
+                      mkdir $dir
+                      mkdir $tmp
+                      http get --raw --max-time 69min https://cdn.jsdelivr.net/npm/@ip-location-db/iptoasn-asn-mmdb/iptoasn-asn-ipv4.mmdb | save --raw -f $"($tmp)/iptoasn-asn-ipv4.mmdb"
+                      http get --raw --max-time 69min https://cdn.jsdelivr.net/npm/@ip-location-db/iptoasn-country-mmdb/iptoasn-country-ipv4.mmdb | save --raw -f $"($tmp)/iptoasn-country-ipv4.mmdb"
+                      http get --raw --max-time 69min https://cdn.jsdelivr.net/npm/@ip-location-db/iptoasn-asn-mmdb/iptoasn-asn-ipv6.mmdb | save --raw -f $"($tmp)/iptoasn-asn-ipv6.mmdb"
+                      http get --raw --max-time 69min https://cdn.jsdelivr.net/npm/@ip-location-db/iptoasn-country-mmdb/iptoasn-country-ipv6.mmdb | save --raw -f $"($tmp)/iptoasn-country-ipv6.mmdb"
+                      cp ($"($tmp)/*" | into glob) ${outDir}
+                      chown -R nginx:users $dir
+                    '';
+              in
+              {
+                description = "Update GEOIP database from https://github.com/sapics/ip-location-db";
+                after = [ "network-online.target" ];
+                wants = [ "network-online.target" ];
+                serviceConfig = {
+                  Type = "oneshot";
+                  ReadWritePaths = [ outDir ];
+                  ExecStart = "${exec}/bin/exec";
+                };
+              };
+            timers = {
+              update-geoip = {
+                wantedBy = [ "timers.target" ];
+                timerConfig = {
+                  OnCalendar = "*-*-* 10:00:00";
+                  Persistent = true;
+                };
+              };
+            };
+          };
         };
     };
 }
