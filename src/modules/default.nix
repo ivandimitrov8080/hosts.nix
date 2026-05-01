@@ -115,7 +115,7 @@ in
           system.stateVersion = "25.11";
           users.defaultUserShell = pkgs.zsh;
         };
-      rest =
+      minimal =
         { pkgs, lib, ... }:
         {
           imports = with inputs; [
@@ -125,31 +125,35 @@ in
             backupFileExtension = "bak";
             useUserPackages = true;
             useGlobalPkgs = true;
-            users.ivand = lib.mkMerge [
+            users.iso = lib.mkMerge [
               (import ./home-manager { inherit inputs pkgs; })
-              (import ./home-manager/accounts.nix { inherit inputs pkgs; })
               {
                 home = {
-                  username = "ivand";
-                  homeDirectory = "/home/ivand";
-                };
-                programs = {
-                  ssh.matchBlocks = {
-                    vpsfree-ivand = {
-                      hostname = "10.0.0.1";
-                      user = "ivand";
-                    };
-                  };
-                  git = {
-                    settings = {
-                      user.name = "Ivan Kirilov Dimitrov";
-                      user.email = "ivan@idimitrov.dev";
-                    };
-                    signing.key = "C565 2E79 2A7A 9110 DFA7  F77D 0BDA D4B2 11C4 9294";
-                  };
+                  username = "iso";
+                  homeDirectory = "/home/iso";
                 };
               }
             ];
+          };
+          users.users.iso = {
+            isNormalUser = true;
+            createHome = true;
+            shell = pkgs.nushell;
+            extraGroups = [
+              "adbusers"
+              "adm"
+              "audio"
+              "bluetooth"
+              "dialout"
+              "input"
+              "kvm"
+              "mlocate"
+              "realtime"
+              "render"
+              "video"
+              "wheel"
+            ];
+            password = "iso";
           };
           nix = {
             settings = {
@@ -162,47 +166,11 @@ in
               ];
             };
           };
-          hardware.bluetooth.enable = true;
-          time.timeZone = "Europe/Prague";
           environment.systemPackages = with pkgs; [
             nixvim.main
             python3
-            (pkgs.makeDesktopItem {
-              name = "telegram";
-              desktopName = "Telegram";
-              exec = "env ${pkgs.telegram-desktop}/bin/Telegram -- %U";
-              terminal = false;
-              icon = "${pkgs.telegram-desktop}/share/icons/hicolor/128x128/apps/org.telegram.desktop.png";
-            })
             transmission_4
           ];
-          users = {
-            users = {
-              ivand = {
-                isNormalUser = true;
-                createHome = true;
-                shell = pkgs.nushell;
-                extraGroups = [
-                  "adbusers"
-                  "adm"
-                  "audio"
-                  "bluetooth"
-                  "dialout"
-                  "input"
-                  "kvm"
-                  "mlocate"
-                  "realtime"
-                  "render"
-                  "video"
-                  "wheel"
-                ];
-                hashedPassword = "$y$j9T$Wf9ljhi4c.LUoX/LJEll//$cTP..D/lBWq1PPCzaHhym8V.cibPTjy2JvRYLTf5SZ7";
-              };
-            };
-            extraGroups = {
-              realtime = { };
-            };
-          };
           fonts = {
             fontDir.enable = true;
             packages = with pkgs; [
@@ -211,42 +179,6 @@ in
               noto-fonts-color-emoji
               noto-fonts-lgc-plus
             ];
-          };
-          zramSwap.enable = true;
-          systemd.network.networks = {
-            "10-wlp45s0" = {
-              matchConfig.Name = "wlp45s0";
-              networkConfig.DHCP = "yes";
-              dhcpV4Config.UseDNS = false;
-              dhcpV6Config.UseDNS = false;
-              ipv6AcceptRAConfig.UseDNS = false;
-            };
-            "10-enp47s0" = {
-              matchConfig.Name = "enp47s0";
-              networkConfig.DHCP = "yes";
-              dhcpV4Config.UseDNS = false;
-              dhcpV6Config.UseDNS = false;
-              ipv6AcceptRAConfig.UseDNS = false;
-            };
-          };
-          networking = {
-            hostName = "nova";
-            nameservers = [ dns ];
-            nftables = {
-              enable = true;
-              ruleset = blockDnsExceptDnscrypt;
-            };
-            wireless = {
-              enable = true;
-              networks = wirelessNetworks;
-            };
-            stevenblack = {
-              enable = true;
-              block = [
-                "fakenews"
-                "gambling"
-              ];
-            };
           };
           programs = {
             git.enable = true;
@@ -298,6 +230,114 @@ in
               enable = true;
               inherit peers dns;
               address = "10.0.0.2/24";
+            };
+          };
+        };
+      rest =
+        { pkgs, lib, ... }:
+        {
+          home-manager = {
+            backupFileExtension = "bak";
+            useUserPackages = true;
+            useGlobalPkgs = true;
+            users.ivand = lib.mkMerge [
+              (import ./home-manager { inherit inputs pkgs; })
+              (import ./home-manager/accounts.nix { inherit inputs pkgs; })
+              {
+                home = {
+                  username = "ivand";
+                  homeDirectory = "/home/ivand";
+                };
+                programs = {
+                  ssh.matchBlocks = {
+                    vpsfree-ivand = {
+                      hostname = "10.0.0.1";
+                      user = "ivand";
+                    };
+                  };
+                  git = {
+                    settings = {
+                      user.name = "Ivan Kirilov Dimitrov";
+                      user.email = "ivan@idimitrov.dev";
+                    };
+                    signing.key = "C565 2E79 2A7A 9110 DFA7  F77D 0BDA D4B2 11C4 9294";
+                  };
+                };
+              }
+            ];
+          };
+          hardware.bluetooth.enable = true;
+          time.timeZone = "Europe/Prague";
+          environment.systemPackages = [
+            (pkgs.makeDesktopItem {
+              name = "telegram";
+              desktopName = "Telegram";
+              exec = "env ${pkgs.telegram-desktop}/bin/Telegram -- %U";
+              terminal = false;
+              icon = "${pkgs.telegram-desktop}/share/icons/hicolor/128x128/apps/org.telegram.desktop.png";
+            })
+          ];
+          users = {
+            users = {
+              ivand = {
+                isNormalUser = true;
+                createHome = true;
+                shell = pkgs.nushell;
+                extraGroups = [
+                  "adbusers"
+                  "adm"
+                  "audio"
+                  "bluetooth"
+                  "dialout"
+                  "input"
+                  "kvm"
+                  "mlocate"
+                  "realtime"
+                  "render"
+                  "video"
+                  "wheel"
+                ];
+                hashedPassword = "$y$j9T$Wf9ljhi4c.LUoX/LJEll//$cTP..D/lBWq1PPCzaHhym8V.cibPTjy2JvRYLTf5SZ7";
+              };
+            };
+            extraGroups = {
+              realtime = { };
+            };
+          };
+          zramSwap.enable = true;
+          systemd.network.networks = {
+            "10-wlp45s0" = {
+              matchConfig.Name = "wlp45s0";
+              networkConfig.DHCP = "yes";
+              dhcpV4Config.UseDNS = false;
+              dhcpV6Config.UseDNS = false;
+              ipv6AcceptRAConfig.UseDNS = false;
+            };
+            "10-enp47s0" = {
+              matchConfig.Name = "enp47s0";
+              networkConfig.DHCP = "yes";
+              dhcpV4Config.UseDNS = false;
+              dhcpV6Config.UseDNS = false;
+              ipv6AcceptRAConfig.UseDNS = false;
+            };
+          };
+          networking = {
+            hostName = "nova";
+            nameservers = [ dns ];
+            nftables = {
+              enable = true;
+              ruleset = blockDnsExceptDnscrypt;
+            };
+            wireless = {
+              enable = true;
+              networks = wirelessNetworks;
+            };
+            stevenblack = {
+              enable = true;
+              block = [
+                "fakenews"
+                "gambling"
+              ];
             };
           };
         };

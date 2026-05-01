@@ -22,7 +22,16 @@ let
     };
 in
 rec {
-  nova = inputs.nixpkgs.lib.nixosSystem {
+  iso = inputs.nixpkgs.lib.nixosSystem {
+    modules = (
+      with nixosModules;
+      [
+        default
+        minimal
+      ]
+    );
+  };
+  nova = iso.extendModules {
     modules =
       (with nixosModules; [
         default
