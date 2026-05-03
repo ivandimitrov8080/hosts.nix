@@ -70,6 +70,7 @@ in
         "TP-Link_AP3".psk = "42559061";
         "Maria_Luiza_125".psk = "Ml125_fl4_ap98!";
         "Eva".psk = "12345678";
+        "Pliska8".psk = "pliska88";
         "ATHENS-HAWKS" = { };
         "RAMADA-SOFIA" = { };
       };

@@ -32,10 +32,33 @@ rec {
       ]
     );
   };
-  nova = iso.extendModules {
+  metal = inputs.nixpkgs.lib.nixosSystem {
+    modules = (
+      with nixosModules;
+      [
+        default
+        minimal
+      ]
+    );
+  };
+  vps = inputs.nixpkgs.lib.nixosSystem {
+    modules = with nixosModules; [
+      vpsadminosModule
+      default
+      mail
+      nginx
+      {
+        nixpkgs.hostPlatform = "x86_64-linux";
+        imports = with inputs; [
+          vpsadminos.nixosConfigurations.containerUnstable
+        ];
+        _module.args.system = system;
+      }
+    ];
+  };
+  nova = metal.extendModules {
     modules =
       (with nixosModules; [
-        default
         rest
       ])
       ++ [ hardwareConfigurations.nova ];
@@ -51,21 +74,6 @@ rec {
       {
         meta.music.enable = true;
         boot.kernelPackages = pkgs.linuxPackages_zen;
-      }
-    ];
-  };
-  vps = inputs.nixpkgs.lib.nixosSystem {
-    modules = with nixosModules; [
-      vpsadminosModule
-      default
-      mail
-      nginx
-      {
-        nixpkgs.hostPlatform = "x86_64-linux";
-        imports = with inputs; [
-          vpsadminos.nixosConfigurations.containerUnstable
-        ];
-        _module.args.system = system;
       }
     ];
   };
