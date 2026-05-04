@@ -32,6 +32,10 @@ in
           PublicKey = "IDe1MPtS46c2iNcE+VrOSUpOVGMXjqFl+XV5Z5U+DDI=";
           AllowedIPs = [ "10.0.0.5/32" ];
         }
+        {
+          PublicKey = "QptFeFKYUP1Mk/U+icWgIFsH1+khLUNZeovWs7e/Z1M=";
+          AllowedIPs = [ "10.0.0.6/32" ];
+        }
       ];
       wirelessNetworks = {
         "Smart-Hostel-2.4".psk = "smarttrans.bg";
