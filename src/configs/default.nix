@@ -20,22 +20,20 @@ let
           "discord"
         ];
     };
+  metal = inputs.nixpkgs.lib.nixosSystem {
+    modules = with nixosModules; [
+      default
+      minimal
+    ];
+  };
 in
 rec {
   iso = inputs.nixpkgs.lib.nixosSystem {
-    modules = with nixosModules;
-      [
-        default
-        minimal
-        nixosModules.iso
-      ];
-  };
-  metal = inputs.nixpkgs.lib.nixosSystem {
-    modules = with nixosModules;
-      [
-        default
-        minimal
-      ];
+    modules = with nixosModules; [
+      default
+      minimal
+      nixosModules.iso
+    ];
   };
   vps = inputs.nixpkgs.lib.nixosSystem {
     modules = with nixosModules; [

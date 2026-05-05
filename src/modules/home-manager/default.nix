@@ -7,6 +7,11 @@
   home.packages = with pkgs; [
     devenv
     vit
+    openssl
+    speedtest-cli
+    uutils-coreutils-noprefix
+    xdg-user-dirs
+    xdg-utils
   ];
   programs = {
     bash.enable = true;
