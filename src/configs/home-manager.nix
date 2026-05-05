@@ -16,6 +16,7 @@ in
             username = "user";
             homeDirectory = "/home/user";
             stateVersion = lib.trivial.release;
+            packages = with pkgs; [ zoxide ];
           };
           programs = {
             bat.enable = true;
