@@ -75,6 +75,7 @@ in
         "Maria_Luiza_125".psk = "Ml125_fl4_ap98!";
         "Eva".psk = "12345678";
         "Pliska8".psk = "pliska88";
+        "John94".psk = "John9401";
         "ATHENS-HAWKS" = { };
         "RAMADA-SOFIA" = { };
       };
