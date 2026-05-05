@@ -23,23 +23,19 @@ let
 in
 rec {
   iso = inputs.nixpkgs.lib.nixosSystem {
-    modules = (
-      with nixosModules;
+    modules = with nixosModules;
       [
         default
         minimal
         nixosModules.iso
-      ]
-    );
+      ];
   };
   metal = inputs.nixpkgs.lib.nixosSystem {
-    modules = (
-      with nixosModules;
+    modules = with nixosModules;
       [
         default
         minimal
-      ]
-    );
+      ];
   };
   vps = inputs.nixpkgs.lib.nixosSystem {
     modules = with nixosModules; [

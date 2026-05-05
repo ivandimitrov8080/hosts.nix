@@ -122,7 +122,7 @@ in
           users.defaultUserShell = pkgs.zsh;
         };
       minimal =
-        { pkgs, lib, ... }:
+        { pkgs, ... }:
         {
           imports = with inputs; [
             home-manager.nixosModules.default
@@ -291,6 +291,7 @@ in
               terminal = false;
               icon = "${pkgs.telegram-desktop}/share/icons/hicolor/128x128/apps/org.telegram.desktop.png";
             })
+            pkgs.simplex-chat-desktop
           ];
           users = {
             users = {
@@ -342,6 +343,14 @@ in
             nftables = {
               enable = true;
               ruleset = blockDnsExceptDnscrypt;
+            };
+            firewall.interfaces.wg0 = {
+              allowedTCPPorts = [
+                26969 # linking port
+              ];
+              allowedUDPPorts = [
+                26969 # linking port
+              ];
             };
             wireless = {
               enable = true;
@@ -574,11 +583,13 @@ in
                     53 # dns
                     465 # smtps auth enabled here
                     993 # imap
+                    26969 # linking port
                   ];
                   allowedUDPPorts = mkForce [
                     22 # ssh
                     53 # dns
                     993 # imap
+                    26969 # linking port
                   ];
                 };
               };
