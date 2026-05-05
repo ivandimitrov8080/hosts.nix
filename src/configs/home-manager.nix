@@ -15,6 +15,7 @@ in
           targets.genericLinux = {
             enable = true;
           };
+          xdg.enable = true;
           home = {
             username = "user";
             homeDirectory = "/home/user";
