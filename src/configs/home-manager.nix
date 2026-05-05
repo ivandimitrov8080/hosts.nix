@@ -16,9 +16,12 @@ in
             username = "user";
             homeDirectory = "/home/user";
             stateVersion = lib.trivial.release;
-            packages = with pkgs; [ zoxide ];
+            packages = with pkgs; [
+              zoxide
+            ];
           };
           programs = {
+            home-manager.enable = true;
             bat.enable = true;
             bottom.enable = true;
             browserpass.enable = true;
