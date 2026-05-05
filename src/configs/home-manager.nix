@@ -12,6 +12,9 @@ in
       (
         { lib, ... }:
         {
+          targets.genericLinux = {
+            enable = true;
+          };
           home = {
             username = "user";
             homeDirectory = "/home/user";
