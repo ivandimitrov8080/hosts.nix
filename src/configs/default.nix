@@ -79,13 +79,13 @@ rec {
     configuration =
       { lib, ... }:
       {
-        mobile.adbd.enable = true;
         system.stateVersion = lib.trivial.release;
         users.users.user = {
           isNormalUser = true;
           password = "1234";
           extraGroups = [
             "wheel"
+            "ssh"
           ];
           openssh.authorizedKeys.keys = [
             ''
@@ -93,6 +93,7 @@ rec {
             ''
           ];
         };
+        services.openssh.enable = true;
       };
   };
 }
