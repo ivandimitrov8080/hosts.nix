@@ -97,6 +97,20 @@ rec {
           openssh.enable = true;
           desktopManager.gnome.enable = true;
         };
+        networking = {
+          useNetworkd = true;
+          firewall = {
+            enable = true;
+            allowedTCPPorts = [
+              22
+              80
+            ];
+            allowedUDPPorts = [
+              22
+              53
+            ];
+          };
+        };
       };
   };
 }
