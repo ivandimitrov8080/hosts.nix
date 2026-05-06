@@ -79,6 +79,7 @@ rec {
     configuration =
       { lib, ... }:
       {
+        mobile.boot.stage-1.networking.enable = true;
         system.stateVersion = lib.trivial.release;
         users.users.user = {
           isNormalUser = true;
