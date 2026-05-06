@@ -93,7 +93,10 @@ rec {
             ''
           ];
         };
-        services.openssh.enable = true;
+        services = {
+          openssh.enable = true;
+          desktopManager.gnome.enable = true;
+        };
       };
   };
 }
