@@ -1,7 +1,9 @@
 { inputs }:
 let
   intel = "x86_64-linux";
+  arm = "aarch64-linux";
   pkgs = import inputs.nixpkgs { system = intel; };
+  armPkgs = import inputs.nixpkgs { system = arm; };
   nixosModules = inputs.self.nixosModules.default;
   hardwareConfigurations = import ../constants;
   allowUnfree =
@@ -73,7 +75,9 @@ rec {
   };
   mobile = import inputs.mobile-nixos {
     device = "oneplus-enchilada";
-    configuration = { lib, ... }:
+    pkgs = armPkgs;
+    configuration =
+      { lib, ... }:
       {
         mobile.adbd.enable = true;
         system.stateVersion = lib.trivial.release;
