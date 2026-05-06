@@ -10,6 +10,9 @@
     # manages the home
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    # mobile nixos
+    mobile-nixos.url = "github:mobile-nixos/mobile-nixos";
+    mobile-nixos.flake = false;
     # nvim config helper
     nixvim.url = "github:nix-community/nixvim";
     nixvim.inputs.nixpkgs.follows = "nixpkgs";

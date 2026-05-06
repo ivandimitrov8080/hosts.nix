@@ -1,7 +1,7 @@
 { inputs }:
 let
-  system = "x86_64-linux";
-  pkgs = import inputs.nixpkgs { inherit system; };
+  intel = "x86_64-linux";
+  pkgs = import inputs.nixpkgs { system = intel; };
   nixosModules = inputs.self.nixosModules.default;
   hardwareConfigurations = import ../constants;
   allowUnfree =
@@ -46,7 +46,7 @@ rec {
         imports = with inputs; [
           vpsadminos.nixosConfigurations.containerUnstable
         ];
-        _module.args.system = system;
+        _module.args.system = intel;
       }
     ];
   };
@@ -70,5 +70,25 @@ rec {
         boot.kernelPackages = pkgs.linuxPackages_zen;
       }
     ];
+  };
+  mobile = import inputs.mobile-nixos {
+    device = "oneplus-enchilada";
+    configuration = { lib, ... }:
+      {
+        mobile.adbd.enable = true;
+        system.stateVersion = lib.trivial.release;
+        users.users.user = {
+          isNormalUser = true;
+          password = "1234";
+          extraGroups = [
+            "wheel"
+          ];
+          openssh.authorizedKeys.keys = [
+            ''
+              ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICcLkzuCoBEg+wq/H+hkrv6pLJ8J5BejaNJVNnymlnlo ivan@idimitrov.dev
+            ''
+          ];
+        };
+      };
   };
 }
