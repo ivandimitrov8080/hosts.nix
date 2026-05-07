@@ -91,6 +91,11 @@ rec {
           home-manager.nixosModules.default
           configuration.nixosModules.default
         ];
+        nix.registry = {
+          self.flake = inputs.self;
+          nixpkgs.flake = inputs.nixpkgs;
+          p.flake = inputs.nixpkgs;
+        };
         hardware = {
           bluetooth.enable = true;
         };
