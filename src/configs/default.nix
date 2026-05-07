@@ -182,6 +182,7 @@ rec {
                 eza.enable = true;
                 fd.enable = true;
                 firefox.enable = true;
+                firefox.profiles.dev-edition-default.userChrome = "";
                 fzf.enable = true;
                 git.enable = true;
                 gpg.enable = true;
