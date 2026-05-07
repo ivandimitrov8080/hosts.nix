@@ -165,17 +165,17 @@ rec {
           backupFileExtension = "bak";
           useUserPackages = true;
           useGlobalPkgs = true;
-          users.user = (
-            { lib, ... }:
+          users.user =
+            { ... }:
             {
               imports = [ inputs.configuration.homeManagerModules.default ];
               xdg.enable = true;
               home = {
                 username = "user";
                 homeDirectory = "/home/user";
-                stateVersion = lib.trivial.release;
               };
               programs = {
+                bash.enable = true;
                 bat.enable = true;
                 bottom.enable = true;
                 browserpass.enable = true;
@@ -200,8 +200,7 @@ rec {
               services = {
                 gpg-agent.enable = true;
               };
-            }
-          );
+            };
         };
       };
   };
