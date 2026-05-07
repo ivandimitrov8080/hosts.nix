@@ -95,26 +95,31 @@ rec {
           bluetooth.enable = true;
         };
         time.timeZone = "Europe/Prague";
-        users.users.user = {
-          isNormalUser = true;
-          password = "1234";
-          extraGroups = [
-            "ssh"
-            "adm"
-            "audio"
-            "bluetooth"
-            "dialout"
-            "input"
-            "mlocate"
-            "render"
-            "video"
-            "wheel"
-          ];
-          openssh.authorizedKeys.keys = [
-            ''
-              ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICcLkzuCoBEg+wq/H+hkrv6pLJ8J5BejaNJVNnymlnlo ivan@idimitrov.dev
-            ''
-          ];
+        users = {
+          users.user = {
+            isNormalUser = true;
+            password = "1234";
+            extraGroups = [
+              "ssh"
+              "adm"
+              "audio"
+              "bluetooth"
+              "dialout"
+              "input"
+              "mlocate"
+              "render"
+              "video"
+              "wheel"
+            ];
+            openssh.authorizedKeys.keys = [
+              ''
+                ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICcLkzuCoBEg+wq/H+hkrv6pLJ8J5BejaNJVNnymlnlo ivan@idimitrov.dev
+              ''
+            ];
+          };
+          groups = {
+            ssh = { };
+          };
         };
         networking = {
           networkmanager.enable = true;
