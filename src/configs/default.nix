@@ -87,6 +87,9 @@ rec {
             "oneplus-sdm845-firmware-zstd"
           ];
         system.stateVersion = lib.trivial.release;
+        imports = with inputs; [
+          home-manager.nixosModules.default
+        ];
         users.users.user = {
           isNormalUser = true;
           password = "1234";
@@ -107,15 +110,6 @@ rec {
             user = "user";
             group = "users";
           };
-          displayManager = {
-            autoLogin = {
-              enable = true;
-              user = "user";
-            };
-            gdm = {
-              enable = true;
-            };
-          };
         };
         networking = {
           networkmanager.enable = true;
@@ -123,15 +117,51 @@ rec {
           useNetworkd = true;
           firewall = {
             enable = true;
-            allowedTCPPorts = [
-              22
-              80
-            ];
-            allowedUDPPorts = [
-              22
-              53
-            ];
+            allowedTCPPorts = [ 22 ];
+            allowedUDPPorts = [ 22 ];
           };
+        };
+        home-manager = {
+          backupFileExtension = "bak";
+          useUserPackages = true;
+          useGlobalPkgs = true;
+          users.user = (
+            { lib, ... }:
+            {
+              imports = [ inputs.configuration.homeManagerModules.default ];
+              xdg.enable = true;
+              home = {
+                username = "user";
+                homeDirectory = "/home/user";
+                stateVersion = lib.trivial.release;
+              };
+              programs = {
+                bat.enable = true;
+                bottom.enable = true;
+                browserpass.enable = true;
+                eza.enable = true;
+                fd.enable = true;
+                firefox.enable = true;
+                fzf.enable = true;
+                git.enable = true;
+                gpg.enable = true;
+                kitty.enable = true;
+                mpv.enable = true;
+                nushell.enable = true;
+                password-store.enable = true;
+                ssh.enable = true;
+                starship.enable = true;
+                taskwarrior.enable = true;
+                tealdeer.enable = true;
+                tmux.enable = true;
+                yazi.enable = true;
+                zoxide.enable = true;
+              };
+              services = {
+                gpg-agent.enable = true;
+              };
+            }
+          );
         };
       };
   };

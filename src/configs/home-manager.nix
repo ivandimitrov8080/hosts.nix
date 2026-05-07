@@ -12,9 +12,6 @@ in
       (
         { lib, ... }:
         {
-          targets.genericLinux = {
-            enable = true;
-          };
           xdg.enable = true;
           home = {
             username = "user";
