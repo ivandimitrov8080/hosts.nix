@@ -97,6 +97,15 @@ rec {
         services = {
           openssh.enable = true;
           desktopManager.gnome.enable = true;
+          displayManager = {
+            autoLogin = {
+              enable = true;
+              user = "user";
+            };
+            gdm = {
+              enable = true;
+            };
+          };
         };
         networking = {
           useNetworkd = true;
