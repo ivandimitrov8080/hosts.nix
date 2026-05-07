@@ -84,6 +84,7 @@ rec {
           pkg:
           builtins.elem (lib.getName pkg) [
             "oneplus-sdm845-firmware"
+            "oneplus-sdm845-firmware-zstd"
           ];
         system.stateVersion = lib.trivial.release;
         users.users.user = {
