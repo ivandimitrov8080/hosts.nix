@@ -118,7 +118,8 @@ rec {
           };
         };
         networking = {
-          networkmanager.enable = false;
+          networkmanager.enable = true;
+          wireless.enable = true;
           useNetworkd = true;
           firewall = {
             enable = true;
@@ -130,12 +131,6 @@ rec {
               22
               53
             ];
-          };
-          wireless = {
-            enable = true;
-            networks = {
-              "John94".psk = "John9401";
-            };
           };
         };
       };
