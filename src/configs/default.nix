@@ -145,6 +145,7 @@ rec {
           useNetworkd = true;
           firewall = {
             enable = true;
+            checkReversePath = false;
             allowedTCPPorts = [ 22 ];
             allowedUDPPorts = [ 22 ];
           };
