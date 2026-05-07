@@ -96,7 +96,11 @@ rec {
         };
         services = {
           openssh.enable = true;
-          desktopManager.gnome.enable = true;
+          xserver.desktopManager.phosh = {
+            enable = true;
+            user = "user";
+            group = "users";
+          };
           displayManager = {
             autoLogin = {
               enable = true;
