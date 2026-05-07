@@ -2,8 +2,18 @@
 let
   intel = "x86_64-linux";
   arm = "aarch64-linux";
-  pkgs = import inputs.nixpkgs { system = intel; };
-  armPkgs = import inputs.nixpkgs { system = arm; };
+  overlays = [
+    inputs.self.overlays.default
+    inputs.self.overlays.config
+  ];
+  pkgs = import inputs.nixpkgs {
+    inherit overlays;
+    system = intel;
+  };
+  armPkgs = import inputs.nixpkgs {
+    inherit overlays;
+    system = arm;
+  };
   nixosModules = inputs.self.nixosModules.default;
   hardwareConfigurations = import ../constants;
   allowUnfree =
@@ -189,7 +199,8 @@ rec {
                 eza.enable = true;
                 fd.enable = true;
                 firefox.enable = true;
-                firefox.profiles.dev-edition-default.userChrome = "";
+                firefox.profiles.dev-edition-default.userChrome = "${armPkgs.mobile-config-firefox}/userChrome.css";
+                firefox.profiles.dev-edition-default.userContent = "${armPkgs.mobile-config-firefox}/userContent.css";
                 fzf.enable = true;
                 git.enable = true;
                 gpg.enable = true;
