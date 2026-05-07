@@ -91,27 +91,34 @@ rec {
           home-manager.nixosModules.default
           configuration.nixosModules.default
         ];
+        hardware = {
+          bluetooth.enable = true;
+        };
+        time.timeZone = "Europe/Prague";
         users.users.user = {
           isNormalUser = true;
           password = "1234";
+          shell = armPkgs.nushell;
           extraGroups = [
-            "wheel"
             "ssh"
+            "adbusers"
+            "adm"
+            "audio"
+            "bluetooth"
+            "dialout"
+            "input"
+            "kvm"
+            "mlocate"
+            "realtime"
+            "render"
+            "video"
+            "wheel"
           ];
           openssh.authorizedKeys.keys = [
             ''
               ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICcLkzuCoBEg+wq/H+hkrv6pLJ8J5BejaNJVNnymlnlo ivan@idimitrov.dev
             ''
           ];
-        };
-        services = {
-          openssh.enable = true;
-          xserver.desktopManager.phosh = {
-            enable = true;
-            user = "user";
-            group = "users";
-          };
-          pipewire.enable = true;
         };
         networking = {
           networkmanager.enable = true;
@@ -122,6 +129,28 @@ rec {
             allowedTCPPorts = [ 22 ];
             allowedUDPPorts = [ 22 ];
           };
+        };
+        services = {
+          openssh.enable = true;
+          xserver.desktopManager.phosh = {
+            enable = true;
+            user = "user";
+            group = "users";
+          };
+          pipewire.enable = true;
+        };
+        environment = {
+          systemPackages = with armPkgs; [
+            simplex-chat-desktop
+            nushell
+            (makeDesktopItem {
+              name = "telegram";
+              desktopName = "Telegram";
+              exec = "env ${pkgs.telegram-desktop}/bin/Telegram -- %U";
+              terminal = false;
+              icon = "${pkgs.telegram-desktop}/share/icons/hicolor/128x128/apps/org.telegram.desktop.png";
+            })
+          ];
         };
         home-manager = {
           backupFileExtension = "bak";
