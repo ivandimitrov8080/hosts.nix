@@ -175,7 +175,10 @@ rec {
           ];
         };
         meta = {
-          wireguard.enable = true;
+          wireguard = {
+            enable = true;
+            address = "10.0.0.6/24";
+          };
           shells.enable = true;
         };
         home-manager = {

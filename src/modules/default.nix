@@ -33,7 +33,7 @@ in
           AllowedIPs = [ "10.0.0.5/32" ];
         }
         {
-          PublicKey = "QptFeFKYUP1Mk/U+icWgIFsH1+khLUNZeovWs7e/Z1M=";
+          PublicKey = "SSmh0nbM8gVDAF5i41DI19quG/RUfPWkYpqmTgHgGDo=";
           AllowedIPs = [ "10.0.0.6/32" ];
         }
       ];
