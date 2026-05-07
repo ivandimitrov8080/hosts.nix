@@ -121,6 +121,25 @@ in
           system.stateVersion = pkgs.lib.trivial.release;
           users.defaultUserShell = pkgs.zsh;
         };
+      wg =
+        { ... }:
+        {
+          meta.wireguard = {
+            inherit peers dns;
+          };
+          networking.nameservers = [ dns ];
+          networking.nftables = {
+            enable = true;
+            ruleset = blockDnsExceptDnscrypt;
+          };
+          services.resolved = {
+            settings = {
+              Resolve = {
+                FallbackDNS = [ dns ];
+              };
+            };
+          };
+        };
       minimal =
         { pkgs, ... }:
         {
@@ -185,14 +204,7 @@ in
             pipewire.enable = true;
             dbus.enable = true;
             locate.enable = true;
-            resolved = {
-              enable = true;
-              settings = {
-                Resolve = {
-                  FallbackDNS = [ dns ];
-                };
-              };
-            };
+            resolved.enable = true;
           };
           meta = {
             graphicalBoot.enable = true;
@@ -339,11 +351,6 @@ in
           };
           networking = {
             hostName = "nova";
-            nameservers = [ dns ];
-            nftables = {
-              enable = true;
-              ruleset = blockDnsExceptDnscrypt;
-            };
             firewall.interfaces.wg0 = {
               allowedTCPPorts = [
                 26969 # linking port
@@ -366,7 +373,6 @@ in
           };
           meta.wireguard = {
             enable = true;
-            inherit peers dns;
             address = "10.0.0.2/24";
           };
         };
@@ -563,7 +569,6 @@ in
             wireguard = {
               enable = true;
               address = "10.0.0.1/24";
-              inherit peers dns;
             };
             grafana = {
               enable = true;

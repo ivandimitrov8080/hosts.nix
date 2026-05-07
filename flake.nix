@@ -41,7 +41,6 @@
     in
     {
       nixosConfigurations = import ./src/configs { inherit inputs; };
-      homeConfigurations = import ./src/configs/home-manager.nix { inherit inputs; };
       nixosModules = import ./src/modules { inherit inputs; };
       overlays = import ./src/overlays { inherit inputs; };
       devShells = import ./src/shells { inherit inputs; };

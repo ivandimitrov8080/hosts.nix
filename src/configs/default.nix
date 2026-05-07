@@ -41,6 +41,7 @@ rec {
     modules = with nixosModules; [
       vpsadminosModule
       default
+      wg
       mail
       nginx
       {
@@ -55,6 +56,7 @@ rec {
   nova = metal.extendModules {
     modules =
       (with nixosModules; [
+        wg
         rest
       ])
       ++ [ hardwareConfigurations.nova ];
@@ -90,6 +92,7 @@ rec {
         imports = with inputs; [
           home-manager.nixosModules.default
           configuration.nixosModules.default
+          nixosModules.wg
         ];
         nix.registry = {
           self.flake = inputs.self;
@@ -151,6 +154,7 @@ rec {
           systemPackages = with armPkgs; [
             simplex-chat-desktop
             nushell
+            pwvucontrol
             (makeDesktopItem {
               name = "telegram";
               desktopName = "Telegram";
@@ -158,8 +162,11 @@ rec {
               terminal = false;
               icon = "${telegram-desktop}/share/icons/hicolor/128x128/apps/org.telegram.desktop.png";
             })
-            pwvucontrol
           ];
+        };
+        meta = {
+          wireguard.enable = true;
+          shells.enable = true;
         };
         home-manager = {
           backupFileExtension = "bak";
