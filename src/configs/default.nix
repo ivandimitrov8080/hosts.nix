@@ -80,6 +80,11 @@ rec {
       { lib, ... }:
       {
         mobile.boot.stage-1.networking.enable = true;
+        nixpkgs.config.allowUnfreePredicate =
+          pkg:
+          builtins.elem (lib.getName pkg) [
+            "oneplus-sdm845-firmware"
+          ];
         system.stateVersion = lib.trivial.release;
         users.users.user = {
           isNormalUser = true;
