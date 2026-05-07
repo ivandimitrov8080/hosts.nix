@@ -108,6 +108,7 @@ rec {
           };
         };
         networking = {
+          networkmanager.enable = false;
           useNetworkd = true;
           firewall = {
             enable = true;
