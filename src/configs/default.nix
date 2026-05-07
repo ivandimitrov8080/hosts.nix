@@ -98,9 +98,16 @@ rec {
         users.users.user = {
           isNormalUser = true;
           password = "1234";
-          shell = armPkgs.nushell;
           extraGroups = [
             "ssh"
+            "adm"
+            "audio"
+            "bluetooth"
+            "dialout"
+            "input"
+            "mlocate"
+            "render"
+            "video"
             "wheel"
           ];
           openssh.authorizedKeys.keys = [
