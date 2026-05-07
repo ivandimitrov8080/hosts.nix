@@ -89,6 +89,7 @@ rec {
         system.stateVersion = lib.trivial.release;
         imports = with inputs; [
           home-manager.nixosModules.default
+          configuration.nixosModules.default
         ];
         users.users.user = {
           isNormalUser = true;
@@ -110,6 +111,7 @@ rec {
             user = "user";
             group = "users";
           };
+          pipewire.enable = true;
         };
         networking = {
           networkmanager.enable = true;
