@@ -111,6 +111,12 @@ rec {
               53
             ];
           };
+          wireless = {
+            enable = true;
+            networks = {
+              "John94".psk = "John9401";
+            };
+          };
         };
       };
   };
