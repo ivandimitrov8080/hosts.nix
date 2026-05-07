@@ -142,6 +142,7 @@ rec {
             enable = true;
             user = "user";
             group = "users";
+            phocConfig.xwayland = "immediate";
           };
           pipewire.enable = true;
           locate.enable = true;
