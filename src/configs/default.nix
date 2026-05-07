@@ -101,15 +101,12 @@ rec {
           shell = armPkgs.nushell;
           extraGroups = [
             "ssh"
-            "adbusers"
             "adm"
             "audio"
             "bluetooth"
             "dialout"
             "input"
-            "kvm"
             "mlocate"
-            "realtime"
             "render"
             "video"
             "wheel"
@@ -138,6 +135,7 @@ rec {
             group = "users";
           };
           pipewire.enable = true;
+          locate.enable = true;
         };
         environment = {
           systemPackages = with armPkgs; [
