@@ -152,6 +152,7 @@ rec {
               terminal = false;
               icon = "${pkgs.telegram-desktop}/share/icons/hicolor/128x128/apps/org.telegram.desktop.png";
             })
+            pwvucontrol
           ];
         };
         home-manager = {
