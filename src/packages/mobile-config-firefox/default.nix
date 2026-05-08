@@ -23,8 +23,7 @@ stdenv.mkDerivation {
   installPhase = ''
     runHook preInstall
     mkdir -p $out
-    cat src/userChrome/*.css > $out/userChrome.css
-    cat src/userContent/*.css > $out/userContent.css
+    cp -r ./* $out
     runHook postInstall
   '';
 }
