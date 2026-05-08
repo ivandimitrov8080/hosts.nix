@@ -85,7 +85,7 @@
           gpg = {
             encryptByDefault = true;
             signByDefault = true;
-            key = "C565 2E79 2A7A 9110 DFA7  F77D 0BDA D4B2 11C4 9294";
+            key = "ED7A E641 69C1 DB37 F48D  68A7 1C27 6C0A 3909 B508";
           };
           smtp = {
             host = "mail.idimitrov.dev";
