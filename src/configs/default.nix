@@ -163,7 +163,7 @@ rec {
         programs = {
           firefox =
             let
-              mcf = pkgs.mobile-config-firefox;
+              mcf = armPkgs.mobile-config-firefox;
               autoconfigPatched =
                 builtins.replaceStrings
                   [ "/usr/lib/mobile-config-firefox/" ]
