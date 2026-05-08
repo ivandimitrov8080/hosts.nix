@@ -202,8 +202,8 @@ rec {
                 eza.enable = true;
                 fd.enable = true;
                 firefox.enable = true;
-                firefox.profiles.dev-edition-default.userChrome = "${armPkgs.mobile-config-firefox}/userChrome.css";
-                firefox.profiles.dev-edition-default.userContent = "${armPkgs.mobile-config-firefox}/userContent.css";
+                firefox.profiles.dev-edition-default.userChrome = builtins.readFile "${armPkgs.mobile-config-firefox}/userChrome.css";
+                firefox.profiles.dev-edition-default.userContent = builtins.readFile "${armPkgs.mobile-config-firefox}/userContent.css";
                 fzf.enable = true;
                 git.enable = true;
                 gpg.enable = true;
