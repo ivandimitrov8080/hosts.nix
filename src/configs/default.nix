@@ -160,6 +160,27 @@ rec {
           pipewire.enable = true;
           locate.enable = true;
         };
+        programs = {
+          firefox =
+            let
+              mcf = pkgs.mobile-config-firefox;
+              autoconfigPatched =
+                builtins.replaceStrings
+                  [ "/usr/lib/mobile-config-firefox/" ]
+                  [ "${mcf}/usr/lib/mobile-config-firefox/" ]
+                  (builtins.readFile "${mcf}/usr/lib/firefox/mobile-config-autoconfig.js");
+            in
+            {
+              enable = true;
+              policies = builtins.fromJSON (
+                builtins.readFile "${mcf}/usr/lib/firefox/distribution/policies.json"
+              );
+              autoConfigFiles = [
+                "${mcf}/usr/lib/firefox/defaults/pref/mobile-config-prefs.js"
+              ];
+              autoConfig = autoconfigPatched;
+            };
+        };
         environment = {
           systemPackages = with armPkgs; [
             simplex-chat-desktop
@@ -201,9 +222,6 @@ rec {
                 browserpass.enable = true;
                 eza.enable = true;
                 fd.enable = true;
-                firefox.enable = true;
-                firefox.profiles.dev-edition-default.userChrome = builtins.readFile "${armPkgs.mobile-config-firefox}/userChrome.css";
-                firefox.profiles.dev-edition-default.userContent = builtins.readFile "${armPkgs.mobile-config-firefox}/userContent.css";
                 fzf.enable = true;
                 git.enable = true;
                 gpg.enable = true;
