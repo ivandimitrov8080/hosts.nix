@@ -184,6 +184,7 @@ in
           imports = with nixosModules; [
             configMod
             minimal
+            wg
             rest
           ];
           boot.consoleLogLevel = lib.mkForce 7;
