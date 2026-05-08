@@ -1,19 +1,18 @@
 {
   stdenv,
   fetchFromGitLab,
-  uutils-coreutils-noprefix,
   ...
 }:
 stdenv.mkDerivation {
   name = "mobile-config-firefox";
   version = "1";
   src = fetchFromGitLab {
+    domain = "gitlab.postmarketos.org";
     owner = "postmarketOS";
     repo = "mobile-config-firefox";
-    rev = "3fbea365e9ea7bcd317d5d4ef7723f994bbdc381";
-    hash = "sha256-pgDMXnEdQg7d1lfGym4V+tsi6JAMgMVGI5ozSu0j0og=";
+    rev = "a54416508bf300fb5190a20a5e265e30f6946cf9";
+    hash = "sha256-/3BzFMIxG4dGUBhxkfIV59kKMi05ipX3q9Gs1Jok/6E=";
   };
-  nativeBuildInputs = [ uutils-coreutils-noprefix ];
 
   phases = [
     "unpackPhase"
@@ -23,7 +22,7 @@ stdenv.mkDerivation {
   installPhase = ''
     runHook preInstall
     mkdir -p $out
-    cp -r ./* $out
+    make DESTDIR="$out" install
     runHook postInstall
   '';
 }
