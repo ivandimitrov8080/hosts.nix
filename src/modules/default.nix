@@ -389,6 +389,11 @@ in
               };
             };
           };
+          systemd = {
+            network.networks.wg0 = {
+              routingPolicyRules = import ./gaming/steam-route-rules.nix;
+            };
+          };
           environment.systemPackages = with pkgs; [ radeontop ];
         };
       penetration =
