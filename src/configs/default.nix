@@ -52,6 +52,20 @@ rec {
       (with nixosModules; [
         wg
         rest
+        (
+          { pkgs, ... }:
+          {
+            home-manager.users.ivand = {
+              wayland.windowManager.sway = {
+                config = {
+                  keybindings = pkgs.lib.mkOptionDefault {
+                    "Mod4+o" = "exec ${pkgs.which-key}/bin/which-key";
+                  };
+                };
+              };
+            };
+          }
+        )
       ])
       ++ [ hardwareConfigurations.nova ];
   };
@@ -73,15 +87,6 @@ rec {
               "steam-run"
               "discord"
             ];
-          home-manager.users.ivand = {
-            wayland.windowManager.sway = {
-              config = {
-                keybindings = pkgs.lib.mkOptionDefault {
-                  "Mod4+o" = "exec ${pkgs.which-key}/bin/which-key";
-                };
-              };
-            };
-          };
           systemd = {
             network.networks.wg0 = {
               routingPolicyRules = import ./gaming/steam-route-rules.nix;
