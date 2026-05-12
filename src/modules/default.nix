@@ -913,19 +913,22 @@ in
                       let iptoasn_country = "@ip-location-db/iptoasn-country-mmdb"
                       mkdir $dir
                       mkdir $tmp
-                      def check_version_update [] {
+                      def has_newer_version [] {
                         let version_file = $"($dir)/version"
                         let tag1 = (http get $"($jsdeliver_data)($iptoasn_country)" | get tags.latest | split column . | get column2.0 | into datetime -f '%Y%m%d%H')
                         let tag2 = (http get $"($jsdeliver_data)($iptoasn_asn)" | get tags.latest | split column . | get column2.0 | into datetime -f '%Y%m%d%H')
-                        let current = (open $version_file | split column . | get column2.0 | into datetime -f '%Y%m%d%H')
+                        let current = (open $version_file | into datetime)
                         if ($tag1 == $tag2 and $tag1 > $current) {
                             $tag1 | save -f $"($tmp)/version"
+                            print $"Newer version available: ($tag1)"
                             return true
                         } else {
+                            print $"No new version. Current version: ($tag1)"
                             return false
                         }
                       }
-                      if (not (check_version_update)) {
+                      if (not (has_newer_version)) {
+                        print "Version check did not find a new version. Exiting..."
                         exit 0
                       }
                       http get --raw --max-time 69min $"($jsdeliver_cache)($iptoasn_asn)/iptoasn-asn-ipv4.mmdb" | save --raw -f $"($tmp)/iptoasn-asn-ipv4.mmdb"
@@ -935,6 +938,7 @@ in
                       cp ($"($tmp)/*" | into glob) ${outDir}
                       chown -R nginx:users $dir
                       rm -rf $tmp
+                      print "Successfully updated geoip data."
                     '';
               in
               {
