@@ -97,14 +97,6 @@ rec {
       )
     ];
   };
-  music = nova.extendModules {
-    modules = [
-      {
-        meta.music.enable = true;
-        boot.kernelPackages = pkgs.linuxPackages_zen;
-      }
-    ];
-  };
   mobile = import inputs.mobile-nixos {
     device = "oneplus-enchilada";
     pkgs = armPkgs;
