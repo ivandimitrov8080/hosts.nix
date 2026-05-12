@@ -304,6 +304,7 @@ in
               icon = "${pkgs.telegram-desktop}/share/icons/hicolor/128x128/apps/org.telegram.desktop.png";
             })
             pkgs.simplex-chat-desktop
+            pkgs.kew
           ];
           users = {
             users = {
