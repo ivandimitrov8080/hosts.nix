@@ -911,6 +911,8 @@ in
                       let jsdeliver_data = "https://data.jsdelivr.com/v1/packages/npm/"
                       let iptoasn_asn = "@ip-location-db/iptoasn-asn-mmdb"
                       let iptoasn_country = "@ip-location-db/iptoasn-country-mmdb"
+                      mkdir $dir
+                      mkdir $tmp
                       def check_version_update [] {
                         let version_file = $"($dir)/version"
                         let tag1 = (http get $"($jsdeliver_data)($iptoasn_country)" | get tags.latest | split column . | get column2.0 | into datetime -f '%Y%m%d%H')
@@ -926,8 +928,6 @@ in
                       if (not (check_version_update)) {
                         exit 0
                       }
-                      mkdir $dir
-                      mkdir $tmp
                       http get --raw --max-time 69min $"($jsdeliver_cache)($iptoasn_asn)/iptoasn-asn-ipv4.mmdb" | save --raw -f $"($tmp)/iptoasn-asn-ipv4.mmdb"
                       http get --raw --max-time 69min $"($jsdeliver_cache)($iptoasn_country)/iptoasn-country-ipv4.mmdb" | save --raw -f $"($tmp)/iptoasn-country-ipv4.mmdb"
                       http get --raw --max-time 69min $"($jsdeliver_cache)($iptoasn_asn)/iptoasn-asn-ipv6.mmdb" | save --raw -f $"($tmp)/iptoasn-asn-ipv6.mmdb"
