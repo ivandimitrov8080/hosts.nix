@@ -376,26 +376,6 @@ in
             address = "10.0.0.2/24";
           };
         };
-      gamingModule =
-        { pkgs, ... }:
-        {
-          meta.gaming.enable = true;
-          home-manager.users.ivand = {
-            wayland.windowManager.sway = {
-              config = {
-                keybindings = pkgs.lib.mkOptionDefault {
-                  "Mod4+o" = "exec ${pkgs.which-key}/bin/which-key";
-                };
-              };
-            };
-          };
-          systemd = {
-            network.networks.wg0 = {
-              routingPolicyRules = import ./gaming/steam-route-rules.nix;
-            };
-          };
-          environment.systemPackages = with pkgs; [ radeontop ];
-        };
       penetration =
         {
           config,

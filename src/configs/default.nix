@@ -16,22 +16,6 @@ let
   };
   nixosModules = inputs.self.nixosModules.default;
   hardwareConfigurations = import ../constants;
-  allowUnfree =
-    { lib, ... }:
-    {
-      nixpkgs.config = {
-        allowUnfree = lib.mkForce false;
-      };
-      nixpkgs.config.allowUnfreePredicate =
-        pkg:
-        builtins.elem (lib.getName pkg) [
-          "steam"
-          "steam-original"
-          "steam-unwrapped"
-          "steam-run"
-          "discord"
-        ];
-    };
   metal = inputs.nixpkgs.lib.nixosSystem {
     modules = with nixosModules; [
       default
@@ -73,8 +57,39 @@ rec {
   };
   gaming = nova.extendModules {
     modules = with nixosModules; [
-      gamingModule
-      allowUnfree
+      (
+        { pkgs, lib, ... }:
+        {
+          meta.gaming.enable = true;
+          nixpkgs.config = {
+            allowUnfree = lib.mkForce false;
+          };
+          nixpkgs.config.allowUnfreePredicate =
+            pkg:
+            builtins.elem (lib.getName pkg) [
+              "steam"
+              "steam-original"
+              "steam-unwrapped"
+              "steam-run"
+              "discord"
+            ];
+          home-manager.users.ivand = {
+            wayland.windowManager.sway = {
+              config = {
+                keybindings = pkgs.lib.mkOptionDefault {
+                  "Mod4+o" = "exec ${pkgs.which-key}/bin/which-key";
+                };
+              };
+            };
+          };
+          systemd = {
+            network.networks.wg0 = {
+              routingPolicyRules = import ./gaming/steam-route-rules.nix;
+            };
+          };
+          environment.systemPackages = with pkgs; [ radeontop ];
+        }
+      )
     ];
   };
   music = nova.extendModules {
