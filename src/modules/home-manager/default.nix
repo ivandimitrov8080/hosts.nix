@@ -79,8 +79,9 @@
   };
   services = {
     gpg-agent.enable = true;
-    wpaperd.enable = true;
     mako.enable = true;
+    pass-secret-service.enable = true;
+    wpaperd.enable = true;
     gammastep = {
       enable = true;
       latitude = 50.0;
