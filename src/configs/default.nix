@@ -193,7 +193,23 @@ rec {
               autoConfig = autoconfigPatched;
               nativeMessagingHosts.packages = with armPkgs; [ browserpass ];
             };
-          dconf.enable = true;
+          dconf = {
+            enable = true;
+            profiles = {
+              user.databases = [
+                {
+                  settings = {
+                    "mobi/phosh/osk" = {
+                      completion-mode = [ "manual" ];
+                    };
+                    "mobi/phosh/osk/Terminal" = {
+                      shortcuts = [ "<ctrl>" ];
+                    };
+                  };
+                }
+              ];
+            };
+          };
         };
         environment = {
           systemPackages = with armPkgs; [
@@ -228,14 +244,6 @@ rec {
               home = {
                 username = "user";
                 homeDirectory = "/home/user";
-              };
-              dconf.settings = {
-                "mobi/phosh/osk" = {
-                  completion-mode = [ "manual" ];
-                };
-                "mobi/phosh/osk/Terminal" = {
-                  shortcuts = [ "<ctrl>" ];
-                };
               };
               programs = {
                 bash.enable = true;
