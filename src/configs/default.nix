@@ -201,6 +201,7 @@ rec {
             simplex-chat-desktop
             nushell
             pwvucontrol
+            gsettings-desktop-schemas
             (makeDesktopItem {
               name = "telegram";
               desktopName = "Telegram";
