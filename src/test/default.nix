@@ -17,16 +17,19 @@ let
   peers = [
     {
       PublicKey = hubPub;
-      AllowedIPs = [ "${vpsfreeWgIp}/32" ];
+      AllowedIPs = [
+        "${vpsfreeWgIp}/32"
+        "0.0.0.0/0"
+      ];
       Endpoint = "${vpsfreeInternetIp}:51820";
     }
     {
       PublicKey = spoke1Pub;
-      AllowedIPs = [ "10.0.0.2/32" ];
+      AllowedIPs = [ "${novaWgIp}/32" ];
     }
     {
       PublicKey = spoke2Pub;
-      AllowedIPs = [ "10.0.0.3/32" ];
+      AllowedIPs = [ "${spoke2WgIp}/32" ];
     }
   ];
   extraPkgs = with pkgs; [
@@ -76,7 +79,7 @@ in
     name = "integration-test";
     nodes = {
       router =
-        { lib, ... }:
+        { ... }:
         {
           virtualisation.vlans = [
             internetVlan
@@ -84,9 +87,9 @@ in
           ];
 
           networking = {
-            useNetworkd = lib.mkForce true;
-            useDHCP = lib.mkForce false;
-            enableIPv6 = lib.mkForce false;
+            useNetworkd = mkForce true;
+            useDHCP = mkForce false;
+            enableIPv6 = mkForce false;
 
             # IMPORTANT: interface numbers assume:
             # eth0 = NAT, eth1 = default test LAN, eth2 = vlan 10, eth3 = vlan 20
@@ -125,7 +128,7 @@ in
         }
         // testUser;
       vpsfree =
-        { pkgs, ... }:
+        { ... }:
         {
           _module.args.system = system;
           virtualisation.memorySize = 4096;
@@ -158,13 +161,13 @@ in
           services.dnscrypt-proxy.settings.offline_mode = true;
           meta.wireguard = {
             enable = true;
-            address = "10.0.0.1/24";
+            address = "${vpsfreeWgIp}/24";
             privateKeyFile = "/etc/wireguard/wg0.priv";
-            peers = pkgs.lib.mkForce peers;
+            peers = mkForce peers;
           };
           security.acme.defaults = {
-            email = pkgs.lib.mkForce "test@example.com";
-            server = pkgs.lib.mkForce "https://acme-staging-v02.api.letsencrypt.org/directory";
+            email = mkForce "test@example.com";
+            server = mkForce "https://acme-staging-v02.api.letsencrypt.org/directory";
           };
           environment.systemPackages = extraPkgs;
           systemd.tmpfiles.rules = [
@@ -179,7 +182,7 @@ in
         }
         // testUser;
       nova =
-        { pkgs, lib, ... }:
+        { ... }:
         {
           imports = with nixosModules; [
             configMod
@@ -187,11 +190,11 @@ in
             wg
             rest
           ];
-          boot.consoleLogLevel = lib.mkForce 7;
+          boot.consoleLogLevel = mkForce 7;
           virtualisation.vlans = [ internetVlan ];
-          networking.useNetworkd = lib.mkForce true;
-          networking.useDHCP = lib.mkForce false;
-          networking.enableIPv6 = lib.mkForce false;
+          networking.useNetworkd = mkForce true;
+          networking.useDHCP = mkForce false;
+          networking.enableIPv6 = mkForce false;
           networking.interfaces.eth1.ipv4 = {
             addresses = [
               {
@@ -210,22 +213,22 @@ in
           environment.etc."wireguard/wg0.priv".source = ./spoke1.priv;
           meta.wireguard = {
             enable = true;
-            address = "10.0.0.2/24";
+            address = "${novaWgIp}/24";
             privateKeyFile = "/etc/wireguard/wg0.priv";
-            peers = pkgs.lib.mkForce peers;
+            peers = mkForce peers;
           };
           environment.systemPackages = extraPkgs;
         }
         // testUser;
       spoke2 =
-        { pkgs, ... }:
+        { ... }:
         {
           imports = [ configMod ];
           environment.etc."wireguard/wg0.priv".source = ./spoke2.priv;
           virtualisation.vlans = [ internetVlan ];
-          networking.useNetworkd = lib.mkForce true;
-          networking.useDHCP = lib.mkForce false;
-          networking.enableIPv6 = lib.mkForce false;
+          networking.useNetworkd = mkForce true;
+          networking.useDHCP = mkForce false;
+          networking.enableIPv6 = mkForce false;
           networking.interfaces.eth1.ipv4.addresses = [
             {
               address = spoke2InternetIp;
@@ -241,9 +244,9 @@ in
           ];
           meta.wireguard = {
             enable = true;
-            address = "10.0.0.3/24";
+            address = "${spoke2WgIp}/24";
             privateKeyFile = "/etc/wireguard/wg0.priv";
-            peers = pkgs.lib.mkForce peers;
+            peers = mkForce peers;
           };
           environment.systemPackages = extraPkgs;
         }
@@ -256,9 +259,9 @@ in
             configMod
           ];
           virtualisation.vlans = [ internetVlan ];
-          networking.useNetworkd = lib.mkForce true;
-          networking.useDHCP = lib.mkForce false;
-          networking.enableIPv6 = lib.mkForce false;
+          networking.useNetworkd = mkForce true;
+          networking.useDHCP = mkForce false;
+          networking.enableIPv6 = mkForce false;
           networking.interfaces.eth1.ipv4.addresses = [
             {
               address = dnsInternetIp;
@@ -348,6 +351,8 @@ in
         spoke2.succeed("ping -c1 ${vpsfreeWgIp}")
         vpsfree.succeed("ping -c1 ${novaWgIp}")
         vpsfree.succeed("ping -c1 ${spoke2WgIp}")
+        nova.succeed("ping -c1 ${spoke2WgIp}")
+        spoke2.succeed("ping -c1 ${novaWgIp}")
         vpsfree.succeed("ip a | grep ${vpsfreeInternetIp}")
         nova.succeed("ping -c1 ${vpsfreeInternetIp}")
 
