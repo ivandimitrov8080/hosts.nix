@@ -207,10 +207,10 @@ rec {
                         "<ctrl>"
                         "<ctrl>c"
                         "<alt>"
-                        "<GDK_KEY_leftarrow>"
-                        "<GDK_KEY_uparrow>"
-                        "<GDK_KEY_downarrow>"
-                        "<GDK_KEY_rightarrow>"
+                        "Left"
+                        "Up"
+                        "Down"
+                        "Right"
                       ];
                     };
                   };
