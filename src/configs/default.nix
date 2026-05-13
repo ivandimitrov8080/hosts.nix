@@ -203,7 +203,15 @@ rec {
                       completion-mode = [ "manual" ];
                     };
                     "mobi/phosh/osk/terminal" = {
-                      shortcuts = [ "<ctrl>" ];
+                      shortcuts = [
+                        "<ctrl>"
+                        "<ctrl>c"
+                        "<alt>"
+                        "GDK_KEY_leftarrow"
+                        "GDK_KEY_uparrow"
+                        "GDK_KEY_downarrow"
+                        "GDK_KEY_rightarrow"
+                      ];
                     };
                   };
                 }
