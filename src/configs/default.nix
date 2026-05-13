@@ -193,6 +193,7 @@ rec {
               autoConfig = autoconfigPatched;
               nativeMessagingHosts.packages = with armPkgs; [ browserpass ];
             };
+          dconf.enable = true;
         };
         environment = {
           systemPackages = with armPkgs; [
