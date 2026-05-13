@@ -228,6 +228,14 @@ rec {
                 username = "user";
                 homeDirectory = "/home/user";
               };
+              dconf.settings = {
+                "mobi/phosh/osk" = {
+                  completion-mode = [ "manual" ];
+                };
+                "mobi/phosh/osk/Terminal" = {
+                  shortcuts = [ "<ctrl>" ];
+                };
+              };
               programs = {
                 bash.enable = true;
                 bat.enable = true;
