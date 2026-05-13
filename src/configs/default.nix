@@ -200,6 +200,7 @@ rec {
             nushell
             pwvucontrol
             gsettings-desktop-schemas
+            glib
             (makeDesktopItem {
               name = "telegram";
               desktopName = "Telegram";
