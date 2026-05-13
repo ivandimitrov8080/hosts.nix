@@ -191,6 +191,9 @@ rec {
                 "${mcf}/usr/lib/firefox/defaults/pref/mobile-config-prefs.js"
               ];
               autoConfig = autoconfigPatched;
+              nativeMessagingHosts = {
+                browserpass = true;
+              };
             };
         };
         environment = {
