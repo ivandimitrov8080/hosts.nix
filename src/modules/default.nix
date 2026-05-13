@@ -567,23 +567,7 @@ in
               enable = true;
             };
             firewall = {
-              interfaces = {
-                wg0 = {
-                  allowedTCPPorts = mkForce [
-                    22 # ssh
-                    53 # dns
-                    465 # smtps auth enabled here
-                    993 # imap
-                    26969 # linking port
-                  ];
-                  allowedUDPPorts = mkForce [
-                    22 # ssh
-                    53 # dns
-                    993 # imap
-                    26969 # linking port
-                  ];
-                };
-              };
+              trustedInterfaces = [ "wg0" ];
               allowedTCPPorts = mkForce [
                 25 # smtp auth disabled here
                 80 # http
