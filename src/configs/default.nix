@@ -199,10 +199,10 @@ rec {
               user.databases = [
                 {
                   settings = {
-                    "sm/puri/phosh/osk" = {
+                    "mobi/phosh/osk" = {
                       completion-mode = [ "manual" ];
                     };
-                    "sm/puri/phosh/osk/Terminal" = {
+                    "mobi/phosh/osk/terminal" = {
                       shortcuts = [ "<ctrl>" ];
                     };
                   };
