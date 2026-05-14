@@ -305,6 +305,7 @@ in
             })
             pkgs.simplex-chat-desktop
             pkgs.kew
+            pkgs.ladybird
           ];
           users = {
             users = {
