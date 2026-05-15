@@ -223,7 +223,7 @@ rec {
             simplex-chat-desktop
             nushell
             pwvucontrol
-            lollypop
+            amberol
             (makeDesktopItem {
               name = "telegram";
               desktopName = "Telegram";
