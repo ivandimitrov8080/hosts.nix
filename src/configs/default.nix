@@ -151,6 +151,7 @@ rec {
         };
         networking = {
           networkmanager.enable = true;
+          modemmanager.enable = true;
           wireless.enable = true;
           useNetworkd = true;
           firewall = {
