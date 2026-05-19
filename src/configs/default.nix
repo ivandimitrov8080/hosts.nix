@@ -225,6 +225,7 @@ rec {
             nushell
             pwvucontrol
             gapless
+            organicmaps
             (makeDesktopItem {
               name = "telegram";
               desktopName = "Telegram";
