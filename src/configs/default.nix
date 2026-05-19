@@ -170,6 +170,7 @@ rec {
           };
           pipewire.enable = true;
           locate.enable = true;
+          gpsd.enable = true;
         };
         programs = {
           firefox =
