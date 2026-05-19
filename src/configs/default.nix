@@ -171,7 +171,7 @@ rec {
           };
           pipewire.enable = true;
           locate.enable = true;
-          gpsd.enable = true;
+          geoclue2.enable = true;
         };
         programs = {
           firefox =
