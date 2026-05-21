@@ -277,10 +277,10 @@ in
                   homeDirectory = "/home/ivand";
                 };
                 programs = {
-                  ssh.matchBlocks = {
+                  ssh.settings = {
                     vpsfree-ivand = {
-                      hostname = "10.0.0.1";
-                      user = "ivand";
+                      HostName = "10.0.0.1";
+                      User = "ivand";
                     };
                   };
                   git = {
