@@ -427,7 +427,6 @@ in
               binwalk
               # Password auditing
               hashcat
-              john
               hydra
               seclists
               kerbrute

@@ -67,10 +67,12 @@ rec {
   };
   gaming = nova.extendModules {
     modules = with nixosModules; [
+      penetration
       (
         { pkgs, lib, ... }:
         {
           meta.gaming.enable = true;
+          meta.penetration.enable = true;
           nixpkgs.config = {
             allowUnfree = lib.mkForce false;
           };
