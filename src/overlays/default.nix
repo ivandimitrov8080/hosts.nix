@@ -15,11 +15,6 @@
       myMpvScripts = callPackage ../packages/mpvScripts { };
       xin = callPackage ../packages/xin { };
       mobile-config-firefox = callPackage ../packages/mobile-config-firefox { };
-      python3Packages = prev.python3Packages // {
-        fastmcp = prev.python3Packages.fastmcp.overrideAttrs (_: {
-          doInstallCheck = false;
-        });
-      };
     };
   config = inputs.configuration.overlays.default;
 }

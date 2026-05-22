@@ -122,25 +122,23 @@ in
           system.stateVersion = pkgs.lib.trivial.release;
           users.defaultUserShell = pkgs.zsh;
         };
-      wg =
-        _:
-        {
-          meta.wireguard = {
-            inherit peers dns;
-          };
-          networking.nameservers = [ dns ];
-          networking.nftables = {
-            enable = true;
-            ruleset = blockDnsExceptDnscrypt;
-          };
-          services.resolved = {
-            settings = {
-              Resolve = {
-                FallbackDNS = [ dns ];
-              };
+      wg = _: {
+        meta.wireguard = {
+          inherit peers dns;
+        };
+        networking.nameservers = [ dns ];
+        networking.nftables = {
+          enable = true;
+          ruleset = blockDnsExceptDnscrypt;
+        };
+        services.resolved = {
+          settings = {
+            Resolve = {
+              FallbackDNS = [ dns ];
             };
           };
         };
+      };
       minimal =
         { pkgs, ... }:
         {
@@ -160,8 +158,8 @@ in
           };
           environment.systemPackages = with pkgs; [
             nixvim.main
-            python3
             transmission_4
+            (python3.withPackages (pp: with pp; [ scrapy ]))
           ];
           fonts = {
             fontDir.enable = true;
