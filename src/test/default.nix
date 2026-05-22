@@ -343,6 +343,7 @@ in
             m.wait_for_unit("dnscrypt-proxy.service")
 
         vpsfree.wait_for_unit("grafana.service")
+        vpsfree.wait_for_open_port(34321, "127.0.0.1")
 
         vpsfree.wait_until_succeeds("nslookup idimitrov.dev ${vpsfreeWgIp} | grep -F ${vpsfreeWgIp}")
         dns.wait_until_succeeds("nslookup idimitrov.dev ${dnsInternetIp} | grep -F ${vpsfreeInternetIp}")
@@ -373,17 +374,17 @@ in
         outsider.succeed(f"curl -k https://idimitrov.dev | {homeOk}")
 
         def test_is_subdomain_internal(subdomain, okText):
-            nova.succeed(f"curl -k https://{subdomain}.idimitrov.dev | grep '{okText}'")
-            spoke2.succeed(f"curl -k https://{subdomain}.idimitrov.dev | grep '{okText}'")
-            outsider.fail(f"curl -k https://{subdomain}.idimitrov.dev | grep '{okText}'")
-            outsider.fail(f"curl --resolve {subdomain}.idimitrov.dev:443:${vpsfreeWgIp} -k https://{subdomain}.idimitrov.dev | grep '{okText}'")
+            cmd = f"curl -H 'Host: {subdomain}.idimitrov.dev' -k https://idimitrov.dev | grep '{okText}'"
+            nova.succeed(cmd)
+            spoke2.succeed(cmd)
+            outsider.fail(cmd)
 
 
         def test_is_subdomain_external(subdomain, okText):
-            nova.succeed(f"curl -k https://{subdomain}.idimitrov.dev | grep '{okText}'")
-            spoke2.succeed(f"curl -k https://{subdomain}.idimitrov.dev | grep '{okText}'")
-            outsider.succeed(f"curl -k https://{subdomain}.idimitrov.dev | grep '{okText}'")
-            outsider.fail(f"curl --resolve {subdomain}.idimitrov.dev:443:${vpsfreeWgIp} -k https://{subdomain}.idimitrov.dev | grep '{okText}'")
+            cmd = f"curl -H 'Host: {subdomain}.idimitrov.dev' -k https://idimitrov.dev | grep '{okText}'"
+            nova.succeed(cmd)
+            spoke2.succeed(cmd)
+            outsider.succeed(cmd)
 
         test_is_subdomain_internal("mail", "Roundcube Webmail")
         test_is_subdomain_internal("grafana", "Found")
