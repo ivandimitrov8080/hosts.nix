@@ -6,6 +6,8 @@ in
   default =
     let
       dns = "10.0.0.1";
+      hosts = {
+      };
       peers = [
         {
           PublicKey = "iRSHYRPRELX8lJ2eHdrEAwy5ZW8f5b5fOiIGhHQwKFg=";
@@ -352,6 +354,7 @@ in
             };
           };
           networking = {
+            inherit hosts;
             hostName = "nova";
             firewall.interfaces.wg0 = {
               allowedTCPPorts = [
