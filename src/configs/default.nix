@@ -6,10 +6,6 @@ let
     inputs.self.overlays.default
     inputs.self.overlays.config
   ];
-  pkgs = import inputs.nixpkgs {
-    inherit overlays;
-    system = intel;
-  };
   armPkgs = import inputs.nixpkgs {
     inherit overlays;
     system = arm;

@@ -79,7 +79,7 @@ in
     name = "integration-test";
     nodes = {
       router =
-        { ... }:
+        _:
         {
           virtualisation.vlans = [
             internetVlan
@@ -128,7 +128,7 @@ in
         }
         // testUser;
       vpsfree =
-        { ... }:
+        _:
         {
           _module.args.system = system;
           virtualisation.memorySize = 4096;
@@ -182,7 +182,7 @@ in
         }
         // testUser;
       nova =
-        { ... }:
+        _:
         {
           imports = with nixosModules; [
             configMod
@@ -221,7 +221,7 @@ in
         }
         // testUser;
       spoke2 =
-        { ... }:
+        _:
         {
           imports = [ configMod ];
           environment.etc."wireguard/wg0.priv".source = ./spoke2.priv;

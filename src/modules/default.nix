@@ -123,7 +123,7 @@ in
           users.defaultUserShell = pkgs.zsh;
         };
       wg =
-        { ... }:
+        _:
         {
           meta.wireguard = {
             inherit peers dns;
