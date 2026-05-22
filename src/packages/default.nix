@@ -11,5 +11,5 @@ let
   };
 in
 {
-  inherit (pkgs) hello twvtodo mobile-config-firefox;
+  inherit (pkgs) hello twvtodo mobile-config-firefox finalrecon;
 }

@@ -294,17 +294,18 @@ in
           };
           hardware.bluetooth.enable = true;
           time.timeZone = "Europe/Prague";
-          environment.systemPackages = [
-            (pkgs.makeDesktopItem {
+          environment.systemPackages = with pkgs; [
+            (makeDesktopItem {
               name = "telegram";
               desktopName = "Telegram";
               exec = "env ${pkgs.telegram-desktop}/bin/Telegram -- %U";
               terminal = false;
               icon = "${pkgs.telegram-desktop}/share/icons/hicolor/128x128/apps/org.telegram.desktop.png";
             })
-            pkgs.simplex-chat-desktop
-            pkgs.kew
-            pkgs.ladybird
+            simplex-chat-desktop
+            kew
+            ladybird
+            finalrecon
           ];
           users = {
             users = {
