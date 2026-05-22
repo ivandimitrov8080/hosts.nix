@@ -25,12 +25,6 @@
           pkgs.nixvim.lua
         ];
       };
-      py = pkgs.mkShell {
-        buildInputs = with pkgs; [
-          nixvim.python
-          python3
-        ];
-      };
       web = pkgs.mkShell {
         buildInputs = with pkgs; [
           nixvim.web
@@ -98,27 +92,6 @@
           spring-boot-cli
         ];
       };
-      quarto = pkgs.mkShell (
-        let
-          pythonPackages =
-            ps: with ps; [
-              numpy
-              jupyter
-              matplotlib
-              plotly
-            ];
-        in
-        {
-          buildInputs = with pkgs; [
-            (quarto.override { extraPythonPackages = pythonPackages; })
-            (nixvim.python.extend {
-              plugins.quarto.enable = true;
-              plugins.otter.enable = true;
-            })
-            (python3.withPackages pythonPackages)
-          ];
-        }
-      );
       go = pkgs.mkShell {
         buildInputs = with pkgs; [
           go
