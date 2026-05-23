@@ -405,6 +405,7 @@ in
                 ]
               ))
               xxd
+              xsstrike
               # Recon / OSINT
               amass
               subfinder

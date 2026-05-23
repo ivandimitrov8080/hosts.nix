@@ -13,6 +13,7 @@
       which-key = callPackage ../packages/which-key { };
       twvtodo = callPackage ../packages/twvtodo { };
       finalrecon = callPackage ../packages/finalrecon { };
+      xsstrike = callPackage ../packages/xsstrike { };
       myMpvScripts = callPackage ../packages/mpvScripts { };
       xin = callPackage ../packages/xin { };
       mobile-config-firefox = callPackage ../packages/mobile-config-firefox { };
