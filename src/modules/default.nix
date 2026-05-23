@@ -161,7 +161,6 @@ in
           environment.systemPackages = with pkgs; [
             nixvim.main
             transmission_4
-            (python3.withPackages (pp: with pp; [ scrapy ]))
           ];
           fonts = {
             fontDir.enable = true;
@@ -399,6 +398,13 @@ in
           config = mkIf cfg.enable {
             environment.systemPackages = with pkgs; [
               nixvim.python
+              (python3.withPackages (
+                pp: with pp; [
+                  scrapy
+                  requests
+                  colorama
+                ]
+              ))
               # Recon / OSINT
               amass
               subfinder
@@ -415,6 +421,7 @@ in
               nuclei
               # Web application testing
               zap
+              mitmproxy
               sqlmap
               ffuf
               gobuster
