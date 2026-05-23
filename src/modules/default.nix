@@ -404,6 +404,7 @@ in
                   colorama
                 ]
               ))
+              xxd
               # Recon / OSINT
               amass
               subfinder
