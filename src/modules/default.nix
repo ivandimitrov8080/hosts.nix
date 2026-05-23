@@ -397,7 +397,6 @@ in
           };
           config = mkIf cfg.enable {
             environment.systemPackages = with pkgs; [
-              nixvim.python
               (python3.withPackages (
                 pp: with pp; [
                   scrapy
