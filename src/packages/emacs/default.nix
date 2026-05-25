@@ -1,4 +1,4 @@
-{ emacs-unstable-pgtk, emacsWithPackagesFromUsePackage, ... }:
+{nixd, haskell-language-server, emacs-unstable-pgtk, emacsWithPackagesFromUsePackage, ... }:
 (emacsWithPackagesFromUsePackage {
   # Your Emacs config file. Org mode babel files are also
   # supported.
@@ -79,6 +79,8 @@
       smartparens
       undo-tree
       dired-quick-sort
+      haskell-language-server
+      nixd
     ];
 
   # Optionally override derivations.

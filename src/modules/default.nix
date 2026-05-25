@@ -119,6 +119,7 @@ in
             overlays = [
               inputs.self.overlays.default
               inputs.self.overlays.config
+              inputs.self.overlays.emacs
             ];
           };
           system.stateVersion = pkgs.lib.trivial.release;
@@ -309,6 +310,7 @@ in
             kew
             ladybird
             finalrecon
+            emacs-custom
           ];
           users = {
             users = {
