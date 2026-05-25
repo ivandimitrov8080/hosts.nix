@@ -1,4 +1,5 @@
 {
+  python3Packages,
   coreutils,
   nixd,
   haskell-language-server,
@@ -89,6 +90,7 @@
       haskell-language-server
       nixd
       coreutils
+      python3Packages.python-lsp-server
     ];
 
   # Optionally override derivations.
