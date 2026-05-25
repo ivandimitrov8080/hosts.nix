@@ -15,7 +15,7 @@ let
     ]
   );
 in
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation (_finalAttrs: {
   pname = "xsstrike";
   version = "3.1.5";
 

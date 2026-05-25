@@ -19,6 +19,9 @@
     # neovim latest version
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     neovim-nightly-overlay.inputs.nixpkgs.follows = "nixpkgs";
+    # emacs latest version
+    emacs-overlay.url = "github:nix-community/emacs-overlay";
+    emacs-overlay.inputs.nixpkgs.follows = "nixpkgs";
     # for mailserver config
     simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver";
     simple-nixos-mailserver.inputs.nixpkgs.follows = "nixpkgs";
