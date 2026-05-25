@@ -267,6 +267,9 @@
 (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
 
 (require 'dired-quick-sort)
+(setq dired-quick-sort-group-directories-last ?y
+      dired-quick-sort-sort-by-last "version"
+      dired-quick-sort-reverse-last ?n)
 (dired-quick-sort-setup)
 
 ;;; Additional Keybindings
