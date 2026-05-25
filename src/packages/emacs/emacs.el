@@ -243,7 +243,8 @@
       org-src-fontify-natively t
       org-src-tab-acts-natively t
       org-src-content-indentation 0
-      org-todo-keywords '((sequence "TODO" "FEEDBACK" "VERIFY" "|" "DONE" "DELEGATED")))
+      org-todo-keywords '((sequence "TODO" "FEEDBACK" "VERIFY" "|" "DONE" "DELEGATED"))
+      org-log-done 'note)
 
 (require 'org-tempo)
 
