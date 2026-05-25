@@ -1,4 +1,11 @@
-{nixd, haskell-language-server, emacs-unstable-pgtk, emacsWithPackagesFromUsePackage, ... }:
+{
+  coreutils,
+  nixd,
+  haskell-language-server,
+  emacs-unstable-pgtk,
+  emacsWithPackagesFromUsePackage,
+  ...
+}:
 (emacsWithPackagesFromUsePackage {
   # Your Emacs config file. Org mode babel files are also
   # supported.
@@ -81,6 +88,7 @@
       dired-quick-sort
       haskell-language-server
       nixd
+      coreutils
     ];
 
   # Optionally override derivations.
