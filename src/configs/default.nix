@@ -95,6 +95,21 @@ rec {
       )
     ];
   };
+  htb = nova.extendModules {
+    modules = with nixosModules; [
+      penetration
+      (
+        { lib, ... }:
+        {
+          meta.penetration.enable = true;
+          meta.wireguard.enable = lib.mkForce false;
+          networking = {
+            nftables.ruleset = lib.mkForce "";
+          };
+        }
+      )
+    ];
+  };
   mobile = import inputs.mobile-nixos {
     device = "oneplus-enchilada";
     pkgs = armPkgs;

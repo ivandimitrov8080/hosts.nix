@@ -162,6 +162,7 @@ in
           environment.systemPackages = with pkgs; [
             nixvim.main
             transmission_4
+            nixfmt
           ];
           fonts = {
             fontDir.enable = true;
