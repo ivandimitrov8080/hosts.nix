@@ -232,11 +232,6 @@
 (require 'json-mode)
 (add-to-list 'auto-mode-alist '("\\.json\\'" . json-mode))
 
-;; SQL
-(with-eval-after-load 'sql
-  (require 'sql-indent)
-  (setq sql-indent-offset 2))
-
 ;; Org Mode
 (require 'org)
 (setq org-startup-indented t
@@ -248,6 +243,20 @@
       org-log-done 'note)
 
 (require 'org-tempo)
+
+;; Org-babel: Code execution in org files
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((emacs-lisp . t)
+   (python . t)
+   (shell . t)
+   (haskell . t)
+   (nix . t)))
+
+;; Org-babel settings
+(setq org-confirm-babel-evaluate t      ; Prompt before executing code blocks (safer)
+      org-src-preserve-indentation t    ; Preserve code block indentation
+      haskell-process-type 'ghci)      ; haskell run without stack or cabal
 
 ;; Tree-sitter for better syntax highlighting
 (require 'tree-sitter)

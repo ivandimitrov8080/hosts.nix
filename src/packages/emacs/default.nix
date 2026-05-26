@@ -66,6 +66,7 @@
       json-mode
       sql-indent
       org
+      ob-nix
       tree-sitter
       tree-sitter-langs
       markdown-mode
