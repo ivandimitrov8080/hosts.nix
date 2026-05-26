@@ -25,6 +25,7 @@
 (when (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 (column-number-mode 1)
 (show-paren-mode 1)
+(set-frame-parameter nil 'alpha-background 80)
 
 ;; Better defaults
 (setq
