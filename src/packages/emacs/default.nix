@@ -88,6 +88,7 @@
       undo-tree
       dired-quick-sort
       notmuch
+      gptel
       haskell-language-server
       nixd
       coreutils

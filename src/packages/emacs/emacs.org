@@ -309,6 +309,17 @@ Provides more detailed and useful help buffers than Emacs' built-in help, with s
 (global-set-key (kbd "C-h C") 'helpful-command)
 #+end_src
 
+* AI chat and agents
+** gptel -  A simple, extensible LLM client for Emacs
+
+Integrates with various AI services
+
+#+begin_src emacs-lisp
+(require 'gptel)
+(setq gptel-model 'claude-sonnet-4.6
+      gptel-backend (gptel-make-gh-copilot "Copilot"))
+#+end_src
+
 * Visual Enhancements
 
 ** all-the-icons - Icon Support
