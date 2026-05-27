@@ -28,6 +28,7 @@
 (column-number-mode 1)
 (show-paren-mode 1)
 (set-frame-parameter nil 'alpha-background 80)
+(global-display-line-numbers-mode t)
 
 ;; Better defaults
 (setq
