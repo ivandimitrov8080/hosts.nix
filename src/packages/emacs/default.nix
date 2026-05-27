@@ -91,6 +91,7 @@
       dired-quick-sort
       notmuch
       gptel
+      htmlize
       emigo
       haskell-language-server
       nixd

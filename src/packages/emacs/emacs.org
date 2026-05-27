@@ -5,34 +5,8 @@
 #+STARTUP: overview
 #+OPTIONS: toc:2 num:nil
 
-* Table of Contents :TOC_2:
-:PROPERTIES:
-:VISIBILITY: children
-:END:
-- [[#controls][Controls]]
-  - [[#introduction--setup-guide][Introduction & Setup Guide]]
-  - [[#performance-notes][Performance Notes]]
-  - [[#basic-settings][Basic Settings]]
-  - [[#completion--discovery-framework][Completion & Discovery Framework]]
-  - [[#ai-chat-and-agents][AI chat and agents]]
-  - [[#navigation--editing][Navigation & Editing]]
-  - [[#built-in-enhancements][Built-in Enhancements]]
-  - [[#development-tools][Development Tools]]
-  - [[#version-control--project-management][Version Control & Project Management]]
-  - [[#language-support][Language Support]]
-  - [[#org-mode-configuration][Org Mode Configuration]]
-  - [[#additional-tools][Additional Tools]]
-  - [[#keybindings][Keybindings]]
-- [[#appearance][Appearance]]
-  - [[#ui-improvements][UI Improvements]]
-  - [[#theme][Theme]]
-  - [[#visual-enhancements][Visual Enhancements]]
-
-* Controls
-
-** Introduction & Setup Guide
-
-*** Overview
+* Introduction & Setup Guide
+** Overview
 
 This is a literate Emacs configuration written in Org mode, designed for functional web development with a focus on Haskell, Elm, and Nix. The configuration emphasizes:
 
@@ -42,7 +16,7 @@ This is a literate Emacs configuration written in Org mode, designed for functio
 - Beautiful visual enhancements (Catppuccin theme, doom-modeline)
 - Comprehensive language support for functional programming
 
-*** How to Use This Configuration
+** How to Use This Configuration
 
 This configuration uses Org mode's *literate programming* approach. All Emacs Lisp code is contained in =#+begin_src emacs-lisp= blocks within this file.
 
@@ -53,7 +27,7 @@ When you use =emacsWithPackagesFromUsePackage= from Nix, it automatically:
 
 You're reading the *source* configuration. The actual Emacs Lisp that runs is generated from this file.
 
-*** First Time Setup
+** First Time Setup
 
 After installing Emacs with this configuration:
 
@@ -62,20 +36,7 @@ After installing Emacs with this configuration:
 3. *Test Navigation*: Try =C-x C-f= to open files with the new Vertico interface
 4. *Explore Keybindings*: Press any prefix key (like =C-c= or =C-x=) and wait for which-key to show options
 
-*** Enabling and Disabling Features
-
-To disable a feature without deleting it:
-
-1. Add =:tangle no= to the code block's header:
-   #+begin_example
-   #+begin_src emacs-lisp :tangle no
-   (require 'some-package)
-   #+end_src
-   #+end_example
-
-2. Rebuild your Emacs configuration with Nix
-
-To re-enable, simply remove =:tangle no= or change it to =:tangle yes=.
+*
 
 ** Performance Notes
 
@@ -110,7 +71,22 @@ M-x emacs-init-time
 #+end_example
 
 For detailed profiling, consider using the =esup= package (not included by default).
+** Enabling and Disabling Features
 
+To disable a feature without deleting it:
+
+1. Add =:tangle no= to the code block's header:
+   #+begin_example
+   #+begin_src emacs-lisp :tangle no
+   (require 'some-package)
+   #+end_src
+   #+end_example
+
+2. Rebuild your Emacs configuration with Nix
+
+To re-enable, simply remove =:tangle no= or change it to =:tangle yes=.
+
+* Controls
 ** Basic Settings
 
 *** File Header
@@ -618,9 +594,8 @@ This configuration adds many custom keybindings. Here are the most important one
 
 **** Window Management
 - =C-c <arrow>= - windmove-{direction} (move between windows)
-
+  
 * Appearance
-
 ** UI Improvements
 
 Clean up the default Emacs interface for a more modern, distraction-free editing experience.
@@ -695,7 +670,6 @@ Colors nested parentheses and brackets with different colors, making it easier t
 #+end_src
 
 * Final Setup
-
 #+begin_src emacs-lisp
 ;;; Final setup
 (provide 'emacs)
