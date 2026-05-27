@@ -1,4 +1,6 @@
 {
+  emigo,
+  python3,
   python3Packages,
   coreutils,
   nixd,
@@ -89,16 +91,29 @@
       dired-quick-sort
       notmuch
       gptel
+      emigo
       haskell-language-server
       nixd
       coreutils
       python3Packages.python-lsp-server
+      (python3.withPackages (
+        ps: with ps; [
+          epc
+          networkx
+          pygments
+          grep-ast
+          diskcache
+          tiktoken
+          tqdm
+          gitignore-parser
+          scipy
+          litellm
+          orjson
+        ]
+      ))
     ];
 
-  # Optionally override derivations.
-  # override = final: prev: {
-  #   weechat = prev.melpaPackages.weechat.overrideAttrs (old: {
-  #     patches = [ ./weechat-el.patch ];
-  #   });
-  # };
+  override = epkgsSelf: _epkgsSuper: {
+    emigo = emigo.asEmacsPackage epkgsSelf;
+  };
 })

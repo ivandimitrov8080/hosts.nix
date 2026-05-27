@@ -19,5 +19,6 @@ in
     finalrecon
     xsstrike
     emacs-custom
+    emigo
     ;
 }

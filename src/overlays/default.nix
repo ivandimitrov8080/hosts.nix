@@ -17,6 +17,7 @@
       myMpvScripts = callPackage ../packages/mpvScripts { };
       xin = callPackage ../packages/xin { };
       mobile-config-firefox = callPackage ../packages/mobile-config-firefox { };
+      emigo = callPackage ../packages/emigo { };
       emacs-custom = callPackage ../packages/emacs { };
     };
   config = inputs.configuration.overlays.default;

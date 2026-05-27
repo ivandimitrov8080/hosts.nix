@@ -319,6 +319,14 @@ Integrates with various AI services
 (setq gptel-model 'claude-sonnet-4.6
       gptel-backend (gptel-make-gh-copilot "Copilot"))
 #+end_src
+** emigo - some agentic plugin with python
+
+idk yet
+
+#+begin_src emacs-lisp
+(require 'emigo)
+(emigo-enable)
+#+end_src
 
 * Visual Enhancements
 
