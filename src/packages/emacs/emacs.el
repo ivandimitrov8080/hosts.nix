@@ -18,6 +18,8 @@
 (when (file-exists-p custom-file)
   (load custom-file))
 
+(autoload 'notmuch "notmuch" "Notmuch mail" t)
+
 ;; UI improvements
 (setq inhibit-startup-screen t)
 (menu-bar-mode -1)

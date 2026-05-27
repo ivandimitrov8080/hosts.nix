@@ -88,6 +88,7 @@
       smartparens
       undo-tree
       dired-quick-sort
+      notmuch
       haskell-language-server
       nixd
       coreutils
