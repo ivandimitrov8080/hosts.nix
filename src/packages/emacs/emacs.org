@@ -1,0 +1,726 @@
+#+TITLE: Emacs Configuration
+#+AUTHOR: Ivan
+#+DESCRIPTION: A literate Emacs configuration for functional web development
+#+PROPERTY: header-args:emacs-lisp :tangle yes :comments link
+#+STARTUP: overview
+#+OPTIONS: toc:2 num:nil
+
+* Table of Contents :TOC_2:
+:PROPERTIES:
+:VISIBILITY: children
+:END:
+- [[#introduction--setup-guide][Introduction & Setup Guide]]
+  - [[#overview][Overview]]
+  - [[#how-to-use-this-configuration][How to Use This Configuration]]
+  - [[#first-time-setup][First Time Setup]]
+  - [[#enabling-and-disabling-features][Enabling and Disabling Features]]
+- [[#performance-notes][Performance Notes]]
+  - [[#startup-time-optimization][Startup Time Optimization]]
+  - [[#profiling-your-configuration][Profiling Your Configuration]]
+- [[#basic-settings][Basic Settings]]
+  - [[#file-header][File Header]]
+  - [[#indentation--formatting][Indentation & Formatting]]
+  - [[#custom-file-configuration][Custom File Configuration]]
+  - [[#ui-improvements][UI Improvements]]
+  - [[#better-defaults][Better Defaults]]
+- [[#package-configuration][Package Configuration]]
+  - [[#theme][Theme]]
+- [[#completion--discovery-framework][Completion & Discovery Framework]]
+  - [[#which-key---keybinding-discovery][which-key - Keybinding Discovery]]
+  - [[#vertico---vertical-completion-ui][vertico - Vertical Completion UI]]
+  - [[#orderless---flexible-completion-style][orderless - Flexible Completion Style]]
+  - [[#marginalia---rich-minibuffer-annotations][marginalia - Rich Minibuffer Annotations]]
+  - [[#consult---enhanced-navigation--search][consult - Enhanced Navigation & Search]]
+  - [[#helpful---better-help-buffers][helpful - Better Help Buffers]]
+- [[#visual-enhancements][Visual Enhancements]]
+  - [[#all-the-icons---icon-support][all-the-icons - Icon Support]]
+  - [[#all-the-icons-dired---icons-in-dired][all-the-icons-dired - Icons in Dired]]
+  - [[#doom-modeline---status-bar][doom-modeline - Status Bar]]
+  - [[#rainbow-delimiters---colorful-brackets][rainbow-delimiters - Colorful Brackets]]
+- [[#navigation--editing][Navigation & Editing]]
+  - [[#avy---character-based-navigation][avy - Character-based Navigation]]
+  - [[#multiple-cursors---multi-cursor-editing][multiple-cursors - Multi-cursor Editing]]
+  - [[#expand-region---smart-selection][expand-region - Smart Selection]]
+  - [[#smartparens---intelligent-parentheses][smartparens - Intelligent Parentheses]]
+  - [[#undo-tree---visual-undo-history][undo-tree - Visual Undo History]]
+- [[#built-in-enhancements][Built-in Enhancements]]
+  - [[#savehist---minibuffer-history-persistence][savehist - Minibuffer History Persistence]]
+  - [[#recentf---recent-files-tracking][recentf - Recent Files Tracking]]
+- [[#development-tools][Development Tools]]
+  - [[#eglot---lsp-client][Eglot - LSP Client]]
+  - [[#company---completion-framework][Company - Completion Framework]]
+  - [[#flycheck---syntax-checking][Flycheck - Syntax Checking]]
+- [[#version-control--project-management][Version Control & Project Management]]
+  - [[#magit---git-interface][Magit - Git Interface]]
+  - [[#projectile---project-management][Projectile - Project Management]]
+- [[#language-support][Language Support]]
+  - [[#nix-mode][Nix Mode]]
+  - [[#elm-mode][Elm Mode]]
+  - [[#haskell-mode][Haskell Mode]]
+  - [[#web-mode-htmlcss][Web Mode (HTML/CSS)]]
+  - [[#javascript-js2-mode][JavaScript (js2-mode)]]
+  - [[#json-mode][JSON Mode]]
+  - [[#markdown-mode][Markdown Mode]]
+  - [[#yaml-mode][YAML Mode]]
+- [[#org-mode-configuration][Org Mode Configuration]]
+  - [[#basic-org-settings][Basic Org Settings]]
+  - [[#org-tempo---structure-templates][org-tempo - Structure Templates]]
+  - [[#org-babel---code-execution][Org Babel - Code Execution]]
+- [[#additional-tools][Additional Tools]]
+  - [[#tree-sitter---better-syntax-highlighting][Tree-sitter - Better Syntax Highlighting]]
+  - [[#dired-quick-sort---file-browser-enhancements][Dired Quick Sort - File Browser Enhancements]]
+  - [[#notmuch---mail-client][Notmuch - Mail Client]]
+- [[#keybindings][Keybindings]]
+  - [[#window-navigation][Window Navigation]]
+  - [[#summary-of-custom-keybindings][Summary of Custom Keybindings]]
+
+* Introduction & Setup Guide
+
+** Overview
+
+This is a literate Emacs configuration written in Org mode, designed for functional web development with a focus on Haskell, Elm, and Nix. The configuration emphasizes:
+
+- Modern completion and discovery interfaces (Vertico, Consult, which-key)
+- Powerful navigation and editing tools (Avy, multiple-cursors)
+- LSP-based language support via Eglot
+- Beautiful visual enhancements (Catppuccin theme, doom-modeline)
+- Comprehensive language support for functional programming
+
+** How to Use This Configuration
+
+This configuration uses Org mode's *literate programming* approach. All Emacs Lisp code is contained in =#+begin_src emacs-lisp= blocks within this file.
+
+When you use =emacsWithPackagesFromUsePackage= from Nix, it automatically:
+1. Extracts all code blocks from this file (process called "tangling")
+2. Combines them into a single =.el= file
+3. Uses that as your init file
+
+You're reading the *source* configuration. The actual Emacs Lisp that runs is generated from this file.
+
+** First Time Setup
+
+After installing Emacs with this configuration:
+
+1. *Icons Setup* (GUI only): Run =M-x all-the-icons-install-fonts= once to install icon fonts
+2. *Verify LSP Servers*: Ensure nixd, elm-language-server, and haskell-language-server are available
+3. *Test Navigation*: Try =C-x C-f= to open files with the new Vertico interface
+4. *Explore Keybindings*: Press any prefix key (like =C-c= or =C-x=) and wait for which-key to show options
+
+** Enabling and Disabling Features
+
+To disable a feature without deleting it:
+
+1. Add =:tangle no= to the code block's header:
+   #+begin_example
+   #+begin_src emacs-lisp :tangle no
+   (require 'some-package)
+   #+end_src
+   #+end_example
+
+2. Rebuild your Emacs configuration with Nix
+
+To re-enable, simply remove =:tangle no= or change it to =:tangle yes=.
+
+* Performance Notes
+
+** Startup Time Optimization
+
+This configuration prioritizes functionality over startup time, but here are ways to improve performance:
+
+*Current Approach:*
+- All packages are loaded eagerly at startup
+- LSP (Eglot) is enabled automatically for supported modes
+- Tree-sitter is enabled globally
+
+*Optimization Strategies:*
+
+1. *Lazy Loading*: Convert =require= statements to =autoload= or use =use-package= with =:defer=
+2. *Conditional LSP*: Remove =eglot-ensure= from mode hooks and call manually when needed (=M-x eglot=)
+3. *Disable Heavy Features*: Tree-sitter and doom-modeline can add startup time
+4. *Reduce Package Count*: Disable packages you don't use by adding =:tangle no= to their sections
+
+** Profiling Your Configuration
+
+To measure startup time:
+
+#+begin_example
+emacs --debug-init
+#+end_example
+
+To profile which packages take longest:
+
+#+begin_example
+M-x emacs-init-time
+#+end_example
+
+For detailed profiling, consider using the =esup= package (not included by default).
+
+* Basic Settings
+
+** File Header
+
+#+begin_src emacs-lisp
+;;; emacs.el --- Minimal Emacs configuration for functional web development -*- lexical-binding: t; -*-
+
+;;; Commentary:
+;; A minimal, functional Emacs configuration for Haskell, Elm, and Nix development
+;; Configured to work with emacs-overlay and emacsWithPackagesFromUsePackage
+;; Generated from emacs.org via org-babel-tangle
+
+;;; Code:
+#+end_src
+
+** Indentation & Formatting
+
+Basic settings for consistent code formatting across all files. Uses spaces instead of tabs with 2-space indentation.
+
+#+begin_src emacs-lisp
+(setq-default
+ indent-tabs-mode nil              ; Use spaces, not tabs
+ tab-width 2                        ; 2-space indentation
+ fill-column 80                     ; 80 character line width
+ require-final-newline t)           ; Ensure files end with newline
+#+end_src
+
+** Custom File Configuration
+
+Keep Emacs' custom settings in a separate file to avoid cluttering the main configuration.
+
+#+begin_src emacs-lisp
+(setq custom-file (concat user-emacs-directory "custom.el"))
+
+;; Load custom file if it exists
+(when (file-exists-p custom-file)
+  (load custom-file))
+#+end_src
+
+** UI Improvements
+
+Clean up the default Emacs interface for a more modern, distraction-free editing experience.
+
+#+begin_src emacs-lisp
+(setq inhibit-startup-screen t)
+(menu-bar-mode -1)
+(when (fboundp 'tool-bar-mode) (tool-bar-mode -1))
+(when (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+(column-number-mode 1)
+(show-paren-mode 1)
+(set-frame-parameter nil 'alpha-background 80)
+(global-display-line-numbers-mode t)
+#+end_src
+
+** Better Defaults
+
+Improve Emacs' default behaviors for backup files, version control, and symlink handling.
+
+#+begin_src emacs-lisp
+(setq
+ backup-by-copying t                ; Don't clobber symlinks
+ delete-old-versions t              ; Clean up old backups
+ kept-new-versions 6
+ kept-old-versions 2
+ version-control t                  ; Use version numbers for backups
+ vc-follow-symlinks t)              ; Follow symlinks without asking
+#+end_src
+
+* Package Configuration
+
+** Theme
+
+The Catppuccin theme provides a soothing, pastel color palette. Using the Mocha (dark) flavor.
+
+#+begin_src emacs-lisp
+(require 'catppuccin-theme)
+(setq catppuccin-flavor 'mocha)
+(load-theme 'catppuccin :no-confirm)
+#+end_src
+
+* Completion & Discovery Framework
+
+** which-key - Keybinding Discovery
+
+Shows available keybindings in a popup when you pause after typing a prefix key (like =C-x= or =C-c=). Essential for discovering functionality.
+
+#+begin_src emacs-lisp
+(require 'which-key)
+(which-key-mode)
+(setq which-key-idle-delay 0.5
+      which-key-sort-order 'which-key-key-order-alpha)
+#+end_src
+
+** vertico - Vertical Completion UI
+
+Provides a performant and minimalistic vertical completion UI. Displays candidates in a vertical list for better readability than the default horizontal minibuffer.
+
+#+begin_src emacs-lisp
+(require 'vertico)
+(vertico-mode)
+(setq vertico-cycle t)
+#+end_src
+
+** orderless - Flexible Completion Style
+
+Enables space-separated, out-of-order matching in completion. Type words in any order and they'll all be matched (e.g., "buf kill" matches "kill-buffer").
+
+#+begin_src emacs-lisp
+(require 'orderless)
+(setq completion-styles '(orderless basic)
+      completion-category-defaults nil
+      completion-category-overrides '((file (styles partial-completion))))
+#+end_src
+
+** marginalia - Rich Minibuffer Annotations
+
+Adds helpful annotations to minibuffer completions, like file permissions, function signatures, and variable values. Press =M-A= to cycle annotation styles.
+
+#+begin_src emacs-lisp
+(require 'marginalia)
+(marginalia-mode)
+(define-key minibuffer-local-map (kbd "M-A") 'marginalia-cycle)
+#+end_src
+
+** consult - Enhanced Navigation & Search
+
+Provides enhanced versions of common commands with live preview and filtering. Replaces default search and navigation with more powerful alternatives.
+
+#+begin_src emacs-lisp
+(require 'consult)
+(global-set-key (kbd "C-s") 'consult-line)
+(global-set-key (kbd "C-x b") 'consult-buffer)
+(global-set-key (kbd "C-x C-r") 'consult-recent-file)
+(global-set-key (kbd "M-g i") 'consult-imenu)
+(global-set-key (kbd "M-g g") 'consult-goto-line)
+(global-set-key (kbd "M-s g") 'consult-grep)
+(global-set-key (kbd "M-s r") 'consult-ripgrep)
+(setq consult-narrow-key "<")
+#+end_src
+
+** helpful - Better Help Buffers
+
+Provides more detailed and useful help buffers than Emacs' built-in help, with source code, references, and better formatting.
+
+#+begin_src emacs-lisp
+(require 'helpful)
+(global-set-key (kbd "C-h f") 'helpful-callable)
+(global-set-key (kbd "C-h v") 'helpful-variable)
+(global-set-key (kbd "C-h k") 'helpful-key)
+(global-set-key (kbd "C-c C-d") 'helpful-at-point)
+(global-set-key (kbd "C-h F") 'helpful-function)
+(global-set-key (kbd "C-h C") 'helpful-command)
+#+end_src
+
+* Visual Enhancements
+
+** all-the-icons - Icon Support
+
+Provides icon support for various Emacs packages. Only loaded in graphical mode. Run =M-x all-the-icons-install-fonts= once after first install.
+
+#+begin_src emacs-lisp
+(when (display-graphic-p)
+  (require 'all-the-icons))
+#+end_src
+
+** all-the-icons-dired - Icons in Dired
+
+Adds icons to dired (file browser) for better visual file type identification.
+
+#+begin_src emacs-lisp
+(when (display-graphic-p)
+  (require 'all-the-icons-dired)
+  (add-hook 'dired-mode-hook 'all-the-icons-dired-mode))
+#+end_src
+
+** doom-modeline - Status Bar
+
+A beautiful and informative status bar inspired by Doom Emacs. Shows file info, git status, LSP status, and more.
+
+#+begin_src emacs-lisp
+(require 'doom-modeline)
+(doom-modeline-mode 1)
+(setq doom-modeline-height 25
+      doom-modeline-bar-width 4
+      doom-modeline-icon t
+      doom-modeline-major-mode-icon t
+      doom-modeline-major-mode-color-icon t
+      doom-modeline-buffer-file-name-style 'truncate-upto-project
+      doom-modeline-lsp t)
+#+end_src
+
+** rainbow-delimiters - Colorful Brackets
+
+Colors nested parentheses and brackets with different colors, making it easier to identify matching pairs and nesting depth.
+
+#+begin_src emacs-lisp
+(require 'rainbow-delimiters)
+(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+(add-hook 'elm-mode-hook 'rainbow-delimiters-mode)
+(add-hook 'haskell-mode-hook 'rainbow-delimiters-mode)
+#+end_src
+
+* Navigation & Editing
+
+** avy - Character-based Navigation
+
+Jump to any visible text by typing a few characters. Much faster than using cursor keys or mouse. Press =C-:= to jump to any character.
+
+#+begin_src emacs-lisp
+(require 'avy)
+(global-set-key (kbd "C-:") 'avy-goto-char)
+(global-set-key (kbd "C-'") 'avy-goto-char-2)
+(global-set-key (kbd "M-g f") 'avy-goto-line)
+(global-set-key (kbd "M-g w") 'avy-goto-word-1)
+(global-set-key (kbd "C-c C-j") 'avy-resume)
+(setq avy-background t
+      avy-style 'at-full)
+#+end_src
+
+** multiple-cursors - Multi-cursor Editing
+
+Edit multiple locations simultaneously. Select text, press =C->= to add a cursor at the next occurrence, then type to edit all at once.
+
+#+begin_src emacs-lisp
+(require 'multiple-cursors)
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+#+end_src
+
+** expand-region - Smart Selection
+
+Intelligently expand the selected region by semantic units (word, expression, function, etc.). Press =C-== repeatedly to expand.
+
+#+begin_src emacs-lisp
+(require 'expand-region)
+(global-set-key (kbd "C-=") 'er/expand-region)
+#+end_src
+
+** smartparens - Intelligent Parentheses
+
+Automatically handles parentheses, brackets, and quotes with smart pairing, wrapping, and navigation. Essential for Lisp-like languages.
+
+#+begin_src emacs-lisp
+(require 'smartparens)
+(require 'smartparens-config)
+(add-hook 'prog-mode-hook 'smartparens-mode)
+(setq sp-highlight-pair-overlay nil
+      sp-highlight-wrap-overlay nil
+      sp-highlight-wrap-tag-overlay nil)
+#+end_src
+
+** undo-tree - Visual Undo History
+
+Visualize your undo history as a tree, allowing you to navigate to any previous state. Saves undo history between sessions.
+
+#+begin_src emacs-lisp
+(require 'undo-tree)
+(global-undo-tree-mode)
+(setq undo-tree-auto-save-history t
+      undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo")))
+#+end_src
+
+* Built-in Enhancements
+
+** savehist - Minibuffer History Persistence
+
+Saves your minibuffer history (commands, search terms, etc.) between Emacs sessions.
+
+#+begin_src emacs-lisp
+(require 'savehist)
+(savehist-mode)
+#+end_src
+
+** recentf - Recent Files Tracking
+
+Tracks recently opened files, accessible via =C-x C-r= (consult-recent-file).
+
+#+begin_src emacs-lisp
+(require 'recentf)
+(recentf-mode 1)
+(setq recentf-max-saved-items 100)
+#+end_src
+
+* Development Tools
+
+** Eglot - LSP Client
+
+Built-in LSP client (Emacs 29+) providing IDE features like code completion, diagnostics, and go-to-definition. Automatically starts for configured languages.
+
+#+begin_src emacs-lisp
+(require 'eglot)
+(add-hook 'nix-mode-hook 'eglot-ensure)
+(add-hook 'elm-mode-hook 'eglot-ensure)
+(add-hook 'haskell-mode-hook 'eglot-ensure)
+(add-hook 'js-mode-hook 'eglot-ensure)
+(add-hook 'web-mode-hook 'eglot-ensure)
+(setq eglot-autoshutdown t)
+(add-to-list 'eglot-server-programs '(nix-mode . ("nixd")))
+(add-to-list 'eglot-server-programs '(elm-mode . ("elm-language-server")))
+(add-to-list 'eglot-server-programs '(haskell-mode . ("haskell-language-server-wrapper" "--lsp")))
+#+end_src
+
+** Company - Completion Framework
+
+Provides in-buffer code completion with a popup menu. Works with Eglot to show LSP completions.
+
+#+begin_src emacs-lisp
+(require 'company)
+(add-hook 'after-init-hook 'global-company-mode)
+(setq company-idle-delay 0.2
+      company-minimum-prefix-length 2
+      company-show-quick-access t)
+#+end_src
+
+** Flycheck - Syntax Checking
+
+Real-time syntax checking and error highlighting. Shows errors and warnings in the buffer and modeline.
+
+#+begin_src emacs-lisp
+(require 'flycheck)
+(add-hook 'after-init-hook 'global-flycheck-mode)
+#+end_src
+
+* Version Control & Project Management
+
+** Magit - Git Interface
+
+The best Git interface ever created. Press =C-x g= to open Magit status buffer. Learn the keybindings (shown in the buffer) to stage, commit, push, etc.
+
+#+begin_src emacs-lisp
+(require 'magit)
+(global-set-key (kbd "C-x g") 'magit-status)
+#+end_src
+
+** Projectile - Project Management
+
+Project management framework that understands version control. Provides project-aware commands for finding files, searching, and more. Use =C-c p= prefix.
+
+#+begin_src emacs-lisp
+(require 'projectile)
+(projectile-mode +1)
+(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+#+end_src
+
+* Language Support
+
+** Nix Mode
+
+Major mode for editing Nix expression files. Integrated with nixd LSP server for completion and diagnostics.
+
+#+begin_src emacs-lisp
+(require 'nix-mode)
+(add-to-list 'auto-mode-alist '("\\.nix\\'" . nix-mode))
+#+end_src
+
+** Elm Mode
+
+Major mode for Elm language development. Automatically formats on save and integrates with elm-language-server.
+
+#+begin_src emacs-lisp
+(require 'elm-mode)
+(add-to-list 'auto-mode-alist '("\\.elm\\'" . elm-mode))
+(setq elm-format-on-save t)
+#+end_src
+
+** Haskell Mode
+
+Comprehensive support for Haskell development. Integrates with haskell-language-server for IDE features.
+
+#+begin_src emacs-lisp
+(require 'haskell-mode)
+(add-to-list 'auto-mode-alist '("\\.hs\\'" . haskell-mode))
+(setq haskell-process-type 'cabal-repl
+      haskell-interactive-popup-errors nil)
+#+end_src
+
+** Web Mode (HTML/CSS)
+
+Unified mode for editing HTML and CSS with syntax highlighting, indentation, and auto-pairing.
+
+#+begin_src emacs-lisp
+(require 'web-mode)
+(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.css\\'" . web-mode))
+(setq web-mode-markup-indent-offset 2
+      web-mode-css-indent-offset 2
+      web-mode-code-indent-offset 2
+      web-mode-enable-auto-pairing t
+      web-mode-enable-css-colorization t)
+#+end_src
+
+** JavaScript (js2-mode)
+
+Enhanced JavaScript mode with better syntax highlighting and error checking than the built-in js-mode.
+
+#+begin_src emacs-lisp
+(require 'js2-mode)
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+(setq js2-basic-offset 2
+      js2-bounce-indent-p t)
+#+end_src
+
+** JSON Mode
+
+Major mode for editing JSON files with proper syntax highlighting and validation.
+
+#+begin_src emacs-lisp
+(require 'json-mode)
+(add-to-list 'auto-mode-alist '("\\.json\\'" . json-mode))
+#+end_src
+
+** Markdown Mode
+
+Full-featured Markdown editing mode with syntax highlighting and preview support (requires pandoc).
+
+#+begin_src emacs-lisp
+(require 'markdown-mode)
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
+(setq markdown-command "pandoc")
+#+end_src
+
+** YAML Mode
+
+Major mode for editing YAML configuration files with proper indentation and syntax highlighting.
+
+#+begin_src emacs-lisp
+(require 'yaml-mode)
+(add-to-list 'auto-mode-alist '("\\.yaml\\'" . yaml-mode))
+(add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
+#+end_src
+
+* Org Mode Configuration
+
+** Basic Org Settings
+
+Configure Org mode for better document structure, code block handling, and task management.
+
+#+begin_src emacs-lisp
+(require 'org)
+(setq org-startup-indented t
+      org-hide-leading-stars t
+      org-src-fontify-natively t
+      org-src-tab-acts-natively t
+      org-src-content-indentation 0
+      org-todo-keywords '((sequence "TODO" "FEEDBACK" "VERIFY" "|" "DONE" "DELEGATED"))
+      org-log-done 'note)
+#+end_src
+
+** org-tempo - Structure Templates
+
+Enables quick insertion of code blocks and other structures. Type =<s= and press TAB to insert a source block.
+
+#+begin_src emacs-lisp
+(require 'org-tempo)
+#+end_src
+
+** Org Babel - Code Execution
+
+Enable code execution in org files for literate programming and documentation. Supports multiple languages.
+
+#+begin_src emacs-lisp
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((emacs-lisp . t)
+   (python . t)
+   (shell . t)
+   (haskell . t)
+   (nix . t)))
+
+(setq org-confirm-babel-evaluate t      ; Prompt before executing code blocks (safer)
+      org-src-preserve-indentation t    ; Preserve code block indentation
+      haskell-process-type 'ghci)       ; haskell run without stack or cabal
+#+end_src
+
+* Additional Tools
+
+** Tree-sitter - Better Syntax Highlighting
+
+Modern parser-based syntax highlighting for better accuracy and performance. Automatically enabled for supported languages.
+
+#+begin_src emacs-lisp
+(require 'tree-sitter)
+(global-tree-sitter-mode)
+
+(require 'tree-sitter-langs)
+(add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
+#+end_src
+
+** Dired Quick Sort - File Browser Enhancements
+
+Enhanced sorting options for dired (file browser). Groups directories first and provides quick sorting commands.
+
+#+begin_src emacs-lisp
+(require 'dired-quick-sort)
+(setq dired-quick-sort-group-directories-last ?y
+      dired-quick-sort-sort-by-last "version"
+      dired-quick-sort-reverse-last ?n)
+(dired-quick-sort-setup)
+#+end_src
+
+** Notmuch - Mail Client
+
+Fast, tag-based email client. Launch with =M-x notmuch=. Requires notmuch to be configured externally.
+
+#+begin_src emacs-lisp
+(autoload 'notmuch "notmuch" "Notmuch mail" t)
+#+end_src
+
+* Keybindings
+
+** Window Navigation
+
+Easily move between split windows using arrow keys with =C-c= prefix.
+
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-c <left>")  'windmove-left)
+(global-set-key (kbd "C-c <right>") 'windmove-right)
+(global-set-key (kbd "C-c <up>")    'windmove-up)
+(global-set-key (kbd "C-c <down>")  'windmove-down)
+#+end_src
+
+** Summary of Custom Keybindings
+
+This configuration adds many custom keybindings. Here are the most important ones:
+
+*** Navigation & Search
+- =C-s= - consult-line (search in buffer with live preview)
+- =C-x b= - consult-buffer (switch buffers with enhanced interface)
+- =C-x C-r= - consult-recent-file (open recent files)
+- =M-g i= - consult-imenu (navigate by functions/headings)
+- =M-g g= - consult-goto-line (jump to line number)
+- =M-s g= - consult-grep (grep in project)
+- =M-s r= - consult-ripgrep (faster grep with ripgrep)
+
+*** Character/Word Navigation (Avy)
+- =C-:= - avy-goto-char (jump to any visible character)
+- =C-'= - avy-goto-char-2 (jump using two characters)
+- =M-g f= - avy-goto-line (jump to any visible line)
+- =M-g w= - avy-goto-word-1 (jump to word)
+
+*** Editing
+- =C->= - mc/mark-next-like-this (add cursor to next match)
+- =C-<= - mc/mark-previous-like-this (add cursor to previous match)
+- =C-c C-<= - mc/mark-all-like-this (add cursor to all matches)
+- =C-=​= - er/expand-region (expand selection intelligently)
+
+*** Help & Documentation
+- =C-h f= - helpful-callable (describe function)
+- =C-h v= - helpful-variable (describe variable)
+- =C-h k= - helpful-key (describe keybinding)
+- =C-c C-d= - helpful-at-point (help for symbol at cursor)
+
+*** Version Control & Projects
+- =C-x g= - magit-status (open Magit)
+- =C-c p= - projectile-command-map (project commands prefix)
+
+*** Window Management
+- =C-c <arrow>= - windmove-{direction} (move between windows)
+
+* Final Setup
+
+#+begin_src emacs-lisp
+;;; Final setup
+(provide 'emacs)
+;;; emacs.el ends here
+#+end_src
