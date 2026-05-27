@@ -106,12 +106,14 @@
               signature-file = builtins.toFile "signature.txt" signature.text;
             };
           };
+          notmuch.enable = true;
           offlineimap.enable = true;
         };
       };
     };
   };
   programs = {
+    notmuch.enable = true;
     aerc = {
       enable = true;
       templates = {
