@@ -57,3 +57,5 @@ flycheck_*.el
 
 # undo-tree
 *.~undo-tree~
+
+.emigo_repomap
