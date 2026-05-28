@@ -209,6 +209,7 @@ in
             dbus.enable = true;
             locate.enable = true;
             resolved.enable = true;
+            guix.enable = true;
           };
           meta = {
             graphicalBoot.enable = true;

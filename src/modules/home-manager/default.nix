@@ -69,6 +69,17 @@
           asking.
         '';
       };
+      settings = {
+        permission = {
+          external_directory = {
+            "/nix/store/**" = "allow";
+            "/gnu/store/**" = "allow";
+            "/home/ivand/.cache/**" = "allow";
+            "/home/ivand/.config/**" = "allow";
+            "/tmp/**" = "allow";
+          };
+        };
+      };
     };
     nushell = {
       enable = true;
