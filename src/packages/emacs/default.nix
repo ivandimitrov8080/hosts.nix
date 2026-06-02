@@ -92,6 +92,7 @@
       notmuch
       gptel
       htmlize
+      listen
       emigo
       haskell-language-server
       nixd

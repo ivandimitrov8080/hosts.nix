@@ -543,9 +543,7 @@ Fast, tag-based email client. Launch with =M-x notmuch=. Requires notmuch to be 
 #+begin_src emacs-lisp
 (autoload 'notmuch "notmuch" "Notmuch mail" t)
 #+end_src
-
 ** Keybindings
-
 *** Window Navigation
 
 Easily move between split windows using arrow keys with =C-c= prefix.
@@ -594,7 +592,14 @@ This configuration adds many custom keybindings. Here are the most important one
 
 **** Window Management
 - =C-c <arrow>= - windmove-{direction} (move between windows)
-  
+
+** Multimedia
+*** Listen
+
+#+begin_src emacs-lisp
+(require 'listen)
+#+end_src
+
 * Appearance
 ** UI Improvements
 
