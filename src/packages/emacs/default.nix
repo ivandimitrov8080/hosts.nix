@@ -1,14 +1,19 @@
 {
+  stdenv,
   emigo,
   python3,
   python3Packages,
   coreutils,
   nixd,
   haskell-language-server,
-  emacs-unstable-pgtk,
-  emacsWithPackagesFromUsePackage,
+  emacs-overlay,
   ...
 }:
+let
+  system = stdenv.hostPlatform.system;
+  emacs-unstable-pgtk = emacs-overlay.packages.${system}.emacs-unstable-pgtk;
+  emacsWithPackagesFromUsePackage = emacs-overlay.lib.${system}.emacsWithPackagesFromUsePackage;
+in
 (emacsWithPackagesFromUsePackage {
   # Your Emacs config file. Org mode babel files are also
   # supported.

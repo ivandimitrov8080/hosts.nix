@@ -15,7 +15,6 @@
     mobile-nixos.flake = false;
     # nvim config helper
     nixvim.url = "github:nix-community/nixvim";
-    nixvim.inputs.nixpkgs.follows = "nixpkgs";
     # neovim latest version
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     neovim-nightly-overlay.inputs.nixpkgs.follows = "nixpkgs";

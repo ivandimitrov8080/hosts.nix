@@ -18,7 +18,7 @@
       xin = callPackage ../packages/xin { };
       mobile-config-firefox = callPackage ../packages/mobile-config-firefox { };
       emigo = callPackage ../packages/emigo { };
-      emacs-custom = callPackage ../packages/emacs { };
+      emacs-custom = callPackage ../packages/emacs { emacs-overlay = inputs.emacs-overlay; };
     };
   config = inputs.configuration.overlays.default;
   emacs = inputs.emacs-overlay.overlays.default;

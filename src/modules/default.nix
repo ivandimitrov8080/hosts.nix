@@ -562,7 +562,7 @@ in
         in
         {
           imports = with inputs; [
-            simple-nixos-mailserver.nixosModule
+            simple-nixos-mailserver.nixosModules.default
           ];
           networking.hostName = "vpsfree";
           meta = {
