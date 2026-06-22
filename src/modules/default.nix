@@ -79,6 +79,7 @@ in
         "Pliska8".psk = "pliska88";
         "John94".psk = "John9401";
         "A1_09BC".psk = "2EE272F553";
+        "MEO-C0FBB0".psk = "d3b9847451";
         "ATHENS-HAWKS" = { };
         "RAMADA-SOFIA" = { };
       };
