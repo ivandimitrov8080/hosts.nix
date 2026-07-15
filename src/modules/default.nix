@@ -241,6 +241,7 @@ in
                 home = {
                   username = "iso";
                   homeDirectory = "/home/iso";
+                  pointerCursor.enable = true;
                 };
               }
             ];
@@ -280,6 +281,7 @@ in
                 home = {
                   username = "ivand";
                   homeDirectory = "/home/ivand";
+                  pointerCursor.enable = true;
                 };
                 programs = {
                   ssh.settings = {
@@ -517,6 +519,7 @@ in
                 home = {
                   username = "pen";
                   homeDirectory = "/home/pen";
+                  pointerCursor.enable = false;
                 };
                 programs = {
                   git = {
