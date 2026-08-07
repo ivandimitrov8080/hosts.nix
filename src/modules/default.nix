@@ -80,6 +80,7 @@ in
         "John94".psk = "John9401";
         "A1_09BC".psk = "2EE272F553";
         "MEO-C0FBB0".psk = "d3b9847451";
+        "Titanic floor4_2.4G".psk = "hiwenmo1966";
         "ATHENS-HAWKS" = { };
         "RAMADA-SOFIA" = { };
       };
