@@ -202,6 +202,12 @@ in
               libxfixes
               libxkbcommon
               libxrandr
+              libxrender
+              libxtst
+              libxi
+              freetype
+              vulkan-loader
+              libGL
               nspr
               nss
               pango
@@ -390,6 +396,7 @@ in
             enable = true;
             address = "10.0.0.2/24";
           };
+          programs.java.enable = true;
         };
       penetration =
         {
