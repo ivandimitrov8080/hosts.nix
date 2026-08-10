@@ -81,6 +81,7 @@ in
         "A1_09BC".psk = "2EE272F553";
         "MEO-C0FBB0".psk = "d3b9847451";
         "Titanic floor4_2.4G".psk = "hiwenmo1966";
+        "cracky boy 4 floor_2.4G".psk = "05280528";
         "ATHENS-HAWKS" = { };
         "RAMADA-SOFIA" = { };
       };
