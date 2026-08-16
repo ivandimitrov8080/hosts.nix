@@ -83,6 +83,7 @@ in
         "Titanic floor4_2.4G".psk = "hiwenmo1966";
         "cracky boy 4 floor_2.4G".psk = "05280528";
         "sleeppop_2.4G".psk = "sleeppopwifi";
+        "TianTian".psk = "Tian2018";
         "ATHENS-HAWKS" = { };
         "RAMADA-SOFIA" = { };
       };
