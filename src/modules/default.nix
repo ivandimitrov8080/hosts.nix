@@ -323,7 +323,6 @@ in
             })
             simplex-chat-desktop
             kew
-            ladybird
             finalrecon
             emacs-custom
           ];
