@@ -445,7 +445,6 @@ in
               sqlmap
               ffuf
               gobuster
-              wfuzz
               nikto
               # Exploit frameworks / reversing
               metasploit
@@ -477,7 +476,6 @@ in
               openvas-scanner
               prowler
               pacu
-              kube-hunter
               pwntools
               frida-tools
               certipy

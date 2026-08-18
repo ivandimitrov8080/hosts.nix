@@ -84,6 +84,7 @@ rec {
               "steam-unwrapped"
               "steam-run"
               "discord"
+              "discord-unwrapped"
             ];
           systemd = {
             network.networks.wg0 = {
