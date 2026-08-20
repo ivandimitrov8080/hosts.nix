@@ -684,22 +684,6 @@
         "type": "github"
       }
     },
-    "mobile-nixos": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1783912271,
-        "narHash": "sha256-CzwmiKxuh1u+H8hDnrVeUl/fL59PvsgLbr2l0FhqWK0=",
-        "owner": "mobile-nixos",
-        "repo": "mobile-nixos",
-        "rev": "2c132754323fc1915e8d21dcfc0ef68ab084c6fb",
-        "type": "github"
-      },
-      "original": {
-        "owner": "mobile-nixos",
-        "repo": "mobile-nixos",
-        "type": "github"
-      }
-    },
     "neovim-nightly-overlay": {
       "inputs": {
         "flake-parts": "flake-parts_2",
@@ -1213,7 +1197,6 @@
         "flake-compat": "flake-compat",
         "home-manager": "home-manager",
         "metronome": "metronome",
-        "mobile-nixos": "mobile-nixos",
         "neovim-nightly-overlay": "neovim-nightly-overlay_2",
         "nixpkgs": "nixpkgs_3",
         "nixvim": "nixvim",
