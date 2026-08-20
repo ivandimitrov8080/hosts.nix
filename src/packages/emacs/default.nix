@@ -65,6 +65,7 @@ in
       web-mode
       haskell-mode
       nix-mode
+      nushell-mode
       projectile
       magit
       flycheck

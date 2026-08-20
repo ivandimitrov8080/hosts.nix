@@ -112,11 +112,13 @@
 (add-hook 'haskell-mode-hook 'eglot-ensure)
 (add-hook 'js-mode-hook 'eglot-ensure)
 (add-hook 'web-mode-hook 'eglot-ensure)
+(add-hook 'nushell-mode-hook 'eglot-ensure)
 (setq eglot-autoshutdown t)
 (add-to-list 'eglot-server-programs '(nix-mode . ("nixd")))
 (add-to-list 'eglot-server-programs '(elm-mode . ("elm-language-server")))
 (add-to-list 'eglot-server-programs '(haskell-mode . ("haskell-language-server-wrapper" "--lsp")))
 (add-to-list 'eglot-server-programs '(js-mode . ("typescript-language-server" "--stdio")))
+(add-to-list 'eglot-server-programs '(nushell-mode . ("nu" "--lsp")))
 
 (require 'company)
 (add-hook 'after-init-hook 'global-company-mode)
