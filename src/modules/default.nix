@@ -334,7 +334,6 @@ in
             simplex-chat-desktop
             kew
             finalrecon
-            emacs-custom
           ];
           users = {
             users = {
