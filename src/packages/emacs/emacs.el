@@ -250,6 +250,24 @@
 (add-hook 'elm-mode-hook 'rainbow-delimiters-mode)
 (add-hook 'haskell-mode-hook 'rainbow-delimiters-mode)
 
+
+;;; function redeclaration
+
+(with-eval-after-load 'nix-flake
+  (defun nix-flake--installable-command (subcommand options flake-ref attribute
+                                         &optional extra-arguments)
+    (let ((installable (if attribute
+                           (concat (shell-quote-argument flake-ref) "#" attribute)
+                         (shell-quote-argument flake-ref))))
+      (concat nix-executable
+              " "
+              (mapconcat #'shell-quote-argument
+                         (nix-flake--to-list subcommand)
+                         " ")
+              " " installable
+              (if options (concat " " (mapconcat #'shell-quote-argument options " ")) "")
+              (if extra-arguments (concat " -- " extra-arguments) "")))))
+
 ;;; Final setup
 (provide 'emacs)
 ;;; emacs.el ends here
