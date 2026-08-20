@@ -96,9 +96,9 @@ in
       dired-quick-sort
       notmuch
       gptel
+      gptel-agent
       htmlize
       listen
-      gptel-agent
       emigo
       haskell-language-server
       nixd
