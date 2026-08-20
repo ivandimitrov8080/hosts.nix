@@ -100,7 +100,9 @@ in
       htmlize
       listen
       haskell-language-server
+      elmPackages.elm-language-server
       nixd
+      typescript-language-server
       coreutils
       python3Packages.python-lsp-server
       (python3.withPackages (
