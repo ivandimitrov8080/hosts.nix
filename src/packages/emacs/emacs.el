@@ -216,7 +216,10 @@
 (global-set-key (kbd "C-c <up>")    'windmove-up)
 (global-set-key (kbd "C-c <down>")  'windmove-down)
 
-(require 'listen)
+(require 'emms-setup)
+(emms-all)
+(setq emms-player-list '(emms-player-mpv)
+      emms-info-functions '(emms-info-native))
 
 (setq inhibit-startup-screen t)
 (menu-bar-mode -1)

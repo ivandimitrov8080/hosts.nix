@@ -101,7 +101,7 @@ in
       gptel
       gptel-agent
       htmlize
-      listen
+      emms
       haskell-language-server
       elmPackages.elm-language-server
       nixd
