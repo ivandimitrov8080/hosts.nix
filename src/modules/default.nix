@@ -84,6 +84,8 @@ in
         "cracky boy 4 floor_2.4G".psk = "05280528";
         "sleeppop_2.4G".psk = "sleeppopwifi";
         "TianTian".psk = "Tian2018";
+        "BOSS2.2".psk = "boss2549";
+        "Go Inn_2.4GHz".psk = "goinnwifi";
         "ATHENS-HAWKS" = { };
         "RAMADA-SOFIA" = { };
       };
