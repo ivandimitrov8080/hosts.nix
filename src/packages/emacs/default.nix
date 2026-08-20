@@ -99,7 +99,6 @@ in
       gptel-agent
       htmlize
       listen
-      emigo
       haskell-language-server
       nixd
       coreutils
