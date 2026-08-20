@@ -6,6 +6,8 @@
   coreutils,
   nixd,
   haskell-language-server,
+  typescript-language-server,
+  elmPackages,
   emacs-overlay,
   ...
 }:
