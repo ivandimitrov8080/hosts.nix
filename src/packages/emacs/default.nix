@@ -98,6 +98,7 @@ in
       gptel
       htmlize
       listen
+      gptel-agent
       emigo
       haskell-language-server
       nixd

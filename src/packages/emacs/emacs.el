@@ -64,7 +64,10 @@
 
 (require 'gptel)
 (setq gptel-model 'claude-sonnet-4.6
-      gptel-backend (gptel-make-gh-copilot "Copilot"))
+      gptel-backend (gptel-make-gh-copilot "Copilot")
+      gptel-use-tools t)
+
+(require 'gptel-agent)
 
 (require 'emigo)
 (emigo-enable)
