@@ -63,6 +63,11 @@
 (global-set-key (kbd "C-h C") 'helpful-command)
 
 (require 'gptel)
+(require 'mcp)
+(require 'gptel-agent)
+(require 'llm-tool-collection)
+(require 'gptel-integrations)
+
 (setq gptel-model 'gpt-4.1
       gptel-backend (gptel-make-gh-copilot "Copilot")
       gptel-use-tools t
@@ -73,10 +78,18 @@
           (string-prefix-p (expand-file-name root)
                            (expand-file-name file)))))
 
-(require 'gptel-agent)
-(require 'llm-tool-collection)
+(setq mcp-hub-servers
+      '(("filesystem" . (:command "mcp-server-filesystem"
+                         :roots ("/home/ivand/src")))
+        ("fetch" . (:command "mcp-server-fetch"))
+        ("memory" . (:command "mcp-server-memory"))
+        ("sequential-thinking" . (:command "mcp-server-sequential-thinking"))
+        ("time" . (:command "mcp-server-time"))))
+
 (mapcar (apply-partially #'apply #'gptel-make-tool)
         (llm-tool-collection-get-all))
+
+
 
 (require 'avy)
 (global-set-key (kbd "C-:") 'avy-goto-char)

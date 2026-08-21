@@ -9,6 +9,11 @@
   typescript-language-server,
   elmPackages,
   emacs-overlay,
+  mcp-server-fetch,
+  mcp-server-filesystem,
+  mcp-server-sequential-thinking,
+  mcp-server-memory,
+  mcp-server-time,
   ...
 }:
 let
@@ -102,6 +107,7 @@ in
       gptel-agent
       htmlize
       emms
+      mcp
       llm-tool-collection
       haskell-language-server
       elmPackages.elm-language-server
@@ -124,5 +130,10 @@ in
           orjson
         ]
       ))
+      mcp-server-fetch
+      mcp-server-filesystem
+      mcp-server-sequential-thinking
+      mcp-server-memory
+      mcp-server-time
     ];
 })
