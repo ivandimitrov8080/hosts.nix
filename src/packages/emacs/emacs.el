@@ -74,6 +74,9 @@
                            (expand-file-name file)))))
 
 (require 'gptel-agent)
+(require 'llm-tool-collection)
+(mapcar (apply-partially #'apply #'gptel-make-tool)
+        (llm-tool-collection-get-all))
 
 (require 'avy)
 (global-set-key (kbd "C-:") 'avy-goto-char)

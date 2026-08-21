@@ -1,6 +1,7 @@
 {
   stdenv,
   emigo,
+  llm-tool-collection,
   python3,
   python3Packages,
   coreutils,
@@ -102,6 +103,7 @@ in
       gptel-agent
       htmlize
       emms
+      llm-tool-collection
       haskell-language-server
       elmPackages.elm-language-server
       nixd
@@ -124,8 +126,4 @@ in
         ]
       ))
     ];
-
-  override = epkgsSelf: _epkgsSuper: {
-    emigo = emigo.asEmacsPackage epkgsSelf;
-  };
 })
