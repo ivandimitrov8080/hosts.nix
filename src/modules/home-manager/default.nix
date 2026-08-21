@@ -1,4 +1,4 @@
-{ inputs, pkgs }:
+{ inputs, pkgs, config, ... }:
 {
   imports = with inputs.configuration.homeManagerModules; [
     default
@@ -97,6 +97,16 @@
       enable = true;
       latitude = 50.0;
       longitude = 14.41;
+    };
+    mpd = {
+      enable = true;
+      musicDirectory = "${config.xdg.userDirs.music}";
+    };
+    emacs = {
+      enable = true;
+      package = pkgs.emacs-custom;
+      client.enable = true;
+      startWithUserSession = "graphical";
     };
   };
   wayland.windowManager.sway.enable = true;

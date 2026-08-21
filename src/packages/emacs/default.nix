@@ -1,6 +1,5 @@
 {
   stdenv,
-  emigo,
   llm-tool-collection,
   python3,
   python3Packages,

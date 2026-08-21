@@ -66,7 +66,7 @@
 (setq gptel-model 'gpt-4.1
       gptel-backend (gptel-make-gh-copilot "Copilot")
       gptel-use-tools t
-      gptel-tools-allowed '(read write edit insert grep glob))
+      gptel-tools-allowed '(view_buffer edit_buffer replace_buffer buffer_search list_buffers eval_elisp))
 (setq gptel-tools-file-predicate
       (lambda (file)
         (let ((root (or (project-root (project-current)) default-directory)))
@@ -228,8 +228,9 @@
 
 (require 'emms-setup)
 (emms-all)
-(setq emms-player-list '(emms-player-mpv)
-      emms-info-functions '(emms-info-native))
+(require 'emms-player-mpd)
+(setq emms-player-list '(emms-player-mpd)
+      emms-info-functions '(emms-info-mpd))
 
 (setq inhibit-startup-screen t)
 (menu-bar-mode -1)
