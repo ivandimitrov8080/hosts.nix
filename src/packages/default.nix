@@ -20,5 +20,6 @@ in
     xsstrike
     emacs-custom
     emigo
+    llm-tool-collection
     ;
 }
