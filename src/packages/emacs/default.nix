@@ -14,6 +14,7 @@
   mcp-server-sequential-thinking,
   mcp-server-memory,
   mcp-server-time,
+  mcp-nixos,
   ...
 }:
 let
@@ -135,5 +136,6 @@ in
       mcp-server-sequential-thinking
       mcp-server-memory
       mcp-server-time
+      mcp-nixos
     ];
 })

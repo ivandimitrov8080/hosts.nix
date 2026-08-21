@@ -84,7 +84,8 @@
         ("fetch" . (:command "mcp-server-fetch"))
         ("memory" . (:command "mcp-server-memory"))
         ("sequential-thinking" . (:command "mcp-server-sequential-thinking"))
-        ("time" . (:command "mcp-server-time"))))
+        ("time" . (:command "mcp-server-time"))
+        ("nixos" . (:command "mcp-nixos"))))
 
 (mapcar (apply-partially #'apply #'gptel-make-tool)
         (llm-tool-collection-get-all))
