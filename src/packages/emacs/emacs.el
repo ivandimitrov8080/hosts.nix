@@ -63,7 +63,7 @@
 (global-set-key (kbd "C-h C") 'helpful-command)
 
 (require 'gptel)
-(setq gptel-model 'claude-sonnet-4.6
+(setq gptel-model 'claude-sonnet-5.0
       gptel-backend (gptel-make-gh-copilot "Copilot")
       gptel-use-tools t)
 
