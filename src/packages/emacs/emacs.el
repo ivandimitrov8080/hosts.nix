@@ -63,9 +63,15 @@
 (global-set-key (kbd "C-h C") 'helpful-command)
 
 (require 'gptel)
-(setq gptel-model 'claude-sonnet-5.0
+(setq gptel-model 'gpt-4.1
       gptel-backend (gptel-make-gh-copilot "Copilot")
-      gptel-use-tools t)
+      gptel-use-tools t
+      gptel-tools-allowed '(read write edit insert grep glob))
+(setq gptel-tools-file-predicate
+      (lambda (file)
+        (let ((root (or (project-root (project-current)) default-directory)))
+          (string-prefix-p (expand-file-name root)
+                           (expand-file-name file)))))
 
 (require 'gptel-agent)
 
