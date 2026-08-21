@@ -70,13 +70,7 @@
 
 (setq gptel-model 'gpt-4.1
       gptel-backend (gptel-make-gh-copilot "Copilot")
-      gptel-use-tools t
-      gptel-tools-allowed '(view_buffer edit_buffer replace_buffer buffer_search list_buffers eval_elisp))
-(setq gptel-tools-file-predicate
-      (lambda (file)
-        (let ((root (or (project-root (project-current)) default-directory)))
-          (string-prefix-p (expand-file-name root)
-                           (expand-file-name file)))))
+      gptel-use-tools t)
 
 (setq mcp-hub-servers
       '(("filesystem" . (:command "mcp-server-filesystem"
@@ -89,8 +83,6 @@
 
 (mapcar (apply-partially #'apply #'gptel-make-tool)
         (llm-tool-collection-get-all))
-
-
 
 (require 'avy)
 (global-set-key (kbd "C-:") 'avy-goto-char)
