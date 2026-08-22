@@ -98,10 +98,6 @@
       latitude = 50.0;
       longitude = 14.41;
     };
-    mpd = {
-      enable = true;
-      musicDirectory = "${config.xdg.userDirs.music}";
-    };
     emacs = {
       enable = true;
       package = pkgs.emacs-custom;

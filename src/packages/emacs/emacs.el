@@ -234,9 +234,8 @@
 
 (require 'emms-setup)
 (emms-all)
-(require 'emms-player-mpd)
-(setq emms-player-list '(emms-player-mpd)
-      emms-info-functions '(emms-info-mpd))
+(setq emms-player-list '(emms-player-mpv)
+      emms-info-functions '(emms-info-native))
 
 (setq inhibit-startup-screen t)
 (menu-bar-mode -1)
