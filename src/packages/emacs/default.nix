@@ -109,6 +109,8 @@ in
       htmlize
       emms
       mcp
+      telega
+      transmission
       llm-tool-collection
       haskell-language-server
       elmPackages.elm-language-server

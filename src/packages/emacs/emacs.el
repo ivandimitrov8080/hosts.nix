@@ -273,6 +273,13 @@
 (add-hook 'elm-mode-hook 'rainbow-delimiters-mode)
 (add-hook 'haskell-mode-hook 'rainbow-delimiters-mode)
 
+(require 'telega)
+(setq image-type-auto-detectable t)
+(setq telega-use-images t
+      telega-emoji-use-images t)
+(auto-image-file-mode 1)
+
+(require 'transmission)
 
 ;;; function redeclaration
 
