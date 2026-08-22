@@ -72,9 +72,7 @@
       gptel-use-tools t)
 
 (setq mcp-hub-servers
-      '(("filesystem" . (:command "mcp-server-filesystem"
-                         :roots ("/home/ivand/src")))
-        ("fetch" . (:command "mcp-server-fetch"))
+      '(("fetch" . (:command "mcp-server-fetch"))
         ("memory" . (:command "mcp-server-memory"))
         ("sequential-thinking" . (:command "mcp-server-sequential-thinking"))
         ("time" . (:command "mcp-server-time"))
