@@ -1,9 +1,8 @@
-;;; emacs.el --- Minimal Emacs configuration for functional web development -*- lexical-binding: t; -*-
+;;; emacs.el --- Emacs configuration for everything -*- lexical-binding: t; -*-
 
 ;;; Commentary:
-;; A minimal, functional Emacs configuration for Haskell, Elm, and Nix development
+;; Emacs configuration for everything
 ;; Configured to work with emacs-overlay and emacsWithPackagesFromUsePackage
-;; Generated from emacs.org via org-babel-tangle
 
 ;;; Code:
 
