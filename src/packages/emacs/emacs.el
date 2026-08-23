@@ -303,6 +303,15 @@ especially when Emacs runs as a daemon."
               (if options (concat " " (mapconcat #'shell-quote-argument options " ")) "")
               (if extra-arguments (concat " -- " extra-arguments) "")))))
 
+;;; custom commands
+
+(defun emms-mus ()
+  "Starts emms with music directory loaded."
+  (interactive)
+  (emms-play-directory-tree "~/mus/")
+  (emms-shuffle)
+  (emms-start))
+
 ;;; Final setup
 (provide 'emacs)
 ;;; emacs.el ends here

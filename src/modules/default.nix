@@ -87,7 +87,6 @@ in
         "BOSS2.2".psk = "boss2549";
         "Go Inn_2.4GHz".psk = "goinnwifi";
         "Huen High_2.4G".psk = "huenhigh0361";
-        "TeePhak_2.4GHz".psk = "TeePhak5678";
         "ATHENS-HAWKS" = { };
         "RAMADA-SOFIA" = { };
       };
