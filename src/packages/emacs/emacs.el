@@ -286,11 +286,13 @@ especially when Emacs runs as a daemon."
 
 (require 'transmission)
 
+(require 'aggressive-indent)
+
 ;;; function redeclaration
 
 (with-eval-after-load 'nix-flake
   (defun nix-flake--installable-command (subcommand options flake-ref attribute
-                                         &optional extra-arguments)
+                                                    &optional extra-arguments)
     (let ((installable (if attribute
                            (concat (shell-quote-argument flake-ref) "#" attribute)
                          (shell-quote-argument flake-ref))))

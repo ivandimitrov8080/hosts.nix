@@ -111,6 +111,7 @@ in
       mcp
       telega
       transmission
+      aggressive-indent
       llm-tool-collection
       haskell-language-server
       elmPackages.elm-language-server
