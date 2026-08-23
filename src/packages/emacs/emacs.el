@@ -242,15 +242,7 @@
 (show-paren-mode 1)
 (global-display-line-numbers-mode t)
 
-(defun set-alpha-background (frame)
-  "Set alpha transparency for FRAME to 80.
-This makes the background semi-transparent.  Intended for frames created by emacsclient,
-especially when Emacs runs as a daemon."
-  (set-frame-parameter frame 'alpha-background 80))
-
-(add-hook 'after-make-frame-functions #'set-alpha-background)
-
-(set-alpha-background (selected-frame))
+(add-to-list 'default-frame-alist '(alpha-background . 80))
 
 (require 'catppuccin-theme)
 (setq catppuccin-flavor 'mocha)
