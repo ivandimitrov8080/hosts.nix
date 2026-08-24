@@ -4,6 +4,7 @@
   python3,
   python3Packages,
   coreutils,
+  typst,
   nixd,
   haskell-language-server,
   typescript-language-server,
@@ -121,6 +122,7 @@ in
       typescript-language-server
       tinymist
       coreutils
+      typst
       python3Packages.python-lsp-server
       (python3.withPackages (
         ps: with ps; [
