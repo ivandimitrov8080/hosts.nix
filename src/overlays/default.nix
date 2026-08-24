@@ -19,7 +19,7 @@
       mobile-config-firefox = callPackage ../packages/mobile-config-firefox { };
       emigo = callPackage ../packages/emigo { };
       llm-tool-collection = callPackage ../packages/llm-tool-collection { };
-      brave-search-mcp-server = callPackage ../packages/brave-search-mcp-server { };
+      open-webSearch = callPackage ../packages/open-webSearch { };
       emacs-custom = callPackage ../packages/emacs { emacs-overlay = inputs.emacs-overlay; };
     };
   config = inputs.configuration.overlays.default;

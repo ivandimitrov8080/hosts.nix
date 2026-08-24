@@ -21,6 +21,6 @@ in
     emacs-custom
     emigo
     llm-tool-collection
-    brave-search-mcp-server
+    open-webSearch
     ;
 }
