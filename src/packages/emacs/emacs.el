@@ -288,6 +288,7 @@
 (require 'transmission)
 
 (require 'aggressive-indent)
+(add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode)
 
 ;;; function redeclaration
 
