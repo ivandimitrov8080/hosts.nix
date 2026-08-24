@@ -140,7 +140,6 @@ in
         ]
       ))
       mcp-server-fetch
-      mcp-server-filesystem
       mcp-server-sequential-thinking
       mcp-server-memory
       mcp-server-time
