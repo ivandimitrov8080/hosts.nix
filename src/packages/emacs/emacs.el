@@ -76,6 +76,9 @@
         ("memory" . (:command "mcp-server-memory"))
         ("sequential-thinking" . (:command "mcp-server-sequential-thinking"))
         ("time" . (:command "mcp-server-time"))
+        ("git" . (:command "mcp-server-git"))
+        ("github" . (:command "github-mcp-server http"))
+        ("playwright" . (:command "playwright-mcp"))
         ("nixos" . (:command "mcp-nixos"))
         ("websearch" . (:command "open-websearch"))))
 

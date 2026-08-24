@@ -21,6 +21,5 @@ in
     emacs-custom
     emigo
     llm-tool-collection
-    open-webSearch
     ;
 }
