@@ -76,7 +76,8 @@
         ("memory" . (:command "mcp-server-memory"))
         ("sequential-thinking" . (:command "mcp-server-sequential-thinking"))
         ("time" . (:command "mcp-server-time"))
-        ("nixos" . (:command "mcp-nixos"))))
+        ("nixos" . (:command "mcp-nixos"))
+        ("websearch" . (:command "open-websearch"))))
 
 (mapcar (apply-partially #'apply #'gptel-make-tool)
         (llm-tool-collection-get-all))

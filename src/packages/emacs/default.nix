@@ -12,11 +12,11 @@
   elmPackages,
   emacs-overlay,
   mcp-server-fetch,
-  mcp-server-filesystem,
   mcp-server-sequential-thinking,
   mcp-server-memory,
   mcp-server-time,
   mcp-nixos,
+  open-webSearch,
   ...
 }:
 let
@@ -144,5 +144,6 @@ in
       mcp-server-memory
       mcp-server-time
       mcp-nixos
+      open-webSearch
     ];
 })
