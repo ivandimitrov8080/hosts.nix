@@ -125,6 +125,7 @@
 (add-hook 'js-mode-hook 'eglot-ensure)
 (add-hook 'web-mode-hook 'eglot-ensure)
 (add-hook 'nushell-mode-hook 'eglot-ensure)
+(add-hook 'typst-ts-mode-hook 'eglot-ensure)
 (setq eglot-autoshutdown t)
 (add-to-list 'eglot-server-programs '(nix-mode . ("nixd")))
 (add-to-list 'eglot-server-programs '(elm-mode . ("elm-language-server")))

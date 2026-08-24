@@ -72,6 +72,7 @@ in
       haskell-mode
       nix-mode
       nushell-mode
+      typst-ts-mode
       projectile
       magit
       flycheck
