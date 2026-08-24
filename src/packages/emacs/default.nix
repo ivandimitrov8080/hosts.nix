@@ -7,6 +7,7 @@
   nixd,
   haskell-language-server,
   typescript-language-server,
+  tinymist,
   elmPackages,
   emacs-overlay,
   mcp-server-fetch,
@@ -118,6 +119,7 @@ in
       elmPackages.elm-language-server
       nixd
       typescript-language-server
+      tinymist
       coreutils
       python3Packages.python-lsp-server
       (python3.withPackages (

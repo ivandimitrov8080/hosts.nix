@@ -132,6 +132,7 @@
 (add-to-list 'eglot-server-programs '(haskell-mode . ("haskell-language-server-wrapper" "--lsp")))
 (add-to-list 'eglot-server-programs '(js-mode . ("typescript-language-server" "--stdio")))
 (add-to-list 'eglot-server-programs '(nushell-mode . ("nu" "--lsp")))
+(add-to-list 'eglot-server-programs '(typst-ts-mode . ("tinymist")))
 
 (require 'company)
 (add-hook 'after-init-hook 'global-company-mode)
@@ -187,6 +188,9 @@
 (require 'yaml-mode)
 (add-to-list 'auto-mode-alist '("\\.yaml\\'" . yaml-mode))
 (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
+
+(require 'typst-ts-mode)
+(add-to-list 'auto-mode-alist '("\\.typ\\'" . typst-ts-mode))
 
 (require 'org)
 (setq org-startup-indented t
