@@ -21,5 +21,7 @@ in
     emacs-custom
     emigo
     llm-tool-collection
+    docs-nixos
+    docs-hm
     ;
 }
