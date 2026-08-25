@@ -63,7 +63,6 @@ rec {
                     };
                     startup = [
                       { command = "exec ${lib.getExe config.programs.firefox.package}"; }
-                      { command = "swaymsg 'workspace 1; ${pkgs.emacs-custom}/bin/emacsclient'"; }
                     ];
                     assigns = {
                       "2" = [ { app_id = "^${config.programs.firefox.package.meta.mainProgram}$"; } ];
