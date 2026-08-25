@@ -171,6 +171,7 @@ in
             nixvim.main
             transmission_4
             nixfmt
+            ffmpeg
           ];
           fonts = {
             fontDir.enable = true;
