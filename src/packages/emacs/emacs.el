@@ -316,6 +316,11 @@
   (emms-shuffle)
   (emms-start))
 
+(defun doc-home-manager ()
+  "Opens the home-manager website."
+  (interactive)
+  (eww https://nix-community.github.io/home-manager/options/home-manager/index.html))
+
 ;;; Final setup
 (provide 'emacs)
 ;;; emacs.el ends here
