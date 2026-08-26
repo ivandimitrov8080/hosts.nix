@@ -316,6 +316,7 @@
   (emms-shuffle)
   (emms-start))
 
+;;; TODO: make this integrated with the json docs generated in pkgs
 (defun doc-home-manager ()
   "Opens the home-manager website."
   (interactive)
