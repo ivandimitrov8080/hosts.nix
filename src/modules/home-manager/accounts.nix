@@ -106,6 +106,7 @@
               signature-file = builtins.toFile "signature.txt" signature.text;
             };
           };
+          # TODO: make emacs fn that opens the home-manager docs info from json and displays it
           notmuch.enable = true;
           offlineimap.enable = true;
           imapnotify = {
@@ -139,5 +140,32 @@
     pimsync.enable = true;
     msmtp.enable = true;
     khal.enable = true;
+    afew = {
+      enable = true;
+      extraConfig =
+        let
+          spammers = [
+            "linkedin.com"
+            "grafana.com"
+            "bg.econcast.net"
+            "ticketportal.cz"
+            "uber.com"
+            "brightdata.com"
+            "cal.com"
+            "rkc.edu"
+            "office1.bg"
+          ];
+        in
+        ''
+          [SpamFilter]
+
+          [Filter.0]
+          message = Delete all messages from spammers
+          query = ${builtins.concatStringsSep " " (map (x: "from:*@${x}") spammers)}
+          tags = +spam;-inbox;-unread
+
+          [InboxFilter]
+        '';
+    };
   };
 }

@@ -231,6 +231,7 @@
       dired-quick-sort-reverse-last ?n)
 (dired-quick-sort-setup)
 
+(setq notmuch-crypto-process-mime t)
 (autoload 'notmuch "notmuch" "Notmuch mail" t)
 
 (global-set-key (kbd "C-c <left>")  'windmove-left)
