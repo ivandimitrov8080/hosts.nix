@@ -116,7 +116,7 @@
               "wrk"
             ];
             onNotify = "offlineimap";
-            onNotifyPost = "notmuch new && notify-send 'New mail arrived'";
+            onNotifyPost = "notmuch new && afew --tag --new && notify-send 'New mail arrived'";
           };
         };
       };
@@ -130,6 +130,7 @@
         notmuch
         libnotify
         pass
+        afew
       ];
     };
     pimsync.enable = true;
