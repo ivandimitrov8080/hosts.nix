@@ -601,6 +601,7 @@ in
             man.enable = false;
             nixos.enable = false;
           };
+          nix.registry = mkForce { };
           services.nginx.enable = true;
           networking = {
             nftables.enable = true;

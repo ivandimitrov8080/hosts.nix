@@ -118,6 +118,7 @@ in
       telega
       transmission
       aggressive-indent
+      pass
       llm-tool-collection
       haskell-language-server
       elmPackages.elm-language-server

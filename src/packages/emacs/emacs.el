@@ -291,6 +291,8 @@
 (require 'aggressive-indent)
 (add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode)
 
+(require 'pass)
+
 ;;; function redeclaration
 
 (with-eval-after-load 'nix-flake
