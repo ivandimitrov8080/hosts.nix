@@ -40,7 +40,6 @@
       nixosConfigurations = import ./src/configs { inherit inputs; };
       nixosModules = import ./src/modules { inherit inputs; };
       overlays = import ./src/overlays { inherit inputs; };
-      devShells = import ./src/shells { inherit inputs; };
       formatter = import ./src/formatter { inherit inputs; };
       templates = import ./src/templates { inherit inputs; };
       checks.${system} = import ./src/test { inherit inputs system; };

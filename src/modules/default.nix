@@ -168,7 +168,6 @@ in
             };
           };
           environment.systemPackages = with pkgs; [
-            nixvim.main
             transmission_4
             nixfmt
             ffmpeg
