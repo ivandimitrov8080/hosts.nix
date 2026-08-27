@@ -38,6 +38,7 @@ let
     curl
     inetutils
     nmap
+    swaks
   ];
   testUser = {
     users = {
@@ -334,6 +335,27 @@ in
     testScript =
       # py
       ''
+        def test_is_subdomain_internal(subdomain, okText):
+            cmd = f"curl -H 'Host: {subdomain}.idimitrov.dev' -k https://idimitrov.dev | grep '{okText}'"
+            nova.succeed(cmd)
+            spoke2.succeed(cmd)
+            outsider.fail(cmd)
+
+
+        def test_is_subdomain_external(subdomain, okText):
+            cmd = f"curl -H 'Host: {subdomain}.idimitrov.dev' -k https://idimitrov.dev | grep '{okText}'"
+            nova.succeed(cmd)
+            spoke2.succeed(cmd)
+            outsider.succeed(cmd)
+
+
+        def test_is_port_internal(port):
+            cmd = lambda ip: f"nc -w1 {ip} {port}"
+            nova.succeed(cmd('${vpsfreeWgIp}'))
+            spoke2.succeed(cmd('${vpsfreeWgIp}'))
+            outsider.fail(cmd('${vpsfreeInternetIp}'))
+
+
         start_all()
         for m in [router, dns, nova, vpsfree, spoke2, outsider]:
             m.wait_for_unit("default.target")
@@ -363,28 +385,12 @@ in
         outsider.fail("nslookup idimitrov.dev ${vpsfreeWgIp}")
 
 
-
-
         homeOk = "grep 'Home'"
-
         nova.succeed("curl http://idimitrov.dev | grep -o '301'")
         nova.succeed(f"curl -k https://idimitrov.dev | {homeOk}")
 
         outsider.succeed("curl http://idimitrov.dev | grep -o '301'")
         outsider.succeed(f"curl -k https://idimitrov.dev | {homeOk}")
-
-        def test_is_subdomain_internal(subdomain, okText):
-            cmd = f"curl -H 'Host: {subdomain}.idimitrov.dev' -k https://idimitrov.dev | grep '{okText}'"
-            nova.succeed(cmd)
-            spoke2.succeed(cmd)
-            outsider.fail(cmd)
-
-
-        def test_is_subdomain_external(subdomain, okText):
-            cmd = f"curl -H 'Host: {subdomain}.idimitrov.dev' -k https://idimitrov.dev | grep '{okText}'"
-            nova.succeed(cmd)
-            spoke2.succeed(cmd)
-            outsider.succeed(cmd)
 
         test_is_subdomain_internal("mail", "Roundcube Webmail")
         test_is_subdomain_internal("grafana", "Found")
@@ -393,6 +399,13 @@ in
 
         test_is_subdomain_external("metronome", "Metronome")
         test_is_subdomain_external("pic", "Index of /")
+
+        test_is_port_internal(22)
+        test_is_port_internal(993) # imaps
+        test_is_port_internal(465) # smtps
+
+        vpsfree.succeed("swaks --server localhost --quit-after EHLO --to a --protocol SSMTP | rg AUTH")
+        vpsfree.fail("swaks --server localhost --quit-after EHLO --to a --protocol SMTP | rg AUTH")
       '';
   };
 }

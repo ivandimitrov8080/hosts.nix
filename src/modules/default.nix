@@ -597,9 +597,7 @@ in
           };
           services.nginx.enable = true;
           networking = {
-            nftables = {
-              enable = true;
-            };
+            nftables.enable = true;
             firewall = {
               trustedInterfaces = [ "wg0" ];
               allowedTCPPorts = mkForce [
@@ -711,11 +709,11 @@ in
                 ];
                 accounts = {
                   "ivan@idimitrov.dev" = {
-                    hashedPassword = "$2b$05$rTVIQD98ogXeCBKdk/YufulWHqpMCAlb7SHDPlh5y8Xbukoa/uQLm";
+                    hashedPassword = "$2b$05$vJqQ.9lIoTig62sNKmBSVOJK0BQ6jq.dVZZxFEI3.9yQpb23Xgake";
                     aliases = [ "admin@idimitrov.dev" ];
                   };
                   "security@idimitrov.dev" = {
-                    hashedPassword = "$2b$05$rTVIQD98ogXeCBKdk/YufulWHqpMCAlb7SHDPlh5y8Xbukoa/uQLm";
+                    hashedPassword = "$2b$05$vJqQ.9lIoTig62sNKmBSVOJK0BQ6jq.dVZZxFEI3.9yQpb23Xgake";
                   };
                 };
                 x509 = {
@@ -779,7 +777,7 @@ in
               };
               serveStatic = "try_files ${
                 pkgs.lib.strings.concatStringsSep " " (
-                  builtins.map (x: "$uri.${x}") [
+                  map (x: "$uri.${x}") [
                     "html"
                     "txt"
                     "png"

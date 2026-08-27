@@ -19,8 +19,8 @@
         };
         remote = {
           passwordCommand = [
-            "${pkgs.pass}/bin/pass"
-            "vps/mail.idimitrov.dev/ivan@idimitrov.dev"
+            "${pkgs.uutils-coreutils-noprefix}/bin/cat"
+            "/home/ivand/.wg_cred"
           ];
           type = "caldav";
           url = "https://dav.idimitrov.dev";
@@ -54,8 +54,8 @@
           url = "https://dav.idimitrov.dev";
           userName = "ivan@idimitrov.dev";
           passwordCommand = [
-            "${pkgs.pass}/bin/pass"
-            "vps/dav.idimitrov.dev/ivan@idimitrov.dev"
+            "${pkgs.uutils-coreutils-noprefix}/bin/cat"
+            "/home/ivand/.wg_cred"
           ];
         };
       };
@@ -67,7 +67,7 @@
           realName = "Ivan Kirilov Dimitrov";
           address = "ivan@idimitrov.dev";
           userName = address;
-          passwordCommand = "pass vps/mail.idimitrov.dev/ivan@idimitrov.dev";
+          passwordCommand = "${pkgs.uutils-coreutils-noprefix}/bin/cat /home/ivand/.wg_cred";
           msmtp = {
             enable = true;
             extraConfig = {
@@ -116,7 +116,7 @@
               "wrk"
             ];
             onNotify = "offlineimap";
-            onNotifyPost = "notmuch new && afew --tag --new && notify-send 'New mail arrived'";
+            onNotifyPost = "notmuch new && afew --tag --new";
           };
         };
       };
