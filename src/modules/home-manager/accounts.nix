@@ -116,7 +116,7 @@
               "wrk"
             ];
             onNotify = "offlineimap";
-            onNotifyPost = "notmuch new && afew --tag --new";
+            onNotifyPost = "notmuch new";
           };
         };
       };
@@ -136,7 +136,19 @@
     pimsync.enable = true;
   };
   programs = {
-    notmuch.enable = true;
+    notmuch = {
+      enable = true;
+      hooks = {
+        postNew = "afew --tag --new";
+      };
+      new = {
+        tags = [ "new" ];
+      };
+      search.excludeTags = [
+        "trash"
+        "spam"
+      ];
+    };
     aerc.enable = true;
     pimsync.enable = true;
     msmtp.enable = true;
