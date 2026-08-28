@@ -125,7 +125,7 @@
 (require 'eglot)
 (add-hook 'nix-mode-hook 'eglot-ensure)
 (add-hook 'elm-mode-hook 'eglot-ensure)
-(add-hook 'haskell-mode-hook 'eglot-ensure)
+(add-hook 'haskell-ts-mode-hook 'eglot-ensure)
 (add-hook 'js-mode-hook 'eglot-ensure)
 (add-hook 'web-mode-hook 'eglot-ensure)
 (add-hook 'nushell-mode-hook 'eglot-ensure)
@@ -133,7 +133,7 @@
 (setq eglot-autoshutdown t)
 (add-to-list 'eglot-server-programs '(nix-mode . ("nixd")))
 (add-to-list 'eglot-server-programs '(elm-mode . ("elm-language-server")))
-(add-to-list 'eglot-server-programs '(haskell-mode . ("haskell-language-server-wrapper" "--lsp")))
+(add-to-list 'eglot-server-programs '(haskell-ts-mode . ("haskell-language-server-wrapper" "--lsp")))
 (add-to-list 'eglot-server-programs '(js-mode . ("typescript-language-server" "--stdio")))
 (add-to-list 'eglot-server-programs '(nushell-mode . ("nu" "--lsp")))
 (add-to-list 'eglot-server-programs '(typst-ts-mode . ("tinymist")))
@@ -162,10 +162,8 @@
 (add-to-list 'auto-mode-alist '("\\.elm\\'" . elm-mode))
 (setq elm-format-on-save t)
 
-(require 'haskell-mode)
-(add-to-list 'auto-mode-alist '("\\.hs\\'" . haskell-mode))
-(setq haskell-process-type 'cabal-repl
-      haskell-interactive-popup-errors nil)
+(require 'haskell-ts-mode)
+(add-to-list 'auto-mode-alist '("\\.hs\\'" . haskell-ts-mode))
 
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
@@ -278,7 +276,7 @@
 (require 'rainbow-delimiters)
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 (add-hook 'elm-mode-hook 'rainbow-delimiters-mode)
-(add-hook 'haskell-mode-hook 'rainbow-delimiters-mode)
+(add-hook 'haskell-ts-mode-hook 'rainbow-delimiters-mode)
 
 (setq image-type-auto-detectable t)
 (setq telega-use-images t
@@ -292,6 +290,10 @@
 (add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode)
 
 (require 'pass)
+
+(require 'direnv)
+(setq direnv-always-show-summary nil)
+(direnv-mode)
 
 ;;; function redeclaration
 

@@ -74,7 +74,7 @@ in
     epkgs: with epkgs; [
       elm-mode
       web-mode
-      haskell-mode
+      haskell-ts-mode
       nix-mode
       nushell-mode
       typst-ts-mode
@@ -119,6 +119,7 @@ in
       transmission
       aggressive-indent
       pass
+      direnv
       llm-tool-collection
       haskell-language-server
       elmPackages.elm-language-server

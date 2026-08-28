@@ -171,6 +171,7 @@ in
             transmission_4
             nixfmt
             ffmpeg
+            gcc
           ];
           fonts = {
             fontDir.enable = true;
