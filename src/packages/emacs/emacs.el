@@ -202,6 +202,8 @@
       org-src-content-indentation 0
       org-todo-keywords '((sequence "TODO" "FEEDBACK" "VERIFY" "|" "DONE" "DELEGATED"))
       org-log-done 'note)
+(add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
+(add-hook 'org-mode-hook 'org-indent-mode)
 
 (require 'org-tempo)
 
