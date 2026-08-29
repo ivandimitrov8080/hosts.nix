@@ -201,9 +201,11 @@
       org-src-tab-acts-natively t
       org-src-content-indentation 0
       org-todo-keywords '((sequence "TODO" "FEEDBACK" "VERIFY" "|" "DONE" "DELEGATED"))
-      org-log-done 'note)
+      org-log-done 'note
+      org-default-notes-file (concat org-directory "/notes.org"))
 (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
 (add-hook 'org-mode-hook 'org-indent-mode)
+
 
 (require 'org-tempo)
 
