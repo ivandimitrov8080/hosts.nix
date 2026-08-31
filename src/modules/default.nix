@@ -182,6 +182,7 @@ in
               noto-fonts-color-emoji
               noto-fonts-lgc-plus
               emacs-all-the-icons-fonts
+              inter
             ];
           };
           programs = {

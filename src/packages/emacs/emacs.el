@@ -205,7 +205,14 @@
       org-default-notes-file (concat org-directory "/notes.org"))
 (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
 (add-hook 'org-mode-hook 'org-indent-mode)
+(add-hook 'org-mode-hook 'variable-pitch-mode)
 
+(require 'org-modern)
+(add-hook 'org-mode-hook #'org-modern-mode)
+(add-hook 'org-agenda-finalize-hook #'org-modern-agenda)
+
+(require 'org-superstar)
+(add-hook 'org-mode-hook #'org-superstar-mode)
 
 (require 'org-tempo)
 
@@ -250,11 +257,15 @@
 (menu-bar-mode -1)
 (when (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (when (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
-(column-number-mode 1)
-(show-paren-mode 1)
+(column-number-mode t)
+(show-paren-mode t)
 (global-display-line-numbers-mode t)
-
+(global-visual-line-mode t)
 (add-to-list 'default-frame-alist '(alpha-background . 80))
+(custom-theme-set-faces
+ 'user
+ '(variable-pitch ((t (:family "Inter" :height 140 :weight thin))))
+ '(default ((t ( :family "FiraCode Nerd Font Mono" :height 120)))))
 
 (require 'catppuccin-theme)
 (setq catppuccin-flavor 'mocha)
@@ -284,9 +295,11 @@
 
 (setq image-type-auto-detectable t)
 (setq telega-use-images t
-      telega-emoji-use-images t)
+      telega-emoji-font-family "Noto Color Emoji")
 (auto-image-file-mode 1)
 (require 'telega)
+(add-hook 'telega-load-hook 'telega-notifications-mode)
+(add-hook 'telega-load-hook 'telega-autoplay-mode)
 
 (require 'transmission)
 

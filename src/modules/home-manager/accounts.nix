@@ -167,6 +167,7 @@
             "cal.com"
             "rkc.edu"
             "office1.bg"
+            "github.com"
           ];
         in
         ''

@@ -87,6 +87,8 @@ in
       json-mode
       sql-indent
       org
+      org-modern
+      org-superstar
       ob-nix
       tree-sitter
       tree-sitter-langs
