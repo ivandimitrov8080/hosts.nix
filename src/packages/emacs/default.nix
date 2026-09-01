@@ -20,6 +20,7 @@
   playwright-mcp,
   mcp-nixos,
   open-websearch,
+  libwebp,
   ...
 }:
 let
@@ -157,5 +158,6 @@ in
       github-mcp-server
       playwright-mcp
       open-websearch
+      libwebp
     ];
 })
