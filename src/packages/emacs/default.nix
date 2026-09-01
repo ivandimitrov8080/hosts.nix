@@ -112,6 +112,8 @@ in
       undo-tree
       dired-quick-sort
       notmuch
+      request
+      xterm-color
       gptel
       gptel-agent
       htmlize

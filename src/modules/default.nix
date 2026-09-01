@@ -226,6 +226,7 @@ in
             locate.enable = true;
             resolved.enable = true;
             guix.enable = true;
+            libretranslate.enable = true;
           };
           meta = {
             graphicalBoot.enable = true;

@@ -312,6 +312,8 @@
 (setq direnv-always-show-summary nil)
 (direnv-mode)
 
+(require 'xterm-color)
+
 ;;; function redeclaration
 
 (with-eval-after-load 'nix-flake
@@ -339,10 +341,28 @@
   (emms-start))
 
 ;;; TODO: make this integrated with the json docs generated in pkgs
+
+(require 'request)
+
 (defun doc-home-manager ()
   "Opens the home-manager website."
   (interactive)
   (eww https://nix-community.github.io/home-manager/options/home-manager/index.html))
+
+(defun wttr ()
+  "Get the current weather."
+  (interactive)
+  (request "https://wttr.in/Chiang_Mai"
+    :success (cl-function
+              (lambda (&key data &allow-other-keys)
+                (with-current-buffer (get-buffer-create "*wttr*")
+                  (erase-buffer)
+                  (insert data)
+                  (xterm-color-colorize-buffer)
+                  (view-mode)
+                  (pop-to-buffer (current-buffer))
+                  )))))
+
 
 ;;; Final setup
 (provide 'emacs)
