@@ -344,10 +344,10 @@
 
 (require 'request)
 
-(defun doc-home-manager ()
-  "Opens the home-manager website."
+(defun telega-last-screenshot ()
+  "Attaches the last screenshot to telega chat."
   (interactive)
-  (eww https://nix-community.github.io/home-manager/options/home-manager/index.html))
+  (telega-chatbuf-attach-photo (car (last (directory-files "~/pic/ss/" t)))))
 
 (defun wttr ()
   "Get the current weather."
