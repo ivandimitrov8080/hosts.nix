@@ -21,6 +21,7 @@
   mcp-nixos,
   open-websearch,
   libwebp,
+  curl,
   ...
 }:
 let
@@ -116,6 +117,7 @@ in
       request
       xterm-color
       gptel
+      elfeed
       gptel-agent
       htmlize
       emms
@@ -159,5 +161,6 @@ in
       playwright-mcp
       open-websearch
       libwebp
+      curl
     ];
 })

@@ -314,6 +314,17 @@
 
 (require 'xterm-color)
 
+(require 'elfeed)
+(setq elfeed-feeds
+      '(("https://rss.arxiv.org/atom/cs.AI" cs ai)
+        ("https://rss.arxiv.org/atom/cs.CE" cs eng fin sci)
+        ("https://rss.arxiv.org/atom/cs.CY" cs soc)
+        ("https://www.technologyreview.com/topic/artificial-intelligence/feed" cs ai)
+        ("https://cvefeed.io/rssfeed/severity/high.atom" cs cve)))
+(add-hook 'elfeed-new-entry-hook
+          (elfeed-make-tagger :before "2 weeks ago"
+                              :remove 'unread))
+
 ;;; function redeclaration
 
 (with-eval-after-load 'nix-flake
