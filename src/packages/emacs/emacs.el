@@ -333,13 +333,13 @@
           (elfeed-make-tagger :before "2 weeks ago"
                               :remove 'unread))
 
-(defun browse-url-mpv (url &rest _args)
+(defun browse-url-emms (url &rest _args)
   "Automatically open URL in REST mpv."
   (emms-play-url url))
 
 (setq browse-url-handlers
-      `(("youtube\\.com/watch\\?v=.*" . browse-url-mpv)
-        ("youtube\\.com/shorts/.*" . browse-url-mpv)))
+      `(("youtube\\.com/watch\\?v=.*" . browse-url-emms)
+        ("youtube\\.com/shorts/.*" . browse-url-emms)))
 
 ;;; function redeclaration
 
