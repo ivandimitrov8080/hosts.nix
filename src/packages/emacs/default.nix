@@ -22,6 +22,9 @@
   open-websearch,
   libwebp,
   curl,
+  noto-fonts,
+  noto-fonts-color-emoji,
+  noto-fonts-lgc-plus,
   ...
 }:
 let
@@ -162,5 +165,8 @@ in
       open-websearch
       libwebp
       curl
+      noto-fonts
+      noto-fonts-color-emoji
+      noto-fonts-lgc-plus
     ];
 })
