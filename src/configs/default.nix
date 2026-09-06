@@ -85,12 +85,10 @@ rec {
   };
   gaming = nova.extendModules {
     modules = with nixosModules; [
-      penetration
       (
         { pkgs, lib, ... }:
         {
           meta.gaming.enable = true;
-          meta.penetration.enable = true;
           nixpkgs.config = {
             allowUnfree = lib.mkForce false;
           };
@@ -110,21 +108,6 @@ rec {
             };
           };
           environment.systemPackages = with pkgs; [ radeontop ];
-        }
-      )
-    ];
-  };
-  htb = nova.extendModules {
-    modules = with nixosModules; [
-      penetration
-      (
-        { lib, ... }:
-        {
-          meta.penetration.enable = true;
-          meta.wireguard.enable = lib.mkForce false;
-          networking = {
-            nftables.ruleset = lib.mkForce "";
-          };
         }
       )
     ];
