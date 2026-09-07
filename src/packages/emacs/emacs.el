@@ -225,7 +225,13 @@
 (dired-quick-sort-setup)
 
 (setq notmuch-crypto-process-mime t)
+(setq mail-interactive t
+      send-mail-function 'smtpmail-send-it
+      sendmail-program "msmtp"
+      user-mail-address "ivan@idimitrov.dev"
+      user-full-name "Ivan Kirilov Dimitrov")
 (autoload 'notmuch "notmuch" "Notmuch mail" t)
+(add-hook 'notmuch-mua-send-hook #'mml-secure-message-sign-pgpmime)
 
 (global-set-key (kbd "C-c <left>")  'windmove-left)
 (global-set-key (kbd "C-c <right>") 'windmove-right)
