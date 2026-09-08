@@ -67,8 +67,11 @@
 (require 'llm-tool-collection)
 (require 'gptel-integrations)
 
-(setq gptel-model 'gpt-4.1
-      gptel-backend (gptel-make-gh-copilot "Copilot")
+(gptel-make-gh-copilot "Copilot")
+
+(setq gptel-backend (gptel-make-deepseek "Deepseek"
+                      :stream t
+                      :key (password-store-get "dev/deepseek.com/key"))
       gptel-use-tools t)
 
 (setq mcp-hub-servers
