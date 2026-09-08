@@ -74,6 +74,13 @@
                       :key (password-store-get "dev/deepseek.com/key"))
       gptel-use-tools t)
 
+(gptel-make-preset 'websearch
+  :description "Fetches latest web content."
+  :pre (lambda () (gptel-mcp-connect '("websearch" "fetch") 'sync))
+  :tools '("mcp-websearch" "mcp-fetch")
+  :system "Use the provided tools to search the web
+              for up-to-date information")
+
 (setq mcp-hub-servers
       '(("fetch" . (:command "mcp-server-fetch"))
         ("memory" . (:command "mcp-server-memory"))
