@@ -69,6 +69,7 @@
 
 (gptel-make-gh-copilot "Copilot")
 
+
 (setq gptel-backend (gptel-make-deepseek "Deepseek"
                       :stream t
                       :key (password-store-get "dev/deepseek.com/key"))
@@ -76,6 +77,8 @@
 
 (gptel-make-preset 'websearch
   :description "Fetches latest web content."
+  :backend "Deepseek"
+  :model 'deepseek-v4-flash
   :pre (lambda () (gptel-mcp-connect '("websearch" "fetch") 'sync))
   :tools '("mcp-websearch" "mcp-fetch")
   :system "Use the provided tools to search the web

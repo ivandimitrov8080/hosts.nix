@@ -34,6 +34,9 @@
     imv.enable = true;
     kitty.enable = true;
     mpv.enable = true;
+    mpv.config = {
+      save-position-on-quit = "yes";
+    };
     nix-index.enable = true;
     password-store.enable = true;
     rofi.enable = true;
