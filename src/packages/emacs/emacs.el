@@ -324,6 +324,7 @@
 (require 'xterm-color)
 
 (require 'lem)
+(setq lem-instance-url "https://lemmy.zip")
 
 (require 'elfeed)
 (setq elfeed-feeds
