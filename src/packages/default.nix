@@ -11,7 +11,7 @@ let
     ];
   };
   configs = builtins.mapAttrs (
-    name: cfg: cfg.config.system.build.toplevel
+    _name: cfg: cfg.config.system.build.toplevel
   ) inputs.self.nixosConfigurations;
 in
 {

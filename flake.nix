@@ -41,7 +41,6 @@
       nixosModules = import ./src/modules { inherit inputs; };
       overlays = import ./src/overlays { inherit inputs; };
       formatter = import ./src/formatter { inherit inputs; };
-      templates = import ./src/templates { inherit inputs; };
       checks.${system} = import ./src/test { inherit inputs system; };
       packages.${system} = import ./src/packages { inherit inputs system; };
     };

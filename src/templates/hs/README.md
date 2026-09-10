@@ -1,3 +1,0 @@
-# Haskell template
-
-Haskell template

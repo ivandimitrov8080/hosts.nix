@@ -1,15 +1,6 @@
 { inputs }:
 let
   intel = "x86_64-linux";
-  arm = "aarch64-linux";
-  overlays = [
-    inputs.self.overlays.default
-    inputs.self.overlays.config
-  ];
-  armPkgs = import inputs.nixpkgs {
-    inherit overlays;
-    system = arm;
-  };
   nixosModules = inputs.self.nixosModules.default;
   hardwareConfigurations = import ../constants;
   metal = inputs.nixpkgs.lib.nixosSystem {
@@ -54,8 +45,7 @@ rec {
             ...
           }:
           {
-            home-manager.users.ivand = (
-              { lib, config, ... }: {
+            home-manager.users.ivand = { lib, config, ... }: {
                 wayland.windowManager.sway = {
                   config = {
                     keybindings = pkgs.lib.mkOptionDefault {
@@ -76,8 +66,7 @@ rec {
                     };
                   };
                 };
-              }
-            );
+              };
           }
         )
       ])

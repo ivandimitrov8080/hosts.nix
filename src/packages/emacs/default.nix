@@ -32,7 +32,7 @@ let
   emacs-unstable-pgtk = emacs-overlay.packages.${system}.emacs-unstable-pgtk;
   emacsWithPackagesFromUsePackage = emacs-overlay.lib.${system}.emacsWithPackagesFromUsePackage;
 in
-(emacsWithPackagesFromUsePackage {
+emacsWithPackagesFromUsePackage {
   # Your Emacs config file. Org mode babel files are also
   # supported.
   # NB: Config files cannot contain unicode characters, since
@@ -168,4 +168,4 @@ in
       noto-fonts-color-emoji
       noto-fonts-lgc-plus
     ];
-})
+}

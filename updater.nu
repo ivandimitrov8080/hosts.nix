@@ -1,11 +1,7 @@
 let repos = ["idimitrov.dev", "ndlm", "metronome", "hosts.nix"]
 def notify_tg [msg: string] {
     let url = $"https://api.telegram.org/bot($env.TG_BOT_TOKEN)/sendMessage"
-    let body = {
-        chat_id: $env.TG_BOT_CHAT_ID
-        text: $msg
-        disable_notification: false
-    }
+    let body = {chat_id: $env.TG_BOT_CHAT_ID, text: $msg, disable_notification: false}
     http post --content-type application/json $url $body
 }
 def update_flake [flake_path: string] {
@@ -31,10 +27,6 @@ def update_flake [flake_path: string] {
             break
         }
     }
-    return {
-        result: $result
-        err: $err
-        flake_path: $flake_path
-    }
+    return {result: $result, err: $err, flake_path: $flake_path}
 }
 $repos | each {|r| update_flake $"~/src/($r)" }
