@@ -35,7 +35,7 @@ let
             desc = "Kill";
             cmd = # nu
               ''
-                ps | select pid name | (to tsv -n | rofi -dmenu -i -p "ee") | from tsv -n | get 0.column0 | kill -9 $in
+                ps | select pid name | sort-by pid | (to tsv -n | rofi -dmenu -i -p "kill -9") | from tsv -n | get 0.column0 | kill -9 $in
               '';
           }
         ];
