@@ -142,6 +142,7 @@
     pimsync.enable = true;
     msmtp.enable = true;
     khal.enable = true;
+    offlineimap.enable = true;
     afew = {
       enable = true;
       extraConfig =

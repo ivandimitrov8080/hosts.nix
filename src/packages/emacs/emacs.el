@@ -323,6 +323,8 @@
 
 (require 'xterm-color)
 
+(require 'lem)
+
 (require 'elfeed)
 (setq elfeed-feeds
       '(("https://rss.arxiv.org/atom/cs.AI" cs ai)
