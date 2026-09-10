@@ -257,6 +257,7 @@
 (global-set-key (kbd "C-c <down>")  'windmove-down)
 
 (require 'emms-setup)
+(require 'emms-history)
 (emms-all)
 (setq emms-player-list '(emms-player-mpv)
       emms-info-functions '(emms-info-native))
