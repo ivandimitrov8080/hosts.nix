@@ -73,6 +73,7 @@
 (setq gptel-backend (gptel-make-deepseek "Deepseek"
                       :stream t
                       :key (password-store-get "dev/deepseek.com/key"))
+      gptel-model 'deepseek-v4-flash
       gptel-use-tools t)
 
 (gptel-make-preset 'websearch
@@ -83,6 +84,13 @@
   :tools '("mcp-websearch" "mcp-fetch")
   :system "Use the provided tools to search the web
               for up-to-date information")
+
+(gptel-make-preset 'advice
+  :description "Gives advice."
+  :backend "Deepseek"
+  :model 'deepseek-v4-flash
+  :tools '("view_buffer")
+  :system "You are an AI assistant tasked with giving constructive advice.")
 
 (setq mcp-hub-servers
       '(("fetch" . (:command "mcp-server-fetch"))
