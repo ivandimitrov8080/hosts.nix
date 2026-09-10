@@ -216,9 +216,6 @@
 (add-hook 'org-mode-hook #'org-modern-mode)
 (add-hook 'org-agenda-finalize-hook #'org-modern-agenda)
 
-(require 'org-superstar)
-(add-hook 'org-mode-hook #'org-superstar-mode)
-
 (require 'org-tempo)
 
 (org-babel-do-load-languages
@@ -301,8 +298,6 @@
 
 (require 'rainbow-delimiters)
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
-(add-hook 'elm-mode-hook 'rainbow-delimiters-mode)
-(add-hook 'haskell-ts-mode-hook 'rainbow-delimiters-mode)
 
 (setq image-type-auto-detectable t)
 (setq telega-use-images t

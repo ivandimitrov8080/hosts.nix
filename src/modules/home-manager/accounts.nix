@@ -96,16 +96,6 @@
             host = "mail.idimitrov.dev";
             authentication = "login";
           };
-          aerc = {
-            enable = true;
-            smtpAuth = "login";
-            imapAuth = "auth";
-            extraAccounts = {
-              default = "INBOX";
-              restrict-delete = true;
-              signature-file = builtins.toFile "signature.txt" signature.text;
-            };
-          };
           # TODO: make emacs fn that opens the home-manager docs info from json and displays it
           notmuch.enable = true;
           offlineimap.enable = true;
@@ -149,7 +139,6 @@
         "spam"
       ];
     };
-    aerc.enable = true;
     pimsync.enable = true;
     msmtp.enable = true;
     khal.enable = true;
