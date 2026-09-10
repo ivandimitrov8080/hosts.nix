@@ -27,5 +27,5 @@ in
     docs-nixos
     docs-hm
     ;
-  inherit configs;
 }
+// configs
