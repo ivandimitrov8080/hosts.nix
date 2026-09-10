@@ -21,72 +21,12 @@ in
           AllowedIPs = [ "10.0.0.2/32" ];
         }
         {
-          PublicKey = "RqTsFxFCcgYsytcDr+jfEoOA5UNxa1ZzGlpx6iuTpXY=";
-          AllowedIPs = [ "10.0.0.3/32" ];
-        }
-        {
-          PublicKey = "1nfOCubuMXC9ZSCvXOIBer9LZoftmXFDFIOia9jr1jY=";
-          AllowedIPs = [ "10.0.0.4/32" ];
-        }
-        {
           PublicKey = "IDe1MPtS46c2iNcE+VrOSUpOVGMXjqFl+XV5Z5U+DDI=";
           AllowedIPs = [ "10.0.0.5/32" ];
         }
-        {
-          PublicKey = "SSmh0nbM8gVDAF5i41DI19quG/RUfPWkYpqmTgHgGDo=";
-          AllowedIPs = [ "10.0.0.6/32" ];
-        }
       ];
       wirelessNetworks = {
-        "Smart-Hostel-2.4".psk = "smarttrans.bg";
-        "Yohohostel2.4G".psk = "kaskamaska";
-        "Nomado_Guest".psk = "welcomehome";
-        "HostelMusala Uni".psk = "mhostelm";
-        "BOUTIQUE APARTMENTS".psk = "boutique26";
-        "Safestay".psk = "AlldayrooftopBAR";
-        "HOSTEL JASMIN 2".psk = "Jasmin2024";
-        "HOME".psk = "iloveprague";
-        "Vodafone-B925".psk = "7aGh3FE6pN4p4cu6";
-        "O2WIFIZ_EXT".psk = "iloveprague";
-        "KOTEKLAN_GUEST".psk = "koteklankotek";
-        "TP-Link_BE7A".psk = "84665461";
-        "Post120".psk = "9996663333";
-        "MOONLIGHT2019".psk = "seacrets";
-        "Kaiser Terrasse".psk = "Internet12";
-        "bumshakalaka".psk = "locomotive420";
         "3G".psk = "bumshakalaka";
-        "LeevinGuest".psk = "L33v1nGhF4ro";
-        "FaroStation".psk = "riaformosa";
-        "blablaloby".psk = "1234512345";
-        "blablafloor2".psk = "1234512345";
-        "Uspeh".psk = "101076233";
-        "Welcome".psk = "slavqnska95";
-        "HOTEL-3".psk = "BRIONI2024";
-        "The Eye".psk = "11111111";
-        "TP-LINK_9F14".psk = "72041543";
-        "Largo_Guest".psk = "1122334455";
-        "Gore".psk = "1234567890";
-        "Jack Sparrow".psk = "11111111";
-        "Toncho Mitev".psk = "mazda626";
-        "Vivacom_FiberNet-44F2".psk = "d3PtFcg96M";
-        "hotel Riverside***".psk = "07282623";
-        "4U Apartment".psk = "4u4u4u4u";
-        "TP-Link_AP3".psk = "42559061";
-        "Maria_Luiza_125".psk = "Ml125_fl4_ap98!";
-        "Eva".psk = "12345678";
-        "Pliska8".psk = "pliska88";
-        "John94".psk = "John9401";
-        "A1_09BC".psk = "2EE272F553";
-        "MEO-C0FBB0".psk = "d3b9847451";
-        "Titanic floor4_2.4G".psk = "hiwenmo1966";
-        "cracky boy 4 floor_2.4G".psk = "05280528";
-        "sleeppop_2.4G".psk = "sleeppopwifi";
-        "TianTian".psk = "Tian2018";
-        "BOSS2.2".psk = "boss2549";
-        "Go Inn_2.4GHz".psk = "goinnwifi";
-        "Huen High_2.4G".psk = "huenhigh0361";
-        "ATHENS-HAWKS" = { };
-        "RAMADA-SOFIA" = { };
       };
       # TODO: make something similar for vps where it can also send dns traffic back to wireguard peers
       blockDnsExceptDnscrypt = ''
@@ -167,7 +107,6 @@ in
           };
           environment.systemPackages = with pkgs; [
             transmission_4
-            nixfmt
             ffmpeg
             gcc
           ];
@@ -185,7 +124,6 @@ in
           };
           programs = {
             git.enable = true;
-            gtklock.enable = true;
             zoxide.enable = true;
             zsh.enable = true;
             nix-ld.enable = true;
@@ -346,16 +284,7 @@ in
           hardware.bluetooth.enable = true;
           time.timeZone = "Europe/Prague";
           environment.systemPackages = with pkgs; [
-            (makeDesktopItem {
-              name = "telegram";
-              desktopName = "Telegram";
-              exec = "env ${pkgs.telegram-desktop}/bin/Telegram -- %U";
-              terminal = false;
-              icon = "${pkgs.telegram-desktop}/share/icons/hicolor/128x128/apps/org.telegram.desktop.png";
-            })
             simplex-chat-desktop
-            kew
-            finalrecon
           ];
           users = {
             users = {
@@ -443,9 +372,8 @@ in
           imports = with inputs; [
             simple-nixos-mailserver.nixosModules.default
           ];
-          networking.hostName = "vpsfree";
+          networking.hostName = "idimitrov.dev";
           meta = {
-            shells.enable = true;
             dnscrypt.enable = true;
             mail.enable = true;
             bingwp.enable = true;
@@ -511,13 +439,6 @@ in
             };
             radicale = {
               enable = true;
-              package = pkgs.radicale.overrideAttrs (old: {
-                postPatch = (old.postPatch or "") + ''
-                  dir=$out/${pkgs.python3.sitePackages}/radicale/web/internal_data/
-                  mkdir -p $dir
-                  cp -r "${pkgs.python3Packages.radicale-infcloud}/${pkgs.python3.sitePackages}/radicale_infcloud/web" "$dir/infcloud"
-                '';
-              });
               settings = {
                 server = {
                   hosts = [ "127.0.0.1:5232" ];
@@ -725,14 +646,6 @@ in
                       ${serveStatic}
                     '';
                   };
-                  locations."/nix/" = {
-                    root = "/var";
-
-                    extraConfig = ''
-                      autoindex on;
-                      ${serveStatic}
-                    '';
-                  };
                 };
                 "pic.idimitrov.dev" = tls // {
                   listenAddresses = [
@@ -788,44 +701,15 @@ in
             services.update-geoip =
               let
                 outDir = "/var/lib/geoip";
+                url = "https://github.com/sapics/ip-location-db/releases/download/latest";
                 exec =
                   pkgs.writers.writeNuBin "exec"
                     # nu
                     ''
-                      let tmp = "/tmp/geoip"
-                      let dir = "${outDir}"
-                      let jsdeliver_cache = "https://cdn.jsdelivr.net/npm/"
-                      let jsdeliver_data = "https://data.jsdelivr.com/v1/packages/npm/"
-                      let iptoasn_asn = "@ip-location-db/iptoasn-asn-mmdb"
-                      let iptoasn_country = "@ip-location-db/iptoasn-country-mmdb"
-                      mkdir $dir
-                      mkdir $tmp
-                      def has_newer_version [] {
-                        let version_file = $"($dir)/version"
-                        let tag1 = (http get $"($jsdeliver_data)($iptoasn_country)" | get tags.latest | split column . | get column2.0 | into datetime -f '%Y%m%d%H')
-                        let tag2 = (http get $"($jsdeliver_data)($iptoasn_asn)" | get tags.latest | split column . | get column2.0 | into datetime -f '%Y%m%d%H')
-                        let current = (open $version_file | into datetime)
-                        if ($tag1 == $tag2 and $tag1 > $current) {
-                            $tag1 | save -f $"($tmp)/version"
-                            print $"Newer version available: ($tag1)"
-                            return true
-                        } else {
-                            print $"No new version. Current version: ($tag1)"
-                            return false
-                        }
-                      }
-                      if (not (has_newer_version)) {
-                        print "Version check did not find a new version. Exiting..."
-                        exit 0
-                      }
-                      http get --raw --max-time 69min $"($jsdeliver_cache)($iptoasn_asn)/iptoasn-asn-ipv4.mmdb" | save --raw -f $"($tmp)/iptoasn-asn-ipv4.mmdb"
-                      http get --raw --max-time 69min $"($jsdeliver_cache)($iptoasn_country)/iptoasn-country-ipv4.mmdb" | save --raw -f $"($tmp)/iptoasn-country-ipv4.mmdb"
-                      http get --raw --max-time 69min $"($jsdeliver_cache)($iptoasn_asn)/iptoasn-asn-ipv6.mmdb" | save --raw -f $"($tmp)/iptoasn-asn-ipv6.mmdb"
-                      http get --raw --max-time 69min $"($jsdeliver_cache)($iptoasn_country)/iptoasn-country-ipv6.mmdb" | save --raw -f $"($tmp)/iptoasn-country-ipv6.mmdb"
-                      cp ($"($tmp)/*" | into glob) ${outDir}
-                      chown -R nginx:users $dir
-                      rm -rf $tmp
-                      print "Successfully updated geoip data."
+                      http get --raw --max-time 69min $"${url}/iptoasn-asn-ipv4.mmdb" | save --raw -f $"${outDir}/iptoasn-asn-ipv4.mmdb"
+                      http get --raw --max-time 69min $"${url}/iptoasn-country-ipv4.mmdb" | save --raw -f $"${outDir}/iptoasn-country-ipv4.mmdb"
+                      http get --raw --max-time 69min $"${url}/iptoasn-asn-ipv6.mmdb" | save --raw -f $"${outDir}/iptoasn-asn-ipv6.mmdb"
+                      http get --raw --max-time 69min $"${url}/iptoasn-country-ipv6.mmdb" | save --raw -f $"${outDir}/iptoasn-country-ipv6.mmdb"
                     '';
               in
               {
@@ -842,7 +726,7 @@ in
               update-geoip = {
                 wantedBy = [ "timers.target" ];
                 timerConfig = {
-                  OnCalendar = "*:5/10";
+                  OnCalendar = "*-*-* 10:00:00";
                   Persistent = true;
                 };
               };
