@@ -69,7 +69,7 @@ in
             ];
           };
           system.stateVersion = pkgs.lib.trivial.release;
-          users.defaultUserShell = pkgs.zsh;
+          users.defaultUserShell = pkgs.nushell;
         };
       wg = _: {
         meta.wireguard = {
@@ -282,7 +282,7 @@ in
             ];
           };
           hardware.bluetooth.enable = true;
-          time.timeZone = "Europe/Prague";
+          time.timeZone = "UTC";
           environment.systemPackages = with pkgs; [
             simplex-chat-desktop
           ];
@@ -372,7 +372,7 @@ in
           imports = with inputs; [
             simple-nixos-mailserver.nixosModules.default
           ];
-          networking.hostName = "idimitrov.dev";
+          networking.hostName = "vpsfree";
           meta = {
             dnscrypt.enable = true;
             mail.enable = true;
