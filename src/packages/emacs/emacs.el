@@ -301,7 +301,8 @@
 
 (setq image-type-auto-detectable t)
 (setq telega-use-images t
-      telega-emoji-font-family "Noto Color Emoji")
+      telega-emoji-font-family (font-spec :family "Noto Color Emoji")
+      telega-emoji-use-images nil)
 (auto-image-file-mode 1)
 (require 'telega)
 (add-hook 'telega-load-hook 'telega-notifications-mode)
