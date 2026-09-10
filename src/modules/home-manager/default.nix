@@ -30,6 +30,7 @@
     fzf.enable = true;
     gh.enable = true;
     git.enable = true;
+    git.settings.core.excludesFile = "/home/ivand/.gitignore";
     gpg.enable = true;
     imv.enable = true;
     kitty.enable = true;
