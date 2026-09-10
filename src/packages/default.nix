@@ -10,6 +10,9 @@ let
       emacs
     ];
   };
+  configs = builtins.mapAttrs (
+    name: cfg: cfg.config.system.build.toplevel
+  ) inputs.self.nixosConfigurations;
 in
 {
   inherit (pkgs)
@@ -24,4 +27,5 @@ in
     docs-nixos
     docs-hm
     ;
+  inherit configs;
 }
