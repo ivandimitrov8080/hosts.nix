@@ -27,6 +27,7 @@
   noto-fonts-lgc-plus,
   pandoc,
   discount,
+  tree,
   ...
 }:
 let
@@ -173,5 +174,6 @@ emacsWithPackagesFromUsePackage {
       noto-fonts-lgc-plus
       pandoc
       discount
+      tree
     ];
 }
