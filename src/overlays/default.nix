@@ -19,7 +19,7 @@
       mobile-config-firefox = callPackage ../packages/mobile-config-firefox { };
       emigo = callPackage ../packages/emigo { };
       llm-tool-collection = callPackage ../packages/llm-tool-collection { };
-      docs-nixos = inputs.self.nixosConfigurations.gaming.config.system.build.manual.optionsJSON;
+      docs-nixos = inputs.self.nixosConfigurations.nova.config.system.build.manual.optionsJSON;
       docs-hm = inputs.home-manager.packages.${prev.stdenv.hostPlatform.system}.docs-json;
       emacs-custom = callPackage ../packages/emacs { inherit (inputs) emacs-overlay; };
     };

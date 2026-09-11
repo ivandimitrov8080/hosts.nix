@@ -25,6 +25,8 @@
   noto-fonts,
   noto-fonts-color-emoji,
   noto-fonts-lgc-plus,
+  pandoc,
+  discount,
   ...
 }:
 let
@@ -168,5 +170,7 @@ emacsWithPackagesFromUsePackage {
       noto-fonts
       noto-fonts-color-emoji
       noto-fonts-lgc-plus
+      pandoc
+      discount
     ];
 }

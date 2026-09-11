@@ -190,7 +190,6 @@
 (require 'markdown-mode)
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
-(setq markdown-command "pandoc")
 
 (require 'yaml-mode)
 (add-to-list 'auto-mode-alist '("\\.yaml\\'" . yaml-mode))
@@ -300,7 +299,6 @@
 (require 'rainbow-delimiters)
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
-(setq image-type-auto-detectable t)
 (setq telega-use-images t
       telega-emoji-font-family (font-spec :family "Noto Color Emoji")
       telega-emoji-use-images nil)
