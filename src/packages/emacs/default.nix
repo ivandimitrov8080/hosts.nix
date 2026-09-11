@@ -82,6 +82,7 @@ emacsWithPackagesFromUsePackage {
       elm-mode
       web-mode
       haskell-ts-mode
+      rust-mode
       nix-mode
       nushell-mode
       typst-ts-mode

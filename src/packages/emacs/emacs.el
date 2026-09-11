@@ -163,6 +163,9 @@
 (require 'nix-mode)
 (add-to-list 'auto-mode-alist '("\\.nix\\'" . nix-mode))
 
+(require 'rust-mode)
+(add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
+
 (require 'elm-mode)
 (add-to-list 'auto-mode-alist '("\\.elm\\'" . elm-mode))
 (setq elm-format-on-save t)
@@ -428,6 +431,7 @@
 (add-hook 'web-mode-hook 'eglot-ensure)
 (add-hook 'nushell-mode-hook 'eglot-ensure)
 (add-hook 'typst-ts-mode-hook 'eglot-ensure)
+(add-hook 'rust-mode-hook 'eglot-ensure)
 (setq eglot-autoshutdown t)
 (add-to-list 'eglot-server-programs '(nix-mode . ("nixd")))
 (add-to-list 'eglot-server-programs '(elm-mode . ("elm-language-server")))
@@ -435,6 +439,7 @@
 (add-to-list 'eglot-server-programs '(js-mode . ("typescript-language-server" "--stdio")))
 (add-to-list 'eglot-server-programs '(nushell-mode . ("nu" "--lsp")))
 (add-to-list 'eglot-server-programs '(typst-ts-mode . ("tinymist")))
+(add-to-list 'eglot-server-programs '(rust-mode . ("rust-analyzer")))
 
 ;;; Final setup
 (provide 'emacs)
