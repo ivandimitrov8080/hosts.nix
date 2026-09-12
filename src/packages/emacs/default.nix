@@ -128,7 +128,6 @@ emacsWithPackagesFromUsePackage {
       htmlize
       emms
       mcp
-      lem
       telega
       transmission
       aggressive-indent

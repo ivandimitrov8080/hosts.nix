@@ -249,7 +249,10 @@
       send-mail-function 'smtpmail-send-it
       sendmail-program "msmtp"
       user-mail-address "ivan@idimitrov.dev"
-      user-full-name "Ivan Kirilov Dimitrov")
+      user-full-name "Ivan Kirilov Dimitrov"
+      shr-use-colors nil
+      shr-blocked-images ".*"
+      shr-inhibit-images t)
 (autoload 'notmuch "notmuch" "Notmuch mail" t)
 (add-hook 'notmuch-mua-send-hook #'mml-secure-message-sign-pgpmime)
 
@@ -323,9 +326,6 @@
 (direnv-mode)
 
 (require 'xterm-color)
-
-(require 'lem)
-(setq lem-instance-url "https://lemmy.zip")
 
 (require 'elfeed)
 (setq elfeed-feeds
