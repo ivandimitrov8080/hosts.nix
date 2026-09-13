@@ -297,6 +297,7 @@ in
                   "adm"
                   "audio"
                   "bluetooth"
+                  "wpa_supplicant"
                   "dialout"
                   "input"
                   "kvm"
@@ -342,6 +343,8 @@ in
             };
             wireless = {
               enable = true;
+              allowAuxiliaryImperativeNetworks = true;
+              userControlled = true;
               networks = wirelessNetworks;
             };
             stevenblack = {
