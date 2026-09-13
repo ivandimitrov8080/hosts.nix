@@ -265,7 +265,11 @@
 (require 'emms-history)
 (emms-all)
 (setq emms-player-list '(emms-player-mpv)
-      emms-info-functions '(emms-info-native))
+      emms-info-functions '(emms-info-native)
+      emms-browser-covers #'emms-browser-cache-thumbnail-async
+      emms-browser-thumbnail-small-size 64
+      emms-browser-thumbnail-medium-size 128)
+(emms-history-load)
 
 (setq inhibit-startup-screen t)
 (menu-bar-mode -1)
