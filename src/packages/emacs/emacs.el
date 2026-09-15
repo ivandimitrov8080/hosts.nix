@@ -72,7 +72,7 @@
 
 (setq gptel-backend (gptel-make-deepseek "Deepseek"
                       :stream t
-                      :key (password-store-get "dev/deepseek.com/key"))
+                      :key (lambda () (password-store-get "dev/deepseek.com/key")))
       gptel-model 'deepseek-v4-flash
       gptel-use-tools t)
 
