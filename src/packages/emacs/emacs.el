@@ -396,7 +396,7 @@
 (defun wttr ()
   "Get the current weather."
   (interactive)
-  (request "https://wttr.in/Chiang_Mai"
+  (request "https://wttr.in/Da_Nang"
     :success (cl-function
               (lambda (&key data &allow-other-keys)
                 (with-current-buffer (get-buffer-create "*wttr*")
