@@ -37,10 +37,10 @@
       system = "x86_64-linux";
     in
     {
-      nixosConfigurations = import ./src/configs { inherit inputs; };
+      nixosConfigurations = import ./src/configs.nix { inherit inputs; };
+      overlays = import ./src/overlays.nix { inherit inputs; };
+      formatter = import ./src/formatter.nix { inherit inputs; };
       nixosModules = import ./src/modules { inherit inputs; };
-      overlays = import ./src/overlays { inherit inputs; };
-      formatter = import ./src/formatter { inherit inputs; };
       checks.${system} = import ./src/test { inherit inputs system; };
       packages.${system} = import ./src/packages { inherit inputs system; };
     };
