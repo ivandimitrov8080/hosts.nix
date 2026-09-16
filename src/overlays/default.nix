@@ -11,12 +11,7 @@
         package = inputs.neovim-nightly-overlay.packages.${stdenv.hostPlatform.system}.default;
       };
       which-key = callPackage ../packages/which-key { };
-      twvtodo = callPackage ../packages/twvtodo { };
-      xsstrike = callPackage ../packages/xsstrike { };
-      myMpvScripts = callPackage ../packages/mpvScripts { };
       xin = callPackage ../packages/xin { };
-      mobile-config-firefox = callPackage ../packages/mobile-config-firefox { };
-      emigo = callPackage ../packages/emigo { };
       llm-tool-collection = callPackage ../packages/llm-tool-collection { };
       docs-nixos = inputs.self.nixosConfigurations.nova.config.system.build.manual.optionsJSON;
       docs-hm = inputs.home-manager.packages.${prev.stdenv.hostPlatform.system}.docs-json;
