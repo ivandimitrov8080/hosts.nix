@@ -17,12 +17,7 @@ in
 {
   inherit (pkgs)
     hello
-    twvtodo
-    mobile-config-firefox
-    finalrecon
-    xsstrike
     emacs-custom
-    emigo
     llm-tool-collection
     docs-nixos
     docs-hm
