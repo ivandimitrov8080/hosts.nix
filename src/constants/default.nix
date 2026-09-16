@@ -13,11 +13,8 @@
             "sd_mod"
             "sdhci_pci"
           ];
-          kernelModules = [ ];
           luks.devices."nixos".device = "/dev/disk/by-uuid/712dd8ba-d5b4-438a-9a77-663b8c935cfe";
         };
-        kernelModules = [ "kvm-intel" ];
-        extraModulePackages = [ ];
       };
       fileSystems = {
         "/" = {
@@ -35,9 +32,6 @@
           ];
         };
       };
-      swapDevices = [ ];
       networking.useNetworkd = lib.mkDefault true;
-      nixpkgs.hostPlatform = lib.mkForce "x86_64-linux";
-      hardware.cpu.intel.updateMicrocode = true;
     };
 }
