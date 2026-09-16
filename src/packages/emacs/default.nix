@@ -117,6 +117,7 @@ emacsWithPackagesFromUsePackage {
       expand-region
       doom-modeline
       rainbow-delimiters
+      vterm
       smartparens
       undo-tree
       dired-quick-sort
