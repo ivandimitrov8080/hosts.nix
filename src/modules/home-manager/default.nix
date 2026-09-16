@@ -50,7 +50,7 @@
     waybar.enable = true;
     yazi.enable = true;
     zoxide.enable = true;
-    zsh.enable = true;
+    nushell.enable = true;    zsh.enable = true;
     opencode = {
       enable = true;
       agents = {
@@ -88,12 +88,6 @@
           };
         };
       };
-    };
-    nushell = {
-      enable = true;
-      extraConfig = pkgs.lib.mkAfter ''
-        use ${pkgs.xin}/bin/xin
-      '';
     };
   };
   services = {

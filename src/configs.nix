@@ -2,7 +2,7 @@
 let
   intel = "x86_64-linux";
   nixosModules = inputs.self.nixosModules.default;
-  hardwareConfigurations = import ../constants;
+  hardwareConfigurations = import ./constants.nix;
   metal = inputs.nixpkgs.lib.nixosSystem {
     modules = with nixosModules; [
       default

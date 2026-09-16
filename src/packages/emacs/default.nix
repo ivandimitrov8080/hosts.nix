@@ -28,6 +28,7 @@
   pandoc,
   discount,
   tree,
+  nixfmt,
   ...
 }:
 let
@@ -174,5 +175,6 @@ emacsWithPackagesFromUsePackage {
       pandoc
       discount
       tree
+      nixfmt
     ];
 }
