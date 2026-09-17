@@ -75,29 +75,13 @@
       gptel-model 'deepseek-v4-flash
       gptel-use-tools t)
 
-(gptel-make-preset 'websearch
-  :description "Fetches latest web content."
-  :backend "Deepseek"
-  :model 'deepseek-v4-flash
-  :pre (lambda () (gptel-mcp-connect '("websearch" "fetch") 'sync))
-  :tools '("mcp-websearch" "mcp-fetch")
-  :system "Use the provided tools to search the web
-              for up-to-date information")
-
-(gptel-make-preset 'advice
-  :description "Gives advice."
-  :backend "Deepseek"
-  :model 'deepseek-v4-flash
-  :tools '("view_buffer")
-  :system "You are an AI assistant tasked with giving constructive advice.")
-
 (setq mcp-hub-servers
       '(("fetch" . (:command "mcp-server-fetch"))
         ("memory" . (:command "mcp-server-memory"))
         ("sequential-thinking" . (:command "mcp-server-sequential-thinking"))
         ("time" . (:command "mcp-server-time"))
         ("git" . (:command "mcp-server-git"))
-        ("github" . (:command "github-mcp-server http"))
+        ("github" . (:command "github-mcp-server" :args ("http")))
         ("playwright" . (:command "playwright-mcp"))
         ("nixos" . (:command "mcp-nixos"))
         ("websearch" . (:command "open-websearch"))))
