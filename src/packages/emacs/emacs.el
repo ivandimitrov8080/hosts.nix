@@ -64,7 +64,6 @@
 (require 'gptel)
 (require 'mcp)
 (require 'gptel-agent)
-(require 'llm-tool-collection)
 (require 'gptel-integrations)
 
 (gptel-make-gh-copilot "Copilot")
@@ -102,9 +101,6 @@
         ("playwright" . (:command "playwright-mcp"))
         ("nixos" . (:command "mcp-nixos"))
         ("websearch" . (:command "open-websearch"))))
-
-(mapcar (apply-partially #'apply #'gptel-make-tool)
-        (llm-tool-collection-get-all))
 
 (require 'avy)
 (global-set-key (kbd "C-:") 'avy-goto-char)

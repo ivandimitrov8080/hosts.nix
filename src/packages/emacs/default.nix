@@ -1,6 +1,5 @@
 {
   stdenv,
-  llm-tool-collection,
   python3,
   python3Packages,
   coreutils,
@@ -135,7 +134,6 @@ emacsWithPackagesFromUsePackage {
       aggressive-indent
       pass
       direnv
-      llm-tool-collection
       haskell-language-server
       elmPackages.elm-language-server
       nixd

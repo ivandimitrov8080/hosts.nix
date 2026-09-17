@@ -18,7 +18,6 @@ in
   inherit (pkgs)
     hello
     emacs-custom
-    llm-tool-collection
     docs-nixos
     docs-hm
     ;
