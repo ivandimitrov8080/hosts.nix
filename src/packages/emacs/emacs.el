@@ -329,9 +329,6 @@
           (elfeed-make-tagger :before "2 weeks ago"
                               :remove 'unread))
 
-(require 'proxy-mode)
-
-
 (defun browse-url-emms (url &rest _args)
   "Automatically open URL in REST mpv."
   (emms-play-url url))

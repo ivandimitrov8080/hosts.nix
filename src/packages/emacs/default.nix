@@ -120,7 +120,6 @@ emacsWithPackagesFromUsePackage {
       vterm
       smartparens
       undo-tree
-      proxy-mode
       dired-quick-sort
       notmuch
       request
