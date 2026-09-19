@@ -1,5 +1,6 @@
 {
   stdenv,
+  lib,
   python3,
   python3Packages,
   coreutils,
@@ -119,6 +120,7 @@ emacsWithPackagesFromUsePackage {
       vterm
       smartparens
       undo-tree
+      proxy-mode
       dired-quick-sort
       notmuch
       request
@@ -175,5 +177,20 @@ emacsWithPackagesFromUsePackage {
       discount
       tree
       nixfmt
+
+      # Magit-style browser for the home-manager options.json that `docs-hm`
+      # provides; see hm-options.el.
+      (trivialBuild {
+        pname = "hm-options";
+        version = "0.1.0";
+        src = lib.fileset.toSource {
+          root = ./.;
+          fileset = ./hm-options.el;
+        };
+        packageRequires = [
+          magit-section
+          transient
+        ];
+      })
     ];
 }

@@ -81,7 +81,6 @@
         ("sequential-thinking" . (:command "mcp-server-sequential-thinking"))
         ("time" . (:command "mcp-server-time"))
         ("git" . (:command "mcp-server-git"))
-        ("github" . (:command "github-mcp-server" :args ("http")))
         ("playwright" . (:command "playwright-mcp"))
         ("nixos" . (:command "mcp-nixos"))
         ("websearch" . (:command "open-websearch"))))
@@ -330,6 +329,9 @@
           (elfeed-make-tagger :before "2 weeks ago"
                               :remove 'unread))
 
+(require 'proxy-mode)
+
+
 (defun browse-url-emms (url &rest _args)
   "Automatically open URL in REST mpv."
   (emms-play-url url))
@@ -364,7 +366,9 @@
   (emms-shuffle)
   (emms-start))
 
-;;; TODO: make this integrated with the json docs generated in pkgs
+;;; home-manager options browser
+
+(require 'hm-options)
 
 (require 'request)
 
@@ -406,6 +410,11 @@
                     (view-mode 1)
                     (pop-to-buffer (current-buffer))
                     ))))))
+
+(defun rebuild ()
+  "Rebuild nixos."
+  (interactive)
+  (async-shell-command "nixos-rebuild switch --flake ~/src/hosts.nix#nova --profile-name nova --sudo --ask-sudo-password"))
 
 (require 'eglot)
 (add-hook 'nix-mode-hook 'eglot-ensure)
