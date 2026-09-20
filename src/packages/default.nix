@@ -20,6 +20,7 @@ in
     emacs-custom
     docs-nixos
     docs-hm
+    ndlm
     ;
 }
 // configs

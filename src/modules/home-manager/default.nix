@@ -50,7 +50,8 @@
     waybar.enable = true;
     yazi.enable = true;
     zoxide.enable = true;
-    nushell.enable = true;    zsh.enable = true;
+    nushell.enable = true;
+    zsh.enable = true;
     opencode = {
       enable = true;
       agents = {

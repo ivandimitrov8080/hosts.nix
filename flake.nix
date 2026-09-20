@@ -2,6 +2,9 @@
   inputs = {
     # configuration.url = "git+file:///home/ivand/src/configuration.nix";
     configuration.url = "github:ivandimitrov8080/configuration.nix";
+    # declarative disk partitioning
+    disko.url = "github:nix-community/disko/latest";
+    disko.inputs.nixpkgs.follows = "nixpkgs";
     # nixpkgs
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     # flake-compat to use this flake in configuration.nix
