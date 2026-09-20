@@ -29,6 +29,7 @@
   discount,
   tree,
   nixfmt,
+  ghc,
   ...
 }:
 let
@@ -157,6 +158,12 @@ emacsWithPackagesFromUsePackage {
           scipy
           litellm
           orjson
+        ]
+      ))
+      (ghc.withPackages (
+        hp: with hp; [
+          notmuch
+          mime
         ]
       ))
       mcp-server-fetch

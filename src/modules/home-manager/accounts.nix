@@ -96,7 +96,6 @@
             host = "mail.idimitrov.dev";
             authentication = "login";
           };
-          # TODO: make emacs fn that opens the home-manager docs info from json and displays it
           notmuch.enable = true;
           offlineimap.enable = true;
           imapnotify = {
@@ -129,7 +128,10 @@
     notmuch = {
       enable = true;
       hooks = {
-        postNew = "afew --tag --new";
+        postNew = ''
+          ${pkgs.notmuch-ics-import}/bin/notmuch-ics-import
+          afew --tag --new
+        '';
       };
       new = {
         tags = [ "new" ];
@@ -143,6 +145,7 @@
     msmtp.enable = true;
     khal = {
       enable = true;
+      settings.default.default_calendar = "ivand1";
       locale = {
         dateformat = "%Y-%m-%d";
         longdateformat = "%Y-%m-%d";

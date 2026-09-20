@@ -21,6 +21,7 @@ in
     docs-nixos
     docs-hm
     ndlm
+    notmuch-ics-import
     ;
 }
 // configs
