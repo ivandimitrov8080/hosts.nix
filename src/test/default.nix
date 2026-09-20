@@ -365,6 +365,7 @@ in
             m.wait_for_unit("dnscrypt-proxy.service")
 
         vpsfree.wait_for_unit("grafana.service")
+        vpsfree.wait_for_unit("sshd.service")
         vpsfree.wait_for_open_port(34321, "127.0.0.1")
 
         vpsfree.wait_until_succeeds("nslookup idimitrov.dev ${vpsfreeWgIp} | grep -F ${vpsfreeWgIp}")
