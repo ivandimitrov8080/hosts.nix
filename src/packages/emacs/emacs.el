@@ -310,6 +310,10 @@
 
 (require 'xterm-color)
 
+(require 'khalel)
+(setq khalel-import-org-file (concat org-directory "/calendar.org"))
+(add-to-list 'org-agenda-files (concat org-directory "/calendar.org"))
+
 (require 'elfeed)
 (setq elfeed-feeds
       '(("https://rss.arxiv.org/atom/cs.AI" cs ai)

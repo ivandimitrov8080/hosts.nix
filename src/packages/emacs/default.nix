@@ -127,6 +127,7 @@ emacsWithPackagesFromUsePackage {
       gptel
       elfeed
       gptel-agent
+      khalel
       htmlize
       emms
       mcp

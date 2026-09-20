@@ -141,7 +141,14 @@
     };
     pimsync.enable = true;
     msmtp.enable = true;
-    khal.enable = true;
+    khal = {
+      enable = true;
+      locale = {
+        dateformat = "%Y-%m-%d";
+        longdateformat = "%Y-%m-%d";
+        timeformat = "%H:%M";
+      };
+    };
     offlineimap.enable = true;
     afew = {
       enable = true;
