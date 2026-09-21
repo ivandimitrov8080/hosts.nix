@@ -12,13 +12,9 @@
   elmPackages,
   emacs-overlay,
   mcp-server-fetch,
-  mcp-server-sequential-thinking,
-  mcp-server-memory,
+  mcp-server-filesystem,
   mcp-server-time,
   mcp-server-git,
-  github-mcp-server,
-  playwright-mcp,
-  mcp-nixos,
   open-websearch,
   libwebp,
   curl,
@@ -166,13 +162,9 @@ emacsWithPackagesFromUsePackage {
         ]
       ))
       mcp-server-fetch
-      mcp-server-sequential-thinking
-      mcp-server-memory
+      mcp-server-filesystem
       mcp-server-time
-      mcp-nixos
       mcp-server-git
-      github-mcp-server
-      playwright-mcp
       open-websearch
       libwebp
       curl

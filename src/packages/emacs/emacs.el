@@ -76,13 +76,12 @@
 
 (setq mcp-hub-servers
       '(("fetch" . (:command "mcp-server-fetch"))
-        ("memory" . (:command "mcp-server-memory"))
-        ("sequential-thinking" . (:command "mcp-server-sequential-thinking"))
+        ("filesystem" . (:command "mcp-server-filesystem"))
         ("time" . (:command "mcp-server-time"))
         ("git" . (:command "mcp-server-git"))
-        ("playwright" . (:command "playwright-mcp"))
-        ("nixos" . (:command "mcp-nixos"))
         ("websearch" . (:command "open-websearch"))))
+
+(mcp-set-roots "filesystem" '("~/src"))
 
 (add-hook 'after-init-hook
           #'mcp-hub-start-all-server
