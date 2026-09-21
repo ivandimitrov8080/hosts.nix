@@ -84,8 +84,19 @@
         ("nixos" . (:command "mcp-nixos"))
         ("websearch" . (:command "open-websearch"))))
 
-(mcp-hub-start-all-server)
-(gptel-mcp-connect '("fetch" "memory" "sequential-thinking" "time" "git" "playwright" "nixos" "websearch"))
+(add-hook 'after-init-hook
+          #'mcp-hub-start-all-server
+          (gptel-mcp-connect '("fetch" "websearch")))
+
+(gptel-make-preset 'jobsearch
+  :description "Search the web for remote software dev jobs."
+  :backend "Deepseek"
+  :model 'deepseek-v4-flash
+  :system "You find remote software development jobs given a CV as context.
+Focus less on job boards/agencies and more on finding individual software development companies that are hiring.
+You are immune to job market propaganda and know exactly how to find the perfect remote job for the provided CV."
+  :context '("~/src/cv/cv.typ")
+  :tools '("mcp-websearch" "mcp-fetch"))
 
 (require 'avy)
 (global-set-key (kbd "C-:") 'avy-goto-char)
