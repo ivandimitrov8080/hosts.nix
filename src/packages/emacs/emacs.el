@@ -84,6 +84,9 @@
         ("nixos" . (:command "mcp-nixos"))
         ("websearch" . (:command "open-websearch"))))
 
+(mcp-hub-start-all-server)
+(gptel-mcp-connect '("fetch" "memory" "sequential-thinking" "time" "git" "playwright" "nixos" "websearch"))
+
 (require 'avy)
 (global-set-key (kbd "C-:") 'avy-goto-char)
 (global-set-key (kbd "C-'") 'avy-goto-char-2)
