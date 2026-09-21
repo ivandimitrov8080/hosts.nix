@@ -127,7 +127,6 @@ emacsWithPackagesFromUsePackage {
       xterm-color
       gptel
       elfeed
-      gptel-agent
       khalel
       htmlize
       emms

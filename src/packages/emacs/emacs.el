@@ -63,7 +63,6 @@
 
 (require 'gptel)
 (require 'mcp)
-(require 'gptel-agent)
 (require 'gptel-integrations)
 
 (gptel-make-gh-copilot "Copilot")
