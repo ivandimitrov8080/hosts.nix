@@ -435,8 +435,6 @@ You are immune to job market propaganda and know exactly how to find the perfect
   (async-shell-command "nixos-rebuild switch --flake ~/src/hosts.nix#nova --profile-name nova --sudo --ask-sudo-password"))
 
 (require 'eglot)
-(add-hook 'eglot-managed-mode-hook #'display-line-numbers-mode)
-(add-hook 'emacs-lisp-mode-hook #'display-line-numbers-mode)
 (add-hook 'nix-mode-hook 'eglot-ensure)
 (add-hook 'elm-mode-hook 'eglot-ensure)
 (add-hook 'haskell-ts-mode-hook 'eglot-ensure)
@@ -453,6 +451,8 @@ You are immune to job market propaganda and know exactly how to find the perfect
 (add-to-list 'eglot-server-programs '(nushell-mode . ("nu" "--lsp")))
 (add-to-list 'eglot-server-programs '(typst-ts-mode . ("tinymist")))
 (add-to-list 'eglot-server-programs '(rust-mode . ("rust-analyzer")))
+
+(add-hook 'prog-mode-hook #'display-line-numbers-mode)
 
 ;;; Final setup
 (provide 'emacs)
