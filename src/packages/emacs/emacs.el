@@ -8,21 +8,13 @@
 
 (setq user-emacs-directory "~/.config/emacs")
 
-(require 'no-littering)
-(when (and (fboundp 'startup-redirect-eln-cache)
-           (fboundp 'native-comp-available-p)
-           (native-comp-available-p))
-  (startup-redirect-eln-cache
-   (convert-standard-filename
-    (expand-file-name  "var/eln-cache/" user-emacs-directory))))
-
 (setq-default
  indent-tabs-mode nil               ; Use spaces, not tabs
  tab-width 2                        ; 2-space indentation
  fill-column 80                     ; 80 character line width
  require-final-newline t)           ; Ensure files end with newline
 
-(setq custom-file (no-littering-expand-etc-file-name "custom.el"))
+(setq custom-file (concat user-emacs-directory "custom.el"))
 
 (when (file-exists-p custom-file)
   (load custom-file))
@@ -143,10 +135,6 @@ You are immune to job market propaganda and know exactly how to find the perfect
 (require 'recentf)
 (recentf-mode 1)
 (setq recentf-max-saved-items 100)
-(add-to-list 'recentf-exclude
-             (recentf-expand-file-name no-littering-var-directory))
-(add-to-list 'recentf-exclude
-             (recentf-expand-file-name no-littering-etc-directory))
 
 (require 'company)
 (add-hook 'after-init-hook 'global-company-mode)
