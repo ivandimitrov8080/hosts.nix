@@ -85,7 +85,7 @@
 
 (add-hook 'after-init-hook
           #'mcp-hub-start-all-server
-          (gptel-mcp-connect '("fetch" "websearch")))
+          (gptel-mcp-connect '("fetch" "websearch" "filesystem" "time" "git")))
 
 (gptel-make-preset 'jobsearch
   :description "Search the web for remote software dev jobs."
