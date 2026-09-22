@@ -379,11 +379,18 @@ You are immune to job market propaganda and know exactly how to find the perfect
 ;;; custom commands
 
 (defun emms-mus ()
-  "Starts emms with music directory loaded."
+  "Loads emms with music directory."
   (interactive)
-  (emms-play-directory-tree "~/mus/")
+  (emms-playlist-current-clear)
+  (emms-add-directory-tree "~/mus/")
   (emms-shuffle)
   (emms-start))
+
+(defun emms-shows ()
+  "Loads emms with shows directory."
+  (interactive)
+  (emms-playlist-current-clear)
+  (emms-add-directory-tree "~/shows/"))
 
 ;;; home-manager options browser
 
