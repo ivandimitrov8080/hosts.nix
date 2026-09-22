@@ -104,6 +104,7 @@
     emacs = {
       enable = true;
       package = pkgs.emacs-custom;
+      extraOptions = [ "--init-directory=~/.config/emacs" ];
       defaultEditor = true;
       client.enable = true;
       startWithUserSession = true;
