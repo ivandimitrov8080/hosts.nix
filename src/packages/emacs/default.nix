@@ -26,6 +26,7 @@
   tree,
   nixfmt,
   ghc,
+  exiftool,
   ...
 }:
 let
@@ -175,6 +176,7 @@ emacsWithPackagesFromUsePackage {
       discount
       tree
       nixfmt
+      exiftool
 
       # Magit-style browser for the home-manager options.json that `docs-hm`
       # provides; see hm-options.el.
