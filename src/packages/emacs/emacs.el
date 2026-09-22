@@ -235,8 +235,10 @@ You are immune to job market propaganda and know exactly how to find the perfect
       dired-quick-sort-reverse-last ?n)
 (dired-quick-sort-setup)
 
-(setq notmuch-crypto-process-mime t)
-
+(setq notmuch-crypto-process-mime t
+      notmuch-hello-auto-refresh t
+      notmuch-saved-searches '((:name "inbox" :query "tag:inbox" :key "i")
+                               (:name "unread" :query "tag:unread" :key "u")))
 (setq mail-interactive t
       send-mail-function 'smtpmail-send-it
       sendmail-program "msmtp"
@@ -247,6 +249,8 @@ You are immune to job market propaganda and know exactly how to find the perfect
       shr-inhibit-images t)
 (autoload 'notmuch "notmuch" "Notmuch mail" t)
 (add-hook 'notmuch-mua-send-hook #'mml-secure-message-sign-pgpmime)
+(with-eval-after-load 'notmuch
+  (setq notmuch-search-history nil))
 
 (global-set-key (kbd "C-c <left>")  'windmove-left)
 (global-set-key (kbd "C-c <right>") 'windmove-right)
