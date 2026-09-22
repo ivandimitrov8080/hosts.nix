@@ -261,11 +261,18 @@ You are immune to job market propaganda and know exactly how to find the perfect
 (require 'emms-setup)
 (require 'emms-history)
 (emms-all)
+(defun emms-track-desc (track)
+  "Show TRACK in a nicer format."
+  (let ((name (emms-track-name track)))
+    (if (and name (eq (emms-track-type track) 'file))
+        (file-name-nondirectory name)
+      name)))
 (setq emms-player-list '(emms-player-mpv)
       emms-info-functions '(emms-info-native)
       emms-browser-covers #'emms-browser-cache-thumbnail-async
       emms-browser-thumbnail-small-size 64
-      emms-browser-thumbnail-medium-size 128)
+      emms-browser-thumbnail-medium-size 128
+      emms-track-description-function #'emms-track-desc)
 (emms-history-load)
 
 (setq inhibit-startup-screen t)
