@@ -436,6 +436,7 @@ You are immune to job market propaganda and know exactly how to find the perfect
 
 (require 'eglot)
 (add-hook 'eglot-managed-mode-hook #'display-line-numbers-mode)
+(add-hook 'emacs-lisp-mode-hook #'display-line-numbers-mode)
 (add-hook 'nix-mode-hook 'eglot-ensure)
 (add-hook 'elm-mode-hook 'eglot-ensure)
 (add-hook 'haskell-ts-mode-hook 'eglot-ensure)
