@@ -273,7 +273,6 @@ You are immune to job market propaganda and know exactly how to find the perfect
 (when (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 (column-number-mode t)
 (show-paren-mode t)
-(global-display-line-numbers-mode t)
 (global-visual-line-mode t)
 (add-to-list 'default-frame-alist '(alpha-background . 80))
 (custom-theme-set-faces
@@ -435,6 +434,7 @@ You are immune to job market propaganda and know exactly how to find the perfect
   (async-shell-command "nixos-rebuild switch --flake ~/src/hosts.nix#nova --profile-name nova --sudo --ask-sudo-password"))
 
 (require 'eglot)
+(add-hook 'eglot-managed-mode-hook #'display-line-numbers-mode)
 (add-hook 'nix-mode-hook 'eglot-ensure)
 (add-hook 'elm-mode-hook 'eglot-ensure)
 (add-hook 'haskell-ts-mode-hook 'eglot-ensure)
