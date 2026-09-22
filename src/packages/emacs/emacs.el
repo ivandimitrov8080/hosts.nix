@@ -126,8 +126,7 @@ You are immune to job market propaganda and know exactly how to find the perfect
 
 (require 'undo-tree)
 (global-undo-tree-mode)
-(setq undo-tree-auto-save-history t
-      undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo")))
+(setq undo-tree-auto-save-history t)
 
 (require 'savehist)
 (savehist-mode)
