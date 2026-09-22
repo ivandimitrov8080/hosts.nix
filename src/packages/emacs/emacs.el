@@ -64,7 +64,7 @@
 (require 'gptel)
 (require 'mcp)
 (require 'gptel-integrations)
-
+(setq gptel-log-level 'info)
 (gptel-make-gh-copilot "Copilot")
 
 
@@ -236,6 +236,7 @@ You are immune to job market propaganda and know exactly how to find the perfect
 (dired-quick-sort-setup)
 
 (setq notmuch-crypto-process-mime t)
+
 (setq mail-interactive t
       send-mail-function 'smtpmail-send-it
       sendmail-program "msmtp"
