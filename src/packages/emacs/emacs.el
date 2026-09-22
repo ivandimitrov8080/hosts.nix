@@ -261,12 +261,18 @@ You are immune to job market propaganda and know exactly how to find the perfect
 (require 'emms-setup)
 (require 'emms-history)
 (emms-all)
+(defun emms-track-video-p (track)
+  "Non-nil if TRACK is a video file."
+  (and (eq (emms-track-type track) 'file)
+       (member (downcase (or (file-name-extension
+                              (emms-track-name track)) ""))
+               '("mp4" "mkv" "webm" "avi" "mov" "m4v" "flv"))))
 (defun emms-track-desc (track)
   "Show TRACK in a nicer format."
   (let ((name (emms-track-name track)))
-    (if (and name (eq (emms-track-type track) 'file))
+    (if (emms-track-video-p track)
         (file-name-nondirectory name)
-      name)))
+      (emms-info-track-description track))))
 (setq emms-player-list '(emms-player-mpv)
       emms-info-functions '(emms-info-native)
       emms-browser-covers #'emms-browser-cache-thumbnail-async
