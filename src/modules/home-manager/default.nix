@@ -104,8 +104,9 @@
     emacs = {
       enable = true;
       package = pkgs.emacs-custom;
+      defaultEditor = true;
       client.enable = true;
-      startWithUserSession = "graphical";
+      startWithUserSession = true;
     };
   };
   wayland.windowManager.sway.enable = true;

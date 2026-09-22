@@ -116,6 +116,7 @@ emacsWithPackagesFromUsePackage {
       rainbow-delimiters
       vterm
       smartparens
+      no-littering
       undo-tree
       dired-quick-sort
       notmuch
