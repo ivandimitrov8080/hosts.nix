@@ -22,6 +22,8 @@ in
     docs-hm
     ndlm
     notmuch-ics-import
+    ladybird
+    dnscrypt-proxy
     ;
 }
 // configs

@@ -6,7 +6,7 @@
 
 ;;; Code:
 
-(setq user-emacs-directory "~/.config/emacs")
+(setq user-emacs-directory "~/.config/emacs/")
 
 (setq-default
  indent-tabs-mode nil               ; Use spaces, not tabs
@@ -241,7 +241,7 @@ You are immune to job market propaganda and know exactly how to find the perfect
       notmuch-saved-searches '((:name "inbox" :query "tag:inbox" :key "i")
                                (:name "unread" :query "tag:unread" :key "u")))
 (setq mail-interactive t
-      send-mail-function 'smtpmail-send-it
+      send-mail-function 'sendmail-send-it
       sendmail-program "msmtp"
       user-mail-address "ivan@idimitrov.dev"
       user-full-name "Ivan Kirilov Dimitrov"

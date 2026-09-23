@@ -155,6 +155,7 @@ in
               nss
               pango
             ];
+            ladybird.enable = true;
           };
           services = {
             pipewire.enable = true;
