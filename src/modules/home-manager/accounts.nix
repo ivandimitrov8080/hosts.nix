@@ -170,6 +170,8 @@
             "github.com"
             "snowflake.com"
             "proxify.io"
+            "toptal.com"
+            "onetravelspecials.com"
           ];
         in
         ''
