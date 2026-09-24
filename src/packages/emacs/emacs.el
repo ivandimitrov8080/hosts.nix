@@ -83,8 +83,11 @@
         ("git" . (:command "mcp-server-git"))
         ("websearch" . (:command "open-websearch"))))
 
+(mcp-set-roots "filesystem" '("~/src"))
+
 (add-hook 'after-init-hook
-          (gptel-mcp-connect '("fetch" "websearch")))
+          #'mcp-hub-start-all-server
+          (gptel-mcp-connect '("fetch" "websearch" "filesystem" "time" "git")))
 
 (gptel-make-preset 'jobsearch
   :description "Search the web for remote software dev jobs."
@@ -148,10 +151,6 @@ You are immune to job market propaganda and know exactly how to find the perfect
 (projectile-mode +1)
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 (add-to-list 'projectile-project-root-files "flake.nix")
-(add-hook 'projectile-after-switch-project-hook
-          (lambda ()
-            (mcp-set-roots "filesystem" '(projectile-project-root))
-            (gptel-mcp-connect '("filesystem" "git"))))
 
 (require 'nix-mode)
 (add-to-list 'auto-mode-alist '("\\.nix\\'" . nix-mode))
