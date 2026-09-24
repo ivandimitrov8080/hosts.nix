@@ -168,6 +168,8 @@
             "rkc.edu"
             "office1.bg"
             "github.com"
+            "snowflake.com"
+            "proxify.io"
           ];
         in
         ''
