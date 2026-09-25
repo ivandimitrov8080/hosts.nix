@@ -8,6 +8,13 @@
     default
   ];
   xdg.enable = true;
+  xdg.mimeApps.defaultApplications = {
+    "text/html" = "org.ladybird.Ladybird.desktop";
+    "x-scheme-handler/http" = "org.ladybird.Ladybird.desktop";
+    "x-scheme-handler/https" = "org.ladybird.Ladybird.desktop";
+    "x-scheme-handler/about" = "org.ladybird.Ladybird.desktop";
+    "x-scheme-handler/unknown" = "org.ladybird.Ladybird.desktop";
+  };
   home.packages = with pkgs; [
     devenv
     vit

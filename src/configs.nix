@@ -106,10 +106,10 @@ in
                   "Mod4+o" = "exec ${pkgs.which-key}/bin/which-key";
                 };
                 startup = [
-                  { command = "exec ${lib.getExe config.programs.firefox.package}"; }
+                  { command = "exec Ladybird"; }
                 ];
                 assigns = {
-                  "2" = [ { app_id = "^${config.programs.firefox.package.meta.mainProgram}$"; } ];
+                  "2" = [ { app_id = "^org.ladybird.Ladybird$"; } ];
                 };
                 input = {
                   "*" = {
