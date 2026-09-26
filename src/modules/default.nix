@@ -27,6 +27,7 @@ in
       ];
       wirelessNetworks = {
         "3G".psk = "bumshakalaka";
+        "BEAR".psk = "68686868";
       };
       # TODO: make something similar for vps where it can also send dns traffic back to wireguard peers
       blockDnsExceptDnscrypt = ''
@@ -71,14 +72,14 @@ in
           system.stateVersion = pkgs.lib.trivial.release;
           users.defaultUserShell = pkgs.nushell;
         };
-      wg = _: {
+      wg = { lib, ... }: {
         meta.wireguard = {
           inherit peers dns;
         };
         networking.nameservers = [ dns ];
         networking.nftables = {
           enable = true;
-          ruleset = blockDnsExceptDnscrypt;
+          ruleset = lib.mkDefault blockDnsExceptDnscrypt;
         };
         services.resolved = {
           settings = {

@@ -30,6 +30,7 @@ in
           vpsadminos.nixosConfigurations.containerUnstable
         ];
         _module.args.system = intel;
+        networking.nftables.ruleset = "";
       }
     ];
   };
