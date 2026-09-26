@@ -364,9 +364,7 @@ in
         for m in [dns, vpsfree]:
             m.wait_for_unit("dnscrypt-proxy.service")
 
-        vpsfree.wait_for_unit("grafana.service")
         vpsfree.wait_for_unit("sshd.service")
-        vpsfree.wait_for_open_port(34321, "127.0.0.1")
 
         vpsfree.wait_until_succeeds("nslookup idimitrov.dev ${vpsfreeWgIp} | grep -F ${vpsfreeWgIp}")
         dns.wait_until_succeeds("nslookup idimitrov.dev ${dnsInternetIp} | grep -F ${vpsfreeInternetIp}")
@@ -394,7 +392,6 @@ in
         outsider.succeed(f"curl -k https://idimitrov.dev | {homeOk}")
 
         test_is_subdomain_internal("mail", "Roundcube Webmail")
-        test_is_subdomain_internal("grafana", "Found")
         test_is_subdomain_internal("dav", "Redirected to /.web")
         test_is_subdomain_internal("rspamd", "Rspamd Web Interface")
 

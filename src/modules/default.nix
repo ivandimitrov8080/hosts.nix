@@ -385,10 +385,6 @@ in
               enable = true;
               address = "10.0.0.1/24";
             };
-            grafana = {
-              enable = true;
-              domain = "grafana.idimitrov.dev";
-            };
           };
           documentation = {
             enable = false;
@@ -674,12 +670,6 @@ in
                     extraConfig = ''
                       autoindex on;
                     '';
-                  };
-                };
-                "grafana.idimitrov.dev" = tls // {
-                  locations."/" = {
-                    proxyPass = "http://127.0.0.1:34321";
-                    proxyWebsockets = true;
                   };
                 };
                 "mail.idimitrov.dev" = tls;
