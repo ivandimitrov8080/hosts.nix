@@ -10,6 +10,9 @@
   tinymist,
   elmPackages,
   emacs-overlay,
+  docs-hm,
+  docs-nixos,
+  writeText,
   mcp-server-fetch,
   mcp-server-filesystem,
   mcp-server-time,
@@ -32,6 +35,9 @@ let
   system = stdenv.hostPlatform.system;
   emacs-unstable-pgtk = emacs-overlay.packages.${system}.emacs-unstable-pgtk;
   emacsWithPackagesFromUsePackage = emacs-overlay.lib.${system}.emacsWithPackagesFromUsePackage;
+  optionsJsonHm = "${docs-hm}/share/doc/home-manager/options.json";
+  optionsJsonNixos = "${docs-nixos}/share/doc/nixos/options.json";
+
 in
 emacsWithPackagesFromUsePackage {
   # Your Emacs config file. Org mode babel files are also
@@ -50,7 +56,12 @@ emacsWithPackagesFromUsePackage {
   #     src = ./emacs.el;
   #     inherit (config.xdg) configHome dataHome;
   #   };
-  defaultInitFile = true;
+  defaultInitFile = writeText "default.el" (
+    builtins.replaceStrings
+      [ "@nixos-options@" "@hm-options@" ]
+      [ optionsJsonNixos optionsJsonHm ]
+      (builtins.readFile ./emacs.el)
+  );
 
   # Package is optional, defaults to pkgs.emacs
   package = emacs-unstable-pgtk;
@@ -78,6 +89,15 @@ emacsWithPackagesFromUsePackage {
   # language servers, formatters, etc)
   extraEmacsPackages =
     epkgs: with epkgs; [
+      (trivialBuild {
+        pname = "vertico-nixos-options";
+        version = "0.2.0";
+        src = ./vertico-nixos-options.el;
+        packageRequires = [
+          nixos-options
+          consult
+        ];
+      })
       elm-mode
       web-mode
       haskell-ts-mode
