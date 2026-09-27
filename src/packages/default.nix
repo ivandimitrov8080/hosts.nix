@@ -1,11 +1,10 @@
 { inputs, system }:
 let
-  overlay = (import ../overlays.nix { inherit inputs; }).default;
-  inherit ((import ../overlays.nix { inherit inputs; })) emacs config;
+  inherit ((import ../overlays.nix { inherit inputs; })) emacs config default;
   pkgs = import inputs.nixpkgs {
     inherit system;
     overlays = [
-      overlay
+      default
       config
       emacs
     ];
