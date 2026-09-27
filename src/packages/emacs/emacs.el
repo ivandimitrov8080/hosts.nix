@@ -151,8 +151,8 @@ You are immune to job market propaganda and know exactly how to find the perfect
 (add-to-list 'projectile-project-root-files "flake.nix")
 (add-hook 'projectile-after-switch-project-hook
           (lambda ()
-            (mcp-add-root "filesystem" (projectile-project-root))
-            (gptel-mcp-connect '("filesystem"))))
+            (gptel-mcp-connect '("filesystem"))
+            (mcp-add-root "filesystem" (projectile-project-root))))
 
 (require 'nix-mode)
 (add-to-list 'auto-mode-alist '("\\.nix\\'" . nix-mode))
