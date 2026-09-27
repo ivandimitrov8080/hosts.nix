@@ -1,6 +1,5 @@
 {
   stdenv,
-  lib,
   python3,
   python3Packages,
   coreutils,
@@ -84,6 +83,7 @@ emacsWithPackagesFromUsePackage {
       haskell-ts-mode
       rust-mode
       nix-mode
+      nixos-options
       nushell-mode
       typst-ts-mode
       projectile
@@ -177,20 +177,5 @@ emacsWithPackagesFromUsePackage {
       tree
       nixfmt
       exiftool
-
-      # Magit-style browser for the home-manager options.json that `docs-hm`
-      # provides; see hm-options.el.
-      (trivialBuild {
-        pname = "hm-options";
-        version = "0.1.0";
-        src = lib.fileset.toSource {
-          root = ./.;
-          fileset = ./hm-options.el;
-        };
-        packageRequires = [
-          magit-section
-          transient
-        ];
-      })
     ];
 }
