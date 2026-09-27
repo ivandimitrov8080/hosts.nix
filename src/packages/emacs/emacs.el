@@ -398,15 +398,9 @@ You are immune to job market propaganda and know exactly how to find the perfect
 (setq nixos-options-json-file "@nixos-options@")
 (require 'nixos-options)
 (require 'vertico-nixos-options)
-(setq vertico-nixos-options-sources
-      (list (list "nixos" :label "NixOS"
-                  :file "@nixos-options@" :prefix "")
-            (list "home-manager" :label "Home Manager"
-                  :file "@hm-options@" :prefix "home-manager.")))
+(setq vertico-nixos-options-home-manager-file "@hm-options@")
 (global-set-key (kbd "C-c n") 'vertico-nixos-options)
 (global-set-key (kbd "C-c h") 'vertico-home-manager-options)
-(global-set-key (kbd "C-c N") 'vertico-nix-options-all)
-(global-set-key (kbd "C-c C-n") 'vertico-nix-options)
 
 (require 'request)
 

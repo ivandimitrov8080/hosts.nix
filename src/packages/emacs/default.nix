@@ -91,7 +91,7 @@ emacsWithPackagesFromUsePackage {
     epkgs: with epkgs; [
       (trivialBuild {
         pname = "vertico-nixos-options";
-        version = "0.2.0";
+        version = "0.3.0";
         src = ./vertico-nixos-options.el;
         packageRequires = [
           nixos-options
