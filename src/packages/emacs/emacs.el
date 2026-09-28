@@ -8,11 +8,22 @@
 
 (setq user-emacs-directory "~/.config/emacs/")
 
+(defun comint-password-store-fun (prompt)
+  "Return a password for PROMPT from the pass store, or nil to prompt normally.
+PROMPT is the full text comint would otherwise show in the minibuffer."
+  (cond
+   ((string-match-p "sudo" prompt)
+    (password-store-get
+     (completing-read prompt (password-store-list) nil t)))
+   ;; add more mappings as needed
+   (t nil)))
+
 (setq-default
- indent-tabs-mode nil               ; Use spaces, not tabs
- tab-width 2                        ; 2-space indentation
- fill-column 80                     ; 80 character line width
- require-final-newline t)           ; Ensure files end with newline
+ indent-tabs-mode nil
+ tab-width 2
+ fill-column 80
+ require-final-newline t
+ comint-password-function #'comint-password-store-fun)
 
 (setq custom-file (concat user-emacs-directory "custom.el"))
 
