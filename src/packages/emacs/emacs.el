@@ -163,7 +163,12 @@ You are immune to job market propaganda and know exactly how to find the perfect
 (add-hook 'projectile-after-switch-project-hook
           (lambda ()
             (gptel-mcp-connect '("filesystem"))
-            (mcp-add-root "filesystem" (projectile-project-root))))
+            (let ((root (projectile-project-root)))
+              (unless (seq-some (lambda (r)
+                                  (file-equal-p root
+                                                (if (stringp r) r (plist-get r :path))))
+                                (mcp-get-roots "filesystem"))
+                (mcp-add-root "filesystem" root)))))
 
 (require 'nix-mode)
 (add-to-list 'auto-mode-alist '("\\.nix\\'" . nix-mode))
