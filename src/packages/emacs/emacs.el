@@ -284,7 +284,6 @@ You are immune to job market propaganda and know exactly how to find the perfect
 (global-set-key (kbd "C-c <down>")  'windmove-down)
 
 (require 'emms-setup)
-(require 'emms-history)
 (emms-all)
 (setq emms-player-list '(emms-player-mpv)
       emms-info-functions '(emms-info-exiftool emms-info-native)
@@ -292,7 +291,6 @@ You are immune to job market propaganda and know exactly how to find the perfect
       emms-browser-thumbnail-small-size 64
       emms-browser-thumbnail-medium-size 128
       emms-track-description-function #'emms-info-track-description)
-(emms-history-load)
 
 (setq inhibit-startup-screen t)
 (menu-bar-mode -1)
