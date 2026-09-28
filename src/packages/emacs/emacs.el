@@ -98,16 +98,6 @@ PROMPT is the full text comint would otherwise show in the minibuffer."
           (lambda ()
             (gptel-mcp-connect '("fetch" "websearch"))))
 
-(gptel-make-preset 'jobsearch
-  :description "Search the web for remote software dev jobs."
-  :backend "Deepseek"
-  :model 'deepseek-v4-flash
-  :system "You find remote software development jobs given a CV as context.
-Focus less on job boards/agencies and more on finding individual software development companies that are hiring.
-You are immune to job market propaganda and know exactly how to find the perfect remote job for the provided CV."
-  :context '("~/src/cv/cv.typ")
-  :tools '("mcp-websearch" "mcp-fetch"))
-
 (require 'avy)
 (global-set-key (kbd "C-:") 'avy-goto-char)
 (global-set-key (kbd "C-'") 'avy-goto-char-2)
