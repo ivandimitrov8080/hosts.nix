@@ -205,6 +205,12 @@ You are immune to job market propaganda and know exactly how to find the perfect
       org-log-done 'note
       org-default-notes-file (concat org-directory "/notes.org"))
 (add-to-list 'org-agenda-files (concat org-directory "/notes.org"))
+(require 'org-capture)
+(unless (assoc "t" org-capture-templates)
+  (add-to-list 'org-capture-templates
+               '("t" "Task" entry (file+headline "" "Tasks")
+                 "* TODO %?\n  %u\n  %a")
+               t))
 (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
 (add-hook 'org-mode-hook 'org-indent-mode)
 (add-hook 'org-mode-hook 'variable-pitch-mode)
