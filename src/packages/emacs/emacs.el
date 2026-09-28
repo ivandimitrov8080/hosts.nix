@@ -460,10 +460,15 @@ You are immune to job market propaganda and know exactly how to find the perfect
                     (pop-to-buffer (current-buffer))
                     ))))))
 
-(defun rebuild ()
-  "Rebuild nixos."
+(defun rebuild-nova ()
+  "Rebuild nova."
   (interactive)
   (async-shell-command "nixos-rebuild switch --flake ~/src/hosts.nix#nova --profile-name nova --sudo --ask-sudo-password"))
+
+(defun rebuild-vps ()
+  "Rebuild vpsfree-ivand."
+  (interactive)
+  (async-shell-command "ssh vpsfree-ivand 'cd ~/src/hosts.nix; git pull; nixos-rebuild switch --flake ./#vps --sudo --ask-sudo-password'"))
 
 (require 'eglot)
 (add-hook 'nix-mode-hook 'eglot-ensure)
