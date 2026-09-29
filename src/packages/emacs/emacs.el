@@ -31,12 +31,12 @@ PROMPT is the full text comint would otherwise show in the minibuffer."
   (load custom-file))
 
 (setq
- backup-by-copying t                ; Don't clobber symlinks
- delete-old-versions t              ; Clean up old backups
+ backup-by-copying t
+ delete-old-versions t
  kept-new-versions 6
  kept-old-versions 2
- version-control t                  ; Use version numbers for backups
- vc-follow-symlinks t)              ; Follow symlinks without asking
+ version-control t
+ vc-follow-symlinks t)
 
 (require 'which-key)
 (which-key-mode)
@@ -209,7 +209,11 @@ PROMPT is the full text comint would otherwise show in the minibuffer."
       org-src-content-indentation 0
       org-todo-keywords '((sequence "TODO" "FEEDBACK" "VERIFY" "|" "DONE" "DELEGATED"))
       org-log-done 'note
-      org-default-notes-file (concat org-directory "/notes.org"))
+      org-default-notes-file (concat org-directory "/notes.org")
+      org-hide-emphasis-markers t
+      org-pretty-entities t
+      org-pretty-entities-include-sub-superscripts t
+      org-ellipsis "  ...")
 (add-to-list 'org-agenda-files (concat org-directory "/notes.org"))
 (require 'org-capture)
 (unless (assoc "t" org-capture-templates)
@@ -218,14 +222,30 @@ PROMPT is the full text comint would otherwise show in the minibuffer."
                  "* TODO %?\n  %u\n  %a")
                t))
 (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
-(add-hook 'org-mode-hook 'org-indent-mode)
-(add-hook 'org-mode-hook 'variable-pitch-mode)
+(add-hook 'org-mode-hook #'org-indent-mode)
+(add-hook 'org-mode-hook #'mixed-pitch-mode)
+(set-face-attribute 'org-level-1 nil :height 1.3 :weight 'bold)
+(set-face-attribute 'org-level-2 nil :height 1.15 :weight 'semibold)
 
 (require 'org-modern)
 (add-hook 'org-mode-hook #'org-modern-mode)
 (add-hook 'org-agenda-finalize-hook #'org-modern-agenda)
+(setq org-modern-star 'replace
+      org-modern-hide-stars 'leading
+      org-modern-todo t
+      org-modern-tag t
+      org-modern-priority t
+      org-modern-keyword t                     ; #+TITLE: rendered as a keyword pill
+      org-modern-block-name nil
+      org-modern-list '((43 . "•") (45 . "–") (42 . "•"))
+      org-modern-checkbox '((?X . "☑") (?- . "◐") (?\s . "☐"))
+      org-modern-horizontal-rule "─")
+(require 'org-appear)
+(add-hook 'org-mode-hook #'org-appear-mode)
 
 (require 'org-tempo)
+(require 'olivetti)
+(add-hook 'org-mode-hook #'olivetti-mode)
 
 (org-babel-do-load-languages
  'org-babel-load-languages
@@ -293,7 +313,7 @@ PROMPT is the full text comint would otherwise show in the minibuffer."
 (custom-theme-set-faces
  'user
  '(variable-pitch ((t (:family "Inter" :height 140 :weight thin))))
- '(default ((t ( :family "FiraCode Nerd Font Mono" :height 120)))))
+ '(fixed-pitch ((t ( :family "FiraCode Nerd Font Mono" :height 120)))))
 
 (require 'catppuccin-theme)
 (setq catppuccin-flavor 'mocha)

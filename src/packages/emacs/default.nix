@@ -116,6 +116,9 @@ emacsWithPackagesFromUsePackage {
       sql-indent
       org
       org-modern
+      org-appear
+      mixed-pitch
+      olivetti
       ob-nix
       tree-sitter
       tree-sitter-langs
@@ -128,8 +131,10 @@ emacsWithPackagesFromUsePackage {
       marginalia
       helpful
       consult
-      all-the-icons
-      all-the-icons-dired
+      nerd-icons
+      nerd-icons-dired
+      nerd-icons-completion
+      nerd-icons-ibuffer
       avy
       multiple-cursors
       expand-region
