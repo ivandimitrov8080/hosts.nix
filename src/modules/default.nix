@@ -435,6 +435,13 @@ in
           };
           programs.git.enable = true;
           services = {
+            gitDaemon = {
+              enable = true;
+              listenAddress = "10.0.0.1";
+              basePath = "/var/git";
+              exportAll = true;
+              options = "--enable=receive-pack";
+            };
             openssh = {
               enable = true;
               settings.ListenAddress = "10.0.0.1";
