@@ -57,10 +57,9 @@ emacsWithPackagesFromUsePackage {
   #     inherit (config.xdg) configHome dataHome;
   #   };
   defaultInitFile = writeText "default.el" (
-    builtins.replaceStrings
-      [ "@nixos-options@" "@hm-options@" ]
-      [ optionsJsonNixos optionsJsonHm ]
-      (builtins.readFile ./emacs.el)
+    builtins.replaceStrings [ "@nixos-options@" "@hm-options@" ] [ optionsJsonNixos optionsJsonHm ] (
+      builtins.readFile ./emacs.el
+    )
   );
 
   # Package is optional, defaults to pkgs.emacs
@@ -185,6 +184,10 @@ emacsWithPackagesFromUsePackage {
         hp: with hp; [
           notmuch
           mime
+          hp.pandoc
+          zlib
+          Glob
+          extra
         ]
       ))
       mcp-server-fetch
