@@ -188,6 +188,7 @@ emacsWithPackagesFromUsePackage {
           zlib
           Glob
           extra
+          tar
         ]
       ))
       mcp-server-fetch
