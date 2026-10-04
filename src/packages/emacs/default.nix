@@ -29,6 +29,7 @@
   nixfmt,
   ghc,
   exiftool,
+  aspellWithDicts,
   ...
 }:
 let
@@ -108,6 +109,7 @@ emacsWithPackagesFromUsePackage {
       projectile
       magit
       flycheck
+      flycheck-aspell
       company
       eglot
       js2-mode
@@ -207,5 +209,11 @@ emacsWithPackagesFromUsePackage {
       tree
       nixfmt
       exiftool
+      (aspellWithDicts (
+        d: with d; [
+          en
+          bg
+        ]
+      ))
     ];
 }

@@ -146,6 +146,18 @@ PROMPT is the full text comint would otherwise show in the minibuffer."
 
 (require 'flycheck)
 (add-hook 'after-init-hook 'global-flycheck-mode)
+(setq ispell-dictionary "en_GB"
+      ispell-program-name "aspell"
+      ispell-silently-savep t)
+(require 'flycheck-aspell)
+(add-to-list 'flycheck-checkers 'markdown-aspell-dynamic)
+(add-to-list 'flycheck-checkers 'html-aspell-dynamic)
+(add-to-list 'flycheck-checkers 'c-aspell-dynamic)
+(add-to-list 'flycheck-checkers 'mail-aspell-dynamic)
+(flycheck-aspell-define-checker "org"
+                                "Org" ("--add-filter" "url")
+                                (org-mode))
+(add-to-list 'flycheck-checkers 'org-aspell-dynamic)
 
 (require 'magit)
 (global-set-key (kbd "C-x g") 'magit-status)
