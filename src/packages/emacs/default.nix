@@ -131,6 +131,7 @@ emacsWithPackagesFromUsePackage {
       helpful
       consult
       nerd-icons
+      nerd-icons-xref
       nerd-icons-dired
       nerd-icons-completion
       nerd-icons-ibuffer

@@ -319,12 +319,16 @@ PROMPT is the full text comint would otherwise show in the minibuffer."
 (setq catppuccin-flavor 'mocha)
 (load-theme 'catppuccin :no-confirm)
 
-(when (display-graphic-p)
-  (require 'all-the-icons))
 
-(when (display-graphic-p)
-  (require 'all-the-icons-dired)
-  (add-hook 'dired-mode-hook 'all-the-icons-dired-mode))
+(require 'nerd-icons)
+(require 'nerd-icons-xref)
+(require 'nerd-icons-dired)
+(require 'nerd-icons-completion)
+(require 'nerd-icons-ibuffer)
+(nerd-icons-xref-mode)
+(add-hook 'dired-mode-hook 'nerd-icons-dired-mode)
+(add-hook 'ibuffer-mode-hook 'nerd-icons-ibuffer-mode)
+(nerd-icons-completion-mode)
 
 (require 'doom-modeline)
 (doom-modeline-mode 1)
@@ -338,6 +342,14 @@ PROMPT is the full text comint would otherwise show in the minibuffer."
 
 (require 'rainbow-delimiters)
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+
+(require 'erc)
+(add-to-list 'erc-modules 'sasl)
+(erc-update-modules)
+
+(require 'erc-sasl)
+(setq erc-sasl-user "ivand"
+      erc-sasl-auth-source-function (lambda (&rest _) (password-store-get "soc/nickserv/erc")))
 
 (setq telega-use-images t
       telega-emoji-font-family (font-spec :family "Noto Color Emoji")
