@@ -93,7 +93,11 @@ PROMPT is the full text comint would otherwise show in the minibuffer."
         ("filesystem" . (:command "mcp-server-filesystem" :roots ("~/src/hosts.nix")))
         ("time" . (:command "mcp-server-time"))
         ("git" . (:command "mcp-server-git"))
-        ("websearch" . (:command "open-websearch"))))
+        ("websearch" . (
+                        :command "open-websearch"
+                        :env (
+                              :DEFAULT_SEARCH_ENGINE "duckduckgo"
+                              :ALLOWED_SEARCH_ENGINES "duckduckgo,brave")))))
 
 (add-hook 'after-init-hook
           (lambda ()
