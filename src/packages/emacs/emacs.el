@@ -146,6 +146,8 @@ PROMPT is the full text comint would otherwise show in the minibuffer."
 
 (require 'flycheck)
 (add-hook 'after-init-hook 'global-flycheck-mode)
+(add-hook 'after-init-hook 'global-flycheck-annotate-mode)
+(global-flycheck-eglot-mode)
 (setq ispell-dictionary "en_GB"
       ispell-program-name "aspell"
       ispell-silently-savep t)
