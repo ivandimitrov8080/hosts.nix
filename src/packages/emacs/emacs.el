@@ -145,13 +145,13 @@ PROMPT is the full text comint would otherwise show in the minibuffer."
       company-show-quick-access t)
 
 (defun company-dictionary-mode ()
-  "Use a dictionary source for 'company-mode' when using 'text-mode'."
+  "Use 'company-ispell' only, with a delay of 1s."
   (setq-local company-idle-delay 1
               company-minimum-prefix-length 4
               company-backends '(company-ispell))
   (company-mode 1))
 
-(add-hook 'text-mode-hook #'company-dictionary-mode)
+(add-hook 'message-mode-hook #'company-dictionary-mode)
 (add-hook 'telega-chat-mode-hook #'company-dictionary-mode)
 
 (require 'flycheck)
