@@ -27,7 +27,6 @@ in
       ];
       wirelessNetworks = {
         "3G".psk = "bumshakalaka";
-        "BEAR".psk = "68686868";
         "danasol.dn".psk = "hellosunshine";
       };
       # TODO: make something similar for vps where it can also send dns traffic back to wireguard peers

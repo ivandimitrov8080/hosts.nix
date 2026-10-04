@@ -135,9 +135,13 @@ PROMPT is the full text comint would otherwise show in the minibuffer."
 (setq recentf-max-saved-items 100)
 
 (require 'company)
-(add-hook 'after-init-hook 'global-company-mode)
-(setq company-idle-delay 0.2
+(add-hook 'prog-mode-hook 'company-mode)
+(setq company-idle-delay 0.3
       company-minimum-prefix-length 2
+      company-tooltip-align-annotations t
+      company-tooltip-flip-when-above t
+      company-selection-wrap-around t
+      company-show-quick-access t
       company-show-quick-access t)
 
 (require 'flycheck)
@@ -357,7 +361,6 @@ PROMPT is the full text comint would otherwise show in the minibuffer."
 (auto-image-file-mode 1)
 (add-hook 'telega-load-hook 'telega-notifications-mode)
 (add-hook 'telega-load-hook 'telega-autoplay-mode)
-(add-hook 'telega-chat-mode-hook (lambda () (company-mode -1)))
 (require 'telega)
 
 (require 'transmission)
