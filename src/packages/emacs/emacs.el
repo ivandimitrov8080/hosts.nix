@@ -79,6 +79,7 @@ PROMPT is the full text comint would otherwise show in the minibuffer."
 (require 'gptel-integrations)
 (setq gptel-log-level 'info)
 (gptel-make-gh-copilot "Copilot")
+(add-hook 'gptel-mode-hook 'company-mode)
 
 
 (setq gptel-backend (gptel-make-deepseek "Deepseek"
