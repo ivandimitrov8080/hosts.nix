@@ -144,6 +144,14 @@ PROMPT is the full text comint would otherwise show in the minibuffer."
       company-show-quick-access t
       company-show-quick-access t)
 
+(defun text-mode-company-dictionary ()
+  "Use a dictionary source for 'company-mode' when using 'text-mode'."
+  (setq-local company-minimum-prefix-length 4
+              company-backends '(company-ispell))
+  (company-mode 1))
+
+(add-hook 'text-mode-hook #'text-mode-company-dictionary)
+
 (require 'flycheck)
 (add-hook 'after-init-hook 'global-flycheck-mode)
 (add-hook 'after-init-hook 'global-flycheck-annotate-mode)
