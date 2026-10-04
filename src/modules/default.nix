@@ -106,11 +106,14 @@ in
               ];
             };
           };
-          environment.systemPackages = with pkgs; [
-            transmission_4
-            ffmpeg
-            gcc
-          ];
+          environment = {
+            systemPackages = with pkgs; [
+              transmission_4
+              ffmpeg
+              gcc
+            ];
+            wordlist.enable = true;
+          };
           fonts = {
             fontDir.enable = true;
             packages = with pkgs; [

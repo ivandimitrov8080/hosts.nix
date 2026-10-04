@@ -144,13 +144,15 @@ PROMPT is the full text comint would otherwise show in the minibuffer."
       company-show-quick-access t
       company-show-quick-access t)
 
-(defun text-mode-company-dictionary ()
+(defun company-dictionary-mode ()
   "Use a dictionary source for 'company-mode' when using 'text-mode'."
-  (setq-local company-minimum-prefix-length 4
+  (setq-local company-idle-delay 1
+              company-minimum-prefix-length 4
               company-backends '(company-ispell))
   (company-mode 1))
 
-(add-hook 'text-mode-hook #'text-mode-company-dictionary)
+(add-hook 'text-mode-hook #'company-dictionary-mode)
+(add-hook 'telega-chat-mode-hook #'company-dictionary-mode)
 
 (require 'flycheck)
 (add-hook 'after-init-hook 'global-flycheck-mode)
@@ -158,16 +160,10 @@ PROMPT is the full text comint would otherwise show in the minibuffer."
 (global-flycheck-eglot-mode)
 (setq ispell-dictionary "en_GB"
       ispell-program-name "aspell"
+      ispell-alternate-dictionary (getenv "WORDLIST")
       ispell-silently-savep t)
 (require 'flycheck-aspell)
-(add-to-list 'flycheck-checkers 'markdown-aspell-dynamic)
-(add-to-list 'flycheck-checkers 'html-aspell-dynamic)
-(add-to-list 'flycheck-checkers 'c-aspell-dynamic)
 (add-to-list 'flycheck-checkers 'mail-aspell-dynamic)
-(flycheck-aspell-define-checker "org"
-                                "Org" ("--add-filter" "url")
-                                (org-mode))
-(add-to-list 'flycheck-checkers 'org-aspell-dynamic)
 
 (require 'magit)
 (global-set-key (kbd "C-x g") 'magit-status)
@@ -313,6 +309,7 @@ PROMPT is the full text comint would otherwise show in the minibuffer."
 (add-hook 'notmuch-mua-send-hook #'mml-secure-message-sign-pgpmime)
 (with-eval-after-load 'notmuch
   (setq notmuch-search-history nil))
+(add-hook 'notmuch-message-mode-hook 'message-mode)
 
 (global-set-key (kbd "C-c <left>")  'windmove-left)
 (global-set-key (kbd "C-c <right>") 'windmove-right)
