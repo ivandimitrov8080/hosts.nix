@@ -7,6 +7,8 @@
   nixd,
   haskell-language-server,
   typescript-language-server,
+  vscode-html-languageserver,
+  vscode-css-languageserver,
   tinymist,
   elmPackages,
   emacs-overlay,
@@ -99,10 +101,10 @@ emacsWithPackagesFromUsePackage {
         ];
       })
       elm-mode
-      web-mode
       haskell-ts-mode
       rust-mode
       nix-mode
+      nix-ts-mode
       nixos-options
       nushell-mode
       typst-ts-mode
@@ -164,6 +166,8 @@ emacsWithPackagesFromUsePackage {
       elmPackages.elm-language-server
       nixd
       typescript-language-server
+      vscode-html-languageserver
+      vscode-css-languageserver
       tinymist
       coreutils
       typst

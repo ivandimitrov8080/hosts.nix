@@ -188,7 +188,8 @@ PROMPT is the full text comint would otherwise show in the minibuffer."
                 (mcp-add-root "filesystem" root)))))
 
 (require 'nix-mode)
-(add-to-list 'auto-mode-alist '("\\.nix\\'" . nix-mode))
+(require 'nix-ts-mode)
+(add-to-list 'auto-mode-alist '("\\.nix\\'" . nix-ts-mode))
 
 (require 'rust-mode)
 (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-ts-mode))
@@ -200,25 +201,15 @@ PROMPT is the full text comint would otherwise show in the minibuffer."
 (require 'haskell-ts-mode)
 (add-to-list 'auto-mode-alist '("\\.hs\\'" . haskell-ts-mode))
 
-(require 'web-mode)
-(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.css\\'" . web-mode))
-(setq web-mode-markup-indent-offset 2
-      web-mode-css-indent-offset 2
-      web-mode-code-indent-offset 2
-      web-mode-enable-auto-pairing t
-      web-mode-enable-css-colorization t)
+(add-to-list 'auto-mode-alist '("\\.html?\\'" . html-ts-mode))
+(add-to-list 'auto-mode-alist '("\\.css\\'" . css-ts-mode))
+(add-hook 'html-ts-mode-hook 'company-mode)
 
 (require 'nushell-mode)
 (add-to-list 'auto-mode-alist '("\\.nu\\'" . nushell-mode))
 
-(require 'js2-mode)
-(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-(setq js2-basic-offset 2
-      js2-bounce-indent-p t)
-
-(require 'json-mode)
-(add-to-list 'auto-mode-alist '("\\.json\\'" . json-mode))
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js-ts-mode))
+(add-to-list 'auto-mode-alist '("\\.json\\'" . json-ts-mode))
 
 (require 'markdown-mode)
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
@@ -292,6 +283,7 @@ PROMPT is the full text comint would otherwise show in the minibuffer."
 (require 'tree-sitter)
 (global-tree-sitter-mode)
 (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
+(setq treesit-font-lock-level 4)
 
 (require 'dired-quick-sort)
 (setq dired-quick-sort-group-directories-last ?y
@@ -525,19 +517,22 @@ PROMPT is the full text comint would otherwise show in the minibuffer."
   (async-shell-command "ssh vpsfree-ivand 'cd ~/src/hosts.nix; git pull; nixos-rebuild switch --flake ./#vps --sudo --ask-sudo-password'"))
 
 (require 'eglot)
-(add-hook 'nix-mode-hook 'eglot-ensure)
+(add-hook 'nix-ts-mode-hook 'eglot-ensure)
 (add-hook 'elm-mode-hook 'eglot-ensure)
 (add-hook 'haskell-ts-mode-hook 'eglot-ensure)
-(add-hook 'js2-mode-hook 'eglot-ensure)
-(add-hook 'web-mode-hook 'eglot-ensure)
+(add-hook 'js-ts-mode-hook 'eglot-ensure)
+(add-hook 'css-ts-mode-hook 'eglot-ensure)
+(add-hook 'html-ts-mode-hook 'eglot-ensure)
 (add-hook 'nushell-mode-hook 'eglot-ensure)
 (add-hook 'typst-ts-mode-hook 'eglot-ensure)
 (add-hook 'rust-ts-mode-hook 'eglot-ensure)
 (setq eglot-autoshutdown t)
-(add-to-list 'eglot-server-programs '(nix-mode . ("nixd")))
+(add-to-list 'eglot-server-programs '(nix-ts-mode . ("nixd")))
 (add-to-list 'eglot-server-programs '(elm-mode . ("elm-language-server")))
 (add-to-list 'eglot-server-programs '(haskell-ts-mode . ("haskell-language-server-wrapper" "--lsp")))
-(add-to-list 'eglot-server-programs '(js2-mode . ("typescript-language-server" "--stdio")))
+(add-to-list 'eglot-server-programs '(js-ts-mode . ("typescript-language-server" "--stdio")))
+(add-to-list 'eglot-server-programs '(html-ts-mode . ("vscode-html-languageserver" "--stdio")))
+(add-to-list 'eglot-server-programs '(css-ts-mode . ("vscode-css-languageserver" "--stdio")))
 (add-to-list 'eglot-server-programs '(nushell-mode . ("nu" "--lsp")))
 (add-to-list 'eglot-server-programs '(typst-ts-mode . ("tinymist")))
 (add-to-list 'eglot-server-programs '(rust-ts-mode . ("rust-analyzer")))
