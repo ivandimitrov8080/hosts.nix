@@ -157,7 +157,6 @@ PROMPT is the full text comint would otherwise show in the minibuffer."
   (company-mode 1))
 
 (add-hook 'message-mode-hook #'company-dictionary-mode)
-(add-hook 'telega-chat-mode-hook #'company-dictionary-mode)
 
 (require 'flycheck)
 (add-hook 'after-init-hook 'global-flycheck-mode)
@@ -374,11 +373,14 @@ PROMPT is the full text comint would otherwise show in the minibuffer."
 
 (setq telega-use-images t
       telega-emoji-font-family (font-spec :family "Noto Color Emoji")
-      telega-emoji-use-images nil)
+      telega-emoji-use-images nil
+      telega-chat-input-markups '("markdown2" "org" nil))
 (auto-image-file-mode 1)
 (add-hook 'telega-load-hook 'telega-notifications-mode)
 (add-hook 'telega-load-hook 'telega-autoplay-mode)
 (add-hook 'telega-chat-mode-hook 'telega-completions-setup-capf)
+(add-hook 'telega-chat-mode-hook #'company-dictionary-mode)
+
 (require 'telega)
 
 (require 'transmission)
