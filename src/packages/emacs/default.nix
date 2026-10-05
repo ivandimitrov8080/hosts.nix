@@ -122,7 +122,7 @@ emacsWithPackagesFromUsePackage {
       olivetti
       ob-nix
       tree-sitter
-      tree-sitter-langs
+      treesit-grammars.with-all-grammars
       markdown-mode
       yaml-mode
       catppuccin-theme

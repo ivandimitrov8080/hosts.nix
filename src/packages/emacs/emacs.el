@@ -191,7 +191,7 @@ PROMPT is the full text comint would otherwise show in the minibuffer."
 (add-to-list 'auto-mode-alist '("\\.nix\\'" . nix-mode))
 
 (require 'rust-mode)
-(add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
+(add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-ts-mode))
 
 (require 'elm-mode)
 (add-to-list 'auto-mode-alist '("\\.elm\\'" . elm-mode))
@@ -209,6 +209,9 @@ PROMPT is the full text comint would otherwise show in the minibuffer."
       web-mode-enable-auto-pairing t
       web-mode-enable-css-colorization t)
 
+(require 'nushell-mode)
+(add-to-list 'auto-mode-alist '("\\.nu\\'" . nushell-mode))
+
 (require 'js2-mode)
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 (setq js2-basic-offset 2
@@ -222,8 +225,8 @@ PROMPT is the full text comint would otherwise show in the minibuffer."
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 
 (require 'yaml-mode)
-(add-to-list 'auto-mode-alist '("\\.yaml\\'" . yaml-mode))
-(add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
+(add-to-list 'auto-mode-alist '("\\.yaml\\'" . yaml-ts-mode))
+(add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-ts-mode))
 
 (require 'typst-ts-mode)
 (add-to-list 'auto-mode-alist '("\\.typ\\'" . typst-ts-mode))
@@ -288,8 +291,6 @@ PROMPT is the full text comint would otherwise show in the minibuffer."
 
 (require 'tree-sitter)
 (global-tree-sitter-mode)
-
-(require 'tree-sitter-langs)
 (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
 
 (require 'dired-quick-sort)
@@ -531,7 +532,7 @@ PROMPT is the full text comint would otherwise show in the minibuffer."
 (add-hook 'web-mode-hook 'eglot-ensure)
 (add-hook 'nushell-mode-hook 'eglot-ensure)
 (add-hook 'typst-ts-mode-hook 'eglot-ensure)
-(add-hook 'rust-mode-hook 'eglot-ensure)
+(add-hook 'rust-ts-mode-hook 'eglot-ensure)
 (setq eglot-autoshutdown t)
 (add-to-list 'eglot-server-programs '(nix-mode . ("nixd")))
 (add-to-list 'eglot-server-programs '(elm-mode . ("elm-language-server")))
@@ -539,7 +540,7 @@ PROMPT is the full text comint would otherwise show in the minibuffer."
 (add-to-list 'eglot-server-programs '(js2-mode . ("typescript-language-server" "--stdio")))
 (add-to-list 'eglot-server-programs '(nushell-mode . ("nu" "--lsp")))
 (add-to-list 'eglot-server-programs '(typst-ts-mode . ("tinymist")))
-(add-to-list 'eglot-server-programs '(rust-mode . ("rust-analyzer")))
+(add-to-list 'eglot-server-programs '(rust-ts-mode . ("rust-analyzer")))
 
 (add-hook 'prog-mode-hook #'display-line-numbers-mode)
 
