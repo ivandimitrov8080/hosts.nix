@@ -537,8 +537,6 @@ PROMPT is the full text comint would otherwise show in the minibuffer."
 (add-to-list 'eglot-server-programs '(typst-ts-mode . ("tinymist")))
 (add-to-list 'eglot-server-programs '(rust-ts-mode . ("rust-analyzer")))
 
-(add-hook 'prog-mode-hook #'display-line-numbers-mode)
-
 ;;; Final setup
 (provide 'emacs)
 ;;; emacs.el ends here
