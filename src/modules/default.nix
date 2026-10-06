@@ -482,7 +482,7 @@ in
             dnscrypt-proxy.settings.cloaking_rules = "/etc/dnscrypt-proxy/cloaking_rules.txt";
           };
           environment = {
-            enableAllTerminfo = true;
+            systemPackages = [ pkgs.kitty ];
             etc."dnscrypt-proxy/cloaking_rules.txt".text = ''
               *.idimitrov.dev 10.0.0.1
             '';

@@ -133,13 +133,15 @@
           afew --tag --new
         '';
       };
-      new = {
-        tags = [ "new" ];
+      settings = {
+        new = {
+          tags = [ "new" ];
+        };
+        search.excludeTags = [
+          "trash"
+          "spam"
+        ];
       };
-      search.excludeTags = [
-        "trash"
-        "spam"
-      ];
     };
     pimsync.enable = true;
     msmtp.enable = true;

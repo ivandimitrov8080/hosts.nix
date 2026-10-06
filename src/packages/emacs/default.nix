@@ -114,9 +114,6 @@ emacsWithPackagesFromUsePackage {
       flycheck-aspell
       company
       eglot
-      js2-mode
-      json-mode
-      sql-indent
       org
       org-modern
       org-appear
