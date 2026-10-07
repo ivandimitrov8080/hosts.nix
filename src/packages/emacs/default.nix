@@ -12,8 +12,6 @@
   tinymist,
   elmPackages,
   emacs-overlay,
-  docs-hm,
-  docs-nixos,
   writeText,
   mcp-server-fetch,
   mcp-server-filesystem,
@@ -35,11 +33,9 @@
   ...
 }:
 let
-  system = stdenv.hostPlatform.system;
-  emacs-unstable-pgtk = emacs-overlay.packages.${system}.emacs-unstable-pgtk;
-  emacsWithPackagesFromUsePackage = emacs-overlay.lib.${system}.emacsWithPackagesFromUsePackage;
-  optionsJsonHm = "${docs-hm}/share/doc/home-manager/options.json";
-  optionsJsonNixos = "${docs-nixos}/share/doc/nixos/options.json";
+  inherit (stdenv.hostPlatform) system;
+  inherit (emacs-overlay.packages.${system}) emacs-unstable-pgtk;
+  inherit (emacs-overlay.lib.${system}) emacsWithPackagesFromUsePackage;
 
 in
 emacsWithPackagesFromUsePackage {
@@ -59,11 +55,7 @@ emacsWithPackagesFromUsePackage {
   #     src = ./emacs.el;
   #     inherit (config.xdg) configHome dataHome;
   #   };
-  defaultInitFile = writeText "default.el" (
-    builtins.replaceStrings [ "@nixos-options@" "@hm-options@" ] [ optionsJsonNixos optionsJsonHm ] (
-      builtins.readFile ./emacs.el
-    )
-  );
+  defaultInitFile = true;
 
   # Package is optional, defaults to pkgs.emacs
   package = emacs-unstable-pgtk;

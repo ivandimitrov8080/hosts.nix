@@ -460,10 +460,10 @@ PROMPT is the full text comint would otherwise show in the minibuffer."
   (emms-playlist-current-clear)
   (emms-add-directory-tree "~/shows/"))
 
-(setq nixos-options-json-file "@nixos-options@")
+(setq nixos-options-json-file (getenv "OPTIONS_JSON_NIXOS"))
 (require 'nixos-options)
 (require 'vertico-nixos-options)
-(setq vertico-nixos-options-home-manager-file "@hm-options@")
+(setq vertico-nixos-options-home-manager-file (getenv "OPTIONS_JSON_HOME_MANAGER"))
 (global-set-key (kbd "C-c n") 'vertico-nixos-options)
 (global-set-key (kbd "C-c h") 'vertico-home-manager-options)
 
