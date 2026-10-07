@@ -199,6 +199,9 @@ PROMPT is the full text comint would otherwise show in the minibuffer."
 
 (require 'haskell-ts-mode)
 (add-to-list 'auto-mode-alist '("\\.hs\\'" . haskell-ts-mode))
+(setq haskell-ts-prettify-symbols t
+      haskell-ts-prettify-words t)
+(add-hook 'haskell-ts-mode-hook 'prettify-symbols-mode)
 
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . html-ts-mode))
 (add-to-list 'auto-mode-alist '("\\.css\\'" . css-ts-mode))
