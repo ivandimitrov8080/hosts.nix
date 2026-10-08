@@ -174,6 +174,7 @@ PROMPT is the full text comint would otherwise show in the minibuffer."
 
 (require 'diff-hl)
 (global-diff-hl-mode)
+(add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
 
 (require 'projectile)
 (projectile-mode +1)
