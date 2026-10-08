@@ -286,6 +286,7 @@ in
                     };
                     signing.key = "ED7A E641 69C1 DB37 F48D  68A7 1C27 6C0A 3909 B508";
                   };
+                  nushell.settings.edit_mode = "emacs";
                 };
               })
             ];
