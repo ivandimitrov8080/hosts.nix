@@ -533,6 +533,7 @@ PROMPT is the full text comint would otherwise show in the minibuffer."
 (add-hook 'nushell-mode-hook 'eglot-ensure)
 (add-hook 'typst-ts-mode-hook 'eglot-ensure)
 (add-hook 'rust-ts-mode-hook 'eglot-ensure)
+(add-hook 'python-ts-mode-hook 'eglot-ensure)
 (setq eglot-autoshutdown t)
 (add-to-list 'eglot-server-programs '(nix-ts-mode . ("nixd")))
 (add-to-list 'eglot-server-programs '(elm-mode . ("elm-language-server")))
@@ -543,6 +544,7 @@ PROMPT is the full text comint would otherwise show in the minibuffer."
 (add-to-list 'eglot-server-programs '(nushell-mode . ("nu" "--lsp")))
 (add-to-list 'eglot-server-programs '(typst-ts-mode . ("tinymist")))
 (add-to-list 'eglot-server-programs '(rust-ts-mode . ("rust-analyzer")))
+(add-to-list 'eglot-server-programs '(python-ts-mode . ("pylsp")))
 
 ;;; Final setup
 (provide 'emacs)
