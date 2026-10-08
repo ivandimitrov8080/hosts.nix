@@ -209,6 +209,7 @@ PROMPT is the full text comint would otherwise show in the minibuffer."
 
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . html-ts-mode))
 (add-to-list 'auto-mode-alist '("\\.css\\'" . css-ts-mode))
+(add-to-list 'auto-mode-alist '("\\.py\\'" . python-ts-mode))
 (add-hook 'html-ts-mode-hook 'company-mode)
 
 (require 'nushell-mode)
