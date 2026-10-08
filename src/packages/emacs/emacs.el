@@ -377,7 +377,8 @@ PROMPT is the full text comint would otherwise show in the minibuffer."
 (setq telega-use-images t
       telega-emoji-font-family (font-spec :family "Noto Color Emoji")
       telega-emoji-use-images nil
-      telega-chat-input-markups '("markdown2" "org" nil))
+      telega-chat-input-markups '("markdown2" "org" nil)
+      telega-msg-save-dir "~/dl/telega")
 (auto-image-file-mode 1)
 (add-hook 'telega-load-hook 'telega-notifications-mode)
 (add-hook 'telega-load-hook 'telega-autoplay-mode)
@@ -471,11 +472,6 @@ PROMPT is the full text comint would otherwise show in the minibuffer."
 (global-set-key (kbd "C-c h") 'vertico-home-manager-options)
 
 (require 'request)
-
-(defun telega-last-screenshot ()
-  "Attaches the last screenshot to telega chat."
-  (interactive)
-  (telega-chatbuf-attach-photo (car (last (directory-files "~/pic/ss/" t)))))
 
 (defun wttr ()
   "Get the current weather."
