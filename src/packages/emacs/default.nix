@@ -101,6 +101,7 @@ emacsWithPackagesFromUsePackage {
       typst-ts-mode
       projectile
       magit
+      diff-hl
       flycheck
       flycheck-aspell
       company

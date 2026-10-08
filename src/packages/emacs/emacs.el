@@ -172,6 +172,9 @@ PROMPT is the full text comint would otherwise show in the minibuffer."
 (require 'magit)
 (global-set-key (kbd "C-x g") 'magit-status)
 
+(require 'diff-hl)
+(global-diff-hl-mode)
+
 (require 'projectile)
 (projectile-mode +1)
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
@@ -379,6 +382,7 @@ PROMPT is the full text comint would otherwise show in the minibuffer."
       telega-emoji-use-images nil
       telega-chat-input-markups '("markdown2" "org" nil)
       telega-msg-save-dir "~/dl/telega")
+
 (auto-image-file-mode 1)
 (add-hook 'telega-load-hook 'telega-notifications-mode)
 (add-hook 'telega-load-hook 'telega-autoplay-mode)
