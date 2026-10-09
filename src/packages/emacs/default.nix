@@ -108,6 +108,7 @@ emacsWithPackagesFromUsePackage {
       eglot
       org
       org-modern
+      valign
       org-appear
       mixed-pitch
       olivetti

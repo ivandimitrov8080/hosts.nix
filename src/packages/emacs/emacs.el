@@ -86,7 +86,12 @@ PROMPT is the full text comint would otherwise show in the minibuffer."
                       :stream t
                       :key (lambda () (password-store-get "dev/deepseek.com/key")))
       gptel-model 'deepseek-v4-flash
-      gptel-use-tools t)
+      gptel-use-tools t
+      gptel-default-mode 'org-mode)
+
+(setf (alist-get 'default gptel-directives)
+      "You are a large language model living in Emacs and a helpful assistant. Respond concisely.
+Write Org Mode and NEVER Markdown as the output will be rendered inside an Emacs buffer and it must be valid Org Mode.")
 
 (setq mcp-hub-servers
       '(("fetch" . (:command "mcp-server-fetch"))
@@ -242,18 +247,25 @@ PROMPT is the full text comint would otherwise show in the minibuffer."
       org-pretty-entities t
       org-pretty-entities-include-sub-superscripts t
       org-ellipsis "  ...")
+
 (add-to-list 'org-agenda-files (concat org-directory "/notes.org"))
+
 (require 'org-capture)
 (unless (assoc "t" org-capture-templates)
   (add-to-list 'org-capture-templates
                '("t" "Task" entry (file+headline "" "Tasks")
                  "* TODO %?\n  %u\n  %a")
                t))
+
 (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
 (add-hook 'org-mode-hook #'org-indent-mode)
 (add-hook 'org-mode-hook #'mixed-pitch-mode)
 (set-face-attribute 'org-level-1 nil :height 1.3 :weight 'bold)
 (set-face-attribute 'org-level-2 nil :height 1.15 :weight 'semibold)
+
+(require 'valign)
+(add-hook 'org-mode-hook #'valign-mode)
+(add-hook 'markdown-mode-hook #'valign-mode)
 
 (require 'org-modern)
 (add-hook 'org-mode-hook #'org-modern-mode)
@@ -261,19 +273,21 @@ PROMPT is the full text comint would otherwise show in the minibuffer."
 (setq org-modern-star 'replace
       org-modern-hide-stars 'leading
       org-modern-todo t
+      org-modern-table t
       org-modern-tag t
       org-modern-priority t
       org-modern-keyword t                     ; #+TITLE: rendered as a keyword pill
       org-modern-block-name nil
       org-modern-list '((43 . "•") (45 . "–") (42 . "•"))
-      org-modern-checkbox '((?X . "☑") (?- . "◐") (?\s . "☐"))
-      org-modern-horizontal-rule "─")
+      org-modern-checkbox '((?X . "☑") (?- . "◐") (?\s . "☐")))
+
 (require 'org-appear)
 (add-hook 'org-mode-hook #'org-appear-mode)
 
 (require 'org-tempo)
 (require 'olivetti)
 (add-hook 'org-mode-hook #'olivetti-mode)
+(add-hook 'gptel-mode-hook (lambda () (olivetti-mode -1)))
 
 (org-babel-do-load-languages
  'org-babel-load-languages
