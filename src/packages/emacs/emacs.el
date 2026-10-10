@@ -502,8 +502,11 @@ Write Org Mode and NEVER Markdown as the output will be rendered inside an Emacs
 (defun emms-shows ()
   "Loads emms with shows directory."
   (interactive)
+  (emms-stop)
   (emms-playlist-current-clear)
-  (emms-add-directory-tree "~/shows/"))
+  (emms-player-mpv-proc-stop)
+  (emms-add-directory-tree "~/shows/")
+  (emms))
 
 (setq nixos-options-json-file (getenv "OPTIONS_JSON_NIXOS"))
 (require 'nixos-options)
