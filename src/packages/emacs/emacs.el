@@ -25,6 +25,13 @@ PROMPT is the full text comint would otherwise show in the minibuffer."
  require-final-newline t
  comint-password-function #'comint-password-store-fun)
 
+(define-advice shell-command-sentinel (:after (process _msg) view-async-output)
+  "Put finished async 'shell-command' output buffers in `view-mode'."
+  (let ((buf (process-buffer process)))
+    (when (and (buffer-live-p buf)
+               (memq (process-status process) '(exit signal)))
+      (with-current-buffer buf (view-mode 1)))))
+
 (setq custom-file (concat user-emacs-directory "custom.el"))
 
 (when (file-exists-p custom-file)
