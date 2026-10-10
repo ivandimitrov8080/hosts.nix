@@ -354,7 +354,7 @@ Write Org Mode and NEVER Markdown as the output will be rendered inside an Emacs
 (add-to-list 'default-frame-alist '(alpha-background . 80))
 (custom-theme-set-faces
  'user
- '(variable-pitch ((t (:family "Inter" :height 140 :weight thin))))
+ '(variable-pitch ((t (:family "Inter" :height 140 :weight regular))))
  '(fixed-pitch ((t ( :family "FiraCode Nerd Font Mono" :height 120)))))
 
 (require 'catppuccin-theme)
