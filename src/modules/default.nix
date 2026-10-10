@@ -28,6 +28,7 @@ in
       wirelessNetworks = {
         "3G".psk = "bumshakalaka";
         "danasol.dn".psk = "hellosunshine";
+        "Mzone 301".psk = "Mzone@107";
       };
       # TODO: make something similar for vps where it can also send dns traffic back to wireguard peers
       blockDnsExceptDnscrypt = ''

@@ -7,7 +7,7 @@
 ;;; Code:
 
 (setq user-emacs-directory "~/.config/emacs/")
-
+(elisp-enable-lexical-binding)
 (defun comint-password-store-fun (prompt)
   "Return a password for PROMPT from the pass store, or nil to prompt normally.
 PROMPT is the full text comint would otherwise show in the minibuffer."
@@ -88,6 +88,28 @@ PROMPT is the full text comint would otherwise show in the minibuffer."
       gptel-model 'deepseek-v4-flash
       gptel-use-tools t
       gptel-default-mode 'org-mode)
+
+(defun gptel-compile ()
+  "Prompt for a compilation command, run it, and return the output.
+
+Uses =compile' interactively, so the command can be edited in the
+minibuffer each time.  Blocks until the compilation process exits,
+then returns the contents of its buffer as a string (success or
+failure alike)."
+  (let ((buf (get-buffer (call-interactively #'compile))))
+    (while (get-buffer-process buf)
+      (accept-process-output nil 0.1))
+    (with-current-buffer buf
+      (string-trim (buffer-string)))))
+
+(gptel-make-tool
+ :name "compile"
+ :function #'gptel-compile
+ :description "Compile the project and return the compiler output, including any errors. The command is confirmed interactively before it runs."
+ :args nil
+ :category "emacs")
+
+(add-to-list 'gptel-tools (gptel-get-tool "compile"))
 
 (setf (alist-get 'default gptel-directives)
       "You are a large language model living in Emacs and a helpful assistant. Respond concisely.
@@ -287,7 +309,6 @@ Write Org Mode and NEVER Markdown as the output will be rendered inside an Emacs
 (require 'org-tempo)
 (require 'olivetti)
 (add-hook 'org-mode-hook #'olivetti-mode)
-(add-hook 'gptel-mode-hook (lambda () (olivetti-mode -1)))
 
 (org-babel-do-load-languages
  'org-babel-load-languages
