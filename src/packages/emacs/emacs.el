@@ -11,12 +11,8 @@
 (defun comint-password-store-fun (prompt)
   "Return a password for PROMPT from the pass store, or nil to prompt normally.
 PROMPT is the full text comint would otherwise show in the minibuffer."
-  (cond
-   ((string-match-p "sudo" prompt)
-    (password-store-get
-     (completing-read prompt (password-store-list) nil t)))
-   ;; add more mappings as needed
-   (t nil)))
+  (password-store-get
+   (completing-read prompt (password-store-list) nil t)))
 
 (setq-default
  indent-tabs-mode nil
@@ -24,13 +20,6 @@ PROMPT is the full text comint would otherwise show in the minibuffer."
  fill-column 80
  require-final-newline t
  comint-password-function #'comint-password-store-fun)
-
-(define-advice shell-command-sentinel (:after (process _msg) view-async-output)
-  "Put finished async 'shell-command' output buffers in `view-mode'."
-  (let ((buf (process-buffer process)))
-    (when (and (buffer-live-p buf)
-               (memq (process-status process) '(exit signal)))
-      (with-current-buffer buf (view-mode 1)))))
 
 (setq custom-file (concat user-emacs-directory "custom.el"))
 
@@ -561,12 +550,12 @@ Write Org Mode and NEVER Markdown as the output will be rendered inside an Emacs
 (defun rebuild-nova ()
   "Rebuild nova."
   (interactive)
-  (async-shell-command "nixos-rebuild switch --flake ~/src/hosts.nix#nova --profile-name nova --sudo --ask-sudo-password"))
+  (compile "nixos-rebuild switch --flake ~/src/hosts.nix#nova --profile-name nova --sudo --ask-sudo-password" t))
 
 (defun rebuild-vps ()
   "Rebuild vpsfree-ivand."
   (interactive)
-  (async-shell-command "ssh vpsfree-ivand 'cd ~/src/hosts.nix; git pull; nixos-rebuild switch --flake ./#vps --sudo --ask-sudo-password'"))
+  (compile "ssh vpsfree-ivand 'cd ~/src/hosts.nix; git pull; nixos-rebuild switch --flake ./#vps --sudo --ask-sudo-password'" t))
 
 (require 'eglot)
 (add-hook 'nix-ts-mode-hook 'eglot-ensure)
