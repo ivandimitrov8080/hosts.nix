@@ -8,10 +8,20 @@
 
 (setq user-emacs-directory "~/.config/emacs/")
 (elisp-enable-lexical-binding)
+
+(defvar password-store-cache (make-hash-table :test #'equal)
+  "Runtime cache of password-store entries.")
+
+(defun password-store-get-cached (entry)
+  "Return password for ENTRY, using a runtime cache first."
+  (or (gethash entry password-store-cache)
+      (puthash entry (password-store-get entry) password-store-cache)))
+
+
 (defun comint-password-store-fun (prompt)
   "Return a password for PROMPT from the pass store, or nil to prompt normally.
 PROMPT is the full text comint would otherwise show in the minibuffer."
-  (password-store-get
+  (password-store-get-cached
    (completing-read prompt (password-store-list) nil t)))
 
 (setq-default
@@ -77,10 +87,9 @@ PROMPT is the full text comint would otherwise show in the minibuffer."
 (gptel-make-gh-copilot "Copilot")
 (add-hook 'gptel-mode-hook 'company-mode)
 
-
 (setq gptel-backend (gptel-make-deepseek "Deepseek"
                       :stream t
-                      :key (lambda () (password-store-get "dev/deepseek.com/key")))
+                      :key (lambda () (password-store-get-cached "dev/deepseek.com/key")))
       gptel-model 'deepseek-v4-flash
       gptel-use-tools t
       gptel-default-mode 'org-mode)
@@ -415,7 +424,8 @@ Write Org Mode and NEVER Markdown as the output will be rendered inside an Emacs
 
 (require 'erc-sasl)
 (setq erc-sasl-user "ivand"
-      erc-sasl-auth-source-function (lambda (&rest _) (password-store-get "soc/nickserv/erc")))
+      erc-sasl-auth-source-function (lambda (&rest _)
+                                      (password-store-get-cached "soc/nickserv/erc")))
 
 (setq telega-use-images t
       telega-emoji-font-family (font-spec :family "Noto Color Emoji")
