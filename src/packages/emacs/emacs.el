@@ -374,6 +374,13 @@ Write Org Mode and NEVER Markdown as the output will be rendered inside an Emacs
  '(variable-pitch ((t (:family "Inter" :height 140 :weight regular))))
  '(fixed-pitch ((t ( :family "FiraCode Nerd Font Mono" :height 120)))))
 
+(add-hook 'eww-after-render-hook 'eww-readable)
+
+(setq browse-url-handlers
+      `(("youtube\\.com/watch\\?v=.*" . browse-url-emms)
+        ("youtube\\.com/shorts/.*" . browse-url-emms)
+        (".*" . eww-browse-url)))
+
 (require 'catppuccin-theme)
 (setq catppuccin-flavor 'mocha)
 (load-theme 'catppuccin :no-confirm)
@@ -414,7 +421,8 @@ Write Org Mode and NEVER Markdown as the output will be rendered inside an Emacs
       telega-emoji-font-family (font-spec :family "Noto Color Emoji")
       telega-emoji-use-images nil
       telega-chat-input-markups '("markdown2" "org" nil)
-      telega-msg-save-dir "~/dl/telega")
+      telega-msg-save-dir "~/dl/telega"
+      telega-browse-url-alist browse-url-handlers)
 
 (auto-image-file-mode 1)
 (add-hook 'telega-load-hook 'telega-notifications-mode)
@@ -463,10 +471,6 @@ Write Org Mode and NEVER Markdown as the output will be rendered inside an Emacs
 (defun browse-url-emms (url &rest _args)
   "Automatically open URL in REST mpv."
   (emms-play-url url))
-
-(setq browse-url-handlers
-      `(("youtube\\.com/watch\\?v=.*" . browse-url-emms)
-        ("youtube\\.com/shorts/.*" . browse-url-emms)))
 
 ;;; function redeclaration
 
