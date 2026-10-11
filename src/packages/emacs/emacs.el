@@ -378,8 +378,8 @@ Write Org Mode and NEVER Markdown as the output will be rendered inside an Emacs
 
 (setq browse-url-handlers
       `(("youtube\\.com/watch\\?v=.*" . browse-url-emms)
-        ("youtube\\.com/shorts/.*" . browse-url-emms)
-        (".*" . eww-browse-url)))
+        ("youtube\\.com/shorts/.*" . browse-url-emms))
+      browse-url-browser-function #'eww-browse-url)
 
 (require 'catppuccin-theme)
 (setq catppuccin-flavor 'mocha)
