@@ -110,7 +110,6 @@ in
           };
           environment = {
             systemPackages = with pkgs; [
-              transmission_4
               ffmpeg
               gcc
             ];
@@ -174,6 +173,7 @@ in
             resolved.enable = true;
             guix.enable = true;
             libretranslate.enable = true;
+            transmission.enable = true;
             kmonad = {
               enable = true;
               keyboards.laptop = {
@@ -318,6 +318,7 @@ in
                   "render"
                   "video"
                   "wheel"
+                  "transmission"
                 ];
                 hashedPassword = "$y$j9T$Wf9ljhi4c.LUoX/LJEll//$cTP..D/lBWq1PPCzaHhym8V.cibPTjy2JvRYLTf5SZ7";
               };

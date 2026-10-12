@@ -444,6 +444,11 @@ Write Org Mode and NEVER Markdown as the output will be rendered inside an Emacs
 (require 'telega)
 
 (require 'transmission)
+(setq transmission-refresh-interval 1
+      transmission-refresh-modes '(transmission-mode
+                                   transmission-files-mode
+                                   transmission-info-mode
+                                   transmission-peers-mode))
 
 (require 'aggressive-indent)
 (add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode)
