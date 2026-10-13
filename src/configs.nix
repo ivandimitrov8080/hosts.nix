@@ -100,7 +100,7 @@ in
               };
             };
           };
-          home-manager.users.ivand = { lib, config, ... }: {
+          home-manager.users.ivand = { ... }: {
             wayland.windowManager.sway = {
               config = {
                 keybindings = pkgs.lib.mkOptionDefault {
@@ -117,6 +117,10 @@ in
                     xkb_layout = "us,bg";
                     xkb_options = "grp:win_space_toggle";
                     xkb_variant = ",phonetic";
+                  };
+                  "type:touchpad" = {
+                    tap = "enabled";
+                    dwt = "enabled";
                   };
                 };
               };
