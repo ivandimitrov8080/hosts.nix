@@ -174,6 +174,7 @@
             "proxify.io"
             "toptal.com"
             "onetravelspecials.com"
+            "redglobal.com"
           ];
         in
         ''
