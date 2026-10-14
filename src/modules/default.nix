@@ -30,6 +30,7 @@ in
         "danasol.dn".psk = "hellosunshine";
         "Mzone 301".psk = "Mzone@107";
         "Luna House".psk = "68686868";
+        "Gold Time".psk = "goldtime";
       };
       # TODO: make something similar for vps where it can also send dns traffic back to wireguard peers
       blockDnsExceptDnscrypt = ''
