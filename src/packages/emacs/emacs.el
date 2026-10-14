@@ -83,7 +83,20 @@ PROMPT is the full text comint would otherwise show in the minibuffer."
 (require 'gptel)
 (require 'mcp)
 (require 'gptel-integrations)
-(setq gptel-log-level 'info)
+(setq gptel-log-level 'info
+      jsonrpc-default-request-timeout 60)
+(advice-add 'mcp-async-call-tool :override
+            (lambda (connection name arguments callback error-callback)
+              (jsonrpc-async-request
+               connection :tools/call
+               (list :name name :arguments (or arguments #s(hash-table)))
+               :timeout (mcp--timeout connection)
+               :success-fn (lambda (res) (funcall callback res))
+               :error-fn (jsonrpc-lambda (&key code message &allow-other-keys)
+                           (funcall error-callback code message))
+               :timeout-fn (lambda ()
+                             (funcall error-callback 124
+                                      (format "tool `%s' timed out" name))))))
 (gptel-make-gh-copilot "Copilot")
 (add-hook 'gptel-mode-hook 'company-mode)
 
