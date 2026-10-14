@@ -88,18 +88,10 @@ in
                       content = {
                         type = "luks";
                         name = "nixos";
-                        settings.allowDiscards = true;
                         content = {
                           type = "btrfs";
                           extraArgs = [ "-f" ];
                           mountpoint = "/";
-                          mountOptions = [
-                            "noatime"
-                            "compress=zstd"
-                            "ssd"
-                            "space_cache=v2"
-                            "discard=async"
-                          ];
                         };
                       };
                     };
@@ -108,8 +100,6 @@ in
               };
             };
           };
-          services.fstrim.enable = true;
-          services.btrfs.autoScrub.enable = true;
           home-manager.users.ivand = { ... }: {
             wayland.windowManager.sway = {
               config = {
