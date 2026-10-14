@@ -143,6 +143,7 @@ emacsWithPackagesFromUsePackage {
       xterm-color
       gptel
       elfeed
+      inhibit-mouse
       khalel
       htmlize
       emms

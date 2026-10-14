@@ -370,11 +370,10 @@ Write Org Mode and NEVER Markdown as the output will be rendered inside an Emacs
       emms-browser-thumbnail-medium-size 128
       emms-track-description-function #'emms-info-track-description)
 
+(require 'inhibit-mouse)
+(add-hook 'server-after-make-frame-hook 'inhibit-mouse-mode)
+
 (setq inhibit-startup-screen t)
-(dolist (ev '(mouse-1 mouse-2 mouse-3
-                      down-mouse-1 down-mouse-2 down-mouse-3
-                      drag-mouse-1 drag-mouse-2 drag-mouse-3))
-  (global-set-key (vector ev) 'ignore))
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
