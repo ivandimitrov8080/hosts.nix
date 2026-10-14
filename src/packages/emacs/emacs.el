@@ -371,12 +371,15 @@ Write Org Mode and NEVER Markdown as the output will be rendered inside an Emacs
       emms-track-description-function #'emms-info-track-description)
 
 (setq inhibit-startup-screen t)
+(dolist (ev '(mouse-1 mouse-2 mouse-3
+                      down-mouse-1 down-mouse-2 down-mouse-3
+                      drag-mouse-1 drag-mouse-2 drag-mouse-3))
+  (global-set-key (vector ev) 'ignore))
 (menu-bar-mode -1)
-(when (fboundp 'tool-bar-mode) (tool-bar-mode -1))
-(when (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
-(column-number-mode t)
-(show-paren-mode t)
-(global-visual-line-mode t)
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
+(show-paren-mode)
+(global-visual-line-mode)
 (add-to-list 'default-frame-alist '(alpha-background . 80))
 (custom-theme-set-faces
  'user
