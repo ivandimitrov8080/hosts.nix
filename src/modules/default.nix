@@ -519,6 +519,7 @@ in
                 stateVersion = 3;
                 enable = true;
                 localDnsResolver = false;
+                lmtpSaveToDetailMailbox = false;
                 fqdn = "idimitrov.dev";
                 domains = [
                   "idimitrov.dev"
