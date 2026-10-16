@@ -154,6 +154,7 @@
         timeformat = "%H:%M";
       };
     };
+    khard.enable = true;
     offlineimap.enable = true;
     afew = {
       enable = true;
