@@ -175,6 +175,8 @@
             "toptal.com"
             "onetravelspecials.com"
             "redglobal.com"
+            "b4b-inkasso.com"
+            "agoda.com"
           ];
         in
         ''
