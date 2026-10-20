@@ -102,7 +102,6 @@
             enable = true;
             boxes = [
               "INBOX"
-              "wrk"
             ];
             onNotify = "offlineimap";
             onNotifyPost = "notmuch new";

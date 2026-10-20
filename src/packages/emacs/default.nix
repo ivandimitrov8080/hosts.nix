@@ -142,6 +142,7 @@ emacsWithPackagesFromUsePackage {
       request
       xterm-color
       gptel
+      gptel-agent
       elfeed
       inhibit-mouse
       khalel
