@@ -119,6 +119,11 @@ in
               OPTIONS_JSON_NIXOS = "${pkgs.docs-nixos}/share/doc/nixos/options.json";
               OPTIONS_JSON_HOME_MANAGER = "${pkgs.docs-hm}/share/doc/home-manager/options.json";
             };
+            etc."libinput/local-overrides.quirks".text = ''
+              [KMonad Virtual Keyboard]
+              MatchName=kmonad-laptop
+              AttrKeyboardIntegration=internal
+            '';
           };
           fonts = {
             fontDir.enable = true;
