@@ -114,7 +114,7 @@
       extraOptions = [ "--init-directory=~/.config/emacs" ];
       defaultEditor = true;
       client.enable = true;
-      startWithUserSession = true;
+      startWithUserSession = "graphical";
     };
   };
   wayland.windowManager.sway.enable = true;

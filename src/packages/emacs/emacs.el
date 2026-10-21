@@ -590,12 +590,12 @@ Write Org Mode and NEVER Markdown as the output will be rendered inside an Emacs
 (defun rebuild-nova ()
   "Rebuild nova."
   (interactive)
-  (compile "nixos-rebuild switch --flake ~/src/hosts.nix#nova --profile-name nova --sudo --ask-sudo-password" t))
+  (compile "nixos-rebuild switch --flake ~/src/hosts.nix#nova --profile-name nova --sudo"))
 
 (defun rebuild-vps ()
   "Rebuild vpsfree-ivand."
   (interactive)
-  (compile "ssh vpsfree-ivand 'cd ~/src/hosts.nix; git pull; nixos-rebuild switch --flake ./#vps --sudo --ask-sudo-password'" t))
+  (compile "askpass | ssh vpsfree-ivand 'cd ~/src/hosts.nix; git pull; sudo -S nixos-rebuild switch --flake ./#vps'"))
 
 (require 'eglot)
 (add-hook 'nix-ts-mode-hook 'eglot-ensure)

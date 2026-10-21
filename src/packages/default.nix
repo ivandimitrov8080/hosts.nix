@@ -23,6 +23,7 @@ in
     notmuch-ics-import
     ladybird
     dnscrypt-proxy
+    askpass
     ;
 }
 // configs

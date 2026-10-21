@@ -118,6 +118,8 @@ in
             variables = {
               OPTIONS_JSON_NIXOS = "${pkgs.docs-nixos}/share/doc/nixos/options.json";
               OPTIONS_JSON_HOME_MANAGER = "${pkgs.docs-hm}/share/doc/home-manager/options.json";
+              SUDO_ASKPASS = "${pkgs.askpass}/bin/askpass";
+              NIX_SUDOOPTS = "-A";
             };
             etc."libinput/local-overrides.quirks".text = ''
               [KMonad Virtual Keyboard]

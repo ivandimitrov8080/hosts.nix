@@ -29,6 +29,7 @@
   ghc,
   exiftool,
   aspellWithDicts,
+  askpass,
   ...
 }:
 let
@@ -206,6 +207,7 @@ emacsWithPackagesFromUsePackage {
       tree
       nixfmt
       exiftool
+      askpass
       (aspellWithDicts (
         d: with d; [
           en
