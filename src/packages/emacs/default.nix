@@ -105,6 +105,7 @@ emacsWithPackagesFromUsePackage {
       flycheck
       flycheck-aspell
       company
+      fancy-compilation
       eglot
       org
       org-modern

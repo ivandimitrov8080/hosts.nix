@@ -80,6 +80,11 @@ PROMPT is the full text comint would otherwise show in the minibuffer."
 (global-set-key (kbd "C-h F") 'helpful-function)
 (global-set-key (kbd "C-h C") 'helpful-command)
 
+(require 'fancy-compilation)
+(with-eval-after-load 'compile
+  (fancy-compilation-mode))
+(setq compilation-scroll-output t)
+
 (require 'gptel)
 (require 'mcp)
 (require 'gptel-integrations)
