@@ -1,5 +1,6 @@
 {
-  stdenv,
+  emacs-unstable-pgtk,
+  emacsWithPackagesFromUsePackage,
   python3,
   python3Packages,
   coreutils,
@@ -11,7 +12,6 @@
   vscode-css-languageserver,
   tinymist,
   elmPackages,
-  emacs-overlay,
   mcp-server-fetch,
   mcp-server-filesystem,
   mcp-server-time,
@@ -32,12 +32,6 @@
   askpass,
   ...
 }:
-let
-  inherit (stdenv.hostPlatform) system;
-  inherit (emacs-overlay.packages.${system}) emacs-unstable-pgtk;
-  inherit (emacs-overlay.lib.${system}) emacsWithPackagesFromUsePackage;
-
-in
 emacsWithPackagesFromUsePackage {
   # Your Emacs config file. Org mode babel files are also
   # supported.
@@ -60,38 +54,12 @@ emacsWithPackagesFromUsePackage {
   # Package is optional, defaults to pkgs.emacs
   package = emacs-unstable-pgtk;
 
-  # By default emacsWithPackagesFromUsePackage will only pull in
-  # packages with `:ensure`, `:ensure t` or `:ensure <package name>`.
-  # Setting `alwaysEnsure` to `true` emulates `use-package-always-ensure`
-  # and pulls in all use-package references not explicitly disabled via
-  # `:ensure nil` or `:disabled`.
-  # Note that this is NOT recommended unless you've actually set
-  # `use-package-always-ensure` to `t` in your config.
-  alwaysEnsure = true;
-
-  # For Org mode babel files, by default only code blocks with
-  # `:tangle yes` are considered. Setting `alwaysTangle` to `true`
-  # will include all code blocks missing the `:tangle` argument,
-  # defaulting it to `yes`.
-  # Note that this is NOT recommended unless you have something like
-  # `#+PROPERTY: header-args:emacs-lisp :tangle yes` in your config,
-  # which defaults `:tangle` to `yes`.
-  alwaysTangle = true;
-
   # Optionally provide extra packages not in the configuration file.
   # This can also include extra executables to be run by Emacs (linters,
   # language servers, formatters, etc)
   extraEmacsPackages =
     epkgs: with epkgs; [
-      (trivialBuild {
-        pname = "vertico-nixos-options";
-        version = "0.3.0";
-        src = ./vertico-nixos-options.el;
-        packageRequires = [
-          nixos-options
-          consult
-        ];
-      })
+      vertico-nixos-options
       elm-mode
       haskell-ts-mode
       rust-mode
@@ -215,18 +183,4 @@ emacsWithPackagesFromUsePackage {
         ]
       ))
     ];
-  override = final: prev: {
-    haskell-ts-mode = prev.haskell-ts-mode.overrideAttrs (old: {
-      dontUnpack = false;
-      postPatch = (old.postPatch or "") + ''
-        substituteInPlace haskell-ts-mode.el \
-          --replace-fail type_synomym type_synonym
-
-        pushd ..
-        src="$PWD/$ename-$version.tar"
-        tar --create --file="$src" "$ename-$version"
-        popd
-      '';
-    });
-  };
 }

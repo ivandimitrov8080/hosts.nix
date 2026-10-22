@@ -4,9 +4,9 @@ let
   pkgs = import inputs.nixpkgs {
     inherit system;
     overlays = [
+      emacs
       default
       config
-      emacs
     ];
   };
   configs = builtins.mapAttrs (
@@ -24,6 +24,7 @@ in
     ladybird
     dnscrypt-proxy
     askpass
+    emacsPackages
     ;
 }
 // configs
