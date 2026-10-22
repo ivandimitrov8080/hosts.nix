@@ -32,6 +32,31 @@
   askpass,
   ...
 }:
+let
+  # The configuration itself lives in self-contained Emacs packages.  Each one
+  # declares its own Elisp dependencies via `packageRequires', so only the
+  # master packages have to be requested here.
+  configPackages =
+    epkgs:
+    with epkgs;
+    [
+      pass-integration
+      editor-defaults
+      ui-chrome
+      completion-ui
+      structural-editing
+      llm-integration
+      code-intelligence
+      language-support
+      git-workflow
+      org-workflow
+      messaging
+      media-playback
+      rss-feeds
+      nix-tooling
+      utility-commands
+    ];
+in
 emacsWithPackagesFromUsePackage {
   # Your Emacs config file. Org mode babel files are also
   # supported.
@@ -58,72 +83,10 @@ emacsWithPackagesFromUsePackage {
   # This can also include extra executables to be run by Emacs (linters,
   # language servers, formatters, etc)
   extraEmacsPackages =
-    epkgs: with epkgs; [
-      vertico-nixos-options
-      elm-mode
-      haskell-ts-mode
-      rust-mode
-      nix-mode
-      nix-ts-mode
-      nixos-options
-      nushell-mode
-      typst-ts-mode
-      projectile
-      magit
-      diff-hl
-      flycheck
-      flycheck-aspell
-      company
-      fancy-compilation
-      eglot
-      org
-      org-modern
-      valign
-      org-appear
-      mixed-pitch
-      olivetti
-      ob-nix
-      tree-sitter
-      treesit-grammars.with-all-grammars
-      markdown-mode
-      yaml-mode
-      catppuccin-theme
-      which-key
-      vertico
-      orderless
-      marginalia
-      helpful
-      consult
-      nerd-icons
-      nerd-icons-xref
-      nerd-icons-dired
-      nerd-icons-completion
-      nerd-icons-ibuffer
-      avy
-      multiple-cursors
-      expand-region
-      doom-modeline
-      rainbow-delimiters
-      vterm
-      smartparens
-      undo-tree
-      dired-quick-sort
-      notmuch
-      request
-      xterm-color
-      gptel
-      gptel-agent
-      elfeed
-      inhibit-mouse
-      khalel
-      htmlize
-      emms
-      mcp
-      telega
-      transmission
-      aggressive-indent
-      pass
-      direnv
+    epkgs:
+    configPackages epkgs
+    ++ [
+      # Runtime executables and non-Elisp dependencies.
       haskell-language-server
       elmPackages.elm-language-server
       nixd
