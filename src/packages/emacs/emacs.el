@@ -83,7 +83,14 @@ PROMPT is the full text comint would otherwise show in the minibuffer."
 (require 'fancy-compilation)
 (with-eval-after-load 'compile
   (fancy-compilation-mode))
-(setq compilation-scroll-output t)
+(setq compilation-scroll-output t
+      compilation-ask-about-save nil
+      compilation-always-kill t)
+
+(advice-add 'compilation-start
+            :around (lambda (orig &rest args)
+                      (let ((shell-file-name (or (executable-find "bash") "/bin/sh")))
+                        (apply orig args))))
 
 (require 'gptel)
 (require 'mcp)
@@ -241,6 +248,7 @@ Write Org Mode and NEVER Markdown as the output will be rendered inside an Emacs
                 (mcp-add-root "filesystem" root)))))
 
 (require 'nix-mode)
+(add-to-list 'auto-mode-alist '("\\.drv\\'" . nix-drv-mode))
 (require 'nix-ts-mode)
 (add-to-list 'auto-mode-alist '("\\.nix\\'" . nix-ts-mode))
 
@@ -507,23 +515,6 @@ Write Org Mode and NEVER Markdown as the output will be rendered inside an Emacs
 (defun browse-url-emms (url &rest _args)
   "Automatically open URL in REST mpv."
   (emms-play-url url))
-
-;;; function redeclaration
-
-(with-eval-after-load 'nix-flake
-  (defun nix-flake--installable-command (subcommand options flake-ref attribute
-                                                    &optional extra-arguments)
-    (let ((installable (if attribute
-                           (concat (shell-quote-argument flake-ref) "#" attribute)
-                         (shell-quote-argument flake-ref))))
-      (concat nix-executable
-              " "
-              (mapconcat #'shell-quote-argument
-                         (nix-flake--to-list subcommand)
-                         " ")
-              " " installable
-              (if options (concat " " (mapconcat #'shell-quote-argument options " ")) "")
-              (if extra-arguments (concat " -- " extra-arguments) "")))))
 
 ;;; custom commands
 
