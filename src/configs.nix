@@ -107,9 +107,10 @@ in
                   "Mod4+o" = "exec ${pkgs.which-key}/bin/which-key";
                 };
                 startup = [
-                  { command = "exec Ladybird"; }
+                  { command = "swaymsg workspace 1"; }
                 ];
                 assigns = {
+                  "1" = [ { app_id = "^emacs$"; } ];
                   "2" = [ { app_id = "^org.ladybird.Ladybird$"; } ];
                 };
                 input = {
