@@ -116,6 +116,9 @@
       path = with pkgs; [
         offlineimap
         notmuch
+        libnotify
+        pass
+        afew
       ];
     };
     pimsync.enable = true;
