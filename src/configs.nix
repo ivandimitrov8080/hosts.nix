@@ -108,6 +108,7 @@ in
                 };
                 startup = [
                   { command = "swaymsg workspace 1"; }
+                  { command = "exec kitty --hold swaymsg move scratchpad"; }
                 ];
                 assigns = {
                   "1" = [ { app_id = "^emacs$"; } ];
