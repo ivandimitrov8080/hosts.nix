@@ -111,7 +111,10 @@ in
                   { command = "exec kitty --hold swaymsg move scratchpad"; }
                 ];
                 assigns = {
-                  "1" = [ { app_id = "^emacs$"; } ];
+                  "1" = [
+                    { app_id = "^emacs$"; }
+                    { app_id = "^kitty$"; }
+                  ];
                   "2" = [ { app_id = "^org.ladybird.Ladybird$"; } ];
                 };
                 input = {
