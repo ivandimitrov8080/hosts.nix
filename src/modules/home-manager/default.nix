@@ -117,5 +117,8 @@
       startWithUserSession = "graphical";
     };
   };
+  systemd.user.services.emacs.Service.ExecStartPost = [
+    "-${pkgs.emacs-custom}/bin/emacsclient --create-frame --no-wait"
+  ];
   wayland.windowManager.sway.enable = true;
 }
