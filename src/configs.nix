@@ -46,6 +46,7 @@ in
         {
           imports = [
             inputs.disko.nixosModules.disko
+            inputs.catppuccin.nixosModules.catppuccin
           ];
           hardware.firmware = [ pkgs.linux-firmware ];
           boot.initrd = {
@@ -57,6 +58,12 @@ in
               "sd_mod"
               "sdhci_pci"
             ];
+          };
+          catppuccin = rec {
+            enable = true;
+            autoEnable = enable;
+            accent = "green";
+            flavor = "mocha";
           };
           disko.devices = {
             disk = {
@@ -101,6 +108,15 @@ in
             };
           };
           home-manager.users.ivand = { ... }: {
+            imports = [ inputs.catppuccin.homeModules.catppuccin ];
+            catppuccin = rec {
+              enable = true;
+              autoEnable = enable;
+              accent = "green";
+              flavor = "mocha";
+              firefox.enable = false;
+              waybar.mode = "createLink";
+            };
             wayland.windowManager.sway = {
               config = {
                 keybindings = pkgs.lib.mkOptionDefault {

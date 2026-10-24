@@ -90,13 +90,33 @@
         "type": "github"
       }
     },
+    "catppuccin": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1792238796,
+        "narHash": "sha256-mRsa8oJ8R7fkvR5K+uQYfuxX9Np0ai/KvzTE8FYVx7E=",
+        "owner": "catppuccin",
+        "repo": "nix",
+        "rev": "30c87b95a628e81ec82a4fa0ed4db85d7c7d46d6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "catppuccin",
+        "repo": "nix",
+        "type": "github"
+      }
+    },
     "configuration": {
       "locked": {
-        "lastModified": 1790092260,
-        "narHash": "sha256-0B5T8PnTACM3LhjW8L0RPcffyXryLzBUDss8qqIRweQ=",
+        "lastModified": 1792824383,
+        "narHash": "sha256-h8/1CCLW8MB9jCksN10bD9tz919VN7E4rdQ6i6DQK50=",
         "owner": "ivandimitrov8080",
         "repo": "configuration.nix",
-        "rev": "9aac1ffc3803a854e4b5b430f82872718df9cefc",
+        "rev": "aac24e832ba2e7a76fabb6ba2e116446d95178cc",
         "type": "github"
       },
       "original": {
@@ -852,6 +872,7 @@
     },
     "root": {
       "inputs": {
+        "catppuccin": "catppuccin",
         "configuration": "configuration",
         "disko": "disko",
         "emacs-overlay": "emacs-overlay",
