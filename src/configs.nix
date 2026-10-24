@@ -108,12 +108,12 @@ in
                 };
                 startup = [
                   { command = "swaymsg workspace 1"; }
-                  { command = "exec kitty --hold swaymsg move scratchpad"; }
+                  { command = "exec kitty --app-id=scratchy --hold swaymsg move scratchpad"; }
                 ];
                 assigns = {
                   "1" = [
                     { app_id = "^emacs$"; }
-                    { app_id = "^kitty$"; }
+                    { app_id = "^scratchy$"; }
                   ];
                   "2" = [ { app_id = "^org.ladybird.Ladybird$"; } ];
                 };
