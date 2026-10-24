@@ -46,7 +46,7 @@
 (defun rebuild-nova ()
   "Rebuild nova."
   (interactive)
-  (compile "nixos-rebuild switch --flake ~/src/hosts.nix#nova --profile-name nova --sudo"))
+  (compile "nixos-rebuild switch --flake ~/src/hosts.nix#nova --sudo"))
 
 (defun rebuild-vps ()
   "Rebuild vpsfree-ivand."
