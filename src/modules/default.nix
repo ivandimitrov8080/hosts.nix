@@ -277,6 +277,18 @@ in
                 imports = [
                   (import ./home-manager { inherit inputs pkgs config; })
                 ];
+                gtk = {
+                  enable = true;
+                  font = {
+                    name = "FiraCode Nerd Font Mono";
+                    package = pkgs.nerd-fonts.fira-code;
+                  };
+                };
+                qt = {
+                  enable = true;
+                  kvantum.enable = true;
+                  style.name = "kvantum";
+                };
                 home = {
                   username = "ivand";
                   homeDirectory = "/home/ivand";
@@ -297,6 +309,9 @@ in
                     signing.key = "ED7A E641 69C1 DB37 F48D  68A7 1C27 6C0A 3909 B508";
                   };
                   nushell.settings.edit_mode = "emacs";
+                };
+                services = {
+                  clipse.enable = true;
                 };
               })
             ];
