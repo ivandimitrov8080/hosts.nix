@@ -59,44 +59,6 @@
     zoxide.enable = true;
     nushell.enable = true;
     zsh.enable = true;
-    opencode = {
-      enable = true;
-      agents = {
-        "UI/UX" = ''
-          ---
-          description: Writes consistent and good-lookng web styles
-          mode: primary
-          temperature: 0.1
-          tools:
-            write: true
-            edit: true
-            bash: false
-          ---
-
-          You are in UI/UX mode. Focus on:
-
-          - Consistent styles and best practices
-          - Responsive design
-          - Simplicity over complexity
-          - Features over simplicity
-          - Beautiful websites
-
-          Write beautiful websites without sacrificing simplicity or features. Write to files without
-          asking.
-        '';
-      };
-      settings = {
-        permission = {
-          external_directory = {
-            "/nix/store/**" = "allow";
-            "/gnu/store/**" = "allow";
-            "/home/ivand/.cache/**" = "allow";
-            "/home/ivand/.config/**" = "allow";
-            "/tmp/**" = "allow";
-          };
-        };
-      };
-    };
   };
   services = {
     gpg-agent.enable = true;
