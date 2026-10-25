@@ -55,6 +55,8 @@
     tealdeer.enable = true;
     tmux.enable = true;
     waybar.enable = true;
+    waybar.settings.mainBar."custom/weather".exec =
+      "${pkgs.wttrbar}/bin/wttrbar --observation-time --location Danang";
     yazi.enable = true;
     zoxide.enable = true;
     nushell.enable = true;
