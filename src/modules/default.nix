@@ -565,7 +565,10 @@ in
               };
               services = {
                 postfix.settings = {
-                  main.smtpd_sasl_auth_enable = lib.mkForce "no";
+                  main = {
+                    smtpd_sasl_auth_enable = lib.mkForce "no";
+                    inet_protocols = "ipv4";
+                  };
                   master.submissions_inet.args = [
                     "-o"
                     "smtpd_sasl_auth_enable=yes"
