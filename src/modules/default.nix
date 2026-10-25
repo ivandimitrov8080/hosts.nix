@@ -109,6 +109,7 @@ in
               ];
             };
           };
+          security.sudo-rs.enable = true;
           environment = {
             systemPackages = with pkgs; [
               ffmpeg
