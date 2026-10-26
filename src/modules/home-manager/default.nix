@@ -15,6 +15,18 @@
     "x-scheme-handler/about" = "org.ladybird.Ladybird.desktop";
     "x-scheme-handler/unknown" = "org.ladybird.Ladybird.desktop";
   };
+  gtk = {
+    enable = true;
+    font = {
+      name = "FiraCode Nerd Font Mono";
+      package = pkgs.nerd-fonts.fira-code;
+    };
+  };
+  qt = {
+    enable = true;
+    kvantum.enable = true;
+    style.name = "kvantum";
+  };
   home.packages = with pkgs; [
     devenv
     vit
@@ -65,6 +77,7 @@
   services = {
     gpg-agent.enable = true;
     mako.enable = true;
+    clipse.enable = true;
     pass-secret-service.enable = true;
     wpaperd.enable = true;
     gammastep = {
