@@ -27,7 +27,8 @@
    kept-new-versions 6
    kept-old-versions 2
    version-control t
-   vc-follow-symlinks t)
+   vc-follow-symlinks t
+   dired-listing-switches "-alB")
 
   (require 'savehist)
   (savehist-mode)
