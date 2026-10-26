@@ -72,6 +72,10 @@
     yazi.enable = true;
     zoxide.enable = true;
     nushell.enable = true;
+    nushell.settings.edit_mode = "emacs";
+    nushell.extraConfig = pkgs.lib.mkAfter ''
+      def --wrapped sudo [...rest] { ^sudo -A ...$rest }
+    '';
     zsh.enable = true;
   };
   services = {
