@@ -24,7 +24,7 @@ in
     ladybird
     dnscrypt-proxy
     askpass
-    emacsPackages
+    neomacs
     ;
 }
 // configs

@@ -31,6 +31,8 @@
     webshite.url = "github:ivandimitrov8080/idimitrov.dev";
     # my metronome
     metronome.url = "github:ivandimitrov8080/metronome";
+    # neomacs
+    neomacs.url = "github:eval-exec/neomacs";
   };
   outputs =
     inputs:

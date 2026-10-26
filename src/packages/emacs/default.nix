@@ -32,31 +32,6 @@
   askpass,
   ...
 }:
-let
-  # The configuration itself lives in self-contained Emacs packages.  Each one
-  # declares its own Elisp dependencies via `packageRequires', so only the
-  # master packages have to be requested here.
-  configPackages =
-    epkgs:
-    with epkgs;
-    [
-      pass-integration
-      editor-defaults
-      ui-chrome
-      completion-ui
-      structural-editing
-      llm-integration
-      code-intelligence
-      language-support
-      git-workflow
-      org-workflow
-      messaging
-      media-playback
-      rss-feeds
-      nix-tooling
-      utility-commands
-    ];
-in
 emacsWithPackagesFromUsePackage {
   # Your Emacs config file. Org mode babel files are also
   # supported.
@@ -84,8 +59,22 @@ emacsWithPackagesFromUsePackage {
   # language servers, formatters, etc)
   extraEmacsPackages =
     epkgs:
-    configPackages epkgs
-    ++ [
+    with epkgs; [
+      pass-integration
+      editor-defaults
+      ui-chrome
+      completion-ui
+      structural-editing
+      llm-integration
+      code-intelligence
+      language-support
+      git-workflow
+      org-workflow
+      messaging
+      media-playback
+      rss-feeds
+      nix-tooling
+      utility-commands
       # Runtime executables and non-Elisp dependencies.
       haskell-language-server
       elmPackages.elm-language-server
