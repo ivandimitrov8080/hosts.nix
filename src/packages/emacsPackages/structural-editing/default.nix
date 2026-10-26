@@ -1,6 +1,5 @@
 {
   trivialBuild,
-  avy,
   multiple-cursors,
   expand-region,
   smartparens,
@@ -14,7 +13,6 @@ trivialBuild {
   version = "0.1.0";
   src = ./structural-editing.el;
   packageRequires = [
-    avy
     multiple-cursors
     expand-region
     smartparens

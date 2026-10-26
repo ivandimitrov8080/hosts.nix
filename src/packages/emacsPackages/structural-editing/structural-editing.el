@@ -6,7 +6,6 @@
 
 ;;; Code:
 
-(require 'avy)
 (require 'multiple-cursors)
 (require 'expand-region)
 (require 'smartparens)
@@ -17,13 +16,6 @@
 
 (defun structural-editing-init ()
   "Configure navigation and structural editing."
-  (global-set-key (kbd "C-:") 'avy-goto-char)
-  (global-set-key (kbd "C-'") 'avy-goto-char-2)
-  (global-set-key (kbd "M-g f") 'avy-goto-line)
-  (global-set-key (kbd "M-g w") 'avy-goto-word-1)
-  (global-set-key (kbd "C-c C-j") 'avy-resume)
-  (setq avy-background t
-        avy-style 'at-full)
 
   (global-set-key (kbd "C->") 'mc/mark-next-like-this)
   (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
