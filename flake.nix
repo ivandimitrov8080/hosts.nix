@@ -8,10 +8,8 @@
     vps.url = "git+file:///home/ivand/src/hosts.nix/vps.nix";
   };
   outputs =
-    { iso, vps, nova }:
+    { self, iso, vps, nova }:
     {
-      # each host flake is self-contained and builds its own configuration;
-      # this aggregate just re-exports them under one flake
       nixosConfigurations =
         iso.nixosConfigurations
         // vps.nixosConfigurations

@@ -847,14 +847,15 @@
         "emacs-overlay": "emacs-overlay",
         "home-manager": "home-manager",
         "neomacs": "neomacs",
-        "nixpkgs": "nixpkgs_3"
+        "nixpkgs": "nixpkgs_3",
+        "src": "src"
       },
       "locked": {
-        "lastModified": 1793104518,
-        "narHash": "sha256-o/AKdYYT/OikT+8J2WpbI94zb87sUV6R8voi5PwC4sw=",
+        "lastModified": 1793120704,
+        "narHash": "sha256-7mffKaVWYxsBmk4fAx1oN0G9wqIutvAcf/stUqdk9tc=",
         "ref": "refs/heads/master",
-        "rev": "04bd1563076eae8ee60fd30640dea1ef27ad87b3",
-        "revCount": 1,
+        "rev": "6ba4c134549e6897ccf69955f16e71ddfb1c1c7c",
+        "revCount": 2,
         "type": "git",
         "url": "file:///home/ivand/src/hosts.nix/iso.nix"
       },
@@ -1499,14 +1500,15 @@
         "emacs-overlay": "emacs-overlay_2",
         "home-manager": "home-manager_3",
         "neomacs": "neomacs_2",
-        "nixpkgs": "nixpkgs_6"
+        "nixpkgs": "nixpkgs_6",
+        "src": "src_2"
       },
       "locked": {
-        "lastModified": 1793104412,
-        "narHash": "sha256-juFmEHFbJxxDTErBi6mMjRakAd+8x/T84TMO7W1rask=",
+        "lastModified": 1793120700,
+        "narHash": "sha256-/64McrkBcUxKUEJKKbugMvrit/xxFFHiKI3PsxA2Smw=",
         "ref": "refs/heads/master",
-        "rev": "fcfd777a230fd979fc7b962f90913f4b6ff1eee4",
-        "revCount": 1,
+        "rev": "875585cdb41a76eec8df04335d1f928697657e14",
+        "revCount": 2,
         "type": "git",
         "url": "file:///home/ivand/src/hosts.nix/nova.nix"
       },
@@ -1675,6 +1677,60 @@
         "type": "gitlab"
       }
     },
+    "src": {
+      "flake": false,
+      "locked": {
+        "dir": "src",
+        "lastModified": 1793120781,
+        "narHash": "sha256-+YCDVSGEFeAjsNz7Vna4Vu77fKxmxYYXiinbEhf7S0s=",
+        "ref": "refs/heads/master",
+        "rev": "a9bf87b05b3cbc934c390da879d6c5092c7fa8ca",
+        "revCount": 820,
+        "type": "git",
+        "url": "file:///home/ivand/src/hosts.nix"
+      },
+      "original": {
+        "dir": "src",
+        "type": "git",
+        "url": "file:///home/ivand/src/hosts.nix"
+      }
+    },
+    "src_2": {
+      "flake": false,
+      "locked": {
+        "dir": "src",
+        "lastModified": 1793120781,
+        "narHash": "sha256-+YCDVSGEFeAjsNz7Vna4Vu77fKxmxYYXiinbEhf7S0s=",
+        "ref": "refs/heads/master",
+        "rev": "a9bf87b05b3cbc934c390da879d6c5092c7fa8ca",
+        "revCount": 820,
+        "type": "git",
+        "url": "file:///home/ivand/src/hosts.nix"
+      },
+      "original": {
+        "dir": "src",
+        "type": "git",
+        "url": "file:///home/ivand/src/hosts.nix"
+      }
+    },
+    "src_3": {
+      "flake": false,
+      "locked": {
+        "dir": "src",
+        "lastModified": 1793120781,
+        "narHash": "sha256-+YCDVSGEFeAjsNz7Vna4Vu77fKxmxYYXiinbEhf7S0s=",
+        "ref": "refs/heads/master",
+        "rev": "a9bf87b05b3cbc934c390da879d6c5092c7fa8ca",
+        "revCount": 820,
+        "type": "git",
+        "url": "file:///home/ivand/src/hosts.nix"
+      },
+      "original": {
+        "dir": "src",
+        "type": "git",
+        "url": "file:///home/ivand/src/hosts.nix"
+      }
+    },
     "systems": {
       "locked": {
         "lastModified": 1681028828,
@@ -1798,15 +1854,16 @@
         "neomacs": "neomacs_3",
         "nixpkgs": "nixpkgs_11",
         "simple-nixos-mailserver": "simple-nixos-mailserver",
+        "src": "src_3",
         "vpsadminos": "vpsadminos",
         "webshite": "webshite"
       },
       "locked": {
-        "lastModified": 1793104497,
-        "narHash": "sha256-56pNl5ou3JhacMSr6aZ8LYVwYfFdGkKi1nszopQE71g=",
+        "lastModified": 1793120696,
+        "narHash": "sha256-dCWRR5F0N/kQbRyKrkgrXqwy7vlKJ3v/TZ0uQ3Lw9XU=",
         "ref": "refs/heads/master",
-        "rev": "9f95a560a90f8d3d8720ba055086f0f8d1c0f8c1",
-        "revCount": 1,
+        "rev": "a8f5885ff853a68c3ea309f32a4d7c092f6ce848",
+        "revCount": 2,
         "type": "git",
         "url": "file:///home/ivand/src/hosts.nix/vps.nix"
       },
