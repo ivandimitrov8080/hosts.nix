@@ -1,9 +1,9 @@
-{ inputs }:
+{ inputs, docsConfig }:
 {
   default =
     final: prev: with prev; {
       which-key = callPackage ./packages/which-key { };
-      docs-nixos = inputs.self.nixosConfigurations.nova.config.system.build.manual.optionsJSON;
+      docs-nixos = docsConfig.config.system.build.manual.optionsJSON;
       docs-hm = inputs.home-manager.packages.${prev.stdenv.hostPlatform.system}.docs-json;
       emacs-custom = callPackage ./packages/emacs { inherit inputs; };
       neomacs = callPackage ./packages/emacs {

@@ -1,0 +1,9 @@
+[submodule "iso.nix"]
+	path = iso.nix
+	url = git@github.com:ivandimitrov8080/iso.nix.git
+[submodule "nova.nix"]
+	path = nova.nix
+	url = git@github.com:ivandimitrov8080/nova.nix.git
+[submodule "vps.nix"]
+	path = vps.nix
+	url = git@github.com:ivandimitrov8080/vps.nix.git

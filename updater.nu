@@ -1,4 +1,12 @@
-let repos = ["idimitrov.dev", "ndlm", "metronome", "hosts.nix"]
+let repos = [
+    "idimitrov.dev"
+    "ndlm"
+    "metronome"
+    "hosts.nix/iso.nix"
+    "hosts.nix/nova.nix"
+    "hosts.nix/vps.nix"
+    "hosts.nix"
+]
 def notify_tg [msg: string] {
     let url = $"https://api.telegram.org/bot($env.TG_BOT_TOKEN)/sendMessage"
     let body = {chat_id: $env.TG_BOT_CHAT_ID, text: $msg, disable_notification: false}

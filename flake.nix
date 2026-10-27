@@ -1,50 +1,27 @@
 {
   inputs = {
-    # configuration.url = "git+file:///home/ivand/src/configuration.nix";
-    configuration.url = "github:ivandimitrov8080/configuration.nix";
-    # declarative disk partitioning
-    disko.url = "github:nix-community/disko/latest";
-    disko.inputs.nixpkgs.follows = "nixpkgs";
-    # nixpkgs
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    # flake-compat to use this flake in configuration.nix
-    flake-compat.url = "github:edolstra/flake-compat";
-    flake-compat.flake = false;
-    # manages the home
-    home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    # catppuccin for everything
-    catppuccin.url = "github:catppuccin/nix";
-    catppuccin.inputs.nixpkgs.follows = "nixpkgs";
-    # emacs latest version
-    emacs-overlay.url = "github:nix-community/emacs-overlay";
-    emacs-overlay.inputs.nixpkgs.follows = "nixpkgs";
-    # for mailserver config
-    simple-nixos-mailserver.url = "gitlab:simple-nixos-mailserver/nixos-mailserver";
-    simple-nixos-mailserver.inputs.nixpkgs.follows = "nixpkgs";
-    # for formatting
-    treefmt.url = "github:numtide/treefmt-nix";
-    treefmt.inputs.nixpkgs.follows = "nixpkgs";
-    # for vpsadmin
-    vpsadminos.url = "github:vpsfreecz/vpsadminos";
-    # my website
-    webshite.url = "github:ivandimitrov8080/idimitrov.dev";
-    # my metronome
-    metronome.url = "github:ivandimitrov8080/metronome";
-    # neomacs
-    neomacs.url = "github:eval-exec/neomacs";
+    # iso.url = "github:ivandimitrov8080/iso.nix";
+    iso.url = "git+file:///home/ivand/src/hosts.nix/iso.nix";
+    # nova.url = "github:ivandimitrov8080/nova.nix";
+    nova.url = "git+file:///home/ivand/src/hosts.nix/nova.nix";
+    # vps.url = "github:ivandimitrov8080/vps.nix";
+    vps.url = "git+file:///home/ivand/src/hosts.nix/vps.nix";
   };
   outputs =
-    inputs:
+    { self, iso, vps, nova }:
     let
-      system = "x86_64-linux";
+      # shared modules, overlays and packages live here and are handed to the
+      # host flakes, which only hold the host specific configuration
+      src = ./src;
+      # every host takes its option docs from nova
+      docsConfig = result.nixosConfigurations.nova;
+      result = {
+        nixosConfigurations = {
+          iso = iso.mkHost { inherit src docsConfig; };
+          vps = vps.mkHost { inherit src docsConfig; };
+          nova = nova.mkHost { inherit src docsConfig; };
+        };
+      };
     in
-    {
-      nixosConfigurations = import ./src/configs.nix { inherit inputs; };
-      overlays = import ./src/overlays.nix { inherit inputs; };
-      formatter = import ./src/formatter.nix { inherit inputs; };
-      nixosModules = import ./src/modules { inherit inputs; };
-      checks.${system} = import ./src/test { inherit inputs system; };
-      packages.${system} = import ./src/packages { inherit inputs system; };
-    };
+    result;
 }
