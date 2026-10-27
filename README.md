@@ -8,11 +8,18 @@ Three hosts, three flakes, three git submodules:
 | `vps.nix`   | vpsfree     |
 | `nova.nix`  | laptop      |
 
-`src/` holds the code shared by all of them (`modules`, `overlays.nix`,
-`packages`). hosts.nix only depends on the three flakes and hands them `src/`,
-so nothing is duplicated and each host pins its own dependencies in its own
-`flake.lock`.
+Each host flake is self-contained: it builds its own
+`nixosConfigurations.<host>` and pins its own dependencies in its own
+`flake.lock`. The only thing they share is `src/` (modules, overlays and
+packages), which every host flake consumes as a `src` flake input, so nothing
+is duplicated.
+
+hosts.nix only aggregates the three flakes:
 
 ```sh
+# via the aggregate flake
 nixos-rebuild switch --flake ~/src/hosts.nix#nova
+
+# or directly from the host flake
+nixos-rebuild switch --flake ~/src/hosts.nix/nova.nix#nova
 ```

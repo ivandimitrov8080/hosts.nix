@@ -8,20 +8,13 @@
     vps.url = "git+file:///home/ivand/src/hosts.nix/vps.nix";
   };
   outputs =
-    { self, iso, vps, nova }:
-    let
-      # shared modules, overlays and packages live here and are handed to the
-      # host flakes, which only hold the host specific configuration
-      src = ./src;
-      # every host takes its option docs from nova
-      docsConfig = result.nixosConfigurations.nova;
-      result = {
-        nixosConfigurations = {
-          iso = iso.mkHost { inherit src docsConfig; };
-          vps = vps.mkHost { inherit src docsConfig; };
-          nova = nova.mkHost { inherit src docsConfig; };
-        };
-      };
-    in
-    result;
+    { iso, vps, nova }:
+    {
+      # each host flake is self-contained and builds its own configuration;
+      # this aggregate just re-exports them under one flake
+      nixosConfigurations =
+        iso.nixosConfigurations
+        // vps.nixosConfigurations
+        // nova.nixosConfigurations;
+    };
 }
