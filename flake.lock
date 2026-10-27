@@ -850,10 +850,10 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1793101629,
-        "narHash": "sha256-VemVMepXeeAQqQDZebvNqyTwLTkZAKWMufZlwKTLb5M=",
+        "lastModified": 1793104518,
+        "narHash": "sha256-o/AKdYYT/OikT+8J2WpbI94zb87sUV6R8voi5PwC4sw=",
         "ref": "refs/heads/master",
-        "rev": "474484727e2c20c37ee83cb1c9c90a54e4bb0cac",
+        "rev": "04bd1563076eae8ee60fd30640dea1ef27ad87b3",
         "revCount": 1,
         "type": "git",
         "url": "file:///home/ivand/src/hosts.nix/iso.nix"
@@ -1502,10 +1502,10 @@
         "nixpkgs": "nixpkgs_6"
       },
       "locked": {
-        "lastModified": 1793101643,
-        "narHash": "sha256-KQ0Qlyda3tQoa0hLp2HePoRW1WxXbigGvTRcfC+6Kjo=",
+        "lastModified": 1793104412,
+        "narHash": "sha256-juFmEHFbJxxDTErBi6mMjRakAd+8x/T84TMO7W1rask=",
         "ref": "refs/heads/master",
-        "rev": "0920e35f0891a6b93a139c19d82ff2445b21771f",
+        "rev": "fcfd777a230fd979fc7b962f90913f4b6ff1eee4",
         "revCount": 1,
         "type": "git",
         "url": "file:///home/ivand/src/hosts.nix/nova.nix"
@@ -1802,10 +1802,10 @@
         "webshite": "webshite"
       },
       "locked": {
-        "lastModified": 1793101637,
-        "narHash": "sha256-eIRmICUgr6czETYG8uOpiufsbjVcJrJKYb9pSicHA/4=",
+        "lastModified": 1793104497,
+        "narHash": "sha256-56pNl5ou3JhacMSr6aZ8LYVwYfFdGkKi1nszopQE71g=",
         "ref": "refs/heads/master",
-        "rev": "1a96c4bc078b623969622925373fdbb7c6ff81cb",
+        "rev": "9f95a560a90f8d3d8720ba055086f0f8d1c0f8c1",
         "revCount": 1,
         "type": "git",
         "url": "file:///home/ivand/src/hosts.nix/vps.nix"

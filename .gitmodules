@@ -7,3 +7,6 @@
 [submodule "vps.nix"]
 	path = vps.nix
 	url = git@github.com:ivandimitrov8080/vps.nix.git
+[submodule "configuration.nix"]
+	path = configuration.nix
+	url = ./configuration.nix
