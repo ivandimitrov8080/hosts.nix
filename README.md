@@ -12,7 +12,8 @@ Each host flake is self-contained: it builds its own
 `nixosConfigurations.<host>` and pins its own dependencies in its own
 `flake.lock`. The only thing they share is `src/` (modules, overlays and
 packages), which every host flake consumes as a `src` flake input, so nothing
-is duplicated.
+is duplicated. The input points at this local checkout by default; the
+`github:` form is commented out in each host flake.
 
 hosts.nix only aggregates the three flakes:
 
