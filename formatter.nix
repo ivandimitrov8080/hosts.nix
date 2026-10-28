@@ -4,11 +4,30 @@
 let
   system = "x86_64-linux";
   pkgs = import inputs.nixpkgs { inherit system; };
+  treefmt =
+    pkgs.treefmt
+    // (pkgs.writers.writeNuBin "treefmt"
+      {
+        makeWrapperArgs = [
+          "--prefix"
+          "PATH"
+          ":"
+          "${pkgs.lib.makeBinPath [
+            pkgs.git
+            pkgs.treefmt
+          ]}"
+        ];
+      }
+      ''
+        def --wrapped main [...rest] { git submodule foreach treefmt ...$rest }
+      ''
+    );
 in
 {
   ${system} =
     (inputs.treefmt.lib.evalModule pkgs {
       projectRootFile = "flake.nix";
+      package = treefmt;
       programs = {
         nixfmt.enable = true;
         prettier.enable = true;
@@ -16,19 +35,12 @@ in
         deadnix.enable = true;
         statix.enable = true;
       };
-      settings.formatter = {
-        "nufmt" = {
-          command = "${pkgs.bash}/bin/bash";
-          options = [
-            "-euc"
-            ''
-              for file in "$@"; do
-                ${pkgs.lib.getExe pkgs.nufmt} $file
-              done
-            ''
-            "--" # bash swallows the second argument when using -c
-          ];
-          includes = [ "*.nu" ];
+      settings = {
+        formatter = {
+          "nufmt" = {
+            command = "${pkgs.nufmt}/bin/nufmt";
+            includes = [ "*.nu" ];
+          };
         };
       };
     }).config.build.wrapper;
