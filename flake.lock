@@ -121,11 +121,11 @@
     },
     "configuration": {
       "locked": {
-        "lastModified": 1792869358,
-        "narHash": "sha256-dWVQ+XvoVMzFjzIg0f7ULRJW8KmJQF+Xs/Z7r+HxoJg=",
+        "lastModified": 1793170553,
+        "narHash": "sha256-mH2f2HXzqtN4+w/MGz+VZ1qi08mw0dnqlDf2/IYcDo4=",
         "owner": "ivandimitrov8080",
         "repo": "configuration.nix",
-        "rev": "baea214db817c177fa12b276034c172c27b0e2f5",
+        "rev": "1d2b3766824248809f4ab23ab5b1e1756e3e61a3",
         "type": "github"
       },
       "original": {
@@ -850,11 +850,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1793170518,
-        "narHash": "sha256-kKmQx3LMPf87yivFtD0iqrvdeRw+LNHgXDhEzUIF4Y4=",
+        "lastModified": 1793173074,
+        "narHash": "sha256-fVNAHQYsJU2WnTpS7vz0Z+xqD8HySJ6M8SmTwGmzZCc=",
         "ref": "refs/heads/master",
-        "rev": "c30fcfe2a993f7f270383a0524780a526cee30ca",
-        "revCount": 3,
+        "rev": "af511cb9019fb39cb3f7d8f3a7e3cb51a4e5c975",
+        "revCount": 4,
         "type": "git",
         "url": "file:///home/ivand/src/hosts.nix/iso.nix"
       },
