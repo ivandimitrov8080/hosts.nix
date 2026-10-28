@@ -18,11 +18,12 @@
       nova,
       ...
     }:
-    let
-      hosts = iso.nixosConfigurations // vps.nixosConfigurations // nova.nixosConfigurations;
-    in
     {
-      nixosConfigurations = hosts;
+      nixosConfigurations = {
+        iso = iso.nixosConfigurations.default;
+        vps = iso.nixosConfigurations.default;
+        nova = iso.nixosConfigurations.default;
+      };
       formatter = import ./formatter.nix { inherit inputs; };
     };
 }
