@@ -2,16 +2,16 @@
 
 Three hosts, three flakes, three git submodules:
 
-| flake       | host        |
-| ----------- | ----------- |
-| `iso.nix`   | installer   |
-| `vps.nix`   | vpsfree     |
-| `nova.nix`  | laptop      |
+| flake      | host      |
+| ---------- | --------- |
+| `iso.nix`  | installer |
+| `vps.nix`  | vpsfree   |
+| `nova.nix` | laptop    |
 
 Each host flake is fully self-contained: it builds its own
 `nixosConfigurations.<host>`, pins its own dependencies in its own
 `flake.lock`, and keeps its own data next to it. The only shared thing is the
-published `configuration.nix` flake, which holds *structure and policy*:
+published `configuration.nix` flake, which holds _structure and policy_:
 
 ```
 nixpkgs ─┬─ configuration.nix   defaults, meta.* modules, lib, overlay
@@ -24,20 +24,20 @@ nixpkgs ─┬─ configuration.nix   defaults, meta.* modules, lib, overlay
 
 ## Layers
 
-`configuration.nix` provides, and hosts only ever *configure*:
+`configuration.nix` provides, and hosts only ever _configure_:
 
-| module                     | what it owns                                                                 |
-| -------------------------- | ---------------------------------------------------------------------------- |
-| `src/nixos/defaults`       | host-agnostic defaults (aliases, shells, nginx, openssh, ...)                 |
-| `meta.host`                | `hostPlatform`, overlay stack, `nix.registry` pins, `stateVersion`            |
-| `meta.minimal`             | the developer baseline (fonts, nix-ld, kmonad, `meta.{graphicalBoot,shells,swayland}`) |
-| `meta.wireguard`           | derives the wg0 systemd-networkd config from a peer record                    |
-| `meta.dns`                 | nameservers, `services.resolved`, dnscrypt-proxy, DNS egress filter           |
-| `meta.graphics`            | `hardware.graphics`, base `xdg.portal`                                        |
-| `meta.{graphicalBoot,shells,swayland,hyprland,mail,bingwp,grafana}` | opt-in feature bundles |
-| `src/lib/data.nix`         | values shared by the NixOS and Home Manager trees                             |
+| module                                                              | what it owns                                                                           |
+| ------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `src/nixos/defaults`                                                | host-agnostic defaults (aliases, shells, nginx, openssh, ...)                          |
+| `meta.host`                                                         | `hostPlatform`, overlay stack, `nix.registry` pins, `stateVersion`                     |
+| `meta.minimal`                                                      | the developer baseline (fonts, nix-ld, kmonad, `meta.{graphicalBoot,shells,swayland}`) |
+| `meta.wireguard`                                                    | derives the wg0 systemd-networkd config from a peer record                             |
+| `meta.dns`                                                          | nameservers, `services.resolved`, dnscrypt-proxy, DNS egress filter                    |
+| `meta.graphics`                                                     | `hardware.graphics`, base `xdg.portal`                                                 |
+| `meta.{graphicalBoot,shells,swayland,hyprland,mail,bingwp,grafana}` | opt-in feature bundles                                                                 |
+| `src/lib/data.nix`                                                  | values shared by the NixOS and Home Manager trees                                      |
 
-A host repo is therefore only *data*: a `peers.nix` with public wireguard
+A host repo is therefore only _data_: a `peers.nix` with public wireguard
 keys, a `host.nix` with the `meta.*` block, and the genuinely host-specific
 files (`machine.nix`, `mail.nix`, `vpsadminos.nix`, ...).
 
@@ -72,7 +72,7 @@ nix flake check ~/src/hosts.nix/vps.nix
 
 ## Adding something
 
-* New generic feature → module or default in `configuration.nix`, gated by a
+- New generic feature → module or default in `configuration.nix`, gated by a
   `meta.*.enable` option.
-* New host → new flake with its own `flake.lock`, its own `peers.nix` and a
+- New host → new flake with its own `flake.lock`, its own `peers.nix` and a
   `host.nix` that only sets `meta.*`; add it to `hosts.nix`'s outputs.

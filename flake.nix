@@ -6,9 +6,16 @@
     nova.url = "git+file:///home/ivand/src/hosts.nix/nova.nix";
     # vps.url = "github:ivandimitrov8080/vps.nix";
     vps.url = "git+file:///home/ivand/src/hosts.nix/vps.nix";
+    treefmt.url = "github:numtide/treefmt-nix";
+    nixpkgs.follows = "treefmt/nixpkgs";
   };
   outputs =
-    { iso, vps, nova }:
+    inputs@{
+      iso,
+      vps,
+      nova,
+      ...
+    }:
     let
       system = "x86_64-linux";
       hosts = iso.nixosConfigurations // vps.nixosConfigurations // nova.nixosConfigurations;
@@ -24,7 +31,7 @@
     in
     {
       nixosConfigurations = hosts;
-
+      formatter = import ./formatter.nix { inherit inputs; };
       checks.${system} = builtins.mapAttrs evalCheck hosts;
     };
 }

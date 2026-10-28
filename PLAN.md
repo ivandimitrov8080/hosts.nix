@@ -99,7 +99,7 @@ cp -r ~/src/hosts.nix/nova.nix /tmp/isolation && nix flake check /tmp/isolation
 
 - Wireguard peer keys/IPs, hostnames, user hashes, disk UUIDs, public
   endpoints: host data, and sharing it would break self-containment.
-- The `nixosSystem { ... }` invocation per host: that *is* the deployment entry
+- The `nixosSystem { ... }` invocation per host: that _is_ the deployment entry
   point.
 - Three `flake.lock` nixpkgs pins; `updater.nu` keeps them aligned.
 
