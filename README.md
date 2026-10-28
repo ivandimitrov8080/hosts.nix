@@ -29,7 +29,7 @@ nixpkgs ─┬─ configuration.nix   defaults, meta.* modules, lib, overlay
 | module                                                              | what it owns                                                                           |
 | ------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
 | `src/nixos/defaults`                                                | host-agnostic defaults (aliases, shells, nginx, openssh, ...)                          |
-| `meta.host`                                                         | `hostPlatform`, overlay stack, `nix.registry` pins, `stateVersion`                     |
+| `meta.host`                                                         | per-host data: `stateVersion`, public address                                          |
 | `meta.minimal`                                                      | the developer baseline (fonts, nix-ld, kmonad, `meta.{graphicalBoot,shells,swayland}`) |
 | `meta.wireguard`                                                    | derives the wg0 systemd-networkd config from a peer record                             |
 | `meta.dns`                                                          | nameservers, `services.resolved`, dnscrypt-proxy, DNS egress filter                    |
@@ -58,17 +58,17 @@ nixos-rebuild switch --flake ~/src/hosts.nix#nova
 # or directly from the host flake
 nixos-rebuild switch --flake ~/src/hosts.nix/nova.nix#nova
 
-# evaluation-only check of every host through the aggregator
+# evaluation-only check of every host and of the vps integration test
 nix flake check ~/src/hosts.nix
+
+# actually run the vps VM integration test
+nix build ~/src/hosts.nix/vps.nix#checks.x86_64-linux.integration
 ```
 
 The vps integration test lives next to the vps flake and is exposed as a
 flake check; it uses only the vps flake's inputs (including
-`configuration.nix`) and never another host flake:
-
-```sh
-nix flake check ~/src/hosts.nix/vps.nix
-```
+`configuration.nix`) and never another host flake. The aggregate flake checks
+that it evaluates, but does not run the VMs; run it with the command above.
 
 ## Adding something
 

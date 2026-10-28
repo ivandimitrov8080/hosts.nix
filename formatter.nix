@@ -1,5 +1,3 @@
-# treefmt settings, intentionally duplicated in each host flake so that every
-# repo can be formatted on its own (`nix fmt`)
 { inputs }:
 let
   system = "x86_64-linux";
