@@ -8,11 +8,23 @@
     vps.url = "git+file:///home/ivand/src/hosts.nix/vps.nix";
   };
   outputs =
-    { self, iso, vps, nova }:
+    { iso, vps, nova }:
+    let
+      system = "x86_64-linux";
+      hosts = iso.nixosConfigurations // vps.nixosConfigurations // nova.nixosConfigurations;
+
+      # Evaluation-only check: forces every host's full toplevel derivation
+      # without building it, so `nix flake check` reports eval errors from any
+      # submodule without needing to know anything about that host.
+      evalCheck =
+        name: host:
+        host.pkgs.runCommand "eval-${name}" { } ''
+          echo ${builtins.unsafeDiscardStringContext host.config.system.build.toplevel.drvPath} > $out
+        '';
+    in
     {
-      nixosConfigurations =
-        iso.nixosConfigurations
-        // vps.nixosConfigurations
-        // nova.nixosConfigurations;
+      nixosConfigurations = hosts;
+
+      checks.${system} = builtins.mapAttrs evalCheck hosts;
     };
 }
