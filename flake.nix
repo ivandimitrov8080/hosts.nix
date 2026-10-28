@@ -1,11 +1,13 @@
 {
   inputs = {
-    # iso.url = "github:ivandimitrov8080/iso.nix";
-    iso.url = "git+file:///home/ivand/src/hosts.nix/iso.nix";
-    # nova.url = "github:ivandimitrov8080/nova.nix";
-    nova.url = "git+file:///home/ivand/src/hosts.nix/nova.nix";
-    # vps.url = "github:ivandimitrov8080/vps.nix";
-    vps.url = "git+file:///home/ivand/src/hosts.nix/vps.nix";
+    self.submodules = true;
+    configuration.url = ./configuration.nix;
+    iso.url = ./iso.nix;
+    iso.inputs.configuration.follows = "configuration";
+    nova.url = ./nova.nix;
+    nova.inputs.configuration.follows = "configuration";
+    vps.url = ./vps.nix;
+    vps.inputs.configuration.follows = "configuration";
     treefmt.url = "github:numtide/treefmt-nix";
     nixpkgs.follows = "treefmt/nixpkgs";
   };
