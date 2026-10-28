@@ -30,7 +30,6 @@
         iso = iso.checks.x86_64-linux.default;
         nova = nova.checks.x86_64-linux.default;
         vps = vps.checks.x86_64-linux.default;
-        vps-integration = vps.checks.x86_64-linux.integration;
       };
 
       formatter = import ./formatter.nix { inherit inputs; };
