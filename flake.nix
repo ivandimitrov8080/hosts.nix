@@ -25,7 +25,6 @@
         nova = nova.nixosConfigurations.default;
       };
 
-      # Each host flake owns its own checks; this flake only re-exports them.
       checks.x86_64-linux = {
         iso = iso.checks.x86_64-linux.default;
         nova = nova.checks.x86_64-linux.default;
