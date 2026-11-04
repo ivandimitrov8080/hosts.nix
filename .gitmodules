@@ -1,12 +1,12 @@
 [submodule "iso.nix"]
 	path = iso.nix
-	url = https://github.com/ivandimitrov8080/iso.nix.git
+	url = git://idimitrov.dev/iso.nix
 [submodule "nova.nix"]
 	path = nova.nix
-	url = https://github.com/ivandimitrov8080/nova.nix.git
+	url = git://idimitrov.dev/nova.nix
 [submodule "vps.nix"]
 	path = vps.nix
-	url = https://github.com/ivandimitrov8080/vps.nix.git
+	url = git://idimitrov.dev/vps.nix
 [submodule "configuration.nix"]
 	path = configuration.nix
-	url = https://github.com/ivandimitrov8080/configuration.nix.git
+	url = git://idimitrov.dev/configuration.nix
