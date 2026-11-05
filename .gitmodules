@@ -13,4 +13,3 @@
 [submodule "nixpkgs"]
 	path = nixpkgs
 	url = git://idimitrov.dev/nixpkgs
-	branch = nixos-unstable
