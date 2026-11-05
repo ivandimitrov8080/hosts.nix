@@ -1,15 +1,33 @@
 {
   inputs = {
     self.submodules = true;
+    nixpkgs.url = ./nixpkgs;
     configuration.url = ./configuration.nix;
-    iso.url = ./iso.nix;
-    iso.inputs.configuration.follows = "configuration";
-    nova.url = ./nova.nix;
-    nova.inputs.configuration.follows = "configuration";
-    vps.url = ./vps.nix;
-    vps.inputs.configuration.follows = "configuration";
-    treefmt.url = "github:numtide/treefmt-nix";
-    nixpkgs.follows = "treefmt/nixpkgs";
+    iso = {
+      url = ./iso.nix;
+      inputs = {
+        configuration.follows = "configuration";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
+    nova = {
+      url = ./nova.nix;
+      inputs = {
+        configuration.follows = "configuration";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
+    vps = {
+      url = ./vps.nix;
+      inputs = {
+        configuration.follows = "configuration";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
+    treefmt = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs =
     inputs@{

@@ -10,3 +10,6 @@
 [submodule "configuration.nix"]
 	path = configuration.nix
 	url = git://idimitrov.dev/configuration.nix
+[submodule "nixpkgs"]
+	path = nixpkgs
+	url = git://idimitrov.dev/nixpkgs
