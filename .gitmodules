@@ -12,4 +12,4 @@
 	url = git://idimitrov.dev/configuration.nix
 [submodule "nixpkgs"]
 	path = nixpkgs
-	url = git://idimitrov.dev/nixpkgs
+	url = git://idimitrov.dev/nixpkgs/nixos-unstable
